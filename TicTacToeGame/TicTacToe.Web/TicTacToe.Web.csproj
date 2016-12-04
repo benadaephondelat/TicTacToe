@@ -302,6 +302,10 @@
       <Project>{0FBCC8C3-C3FA-4895-A4F6-70BEC6A0754F}</Project>
       <Name>TicTacToe.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.ServiceLayer\TicTacToe.ServiceLayer.csproj">
+      <Project>{CD064B6E-1D82-4EC2-9D32-2D63A5640EFB}</Project>
+      <Name>TicTacToe.ServiceLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

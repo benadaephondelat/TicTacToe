@@ -5,15 +5,13 @@ namespace TicTacToe.Web.App_Start
 {
     using System;
     using System.Web;
+    using System.Reflection;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
     using Ninject.Web.Common;
-    using DataLayer.Repository;
-    using DataLayer;
-    using DataLayer.Data;
-
+    
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -64,11 +62,13 @@ namespace TicTacToe.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>))
-                  .WithConstructorArgument("context", kernel.Get<ApplicationDbContext>());
+            Assembly assembly;
 
-            kernel.Bind<ITicTacToeData>().To<TicTacToeData>();
-            kernel.Bind<IApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
-        }        
+            assembly = Assembly.Load("TicTacToe.ServiceLayer");
+            kernel.Load(assembly);
+
+            assembly = Assembly.Load("TicTacToe.DataLayer");
+            kernel.Load(assembly);
+        }
     }
 }

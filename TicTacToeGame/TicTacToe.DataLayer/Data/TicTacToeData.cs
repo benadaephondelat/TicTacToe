@@ -23,7 +23,6 @@ namespace TicTacToe.DataLayer.Data
             get { return GetRepository<ApplicationUser>(); }
         }
 
-        
         public int SaveChanges()
         {
             return context.SaveChanges();
