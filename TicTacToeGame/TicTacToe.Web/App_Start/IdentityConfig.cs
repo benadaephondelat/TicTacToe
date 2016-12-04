@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using TicTacToe.Web.Models;
+using TicTacToe.Models;
+using TicTacToe.DataLayer;
 
 namespace TicTacToe.Web
 {

@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using TicTacToe.Web.Models;
+using TicTacToe.Models;
+using TicTacToe.DataLayer;
 
 namespace TicTacToe.Web
 {
