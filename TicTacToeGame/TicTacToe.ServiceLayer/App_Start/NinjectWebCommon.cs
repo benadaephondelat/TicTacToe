@@ -1,7 +1,4 @@
 using Ninject.Modules;
-using Ninject.Web.Common;
-
-using TicTacToe.ServiceLayer.DataLayer;
 
 namespace TicTacToe.ServiceLayer.App_Start
 {
@@ -9,7 +6,7 @@ namespace TicTacToe.ServiceLayer.App_Start
     {
         public override void Load()
         {
-            Kernel.Bind<IDataLayerService>().To<DataLayerService>().InRequestScope();
+            //bind your interfaces to the implementation here
         }
     }
 }
