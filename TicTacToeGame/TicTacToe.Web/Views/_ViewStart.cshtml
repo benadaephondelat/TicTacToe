@@ -1,3 +1,13 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@using TicTacToe.Web.Views.ViewConstants;
+@using TicTacToe.Web.FrameworkExtentions.UserIdentityHelpers;
+
+@{
+    if (UserIdentityHelper.UserIsLoggedIn(this.User))
+    {
+        Layout = ViewConstants.AuthenticatedUserLayout;
+    }
+    else
+    {
+        Layout = ViewConstants.AnonymousUserLayout;
+    }
 }

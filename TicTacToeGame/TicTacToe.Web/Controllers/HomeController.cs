@@ -1,26 +1,20 @@
 ﻿using System.Web.Mvc;
 
+using static TicTacToe.Web.FrameworkExtentions.UserIdentityHelpers.UserIdentityHelper;
+
 namespace TicTacToe.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View();
-        }
+            if (UserIsLoggedIn(this.User))
+            {
+                return View("Index", "_AuthenticatedUserLayout");
+            }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View("Index", "_AnonymousUserLayout");
         }
     }
 }

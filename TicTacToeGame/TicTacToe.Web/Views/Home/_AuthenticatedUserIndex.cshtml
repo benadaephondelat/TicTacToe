@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNet.Identity
+
+<div class="jumbotron">
+    <h1>Tic Tac Toe Game</h1>
+    <p class="lead">A tic-tac-toe game with 3 play modes.</p>
+    <p class="lead">Welcome @User.Identity.GetUserName() </p>
+    <p>Choose a game mode bellow.</p>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <h2>Human vs Computer</h2>
+        <p>
+            Play a game versus a computer.
+        </p>
+        <p><a class="btn btn-default">Play &raquo;</a></p>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Human vs Human</h2>
+        <p>
+            Play a game versus another player.
+        </p>
+        <p>
+            <a class="btn btn-default">Play &raquo;</a>
+        </p>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Computer vs Computer</h2>
+        <p>
+            Watch two computers play.
+        </p>
+        <p>
+            <a class="btn btn-default">Play &raquo;</a>
+        </p>
+    </div>
+
+</div>
