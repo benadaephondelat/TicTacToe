@@ -4,10 +4,10 @@
 @{
     if (UserIdentityHelper.UserIsLoggedIn(this.User))
     {
-        Layout = ViewConstants.AuthenticatedUserLayout;
+        Layout = ViewConstants.AuthenticatedUserLayoutPath;
     }
     else
     {
-        Layout = ViewConstants.AnonymousUserLayout;
+        Layout = ViewConstants.AnonymousUserLayoutPath;
     }
 }

@@ -214,6 +214,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="FrameworkExtentions\Filters\ActionFilters\CheckIfLoggedIn.cs" />
     <Compile Include="FrameworkExtentions\UserIdentityHelpers\UserIdentityHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -237,6 +238,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Home\_AuthenticatedUserIndex\authenticatedUserIndexModule.js" />
+    <Content Include="Scripts\Home\_AuthenticatedUserIndex\tests\authenticatedUserIndexModuleTests.js" />
+    <Content Include="Scripts\Home\_AuthenticatedUserIndex\tests\index.html" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -286,6 +290,7 @@
     <Content Include="Views\Shared\_AnonymousUserHeader.cshtml" />
     <Content Include="Views\Shared\_AuthenticatedUserHeader.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Home\_HumanVsHuman.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
