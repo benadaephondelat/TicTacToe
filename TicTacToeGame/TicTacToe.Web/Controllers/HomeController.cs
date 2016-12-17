@@ -11,10 +11,10 @@
         {
             if (UserIdentityHelper.UserIsLoggedIn(this.User))
             {
-                return View("Index", ViewConstants.AuthenticatedUserLayoutName);
+                return View("Index", ViewConstants.AuthenticatedUserLayout);
             }
 
-            return View("Index", ViewConstants.AnonymousUserLayoutName);
+            return View("Index", ViewConstants.AnonymousUserLayout);
         }
 
         [HttpGet]
@@ -22,7 +22,7 @@
         {
             if (UserIdentityHelper.UserIsLoggedIn(this.User))
             {
-                return PartialView(ViewConstants.HumanVsHumanPartialViewName);
+                return PartialView(ViewConstants.HumanVsHumanPartialView);
             }
 
             return RedirectToAction("Index");

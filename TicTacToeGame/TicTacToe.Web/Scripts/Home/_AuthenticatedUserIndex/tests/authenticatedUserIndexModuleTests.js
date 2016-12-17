@@ -2,14 +2,6 @@
 
 describe('authenticatedUserIndexModule', function () {
 
-    describe('module dependencies should be in place', function () {
-        it('jQuery must be present', function () {
-            var isJqueryAvailable = typeof jQuery !== 'undefined';
-
-            isJqueryAvailable.should.equal(true);
-        });
-    });
-
     describe('module should exist', function () {
         it('authenticatedUserIndexModule should not be undefined', function () {
             authenticatedUserIndexModule.should.not.equal('undefined');
@@ -33,8 +25,16 @@ describe('authenticatedUserIndexModule', function () {
             typeofInit.should.equal('function');
         });
     });
+    
+    describe('module dependencies should be in place', function () {
+        it('jQuery must be present', function () {
+            var isJqueryAvailable = typeof jQuery !== 'undefined';
 
-    describe('ajax calls tests', function () {
+            isJqueryAvailable.should.equal(true);
+        });
+    });
+
+    describe('humanVsHumanAjaxCall tests', function () {
         beforeEach(function () {
             this.xhr = sinon.useFakeXMLHttpRequest();
 

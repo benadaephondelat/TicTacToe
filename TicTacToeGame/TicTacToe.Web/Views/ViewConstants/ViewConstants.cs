@@ -18,21 +18,21 @@
         /// <summary>
         /// Authenticated User layout name 
         /// </summary>
-        public const string AuthenticatedUserLayoutName = "_AuthenticatedUserLayout";
+        public const string AuthenticatedUserLayout = "_AuthenticatedUserLayout";
 
         /// <summary>
         /// Anonymous User layout name
         /// </summary>
-        public const string AnonymousUserLayoutName = "_AnonymousUserLayout";
+        public const string AnonymousUserLayout = "_AnonymousUserLayout";
 
         /// <summary>
         /// Human vs Human partial view name
         /// </summary>
-        public const string HumanVsHumanPartialViewName = "_HumanVsHuman";
+        public const string HumanVsHumanPartialView = "_HumanVsHuman";
 
         /// <summary>
         /// HumanVsHuman Controller name
         /// </summary>
-        public const string HumanVsHumanControllerName = "HumanVsHuman";
+        public const string HumanVsHumanController = "HumanVsHuman";
     }
 }
