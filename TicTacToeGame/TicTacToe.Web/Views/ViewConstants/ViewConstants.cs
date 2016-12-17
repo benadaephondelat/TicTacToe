@@ -29,5 +29,10 @@
         /// Human vs Human partial view name
         /// </summary>
         public const string HumanVsHumanPartialViewName = "_HumanVsHuman";
+
+        /// <summary>
+        /// HumanVsHuman Controller name
+        /// </summary>
+        public const string HumanVsHumanControllerName = "HumanVsHuman";
     }
 }

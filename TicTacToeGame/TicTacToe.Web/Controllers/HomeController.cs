@@ -1,29 +1,27 @@
 ﻿namespace TicTacToe.Web.Controllers
 {
     using System.Web.Mvc;
-
+    using FrameworkExtentions.UserIdentityHelpers;
     using FrameworkExtentions.Filters.ActionFilters;
-
-    using static FrameworkExtentions.UserIdentityHelpers.UserIdentityHelper;
-    using static Views.ViewConstants.ViewConstants;
-
+    using Views.ViewConstants;
+    
     [AllowAnonymous]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            if (UserIsLoggedIn(this.User))
+            if (UserIdentityHelper.UserIsLoggedIn(this.User))
             {
-                return View("Index", AuthenticatedUserLayoutName);
+                return View("Index", ViewConstants.AuthenticatedUserLayoutName);
             }
 
-            return View("Index", AnonymousUserLayoutName);
+            return View("Index", ViewConstants.AnonymousUserLayoutName);
         }
 
         [CheckIfLoggedInFilter]
         public ActionResult HumanVsHuman()
         {
-            return PartialView(HumanVsHumanPartialViewName);
+            return PartialView(ViewConstants.HumanVsHumanPartialViewName);
         }
     }
 }

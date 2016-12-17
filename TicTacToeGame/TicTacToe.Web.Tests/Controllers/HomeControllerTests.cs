@@ -2,8 +2,10 @@
 {
     using System.Web.Mvc;
     using System.Security.Principal;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+
     using Web.Controllers;
 
     [TestClass]
@@ -15,14 +17,14 @@
             HomeController controller = new HomeController();
 
             Assert.IsNotNull(controller);
-
-            Assert.IsInstanceOfType(controller, controller.GetType());
         }
 
         [TestMethod]
         public void Index_Action_Method_ShouldExist()
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
+
+            Assert.AreEqual(nameof(controller.Index), "Index");
 
             bool isActionResult = controller.Index() is ActionResult;
 
@@ -32,7 +34,7 @@
         [TestMethod]
         public void When_Authenticated_Index_Action_Should_Return_IndexView_With_AuthenticatedLayout()
         {
-            HomeController controller = CreateHomeControllerAsAuthenticatedUser("georgi_iliev@yahoo.com");
+            HomeController controller = CreateHomeControllerAsAuthenticatedUser();
 
             ViewResult result = controller.Index() as ViewResult;
 
@@ -46,7 +48,7 @@
         }
 
         [TestMethod]
-        public void When_Anonymous_Index_Action_Should_Return_IndexView_With_AnynimousLayout()
+        public void When_Anonymous_Index_Action_Should_Return_IndexView_With_Anonymous()
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
@@ -66,6 +68,8 @@
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
+            Assert.AreEqual(nameof(controller.HumanVsHuman), "HumanVsHuman");
+
             bool isActionResult = controller.HumanVsHuman() is ActionResult;
 
             Assert.AreEqual(true, isActionResult);
@@ -74,7 +78,7 @@
         [TestMethod]
         public void When_Authenticated_User_Calls_Human_Vs_Human_Action_Should_Return_PartialView()
         {
-            HomeController controller = CreateHomeControllerAsAuthenticatedUser("georgi_iliev@yahoo.com");
+            HomeController controller = CreateHomeControllerAsAuthenticatedUser();
 
             ActionResult result = controller.HumanVsHuman();
 
@@ -86,7 +90,7 @@
         [TestMethod]
         public void When_Authenticated_User_Calls_Human_Vs_Human_Action_Should_Return_PartialView_Named_HumanVsHuman()
         {
-            HomeController controller = CreateHomeControllerAsAuthenticatedUser("georgi_iliev@yahoo.com");
+            HomeController controller = CreateHomeControllerAsAuthenticatedUser();
 
             PartialViewResult result = controller.HumanVsHuman() as PartialViewResult;
 
@@ -95,14 +99,31 @@
             Assert.AreEqual(expectedPartialViewName, result.ViewName);
         }
 
-        private HomeController CreateHomeControllerAsAuthenticatedUser(string userName)
+        [TestMethod]
+        public void When_Anonymous_User_Tries_To_Call_HumanVsHuman_He_Should_Be_Redirected()
         {
-            MockRepository mocks = new MockRepository(MockBehavior.Default);
-            Mock<IPrincipal> mockPrincipal = mocks.Create<IPrincipal>();
-            mockPrincipal.SetupGet(p => p.Identity.Name).Returns(userName);
-            mockPrincipal.Setup(p => p.IsInRole("User")).Returns(true);
+            HomeController controller = CreateHomeControllerAsAnonymousUser();
 
+            ViewResult result = controller.HumanVsHuman() as ViewResult;
+
+            Assert.IsNotNull(result.ViewName);
+
+            string viewName = result.ViewName;
+            Assert.AreEqual(viewName, "Index");
+
+            string layoutName = result.MasterName;
+            Assert.AreEqual(layoutName, "_AnonymousUserLayout");
+        }
+
+        /// <summary>
+        /// Creates an instance of HomeController with an aunthenticated user
+        /// </summary>
+        /// <returns>HomeController</returns>
+        private HomeController CreateHomeControllerAsAuthenticatedUser()
+        {
+            Mock<IPrincipal> mockPrincipal = SetupMockPrincipalAsAuthenticatedUser("georgi_iliev@yahoo.com");
             Mock<ControllerContext> mockContext = new Mock<ControllerContext>();
+
             mockContext.SetupGet(p => p.HttpContext.User).Returns(mockPrincipal.Object);
             mockContext.SetupGet(p => p.HttpContext.Request.IsAuthenticated).Returns(true);
             mockContext.SetupGet(p => p.HttpContext.User.Identity.IsAuthenticated).Returns(true);
@@ -115,15 +136,15 @@
             return controller;
         }
 
+        /// <summary>
+        /// Creates an instance of HomeController with an anonymous user
+        /// </summary>
+        /// <returns>HomeController</returns>
         private HomeController CreateHomeControllerAsAnonymousUser()
         {
-            MockRepository mocks = new MockRepository(MockBehavior.Default);
-
-            Mock<IPrincipal> mockPrincipal = mocks.Create<IPrincipal>();
-            mockPrincipal.SetupGet(p => p.Identity.Name).Returns("anonymous");
-            mockPrincipal.Setup(p => p.IsInRole("User")).Returns(false);
-
+            Mock<IPrincipal> mockPrincipal = SetupMockPrincipalAsAnonymousUser("anonymous");
             Mock<ControllerContext> mockContext = new Mock<ControllerContext>();
+
             mockContext.SetupGet(p => p.HttpContext.User).Returns(mockPrincipal.Object);
             mockContext.SetupGet(p => p.HttpContext.Request.IsAuthenticated).Returns(false);
             mockContext.SetupGet(p => p.HttpContext.User.Identity.IsAuthenticated).Returns(false);
@@ -134,6 +155,40 @@
             };
 
             return controller;
+        }
+
+        /// <summary>
+        /// Mocks a fake anonymous user.
+        /// User is added to the Role
+        /// </summary>
+        /// <param name="userName">username of the user to be mocked</param>
+        /// <returns>Mock<IPrincipal></returns>
+        private static Mock<IPrincipal> SetupMockPrincipalAsAuthenticatedUser(string userName)
+        {
+            MockRepository mocks = new MockRepository(MockBehavior.Default);
+            Mock<IPrincipal> mockPrincipal = mocks.Create<IPrincipal>();
+
+            mockPrincipal.SetupGet(p => p.Identity.Name).Returns(userName);
+            mockPrincipal.Setup(p => p.IsInRole("User")).Returns(true);
+
+            return mockPrincipal;
+        }
+
+        /// <summary>
+        /// Mocks a fake anonymous user.
+        /// User is not added to the Role
+        /// </summary>
+        /// <param name="userName">username of the user to be mocked</param>
+        /// <returns>Mock<IPrincipal></returns>
+        private static Mock<IPrincipal> SetupMockPrincipalAsAnonymousUser(string userName)
+        {
+            MockRepository mocks = new MockRepository(MockBehavior.Default);
+            Mock<IPrincipal> mockPrincipal = mocks.Create<IPrincipal>();
+
+            mockPrincipal.SetupGet(p => p.Identity.Name).Returns(userName);
+            mockPrincipal.Setup(p => p.IsInRole("User")).Returns(false);
+
+            return mockPrincipal;
         }
     }
 }
