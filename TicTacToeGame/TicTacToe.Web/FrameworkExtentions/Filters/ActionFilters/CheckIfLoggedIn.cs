@@ -6,7 +6,7 @@
     using static UserIdentityHelpers.UserIdentityHelper;
 
     /// <summary>
-    /// If the current user is not authenticated redirect the user.
+    /// If the current user is not authenticated redirect the user to the Home page
     /// </summary>
     public class CheckIfLoggedInFilter : ActionFilterAttribute
     {

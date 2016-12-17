@@ -1,10 +1,9 @@
-﻿using System;
-using Owin;
-
-using TicTacToe.ServiceLayer.IdentityConfiguration;
-
-namespace TicTacToe.Web
+﻿namespace TicTacToe.Web
 {
+    using Owin;
+
+    using TicTacToe.ServiceLayer.IdentityConfiguration;
+
     public partial class Startup
     {
         public void ConfigureAuth(IAppBuilder app)
