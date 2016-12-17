@@ -2,12 +2,10 @@
 {
     using System.Web.Mvc;
     using System.Security.Principal;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-
     using Web.Controllers;
-
+    
     [TestClass]
     public class HomeControllerTests
     {
@@ -19,8 +17,10 @@
             Assert.IsNotNull(controller);
         }
 
+        #region Index Tests
+
         [TestMethod]
-        public void Index_Action_Method_ShouldExist()
+        public void Index_Action_ShouldExist()
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
@@ -32,13 +32,13 @@
         }
 
         [TestMethod]
-        public void When_Authenticated_Index_Action_Should_Return_IndexView_With_AuthenticatedLayout()
+        public void Authenticated_Index_Action_Should_Return_IndexView_With_AuthenticatedLayout()
         {
             HomeController controller = CreateHomeControllerAsAuthenticatedUser();
 
             ViewResult result = controller.Index() as ViewResult;
 
-            Assert.IsNotNull(result.ViewName);
+            Assert.IsNotNull(result);
 
             string viewName = result.ViewName;
             Assert.AreEqual(viewName, "Index");
@@ -46,15 +46,15 @@
             string layoutName = result.MasterName;
             Assert.AreEqual(layoutName, "_AuthenticatedUserLayout");
         }
-
+                    
         [TestMethod]
-        public void When_Anonymous_Index_Action_Should_Return_IndexView_With_Anonymous()
+        public void Anonymous_Index_Action_Should_Return_IndexView_With_AnonymousUserLayout()
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
             ViewResult result = controller.Index() as ViewResult;
 
-            Assert.IsNotNull(result.ViewName);
+            Assert.IsNotNull(result);
 
             string viewName = result.ViewName;
             Assert.AreEqual(viewName, "Index");
@@ -62,9 +62,13 @@
             string layoutName = result.MasterName;
             Assert.AreEqual(layoutName, "_AnonymousUserLayout");
         }
+        
+        #endregion 
+
+        #region HumanVsHuman Tests
 
         [TestMethod]
-        public void Human_Vs_Human_Action_Should_Exist()
+        public void HumanVsHuman_Action_Should_Exist()
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
@@ -76,44 +80,46 @@
         }
 
         [TestMethod]
-        public void When_Authenticated_User_Calls_Human_Vs_Human_Action_Should_Return_PartialView()
+        public void Authenticated_HumanVsHuman_Action_Should_Return_PartialView()
         {
             HomeController controller = CreateHomeControllerAsAuthenticatedUser();
 
-            ActionResult result = controller.HumanVsHuman();
+            ActionResult actionResult = controller.HumanVsHuman();
 
-            bool isResultPartialView = result is PartialViewResult;
-
-            Assert.AreEqual(true, isResultPartialView);
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
         }
-
+                    
         [TestMethod]
-        public void When_Authenticated_User_Calls_Human_Vs_Human_Action_Should_Return_PartialView_Named_HumanVsHuman()
+        public void Anonymous_HumanVsHuman_Should_Redirect_To_Index()
+        {
+            HomeController controller = CreateHomeControllerAsAnonymousUser();
+
+            ActionResult actionResult = controller.HumanVsHuman();
+
+            Assert.IsInstanceOfType(actionResult, typeof(RedirectToRouteResult));
+
+            RedirectToRouteResult routeResult = actionResult as RedirectToRouteResult;
+
+            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
+        }
+                    
+        [TestMethod]
+        public void Authenticated_HumanVsHuman_Should_Return_PartialView_Named_HumanVsHuman()
         {
             HomeController controller = CreateHomeControllerAsAuthenticatedUser();
 
-            PartialViewResult result = controller.HumanVsHuman() as PartialViewResult;
+            ActionResult actionResult = controller.HumanVsHuman();
+
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
+
+            PartialViewResult result = actionResult as PartialViewResult;
 
             string expectedPartialViewName = "_HumanVsHuman";
 
             Assert.AreEqual(expectedPartialViewName, result.ViewName);
         }
-
-        [TestMethod]
-        public void When_Anonymous_User_Tries_To_Call_HumanVsHuman_He_Should_Be_Redirected()
-        {
-            HomeController controller = CreateHomeControllerAsAnonymousUser();
-
-            ViewResult result = controller.HumanVsHuman() as ViewResult;
-
-            Assert.IsNotNull(result.ViewName);
-
-            string viewName = result.ViewName;
-            Assert.AreEqual(viewName, "Index");
-
-            string layoutName = result.MasterName;
-            Assert.AreEqual(layoutName, "_AnonymousUserLayout");
-        }
+       
+        #endregion
 
         /// <summary>
         /// Creates an instance of HomeController with an aunthenticated user

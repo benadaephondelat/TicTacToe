@@ -1,9 +1,8 @@
 ﻿namespace TicTacToe.Web.Controllers
 {
     using System.Web.Mvc;
-    using FrameworkExtentions.UserIdentityHelpers;
-    using FrameworkExtentions.Filters.ActionFilters;
     using Views.ViewConstants;
+    using FrameworkExtentions.UserIdentityHelpers;
     
     [AllowAnonymous]
     public class HomeController : Controller
@@ -18,10 +17,15 @@
             return View("Index", ViewConstants.AnonymousUserLayoutName);
         }
 
-        [CheckIfLoggedInFilter]
+        [HttpGet]
         public ActionResult HumanVsHuman()
         {
-            return PartialView(ViewConstants.HumanVsHumanPartialViewName);
+            if (UserIdentityHelper.UserIsLoggedIn(this.User))
+            {
+                return PartialView(ViewConstants.HumanVsHumanPartialViewName);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

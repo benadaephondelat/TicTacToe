@@ -2,8 +2,7 @@
 {
     using System.Web.Mvc;
     using System.Web.Routing;
-
-    using static UserIdentityHelpers.UserIdentityHelper;
+    using UserIdentityHelpers;
 
     /// <summary>
     /// If the current user is not authenticated redirect the user to the Home page
@@ -17,7 +16,7 @@
         {
             var currentUser = filterContext.RequestContext.HttpContext.User;
 
-            if (UserIsLoggedIn(currentUser) == false)
+            if (UserIdentityHelper.UserIsLoggedIn(currentUser) == false)
             {
                 RouteValueDictionary routeValueDictionary = GetRouteValueDictionary();
 

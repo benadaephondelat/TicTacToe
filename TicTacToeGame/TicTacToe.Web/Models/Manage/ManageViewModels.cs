@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Web.Models
+﻿namespace TicTacToe.Web.Models.Manage
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

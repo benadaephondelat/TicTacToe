@@ -1,7 +1,7 @@
-﻿using System.Security.Principal;
-
-namespace TicTacToe.Web.FrameworkExtentions.UserIdentityHelpers
+﻿namespace TicTacToe.Web.FrameworkExtentions.UserIdentityHelpers
 {
+    using System.Security.Principal;
+
     /// <summary>
     /// Contains methods that helps with the user's identity. 
     /// </summary>
@@ -14,7 +14,7 @@ namespace TicTacToe.Web.FrameworkExtentions.UserIdentityHelpers
         /// <returns>bool</returns>
         public static bool UserIsLoggedIn(IPrincipal userIdentity)
         {
-            if (userIdentity.Identity.IsAuthenticated)
+            if (userIdentity != null && userIdentity.Identity.IsAuthenticated == true)
             {
                 return true;
             }
