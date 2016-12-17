@@ -7,7 +7,7 @@
     using Web.Controllers;
 
     [TestClass]
-    public class HomeControllerTest
+    public class HomeControllerTests
     {
         [TestMethod]
         public void HomeController_Should_Exist()
@@ -46,7 +46,7 @@
         }
 
         [TestMethod]
-        public void When_Anynimous_Index_Action_Should_Return_IndexView_With_AnynimousLayout()
+        public void When_Anonymous_Index_Action_Should_Return_IndexView_With_AnynimousLayout()
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
