@@ -34,5 +34,10 @@
         /// HumanVsHuman Controller name
         /// </summary>
         public const string HumanVsHumanController = "HumanVsHuman";
+
+        /// <summary>
+        /// NewGameView view name
+        /// </summary>
+        public const string NewGameView = "NewGame";
     }
 }

@@ -20,11 +20,11 @@
         #region Index Tests
 
         [TestMethod]
-        public void Index_Action_ShouldExist()
+        public void Index_Action_Should_Exist()
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
-            Assert.AreEqual(nameof(controller.Index), "Index");
+            Assert.AreEqual("Index", nameof(controller.Index));
 
             bool isActionResult = controller.Index() is ActionResult;
 

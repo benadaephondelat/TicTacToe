@@ -9,7 +9,7 @@ var authenticatedUserIndexModule = (function (jQuery) {
     }
 
     /* function declarations */
-    var humanVsHumanButtonClickHandler,
+    var humanVsHumanButtonsClickHandler,
         initiliazieModule;
 
     /* configuration variables */
@@ -39,8 +39,8 @@ var authenticatedUserIndexModule = (function (jQuery) {
     * When the user clicks humanVshumanButton make an ajax call to the server
     * and append the result to the DOM
     */
-    humanVsHumanButtonClickHandler = function () {
-        $(humanVsHumanButtons).on('click', function (event) {
+    humanVsHumanButtonsClickHandler = function (humanVsHumanButtons) {
+        $(humanVsHumanButtons).off('click').on('click', function (event) {
             _humanVsHumanAjaxCall().done(function (data) {
                 $contentContainer.html(data);
             }).fail(function (error) {
@@ -50,12 +50,12 @@ var authenticatedUserIndexModule = (function (jQuery) {
     };
 
     initiliazieModule = function () {
-        humanVsHumanButtonClickHandler();
+        humanVsHumanButtonsClickHandler(humanVsHumanButtons);
     };
 
     return {
         init: initiliazieModule,
-        humanVsHumanAjaxCall: _humanVsHumanAjaxCall
+        humanVsHumanAjaxCall: _humanVsHumanAjaxCall,
     }
 
 })(jQuery || {});

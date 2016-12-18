@@ -32,6 +32,9 @@
             bundles.Add(new ScriptBundle("~/bundles/authenticatedUserIndexModule")
                    .Include("~/Scripts/Home/_AuthenticatedUserIndex/authenticatedUserIndexModule.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/humanVsHumanNewGameModule")
+                   .Include("~/Scripts/HumanVsHuman/NewGame/humanVsHumanNewGameModule.js"));
+
             #endregion
 
             #region Custom Style Bundles

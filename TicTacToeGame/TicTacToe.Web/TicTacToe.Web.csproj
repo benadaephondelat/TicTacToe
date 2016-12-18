@@ -253,6 +253,9 @@
     <Content Include="Scripts\Default\respond.js" />
     <Content Include="Scripts\Default\respond.min.js" />
     <Content Include="Scripts\Default\_references.js" />
+    <Content Include="Scripts\HumanVsHuman\NewGame\humanVsHumanNewGameModule.js" />
+    <Content Include="Scripts\HumanVsHuman\NewGame\tests\humanVsHumanNewGameModuleTests.js" />
+    <Content Include="Scripts\HumanVsHuman\NewGame\tests\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -292,12 +295,12 @@
     <Content Include="Views\Shared\_AuthenticatedUserHeader.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Home\_HumanVsHuman.cshtml" />
+    <Content Include="Views\HumanVsHuman\NewGame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Home\" />
     <Folder Include="Models\HumanVsHuman\" />
-    <Folder Include="Views\HumanVsHuman\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
