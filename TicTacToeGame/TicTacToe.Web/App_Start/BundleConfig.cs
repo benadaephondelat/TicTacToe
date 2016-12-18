@@ -34,6 +34,10 @@
 
             #endregion
 
+            #region Custom Style Bundles
+
+            #endregion
+
             #if DEBUG
                 BundleTable.EnableOptimizations = false;
             #else

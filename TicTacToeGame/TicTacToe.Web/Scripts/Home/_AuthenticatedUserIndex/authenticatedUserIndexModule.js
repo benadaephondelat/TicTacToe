@@ -14,10 +14,12 @@ var authenticatedUserIndexModule = (function (jQuery) {
 
     /* configuration variables */
     var humanVsHumanAjaxCallUrl = "/Home/HumanVsHuman";
-
+        
     /* cached dom objects */
     var $contentContainer = $('#main-content'),
-        $humanVshumanButton = $('#human-vs-human-button');
+        $humanVshumanButton = $('#human-vs-human-button'),
+        $humanVsHumanHeaderButton = $('#human-vs-human-header-button'),
+        humanVsHumanButtons = [$humanVshumanButton[0], $humanVsHumanHeaderButton[0]];
     
     /**
     * Ajax call to get the _HumanVsHuman partial view.
@@ -38,7 +40,7 @@ var authenticatedUserIndexModule = (function (jQuery) {
     * and append the result to the DOM
     */
     humanVsHumanButtonClickHandler = function () {
-        $humanVshumanButton.on('click', function (event) {
+        $(humanVsHumanButtons).on('click', function (event) {
             _humanVsHumanAjaxCall().done(function (data) {
                 $contentContainer.html(data);
             }).fail(function (error) {

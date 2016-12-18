@@ -1,17 +1,39 @@
-﻿<div class="jumbotron">
+﻿<style>
+    #register-container {
+        float: left;
+        margin-left: 34%;
+    }
+
+    #register-link {
+        width: 140px;
+    }
+
+    #login-container {
+        float: right;
+        margin-right: 34%;
+    }
+
+    #login-link {
+        width: 140px;
+    }
+</style>
+
+<div class="jumbotron text-center">
 
     <h1>Tic Tac Toe Game</h1>
 
     <p class="lead">A tic-tac-toe game with 3 play modes.</p>
 
     <p class="lead">Only registered users can play</p>
-    
-    <p>
-        @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @id = "registerLink", @class = "btn btn-primary btn-lg" })
-    </p>
-    
-    <p>
-        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @id = "loginLink", @class = "btn btn-primary btn-lg" })
-    </p>
+
+    <div id="authentication-container">
+        <p id="register-container">
+            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @id = "register-link", @class = "btn btn-primary btn-lg" })
+        </p>
+
+        <p id="login-container">
+            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @id = "login-link", @class = "btn btn-primary btn-lg" })
+        </p>
+    </div>
 
 </div>

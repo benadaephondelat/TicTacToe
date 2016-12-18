@@ -32,7 +32,7 @@
         }
 
         [TestMethod]
-        public void Authenticated_Index_Action_Should_Return_IndexView_With_AuthenticatedLayout()
+        public void Authenticated_Index_Should_Return_IndexView_With_AuthenticatedLayout()
         {
             HomeController controller = CreateHomeControllerAsAuthenticatedUser();
 
@@ -48,7 +48,7 @@
         }
                     
         [TestMethod]
-        public void Anonymous_Index_Action_Should_Return_IndexView_With_AnonymousUserLayout()
+        public void Anonymous_Index_Should_Return_IndexView_With_AnonymousUserLayout()
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
@@ -80,7 +80,7 @@
         }
 
         [TestMethod]
-        public void Authenticated_HumanVsHuman_Action_Should_Return_PartialView()
+        public void Authenticated_HumanVsHuman_Should_Return_PartialView()
         {
             HomeController controller = CreateHomeControllerAsAuthenticatedUser();
 
