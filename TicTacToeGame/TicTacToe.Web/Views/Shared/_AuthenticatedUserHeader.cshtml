@@ -11,9 +11,19 @@
             
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
                 <li>@Html.ActionLink("Human vs Computer", "Index", "Home")</li>
-                <li><a href="#" id="human-vs-human-header-button">Human vs Human</a></li>
-                <li>@Html.ActionLink("Computer vs Computer", "Index", "Home")</li>
+
+                <li>
+                    @Ajax.ActionLink("Human vs Human", "HumanVsHuman", "Home", null,
+                                     new AjaxOptions()
+                                     {
+                                         InsertionMode = InsertionMode.Replace,
+                                         UpdateTargetId = "main-content"
+                                     }, null)
+                </li>
+
+                 <li>@Html.ActionLink("Computer vs Computer", "Index", "Home")</li>
             </ul>
 
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))

@@ -17,9 +17,7 @@ var authenticatedUserIndexModule = (function (jQuery) {
         
     /* cached dom objects */
     var $contentContainer = $('#main-content'),
-        $humanVshumanButton = $('#human-vs-human-button'),
-        $humanVsHumanHeaderButton = $('#human-vs-human-header-button'),
-        humanVsHumanButtons = [$humanVshumanButton[0], $humanVsHumanHeaderButton[0]];
+        $humanVshumanButton = $('#human-vs-human-button');
     
     /**
     * Ajax call to get the _HumanVsHuman partial view.
@@ -39,8 +37,8 @@ var authenticatedUserIndexModule = (function (jQuery) {
     * When the user clicks humanVshumanButton make an ajax call to the server
     * and append the result to the DOM
     */
-    humanVsHumanButtonsClickHandler = function (humanVsHumanButtons) {
-        $(humanVsHumanButtons).off('click').on('click', function (event) {
+    humanVsHumanButtonsClickHandler = function () {
+        $($humanVshumanButton).on('click', function (event) {
             _humanVsHumanAjaxCall().done(function (data) {
                 $contentContainer.html(data);
             }).fail(function (error) {
@@ -50,7 +48,7 @@ var authenticatedUserIndexModule = (function (jQuery) {
     };
 
     initiliazieModule = function () {
-        humanVsHumanButtonsClickHandler(humanVsHumanButtons);
+        humanVsHumanButtonsClickHandler();
     };
 
     return {

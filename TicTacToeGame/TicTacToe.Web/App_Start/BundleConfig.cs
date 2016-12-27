@@ -8,8 +8,11 @@
         {
             #region DefaultBundles
 
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/Default/jquery-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery")
+                    .Include("~/Scripts/Default/jquery-2.1.4.js")
+                    .Include("~/Scripts/Default/jquery.validate.js")
+                    .Include("~/Scripts/Default/jquery.unobtrusive-ajax.js")
+                    .Include("~/Scripts/Default/jquery.validate.unobtrusive.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/Default/jquery.validate*"));

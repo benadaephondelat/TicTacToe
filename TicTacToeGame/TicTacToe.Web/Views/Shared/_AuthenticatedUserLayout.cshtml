@@ -6,7 +6,7 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+    @Scripts.Render("~/bundles/jquery")
 </head>
 
 <body>
@@ -14,13 +14,11 @@
 
     <div id="main-content" class="container body-content">
         @RenderBody()
-    </div
->
+    </div>
+
     @Html.Partial("_Footer")
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/authenticatedUserIndexModule")
     @RenderSection("scripts", required: false)
 </body>
 </html>

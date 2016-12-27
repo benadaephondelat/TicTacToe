@@ -1,10 +1,54 @@
-﻿@{
+﻿@model TicTacToe.Web.Models.HumanVsHuman.NewGame.InputModels.NewGameInputModel
+
+@{
     ViewBag.Title = "HumanVsHuman";
-    Layout = "~/Views/Shared/_AuthenticatedUserLayout.cshtml";
 }
 
-<h2 class="text-center">New Game</h2>
+<h2 class="text-center">NEW GAME</h2>
 
-<button id="back-to-human-vs-human-main-menu" class="btn btn-primary btn-lg text-center">Back to Main Menu</button>
+<div id="new-game-container" class="jumbotron">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal" id="new-game-form">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Players, htmlAttributes: new { @class = "control-label custom-label" })
+                <div class="col-md-12">
+                    @Html.DropDownListFor(x => x.Players, new SelectList(Model.Players), "Select who will go first", new { @style = "width:500px" })
+                    @Html.ValidationMessageFor(model => model.Players, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OponentName, htmlAttributes: new { @class = "control-label custom-label" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.OponentName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OponentName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Start" id="start-new-game-button" class="btn btn-primary btn-lg text-center" />
+            </div>
+        </div>
+    }
+</div>
+
+@Ajax.ActionLink("Back to Main Menu", "HumanVsHuman", "Home", null,
+                 new AjaxOptions()
+                 {
+                     InsertionMode = InsertionMode.Replace,
+                     UpdateTargetId = "main-content"
+                 },
+                 new
+                 {
+                     @class = "btn btn-primary btn-lg text-center",
+                     @id = "back-to-main-menu-button"
+                 })
 
 @Scripts.Render("~/bundles/humanVsHumanNewGameModule")
