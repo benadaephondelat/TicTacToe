@@ -1,42 +1,85 @@
 ﻿namespace TicTacToe.Web.Tests.Controllers
 {
+    using System;
+    using System.Linq;
     using System.Web.Mvc;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Web.Controllers;
-    using Models.HumanVsHuman.NewGame.InputModels;
+    using System.Reflection;
     using System.Collections.Generic;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Models.HumanVsHuman.NewGame.InputModels;
+    using MockHelpers;
+    using Web.Controllers;
+    using Web.Controllers.Constants;
+    using ServiceLayer.TicTacToeGameService;
     using Moq;
-    using System.Security.Principal;
+    using Models.Game.ViewModels;
+    using Constants;
 
     [TestClass]
     public class HumanVsHumanControllerTests
     {
+        private ServiceLayerMockHelper mockHelper;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            this.mockHelper = new ServiceLayerMockHelper();
+        }
+
+        #region Controller Tests
+
         [TestMethod]
         public void HumanVsHuman_Controller_Should_Exist()
         {
-            HumanVsHumanController controller = new HumanVsHumanController();
+            HumanVsHumanController controller = this.GetHumanVsHumanControllerMock();
 
             Assert.IsNotNull(controller);
         }
+
+        [TestMethod]
+        public void HumanVsHuman_Controller_Should_Have_Public_Property_Named_TicTacToeGameService()
+        {
+            HumanVsHumanController controller = this.GetHumanVsHumanControllerMock();
+
+            bool result = controller.GetType()
+                                    .GetFields(BindingFlags.Instance | BindingFlags.Public)
+                                    .Any(field => field.Name == "ticTacToeGameService");
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void HumanVsHuman_Controller_Should_Have_Public_Property_Named_GetCurrentUserName()
+        {
+            HumanVsHumanController controller = this.GetHumanVsHumanControllerMock();
+
+            bool result = controller.GetType()
+                                    .GetFields(BindingFlags.Instance | BindingFlags.Public)
+                                    .Any(field => field.Name == "GetCurrentUserName");
+
+            Assert.IsTrue(result);
+        }
+
+        #endregion
 
         #region NewGame Tests
 
         [TestMethod]
         public void NewGame_Action_Should_Exist()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = this.GetHumanVsHumanControllerMock();
 
             Assert.AreEqual("NewGame", nameof(controller.NewGame));
 
-            bool isActionResult = controller.NewGame() is ActionResult;
+            ActionResult newGameAsActionResult = controller.NewGame();
 
-            Assert.AreEqual(true, isActionResult);
+            Assert.IsNotNull(newGameAsActionResult);
         }
 
         [TestMethod]
-        public void Authenticated_NewGame_Should_Return_View()
+        public void NewGame_Should_Return_View()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
@@ -44,15 +87,15 @@
         }
 
         [TestMethod]
-        public void Authenticated_NewGame_Should_Return_View_Named_NewGame()
+        public void NewGame_Should_Return_View_Named_NewGame()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
-
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
 
             ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
 
             string expectedPartialViewName = "NewGame";
 
@@ -60,51 +103,51 @@
         }
 
         [TestMethod]
-        public void Authenticated_NewGame_Should_Pass_NewGameInputModel_To_The_View()
+        public void NewGame_Should_Pass_NewHumanVsHumanGameInputModel_To_The_View()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
-
             ViewResult result = actionResult as ViewResult;
 
-            Assert.AreEqual(result.ViewName, "NewGame");
+            Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsHumanGameInputModel model = (NewHumanVsHumanGameInputModel)result.ViewData.Model;
 
-            Assert.IsInstanceOfType(model, typeof(NewGameInputModel));
+            Assert.IsInstanceOfType(model, typeof(NewHumanVsHumanGameInputModel));
         }
 
         [TestMethod]
-        public void NewGameInputModel_Should_Have_Property_Named_Players()
+        public void NewHumanVsHumanGameInputModel_Should_Have_Property_Named_Players()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
-
             ViewResult result = actionResult as ViewResult;
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            Assert.IsNotNull(result);
 
-            Assert.AreEqual("Players", nameof(model.Players));
+            NewHumanVsHumanGameInputModel model = result.ViewData.Model as NewHumanVsHumanGameInputModel;
+
+            Assert.IsNotNull(model);
+
+            Assert.IsNotNull(model.Players);
         }
 
         [TestMethod]
         public void NewGameInputModel_Players_Property_Should_Be_A_List_Of_Strings()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
-
             ViewResult result = actionResult as ViewResult;
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            Assert.IsNotNull(result);
+
+            NewHumanVsHumanGameInputModel model = (NewHumanVsHumanGameInputModel)result.ViewData.Model;
 
             Assert.IsInstanceOfType(model.Players, typeof(List<string>));
         }
@@ -112,15 +155,15 @@
         [TestMethod]
         public void NewGameInputModel_Players_Property_Should_Be_A_List_With_Two_Strings()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
-
             ViewResult result = actionResult as ViewResult;
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            Assert.IsNotNull(result);
+
+            NewHumanVsHumanGameInputModel model = (NewHumanVsHumanGameInputModel)result.ViewData.Model;
 
             Assert.AreEqual(2, model.Players.Count);
         }
@@ -128,141 +171,213 @@
         [TestMethod]
         public void NewGameInputModel_Players_Property_Should_Contain_Valid_String_As_First_Parameter()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
-
             ViewResult result = actionResult as ViewResult;
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            Assert.IsNotNull(result);
 
-            bool isValidString = string.IsNullOrWhiteSpace(model.Players[0]);
+            NewHumanVsHumanGameInputModel model = (NewHumanVsHumanGameInputModel)result.ViewData.Model;
 
-            Assert.IsTrue(isValidString);
+            bool isNotValidString = string.IsNullOrWhiteSpace(model.Players[0]);
+
+            Assert.IsFalse(isNotValidString);
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Contain_The_other_guy_As_Second_Parameter()
+        public void NewGameInputModel_Players_Property_Should_Contain_The_Default_HumanVsHuman_Oponent_Username_As_Second_Parameter()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
-
             ViewResult result = actionResult as ViewResult;
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            Assert.IsNotNull(result);
 
-            Assert.AreEqual(model.Players[1], "The other guy");
+            NewHumanVsHumanGameInputModel model = (NewHumanVsHumanGameInputModel)result.ViewData.Model;
+
+            Assert.AreEqual("the-other-guy@yahoo.com", model.Players[1]);
         }
 
         [TestMethod]
-        public void NewGameInputModel_Should_Have_An_OponentName_Property()
+        public void NewGame_Post_Should_Exist_And_Accept_NewHumanVsHumanGameInputModel_As_A_Parameter()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
-            ActionResult actionResult = controller.NewGame();
+            Type controllerType = controller.GetType();
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
+            int methodsCount = controllerType.GetTypeInfo()
+                                             .DeclaredMethods
+                                             .Count(m => m.Name.Contains(nameof(controller.NewGame)) &&
+                                                         m.ToString().Contains(nameof(NewHumanVsHumanGameInputModel)));
 
-            ViewResult result = actionResult as ViewResult;
-
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
-
-            Assert.AreEqual("OponentName", nameof(model.OponentName));
+            Assert.AreEqual(1, methodsCount);
         }
 
         [TestMethod]
-        public void NewGameInputModel_OponentName_Property_Should_Be_A_String()
+        public void NewGame_Post_Should_Return_PartialView()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
-            ActionResult actionResult = controller.NewGame();
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel()
+            {
+                Players = new List<string>()
+                {
+                    HumanVsHumanConstants.HumanVsHumanOponentUserId,
+                }
+            };
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
+            ActionResult actionResult = controller.NewGame(model);
 
-            ViewResult result = actionResult as ViewResult;
-
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
-
-            Assert.IsInstanceOfType(model.OponentName, typeof(string));
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
         }
 
         [TestMethod]
-        public void NewGameInputModel_OponentName_Property_Should_Not_Be_An_Empty_String()
+        public void NewGame_Post_Should_Return_PartialView_Named__NewGame()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
-            ActionResult actionResult = controller.NewGame();
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel();
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
+            model.Players = new List<string>()
+            {
+                HumanVsHumanConstants.HumanVsHumanOponentUserId,
+            };
 
-            ViewResult result = actionResult as ViewResult;
+            ActionResult actionResult = controller.NewGame(model);
+            
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            Assert.IsNotNull(partialViewResult);
 
-            bool isEmptyString = string.IsNullOrWhiteSpace(model.OponentName);
+            string actualPartialViewName = partialViewResult.ViewName;
 
-            Assert.IsFalse(isEmptyString);
+            Assert.AreEqual("_NewGame", actualPartialViewName);
         }
 
         [TestMethod]
-        public void NewGameInputModel_OponentName_Property_Should_Equal_The_other_guy()
+        public void NewGame_Post_Should_Return_NewGameViewModel_As_Model_To_The_View()
         {
-            HumanVsHumanController controller = CreateHumanVsHumanControllerAsAuthenticatedUser();
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
 
-            ActionResult actionResult = controller.NewGame();
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel();
 
-            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
+            model.Players = new List<string>()
+            {
+                HumanVsHumanConstants.HumanVsHumanOponentUserId,
+            };
 
-            ViewResult result = actionResult as ViewResult;
+            ActionResult actionResult = controller.NewGame(model);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
 
-            Assert.AreEqual("The other guy", model.OponentName);
+            Assert.IsNotNull(partialViewResult);
+
+            bool isCastValidCast = partialViewResult.Model is NewGameViewModel;
+
+            Assert.IsTrue(isCastValidCast);
         }
 
+        [TestMethod]
+        public void NewGame_Post_NewGameViewModel_Properties_Should_Not_Be_Null()
+        {
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel();
+
+            model.Players = new List<string>()
+            {
+                HumanVsHumanConstants.HumanVsHumanOponentUserId,
+            };
+
+            ActionResult actionResult = controller.NewGame(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            NewGameViewModel result = partialViewResult.Model as NewGameViewModel;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.GameInfo);
+            Assert.IsNotNull(result.GameTiles);
+        }
+
+        [TestMethod]
+        public void NewGame_Post_NewGameViewModel_Should_Contain_9_Empty_Tiles()
+        {
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel();
+
+            model.Players = new List<string>()
+            {
+                HumanVsHumanConstants.HumanVsHumanOponentUserId,
+            };
+
+            ActionResult actionResult = controller.NewGame(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            NewGameViewModel result = partialViewResult.Model as NewGameViewModel;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual(9, result.GameTiles.Count());
+            Assert.AreEqual(9, result.GameTiles.Count(t => t.IsEmpty));
+        }
+
+        [TestMethod]
+        public void NewGame_Post_NewGameViewModel_Every_Tile_Should_Be_Empty()
+        {
+            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel
+            {
+                Players = new List<string>()
+                {
+                    HumanVsHumanConstants.HumanVsHumanOponentUserId,
+                }
+            };
+
+            ActionResult actionResult = controller.NewGame(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            NewGameViewModel result = partialViewResult.Model as NewGameViewModel;
+
+            Assert.IsNotNull(result);
+
+            int count = result.GameTiles.Count(t => t.IsEmpty && string.IsNullOrWhiteSpace(t.Value));
+
+            Assert.AreEqual(9, count);
+        }
         #endregion
 
         /// <summary>
-        /// Creates an instance of HomeController with an aunthenticated user
+        /// Creates a mocked instance of HumanVsHuman controller
         /// </summary>
-        /// <returns>HomeController</returns>
-        private HumanVsHumanController CreateHumanVsHumanControllerAsAuthenticatedUser()
+        /// <returns>HumanVsHumanController</returns>
+        private HumanVsHumanController GetHumanVsHumanControllerMock()
         {
-            Mock<IPrincipal> mockPrincipal = SetupMockPrincipalAsAuthenticatedUser("georgi_iliev@yahoo.com");
-            Mock<ControllerContext> mockContext = new Mock<ControllerContext>();
+            Mock<ITicTacToeGameService> ticTacToeServiceMock = mockHelper.SetupTicTacToeServiceMock();
 
-            mockContext.SetupGet(p => p.HttpContext.User).Returns(mockPrincipal.Object);
-            mockContext.SetupGet(p => p.HttpContext.Request.IsAuthenticated).Returns(true);
-            mockContext.SetupGet(p => p.HttpContext.User.Identity.IsAuthenticated).Returns(true);
+            Mock<ControllerContext> mockContext = mockHelper.SetupControllerContextMock();
 
-            HumanVsHumanController controller = new HumanVsHumanController()
+            HumanVsHumanController controller = new HumanVsHumanController(ticTacToeServiceMock.Object)
             {
-                ControllerContext = mockContext.Object
+                ControllerContext = mockContext.Object,
+                GetCurrentUserName = () => MockConstants.OtherGuyId
             };
 
             return controller;
-        }
-
-        /// <summary>
-        /// Mocks a fake anonymous user.
-        /// User is added to the Role
-        /// </summary>
-        /// <param name="userName">username of the user to be mocked</param>
-        /// <returns>Mock<IPrincipal></returns>
-        private static Mock<IPrincipal> SetupMockPrincipalAsAuthenticatedUser(string userName)
-        {
-            MockRepository mocks = new MockRepository(MockBehavior.Default);
-            Mock<IPrincipal> mockPrincipal = mocks.Create<IPrincipal>();
-
-            mockPrincipal.SetupGet(p => p.Identity.Name).Returns(userName);
-            mockPrincipal.Setup(p => p.IsInRole("User")).Returns(true);
-
-            return mockPrincipal;
         }
     }
 }

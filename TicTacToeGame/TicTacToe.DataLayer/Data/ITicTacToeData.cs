@@ -1,13 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using TicTacToe.Models;
-using TicTacToe.DataLayer.Repository;
-
-namespace TicTacToe.DataLayer.Data
+﻿namespace TicTacToe.DataLayer.Data
 {
+    using System.Threading.Tasks;
+    using Models;
+    using Repository;
+
     public interface ITicTacToeData
     {
+        IGenericRepository<Game> Games { get; }
+
+        IGenericRepository<Tile> Tiles { get; }
+
         IGenericRepository<ApplicationUser> Users { get; }
 
         int SaveChanges();

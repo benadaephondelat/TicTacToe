@@ -1,10 +1,14 @@
 ﻿namespace TicTacToe.Web
 {
+    using System.Web;
     using System.Web.Mvc;
-    using System.Web.Optimization;
+    using System.Reflection;
     using System.Web.Routing;
+    using System.Web.Optimization;
+    using System.Collections.Generic;
+    using FrameworkExtentions.Mappings;
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -14,6 +18,19 @@
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             RegisterRazorViewEngineOnly();
+            ConfigureAutoMapper();
+        }
+
+        /// <summary>
+        /// Triggers AutoMapper configuration
+        /// </summary>
+        private void ConfigureAutoMapper()
+        {
+            List<Assembly> executingAssembly = new List<Assembly> { Assembly.GetExecutingAssembly() };
+
+            AutoMapperConfig autoMapperConfig = new AutoMapperConfig(executingAssembly);
+
+            autoMapperConfig.LoadMappings();
         }
 
         /// <summary>

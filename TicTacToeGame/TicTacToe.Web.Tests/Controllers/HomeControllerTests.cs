@@ -9,6 +9,8 @@
     [TestClass]
     public class HomeControllerTests
     {
+        #region Controller Tests
+
         [TestMethod]
         public void HomeController_Should_Exist()
         {
@@ -16,6 +18,8 @@
 
             Assert.IsNotNull(controller);
         }
+        
+        #endregion
 
         #region Index Tests
 
@@ -24,11 +28,11 @@
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
-            Assert.AreEqual("Index", nameof(controller.Index));
+            Assert.IsNotNull(controller);
 
-            bool isActionResult = controller.Index() is ActionResult;
+            string indexActionName = nameof(controller.Index);
 
-            Assert.AreEqual(true, isActionResult);
+            Assert.AreEqual("Index", indexActionName);
         }
 
         [TestMethod]
@@ -72,11 +76,27 @@
         {
             HomeController controller = CreateHomeControllerAsAnonymousUser();
 
-            Assert.AreEqual(nameof(controller.HumanVsHuman), "HumanVsHuman");
+            Assert.IsNotNull(controller);
 
-            bool isActionResult = controller.HumanVsHuman() is ActionResult;
+            string indexActionName = nameof(controller.HumanVsHuman);
 
-            Assert.AreEqual(true, isActionResult);
+            Assert.AreEqual("HumanVsHuman", indexActionName);
+        }
+
+        [TestMethod]
+        public void Anonymous_HumanVsHuman_Should_Redirect_To_Index()
+        {
+            HomeController controller = CreateHomeControllerAsAnonymousUser();
+
+            ActionResult actionResult = controller.HumanVsHuman();
+
+            Assert.IsInstanceOfType(actionResult, typeof(RedirectToRouteResult));
+
+            RedirectToRouteResult routeResult = actionResult as RedirectToRouteResult;
+
+            Assert.IsNotNull(routeResult);
+
+            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
         }
 
         [TestMethod]
@@ -90,20 +110,6 @@
         }
                     
         [TestMethod]
-        public void Anonymous_HumanVsHuman_Should_Redirect_To_Index()
-        {
-            HomeController controller = CreateHomeControllerAsAnonymousUser();
-
-            ActionResult actionResult = controller.HumanVsHuman();
-
-            Assert.IsInstanceOfType(actionResult, typeof(RedirectToRouteResult));
-
-            RedirectToRouteResult routeResult = actionResult as RedirectToRouteResult;
-
-            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
-        }
-                    
-        [TestMethod]
         public void Authenticated_HumanVsHuman_Should_Return_PartialView_Named_HumanVsHuman()
         {
             HomeController controller = CreateHomeControllerAsAuthenticatedUser();
@@ -113,6 +119,8 @@
             Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
 
             PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
 
             string expectedPartialViewName = "_HumanVsHuman";
 
@@ -168,7 +176,7 @@
         /// User is added to the Role
         /// </summary>
         /// <param name="userName">username of the user to be mocked</param>
-        /// <returns>Mock<IPrincipal></returns>
+        /// <returns>Mock<IPrincipal></IPrincipal></returns>
         private static Mock<IPrincipal> SetupMockPrincipalAsAuthenticatedUser(string userName)
         {
             MockRepository mocks = new MockRepository(MockBehavior.Default);
@@ -185,7 +193,7 @@
         /// User is not added to the Role
         /// </summary>
         /// <param name="userName">username of the user to be mocked</param>
-        /// <returns>Mock<IPrincipal></returns>
+        /// <returns>Mock<IPrincipal></IPrincipal></returns>
         private static Mock<IPrincipal> SetupMockPrincipalAsAnonymousUser(string userName)
         {
             MockRepository mocks = new MockRepository(MockBehavior.Default);

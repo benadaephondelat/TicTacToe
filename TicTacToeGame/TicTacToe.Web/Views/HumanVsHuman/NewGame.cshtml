@@ -1,14 +1,48 @@
-﻿@model TicTacToe.Web.Models.HumanVsHuman.NewGame.InputModels.NewGameInputModel
+﻿@model TicTacToe.Web.Models.HumanVsHuman.NewGame.InputModels.NewHumanVsHumanGameInputModel
 
 @{
     ViewBag.Title = "HumanVsHuman";
 }
 
-<h2 class="text-center">NEW GAME</h2>
+<style>
+    
+    #back-to-main-menu-button {
+        margin-left: 42%;
+    }
 
-<div id="new-game-container" class="jumbotron">
+    #start-new-game-button {
+        margin-left: 42%;
+        width: 16%;
+    }
 
-    @using (Html.BeginForm())
+    #turn-dropdown-container {
+        width: 27%;
+        text-align: center;
+        margin-left: 36%;
+    }
+
+    #turn-dropdown {
+        width: 67%;
+        margin-left: 2%;
+        font-weight: bold;
+    }
+
+    #validation-message {
+        margin-left: 4%;
+        font-weight: bold;
+    }
+
+</style>
+
+<h2 class="text-center">New Game</h2>
+
+<div id="new-game-container">
+
+    @using(Ajax.BeginForm("NewGame", "HumanVsHuman", null, new AjaxOptions()
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "new-game-container"
+    }))
     {
         @Html.AntiForgeryToken()
 
@@ -16,20 +50,12 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group">
+            <div class="form-group" id="turn-dropdown-container">
                 @Html.LabelFor(model => model.Players, htmlAttributes: new { @class = "control-label custom-label" })
                 <div class="col-md-12">
-                    @Html.DropDownListFor(x => x.Players, new SelectList(Model.Players), "Select who will go first", new { @style = "width:500px" })
-                    @Html.ValidationMessageFor(model => model.Players, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(x => x.Players, new SelectList(Model.Players), "Select who will go first", new { @id = "turn-dropdown" })
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.OponentName, htmlAttributes: new { @class = "control-label custom-label" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.OponentName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.OponentName, "", new { @class = "text-danger" })
-                </div>
+                @Html.ValidationMessageFor(model => model.Players, "", new { @class = "text-danger", @id = "validation-message" })
             </div>
 
             <div class="form-group">
@@ -39,16 +65,15 @@
     }
 </div>
 
-@Ajax.ActionLink("Back to Main Menu", "HumanVsHuman", "Home", null,
-                 new AjaxOptions()
-                 {
-                     InsertionMode = InsertionMode.Replace,
-                     UpdateTargetId = "main-content"
-                 },
-                 new
-                 {
-                     @class = "btn btn-primary btn-lg text-center",
-                     @id = "back-to-main-menu-button"
-                 })
+@Ajax.ActionLink("Back to Main Menu", "HumanVsHuman", "Home", null, new AjaxOptions()
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "main-content"
+                },
+                new
+                {
+                    @class = "btn btn-primary btn-lg text-center",
+                    @id = "back-to-main-menu-button"
+                })
 
 @Scripts.Render("~/bundles/humanVsHumanNewGameModule")

@@ -16,7 +16,7 @@ namespace TicTacToe.DataLayer.Repository
 
         public IDbSet<T> Set { get; private set; }
 
-        public IQueryable<T> All()
+        public virtual IQueryable<T> All()
         {
             return Set;
         }

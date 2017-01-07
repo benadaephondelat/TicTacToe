@@ -1,12 +1,13 @@
-using Ninject.Modules;
-
 namespace TicTacToe.ServiceLayer.App_Start
 {
+    using Ninject.Modules;
+    using TicTacToeGameService;
+
     public class NinjectWebCommon : NinjectModule
     {
         public override void Load()
         {
-            //bind your interfaces to the implementation here
+            Kernel.Bind<ITicTacToeGameService>().To<TicTacToeGameService>();
         }
     }
 }

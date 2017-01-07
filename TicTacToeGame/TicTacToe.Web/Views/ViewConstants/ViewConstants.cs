@@ -39,5 +39,15 @@
         /// NewGameView view name
         /// </summary>
         public const string NewGameView = "NewGame";
+
+        /// <summary>
+        /// _NewGame partial view
+        /// </summary>
+        public const string NewGamePartialView = "_NewGame";
+
+        /// <summary>
+        /// Index view name
+        /// </summary>
+        public const string IndexView = "Index";
     }
 }

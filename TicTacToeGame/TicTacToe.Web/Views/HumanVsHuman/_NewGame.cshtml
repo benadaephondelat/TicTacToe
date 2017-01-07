@@ -1,0 +1,140 @@
+﻿@model TicTacToe.Web.Models.Game.ViewModels.NewGameViewModel
+     
+<style>
+    #first-column, #second-column, #third-column {
+        display: inline-flex;
+    }
+
+    #first-column > div {
+        border: 1px solid black;
+        width: 125px;
+        height: 125px;
+    }
+
+    #second-column > div {
+        border: 1px solid black;
+        width: 125px;
+        height: 125px;
+    }
+
+    #third-column > div {
+        border: 1px solid black;
+        width: 125px;
+        height: 125px;
+    }
+
+    #grid-container {
+        width: 35%;
+    }
+
+    #home-side-container, #away-side-container, #grid-container {
+        float: left;
+    }
+
+    #turn-container {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 5%;
+    }
+
+    #back-to-main-menu-button {
+       float: left;
+    clear: both;
+    margin-left: 42%;
+    width: 16%;
+    margin-top: 3%;
+    }
+
+    #away-side-container {
+        margin-left: 15%;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #grid-container {
+            margin-left: 17.5%;
+    margin-top: -3%;
+    }
+
+    #home-side-container {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #turn-info {
+        font-weight: bold;
+        background-color: red;
+        color: white;
+    }
+
+    .tile {
+            font-weight: bold;
+    font-size: 90px;
+    padding-left: 9%;
+    }
+
+</style>
+
+<div id="turn-container">
+    <h5>@Model.GameInfo.GameName</h5>
+    <h5>Turn: @Model.GameInfo.TurnsCount</h5>
+    <h5>
+        Turn Holder:
+        @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUser.Id)
+        {
+            @Model.GameInfo.HomeSideUser.UserName
+        }
+        else
+        {
+            @Model.GameInfo.AwaySideUser.UserName
+        }
+    </h5>
+     @if (Model.GameInfo.IsFinished)
+     {
+         <h4 style="font-weight: bold; background-color: red;">WINNER</h4>
+         <h4 style="font-weight: bold; background-color: red;">@Model.GameInfo.WinnerName</h4>
+     }
+</div>
+
+<div id="home-side-container">
+    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUser.Id)
+    {
+        <h4 id="turn-info">YOUR TURN</h4>
+    }
+    <h4>Home Side - X</h4>
+    @Model.GameInfo.HomeSideUser.UserName
+</div>
+
+<div id="grid-container">
+
+    <div id="first-column">
+        <div class="tile" data-index="0">@Model.GameTiles.ElementAt(0).Value</div>
+        <div class="tile" data-index="1">@Model.GameTiles.ElementAt(1).Value</div>
+        <div class="tile" data-index="2">@Model.GameTiles.ElementAt(2).Value</div>
+    </div>
+
+    <div id="second-column">
+        <div class="tile" data-index="3">@Model.GameTiles.ElementAt(3).Value</div>
+        <div class="tile" data-index="4">@Model.GameTiles.ElementAt(4).Value</div>
+        <div class="tile" data-index="5">@Model.GameTiles.ElementAt(5).Value</div>
+    </div>
+
+    <div id="third-column">
+        <div class="tile" data-index="6">@Model.GameTiles.ElementAt(6).Value</div>
+        <div class="tile" data-index="7">@Model.GameTiles.ElementAt(7).Value</div>
+        <div class="tile" data-index="8">@Model.GameTiles.ElementAt(8).Value</div>
+    </div>
+
+</div>
+
+<div id="away-side-container">
+    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.AwaySideUser.Id)
+    {
+        <h4 id="turn-info">YOUR TURN</h4>
+    }
+    <h4>Away Side - 0</h4>
+    @Model.GameInfo.AwaySideUser.UserName
+</div>
+
+<input type="hidden" id="userId" value="@Model.GameInfo.CurrentTurnHolderId" />
+<input type="hidden" id="gameId" value="@Model.GameInfo.Id" />

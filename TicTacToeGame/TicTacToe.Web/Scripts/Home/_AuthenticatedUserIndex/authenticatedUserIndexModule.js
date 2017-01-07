@@ -11,10 +11,10 @@ var authenticatedUserIndexModule = (function (jQuery) {
     /* function declarations */
     var humanVsHumanButtonsClickHandler,
         initiliazieModule;
-
+    
     /* configuration variables */
-    var humanVsHumanAjaxCallUrl = "/Home/HumanVsHuman";
-        
+    var humanVsHumanAjaxCallUrl = '/Home/HumanVsHuman';
+       
     /* cached dom objects */
     var $contentContainer = $('#main-content'),
         $humanVshumanButton = $('#human-vs-human-button');
@@ -27,18 +27,18 @@ var authenticatedUserIndexModule = (function (jQuery) {
             url: humanVsHumanAjaxCallUrl,
             type: 'GET',
             dataType: 'html',
-            async: true,
+            async: true
         });
 
         return ajaxCall;
-    };
+    }
     
     /**
     * When the user clicks humanVshumanButton make an ajax call to the server
     * and append the result to the DOM
     */
     humanVsHumanButtonsClickHandler = function () {
-        $($humanVshumanButton).on('click', function (event) {
+        $($humanVshumanButton).on('click', function () {
             _humanVsHumanAjaxCall().done(function (data) {
                 $contentContainer.html(data);
             }).fail(function (error) {
@@ -53,7 +53,7 @@ var authenticatedUserIndexModule = (function (jQuery) {
 
     return {
         init: initiliazieModule,
-        humanVsHumanAjaxCall: _humanVsHumanAjaxCall,
+        humanVsHumanAjaxCall: _humanVsHumanAjaxCall
     }
 
 })(jQuery || {});

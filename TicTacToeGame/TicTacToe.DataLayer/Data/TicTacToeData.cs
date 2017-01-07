@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using TicTacToe.Models;
-using TicTacToe.DataLayer.Repository;
-
-namespace TicTacToe.DataLayer.Data
+﻿namespace TicTacToe.DataLayer.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Models;
+    using Repository;
+
     public class TicTacToeData : ITicTacToeData
     {
         private readonly IApplicationDbContext context;
@@ -16,6 +15,15 @@ namespace TicTacToe.DataLayer.Data
         {
             this.context = context;
             this.repositories = new Dictionary<Type, object>();
+        }
+
+        public IGenericRepository<Game> Games
+        {
+            get { return GetRepository<Game>(); }
+        }
+        public IGenericRepository<Tile> Tiles
+        {
+            get { return GetRepository<Tile>(); }
         }
 
         public IGenericRepository<ApplicationUser> Users
