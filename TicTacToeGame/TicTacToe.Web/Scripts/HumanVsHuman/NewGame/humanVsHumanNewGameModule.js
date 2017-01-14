@@ -1,7 +1,7 @@
 ﻿/**
  * Contains the JavaScript code to be used in the HumanVsHumanController's NewGame view.
  * @dependencies: jQuery
- * @param {function} jQuery - jQuery library.
+ * @param {function} jQuery
  */
 var humanVsHumanNewGameModule = (function (jQuery) {
     if (typeof jQuery === 'undefined') {
@@ -15,6 +15,7 @@ var humanVsHumanNewGameModule = (function (jQuery) {
 
     /* cached dom objects */
     var $gameId = $('#gameId'),
+        $newGameContainer = $('#new-game-container'),
         $emptyGameTiles = $(".tile[data-isEmpty='True']"),
         _antiForgeryToken = $('#place-turn-token').attr('value');
 
@@ -90,11 +91,8 @@ var humanVsHumanNewGameModule = (function (jQuery) {
             var data = _getData.call($(this));
 
             _placeTurnAjaxCall(_antiForgeryToken, data).done(function (result) {
-                console.log('----SUCCESS----');
-                console.dir(result);
-                $('#new-game-container').html(result);
+                $newGameContainer.html(result);
             }).fail(function (error) {
-                console.log('----ERROR----');
                 console.dir(error);
             });
         });

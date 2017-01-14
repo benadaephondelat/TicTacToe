@@ -43,7 +43,7 @@
         /// <summary>
         /// _NewGame partial view
         /// </summary>
-        public const string NewGamePartialView = "_NewGame";
+        public const string HumanVsHumanGame = "_HumanVsHumanGame";
 
         /// <summary>
         /// Index view name

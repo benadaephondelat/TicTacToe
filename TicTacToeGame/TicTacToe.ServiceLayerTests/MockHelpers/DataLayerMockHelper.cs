@@ -230,16 +230,16 @@
                 Id = 1,
                 StartDate = DateTime.Now,
                 ApplicationUser = new ApplicationUser()
-                                      {
-                                          Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
-                                          UserName = "georgi_iliev@yahoo.com"
-                                      },
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
                 ApplicationUserId = "45897caa-c581-442d-a11a-7cf9b2375e13",
                 Oponent = new ApplicationUser()
-                              {
-                                  Id = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
-                                  UserName = "the-other-guy@yahoo.com"
-                              },
+                {
+                    Id = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
+                    UserName = "the-other-guy@yahoo.com"
+                },
                 OponentId = "45897caa-c581-442d-a11a-7cf9b2375e13",
                 TurnsCount = 1,
                 GameName = "georgi_iliev@yahoo.com vs the-other-guy@yahoo.com",

@@ -21,6 +21,8 @@
     using AutoMapper;
     using Microsoft.AspNet.Identity;
 
+    using static Views.ViewConstants.ViewConstants;
+
     [CheckIfLoggedInFilter]
     public class HumanVsHumanController : Controller
     {
@@ -47,7 +49,7 @@
                 Players = GetDefaultHumanVsHumanPlayersList(),
             };
 
-            return View(ViewConstants.NewGameView, inputModel);
+            return View(NewGameView, inputModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -60,13 +62,13 @@
             
             Game game = ticTacToeGameService.CreateNewHumanVsHumanGame(homeSideUserName, currentUserName);
 
-            NewGameViewModel viewModel = new NewGameViewModel()
+            HumanVsHumanGameViewModel viewModel = new HumanVsHumanGameViewModel()
             {
-                GameInfo = Mapper.Map<NewGameInfoModel>(game),
+                GameInfo = Mapper.Map<HumanVsHumanGameInfoModel>(game),
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
-            return PartialView(ViewConstants.NewGamePartialView, viewModel);
+            return PartialView(HumanVsHumanGame, viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryTokenAjax]
@@ -77,13 +79,13 @@
 
             Game game = ticTacToeGameService.GetGameById(model.GameId);
 
-            NewGameViewModel viewModel = new NewGameViewModel()
+            HumanVsHumanGameViewModel viewModel = new HumanVsHumanGameViewModel()
             {
-                GameInfo = Mapper.Map<NewGameInfoModel>(game),
+                GameInfo = Mapper.Map<HumanVsHumanGameInfoModel>(game),
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
-            return PartialView(ViewConstants.NewGamePartialView, viewModel);
+            return PartialView(HumanVsHumanGame, viewModel);
         }
 
         /// <summary>

@@ -238,7 +238,7 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_Should_Return_PartialView_Named__NewGame()
+        public void NewGame_Post_Should_Return_PartialView_Named__HumanVsHumanGame()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -257,7 +257,7 @@
 
             string actualPartialViewName = partialViewResult.ViewName;
 
-            Assert.AreEqual("_NewGame", actualPartialViewName);
+            Assert.AreEqual("_HumanVsHumanGame", actualPartialViewName);
         }
 
         [TestMethod]
@@ -278,7 +278,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            bool isCastValidCast = partialViewResult.Model is NewGameViewModel;
+            bool isCastValidCast = partialViewResult.Model is HumanVsHumanGameViewModel;
 
             Assert.IsTrue(isCastValidCast);
         }
@@ -301,7 +301,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            NewGameViewModel result = partialViewResult.Model as NewGameViewModel;
+            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.GameInfo);
@@ -326,7 +326,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            NewGameViewModel result = partialViewResult.Model as NewGameViewModel;
+            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
 
             Assert.IsNotNull(result);
 
@@ -353,7 +353,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            NewGameViewModel result = partialViewResult.Model as NewGameViewModel;
+            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
 
             Assert.IsNotNull(result);
 
@@ -423,6 +423,18 @@
             PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 5, TileIndex = 0 };
 
             Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Return_PartialView()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
         }
 
         #endregion

@@ -4,9 +4,9 @@
     using Tiles.ViewModels;
     using HumanVsHuman.NewGame.ViewModels;
 
-    public class NewGameViewModel
+    public class HumanVsHumanGameViewModel
     {
-        public NewGameInfoModel GameInfo { get; set; }
+        public HumanVsHumanGameInfoModel GameInfo { get; set; }
 
         public IEnumerable<TileViewModel> GameTiles { get; set; }
     }
