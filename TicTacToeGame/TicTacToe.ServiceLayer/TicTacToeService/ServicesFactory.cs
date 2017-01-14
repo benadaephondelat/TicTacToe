@@ -6,20 +6,20 @@
     /// <summary>
     /// Provides CRUD factories for all repositories 
     /// </summary>
-    public class ServicesAbstractFactory : IServicesAbstractFactory
+    public class ServicesFactory : IServicesFactory
     {
         private readonly ITicTacToeData data;
 
-        public ServicesAbstractFactory(ITicTacToeData data)
+        public ServicesFactory(ITicTacToeData data)
         {
             this.data = data;
         }
 
         /// <summary>
-        /// Returns Game CRUD factory 
+        /// Returns Game Repository CRUD operations Factory 
         /// </summary>
         /// <returns>GameFactory</returns>
-        public GameFactory GetGameFactory()
+        public IGameFactory GetGameFactory()
         {
             return new GameFactory(this.data);
         } 

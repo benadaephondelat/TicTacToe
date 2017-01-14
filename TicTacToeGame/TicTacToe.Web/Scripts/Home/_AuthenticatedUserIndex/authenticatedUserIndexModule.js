@@ -12,9 +12,6 @@ var authenticatedUserIndexModule = (function (jQuery) {
     var humanVsHumanButtonsClickHandler,
         initiliazieModule;
     
-    /* configuration variables */
-    var humanVsHumanAjaxCallUrl = '/Home/HumanVsHuman';
-       
     /* cached dom objects */
     var $contentContainer = $('#main-content'),
         $humanVshumanButton = $('#human-vs-human-button');
@@ -24,7 +21,7 @@ var authenticatedUserIndexModule = (function (jQuery) {
     */
     function _humanVsHumanAjaxCall() {
         var ajaxCall = $.ajax({
-            url: humanVsHumanAjaxCallUrl,
+            url: '/Home/HumanVsHuman',
             type: 'GET',
             dataType: 'html',
             async: true

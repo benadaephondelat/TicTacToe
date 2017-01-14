@@ -10,7 +10,9 @@
     using TicTacToeCommon.Exceptions.User;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+
     using TicTacToeCommon.Exceptions.Game;
+    using TicTacToeCommon.Exceptions.Tile;
 
     [TestClass]
     public class TicTacToeGameServiceTests
@@ -239,9 +241,188 @@
             Assert.AreEqual(9, addTIleCounter);
         }
 
+        /// <summary>
+        /// Creates a new human vs human game with the current user serving as homeside.
+        /// </summary>
+        /// <returns>Game</returns>
         private Game CreateNewHumanVsHumanGameWithTwoValidUsers()
         {
             return gameService.CreateNewHumanVsHumanGame(MockConstants.UserName, MockConstants.OtherGuyUserName);
+        }
+
+        #endregion
+
+        #region PlaceTurn
+
+        [TestMethod]
+        [ExpectedException(typeof(GameNotFoundException))]
+        public void PlaceTurn_Action_Should_Throw_GameNotFoundException_If_GameId_Is_Not_In_The_Database()
+        {
+            string username = MockConstants.UserName;
+            int gameId = MockConstants.InvalidGameId;
+            int tileIndex = MockConstants.ZeroTileIndex;
+
+            this.gameService.PlaceTurn(gameId, tileIndex, username);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(GameIsFinishedException))]
+        public void PlaceTurn_Should_Throw_GameIsFinishedException_If_Game_Is_Already_Finished()
+        {
+            this.gameService.PlaceTurn(MockConstants.FinishedGameIndex, 0, MockConstants.UserName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotAuthorizedException))]
+        public void PlaceTurn_Should_Throw_UserNotAuthorized_If_CurrentUser_Is_Not_Part_Of_The_Game()
+        {
+           this.gameService.PlaceTurn(MockConstants.SameOponentGameIndex, 0, "alibaba@yahoo.com");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TileValidationException))]
+        public void PlaceTurn_Should_Throw_TileValidationException_If_Tile_Index_Is_Not_In_Valid_Range()
+        {
+            this.gameService.PlaceTurn(MockConstants.NewGameIndex, 9, MockConstants.UserName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TileValidationException))]
+        public void PlaceTurn_Should_Throw_TileValidationException_If_Tile_Is_Not_Empty()
+        {
+            this.gameService.PlaceTurn(MockConstants.NewGameIndex, 0, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(MockConstants.NewGameIndex, 0, MockConstants.UserName);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Set_Tile_Value_To_X_If_The_Current_Turn_Is_Even_Number()
+        {
+            for (var i = 0; i < 9; i++)
+            {
+                this.gameService.PlaceTurn(MockConstants.NewGameIndex, i, MockConstants.UserName);
+            }
+
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            int evenNumbersCount = 0;
+            int assertionsCount = 0;
+
+            for (var i = 0; i < game.Tiles.Count; i++)
+            {
+                if (IsOddNumber(i) == false)
+                {
+                    evenNumbersCount++;
+                    
+                    string tileValue = game.Tiles.ElementAt(i).Value;
+
+                    if (tileValue == "X")
+                    {
+                        assertionsCount++;
+                    }
+                }
+            }
+
+            Assert.AreEqual(evenNumbersCount, assertionsCount);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Set_Tile_Value_To_O_If_The_Current_Turn_Is_Odd_Number()
+        {
+            for (var i = 0; i < 9; i++)
+            {
+                this.gameService.PlaceTurn(MockConstants.NewGameIndex, i, MockConstants.UserName);
+            }
+
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            int oddNUmbersCount = 0;
+            int assertionsCount = 0;
+
+            for (var i = 0; i < game.Tiles.Count; i++)
+            {
+                if (IsOddNumber(i))
+                {
+                    oddNUmbersCount++;
+
+                    string tileValue = game.Tiles.ElementAt(i).Value;
+
+                    if (tileValue == "O")
+                    {
+                        assertionsCount++;
+                    }
+                }
+            }
+
+            Assert.AreEqual(oddNUmbersCount, assertionsCount);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Set_Tile_IsEmpty_Property_To_False()
+        {
+            for (var i = 1; i < 9; i++)
+            {
+                this.gameService.PlaceTurn(MockConstants.NewGameIndex, i, MockConstants.UserName);
+            }
+
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            bool areAllTilesSet = game.Tiles.ToList().Any(t => t.IsEmpty == true);
+
+            Assert.IsTrue(areAllTilesSet);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Increment_Game_Turns_Count_By_One()
+        {
+            var actualCount = 1;
+            for (var i = 0; i < 9; i++)
+            {
+                actualCount++;
+                this.gameService.PlaceTurn(MockConstants.NewGameIndex, i, MockConstants.UserName);
+            }
+
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            Assert.AreEqual(actualCount, game.TurnsCount);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Call_Tiles_Repository_Update_Method_Once()
+        {
+            var updateTilesCounter = 0;
+
+            this.dataLayerMock.Setup(x => x.Tiles.Update(It.IsAny<Tile>())).Callback(() => updateTilesCounter++);
+
+            this.gameService.PlaceTurn(MockConstants.NewGameIndex, MockConstants.ZeroTileIndex, MockConstants.UserName);
+
+            this.dataLayerMock.Verify(x => x.Tiles.Update(It.IsAny<Tile>()), Times.Once());
+
+            Assert.AreEqual(1, updateTilesCounter);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Call_SaveChanges_Method_Once()
+        {
+            var saveChangesCount = 0;
+
+            this.dataLayerMock.Setup(x => x.SaveChanges()).Callback(() => saveChangesCount++);
+
+            this.gameService.PlaceTurn(MockConstants.NewGameIndex, MockConstants.ZeroTileIndex, MockConstants.UserName);
+
+            this.dataLayerMock.Verify(x => x.SaveChanges(), Times.Once());
+
+            Assert.AreEqual(1, saveChangesCount);
+        }
+
+        /// <summary>
+        /// Checks if an integer is a odd number.
+        /// </summary>
+        /// <param name="turnsCount">integer to check</param>
+        /// <returns>bool</returns>
+        private bool IsOddNumber(int turnsCount)
+        {
+            return turnsCount % 2 != 0;
         }
 
         #endregion

@@ -9,8 +9,6 @@
     [Serializable]
     public class UserException : TicTacToeException
     {
-        public static new string CustomMessage = "User Exception";
-
         public UserException() : base()
         {
         }

@@ -1,27 +1,36 @@
-﻿@model TicTacToe.Web.Models.Game.ViewModels.NewGameViewModel
-     
+﻿@using TicTacToe.Web.FrameworkExtentions.ViewHelpers
+@model TicTacToe.Web.Models.Game.ViewModels.NewGameViewModel
+
 <style>
     #first-column, #second-column, #third-column {
         display: inline-flex;
     }
 
-    #first-column > div {
-        border: 1px solid black;
-        width: 125px;
-        height: 125px;
+
+    .red {
+        color: red;
     }
 
-    #second-column > div {
-        border: 1px solid black;
-        width: 125px;
-        height: 125px;
+    .blue {
+        color: blue;
     }
+        #first-column > div {
+            border: 1px solid black;
+            width: 125px;
+            height: 125px;
+        }
 
-    #third-column > div {
-        border: 1px solid black;
-        width: 125px;
-        height: 125px;
-    }
+        #second-column > div {
+            border: 1px solid black;
+            width: 125px;
+            height: 125px;
+        }
+
+        #third-column > div {
+            border: 1px solid black;
+            width: 125px;
+            height: 125px;
+        }
 
     #grid-container {
         width: 35%;
@@ -38,11 +47,11 @@
     }
 
     #back-to-main-menu-button {
-       float: left;
-    clear: both;
-    margin-left: 42%;
-    width: 16%;
-    margin-top: 3%;
+        float: left;
+        clear: both;
+        margin-left: 42%;
+        width: 16%;
+        margin-top: 3%;
     }
 
     #away-side-container {
@@ -52,8 +61,8 @@
     }
 
     #grid-container {
-            margin-left: 17.5%;
-    margin-top: -3%;
+        margin-left: 17.5%;
+        margin-top: -3%;
     }
 
     #home-side-container {
@@ -63,16 +72,13 @@
 
     #turn-info {
         font-weight: bold;
-        background-color: red;
-        color: white;
     }
 
     .tile {
-            font-weight: bold;
-    font-size: 90px;
-    padding-left: 9%;
+        font-weight: bold;
+        font-size: 90px;
+        padding-left: 9%;
     }
-
 </style>
 
 <div id="turn-container">
@@ -89,40 +95,53 @@
             @Model.GameInfo.AwaySideUser.UserName
         }
     </h5>
-     @if (Model.GameInfo.IsFinished)
-     {
-         <h4 style="font-weight: bold; background-color: red;">WINNER</h4>
-         <h4 style="font-weight: bold; background-color: red;">@Model.GameInfo.WinnerName</h4>
-     }
 </div>
 
 <div id="home-side-container">
     @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUser.Id)
     {
-        <h4 id="turn-info">YOUR TURN</h4>
+        <h4 id="turn-info" class="red">YOUR TURN</h4>
     }
-    <h4>Home Side - X</h4>
+    <h4>Home Side - <span class="red">X</span></h4>
     @Model.GameInfo.HomeSideUser.UserName
 </div>
 
 <div id="grid-container">
 
     <div id="first-column">
-        <div class="tile" data-index="0">@Model.GameTiles.ElementAt(0).Value</div>
-        <div class="tile" data-index="1">@Model.GameTiles.ElementAt(1).Value</div>
-        <div class="tile" data-index="2">@Model.GameTiles.ElementAt(2).Value</div>
+        <div class="tile" data-index="0" data-isEmpty="@Model.GameTiles.ElementAt(0).IsEmpty">
+            @Model.GameTiles.ElementAt(0).Value
+        </div>
+        <div class="tile" data-index="1" data-isEmpty="@Model.GameTiles.ElementAt(1).IsEmpty">
+            @Model.GameTiles.ElementAt(1).Value
+        </div>
+        <div class="tile" data-index="2" data-isEmpty="@Model.GameTiles.ElementAt(2).IsEmpty">
+            @Model.GameTiles.ElementAt(2).Value
+        </div>
     </div>
 
     <div id="second-column">
-        <div class="tile" data-index="3">@Model.GameTiles.ElementAt(3).Value</div>
-        <div class="tile" data-index="4">@Model.GameTiles.ElementAt(4).Value</div>
-        <div class="tile" data-index="5">@Model.GameTiles.ElementAt(5).Value</div>
+        <div class="tile" data-index="3" data-isEmpty="@Model.GameTiles.ElementAt(3).IsEmpty">
+            @Model.GameTiles.ElementAt(3).Value
+        </div>
+        <div class="tile" data-index="4" data-isEmpty="@Model.GameTiles.ElementAt(4).IsEmpty">
+            @Model.GameTiles.ElementAt(4).Value
+        </div>
+        <div class="tile" data-index="5" data-isEmpty="@Model.GameTiles.ElementAt(5).IsEmpty">
+            @Model.GameTiles.ElementAt(5).Value
+        </div>
     </div>
 
     <div id="third-column">
-        <div class="tile" data-index="6">@Model.GameTiles.ElementAt(6).Value</div>
-        <div class="tile" data-index="7">@Model.GameTiles.ElementAt(7).Value</div>
-        <div class="tile" data-index="8">@Model.GameTiles.ElementAt(8).Value</div>
+        <div class="tile" data-index="6" data-isEmpty="@Model.GameTiles.ElementAt(6).IsEmpty">
+            @Model.GameTiles.ElementAt(6).Value
+        </div>
+        <div class="tile" data-index="7" data-isEmpty="@Model.GameTiles.ElementAt(7).IsEmpty">
+            @Model.GameTiles.ElementAt(7).Value
+        </div>
+        <div class="tile" data-index="8" data-isEmpty="@Model.GameTiles.ElementAt(8).IsEmpty">
+            @Model.GameTiles.ElementAt(8).Value
+        </div>
     </div>
 
 </div>
@@ -130,11 +149,14 @@
 <div id="away-side-container">
     @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.AwaySideUser.Id)
     {
-        <h4 id="turn-info">YOUR TURN</h4>
+        <h4 id="turn-info" class="blue">YOUR TURN</h4>
     }
-    <h4>Away Side - 0</h4>
+    <h4>Away Side - <span class="blue">0</span></h4>
     @Model.GameInfo.AwaySideUser.UserName
 </div>
 
 <input type="hidden" id="userId" value="@Model.GameInfo.CurrentTurnHolderId" />
 <input type="hidden" id="gameId" value="@Model.GameInfo.Id" />
+<input type="hidden" id="place-turn-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
+
+@Scripts.Render("~/bundles/humanVsHumanNewGameModule")

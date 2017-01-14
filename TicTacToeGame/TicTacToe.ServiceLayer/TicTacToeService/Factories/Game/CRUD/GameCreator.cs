@@ -7,7 +7,7 @@
     using Models;
     using TicTacToeCommon.Exceptions.User;
 
-    public class GameCreator
+    public class GameCreator : IGameCreator
     {
         private readonly ITicTacToeData data;
 
@@ -142,9 +142,9 @@
             {
                 Tile tile = CreateEmptyTile(game);
 
-                emptyTilesList.Add(tile);
-
                 data.Tiles.Add(tile);
+
+                emptyTilesList.Add(tile);
             }
 
             game.Tiles = emptyTilesList;

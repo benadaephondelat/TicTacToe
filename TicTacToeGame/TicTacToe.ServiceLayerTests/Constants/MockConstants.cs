@@ -16,6 +16,16 @@
 
         public const string InvalidUsername = "no_such_name_in_the_system@invalid.com";
 
+        public const int ZeroTileIndex = 0;
+
+        public const int InvalidGameId = 5318008;
+
+        public const int NewGameIndex = 1;
+
+        public const int FinishedGameIndex = 2;
+
+        public const int SameOponentGameIndex = 3;
+
         #endregion
     }
 }

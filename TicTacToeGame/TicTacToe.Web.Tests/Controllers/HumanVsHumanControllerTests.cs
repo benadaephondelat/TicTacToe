@@ -15,6 +15,8 @@
     using Models.Game.ViewModels;
     using Constants;
 
+    using TicTacToe.Web.Models.HumanVsHuman.PlaceTurn.InputModels;
+
     [TestClass]
     public class HumanVsHumanControllerTests
     {
@@ -31,18 +33,18 @@
         [TestMethod]
         public void HumanVsHuman_Controller_Should_Exist()
         {
-            HumanVsHumanController controller = this.GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             Assert.IsNotNull(controller);
         }
 
         [TestMethod]
-        public void HumanVsHuman_Controller_Should_Have_Public_Property_Named_TicTacToeGameService()
+        public void HumanVsHuman_Controller_Should_Have_Private_Property_Named_TicTacToeGameService()
         {
-            HumanVsHumanController controller = this.GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             bool result = controller.GetType()
-                                    .GetFields(BindingFlags.Instance | BindingFlags.Public)
+                                    .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                     .Any(field => field.Name == "ticTacToeGameService");
 
             Assert.IsTrue(result);
@@ -51,7 +53,7 @@
         [TestMethod]
         public void HumanVsHuman_Controller_Should_Have_Public_Property_Named_GetCurrentUserName()
         {
-            HumanVsHumanController controller = this.GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             bool result = controller.GetType()
                                     .GetFields(BindingFlags.Instance | BindingFlags.Public)
@@ -67,7 +69,7 @@
         [TestMethod]
         public void NewGame_Action_Should_Exist()
         {
-            HumanVsHumanController controller = this.GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             Assert.AreEqual("NewGame", nameof(controller.NewGame));
 
@@ -79,7 +81,7 @@
         [TestMethod]
         public void NewGame_Should_Return_View()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
@@ -89,7 +91,7 @@
         [TestMethod]
         public void NewGame_Should_Return_View_Named_NewGame()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
@@ -105,7 +107,7 @@
         [TestMethod]
         public void NewGame_Should_Pass_NewHumanVsHumanGameInputModel_To_The_View()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
@@ -121,7 +123,7 @@
         [TestMethod]
         public void NewHumanVsHumanGameInputModel_Should_Have_Property_Named_Players()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
@@ -139,7 +141,7 @@
         [TestMethod]
         public void NewGameInputModel_Players_Property_Should_Be_A_List_Of_Strings()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
@@ -155,7 +157,7 @@
         [TestMethod]
         public void NewGameInputModel_Players_Property_Should_Be_A_List_With_Two_Strings()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
@@ -171,7 +173,7 @@
         [TestMethod]
         public void NewGameInputModel_Players_Property_Should_Contain_Valid_String_As_First_Parameter()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
@@ -189,7 +191,7 @@
         [TestMethod]
         public void NewGameInputModel_Players_Property_Should_Contain_The_Default_HumanVsHuman_Oponent_Username_As_Second_Parameter()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             ActionResult actionResult = controller.NewGame();
 
@@ -205,7 +207,7 @@
         [TestMethod]
         public void NewGame_Post_Should_Exist_And_Accept_NewHumanVsHumanGameInputModel_As_A_Parameter()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             Type controllerType = controller.GetType();
 
@@ -220,7 +222,7 @@
         [TestMethod]
         public void NewGame_Post_Should_Return_PartialView()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel()
             {
@@ -238,7 +240,7 @@
         [TestMethod]
         public void NewGame_Post_Should_Return_PartialView_Named__NewGame()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel();
 
@@ -261,7 +263,7 @@
         [TestMethod]
         public void NewGame_Post_Should_Return_NewGameViewModel_As_Model_To_The_View()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel();
 
@@ -284,7 +286,7 @@
         [TestMethod]
         public void NewGame_Post_NewGameViewModel_Properties_Should_Not_Be_Null()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel();
 
@@ -309,7 +311,7 @@
         [TestMethod]
         public void NewGame_Post_NewGameViewModel_Should_Contain_9_Empty_Tiles()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel();
 
@@ -335,7 +337,7 @@
         [TestMethod]
         public void NewGame_Post_NewGameViewModel_Every_Tile_Should_Be_Empty()
         {
-            HumanVsHumanController controller = GetHumanVsHumanControllerMock();
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel
             {
@@ -359,13 +361,77 @@
 
             Assert.AreEqual(9, count);
         }
+        
+        #endregion
+
+        #region PlaceTurn Tests
+
+        [TestMethod]
+        public void PlaceTurn_Action_Should_Exist()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            Assert.IsNotNull(controller.PlaceTurn(model));
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Action_Should_Accept_PlaceTurnInputModel_As_Parameter()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            Type controllerType = controller.GetType();
+
+            int methodsCount = controllerType.GetTypeInfo()
+                                             .DeclaredMethods
+                                             .Count(m => m.Name.Contains(nameof(controller.PlaceTurn)) &&
+                                                         m.ToString().Contains("PlaceTurnInputModel"));
+
+            Assert.AreEqual(1, methodsCount);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Action_PlaceTurnInputModel_Should_Contain_Property_Named_GameId()
+        {
+            PlaceTurnInputModel model = new PlaceTurnInputModel();
+
+            Assert.IsNotNull(model.GameId);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Action_PlaceTurnInputModel_GameId_Property_Should_Be_An_Int()
+        {
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 5 };
+
+            int gameId = model.GameId;
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Action_PlaceTurnInputModel_Should_Contain_Property_Named_TileIndex()
+        {
+            PlaceTurnInputModel model = new PlaceTurnInputModel();
+
+            Assert.IsNotNull(model.TileIndex);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Action_PlaceTurnInputModel_TileIndex_Property_Should_Be_An_Int()
+        {
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 5, TileIndex = 0 };
+
+            Assert.IsTrue(true);
+        }
+
         #endregion
 
         /// <summary>
         /// Creates a mocked instance of HumanVsHuman controller
         /// </summary>
         /// <returns>HumanVsHumanController</returns>
-        private HumanVsHumanController GetHumanVsHumanControllerMock()
+        private HumanVsHumanController CreateHumanVsHumanControllerMock()
         {
             Mock<ITicTacToeGameService> ticTacToeServiceMock = mockHelper.SetupTicTacToeServiceMock();
 

@@ -32,7 +32,7 @@
         }
 
         /// <summary>
-        /// Mocks the ITicTacToeGameService methods
+        /// Mocks all methods ITicTacToeGameService
         /// </summary>
         /// <returns>Mock<ITicTacToeGameService></ITicTacToeGameService></returns>
         public Mock<ITicTacToeGameService> SetupTicTacToeServiceMock()
@@ -41,6 +41,10 @@
 
             serviceMock.Setup(p => p.CreateNewHumanVsHumanGame(MockConstants.UserId, MockConstants.OtherGuyId))
                        .Returns(this.Game);
+
+            serviceMock.Setup(p => p.PlaceTurn(1, 0, "georgi_iliev@yahoo.com"));
+
+            serviceMock.Setup(p => p.GetGameById(1)).Returns(this.Game);
 
             return serviceMock;
         }

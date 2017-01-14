@@ -2,30 +2,48 @@
 {
     using Models;
     using DataLayer.Data;
-
-    using TicTacToe.ServiceLayer.TicTacToeService.Factories.Game;
-    using TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.CRUD;
-
     using TicTacToeService;
+    using TicTacToeService.Factories.Game;
+    using TicTacToeService.Factories.Game.CRUD;
 
     public class TicTacToeGameService : ITicTacToeGameService
     {
-        private readonly IServicesAbstractFactory serviceFactory;
+        private readonly IServicesFactory serviceFactory;
 
         public TicTacToeGameService(ITicTacToeData data)
         {
-            this.serviceFactory = new ServicesAbstractFactory(data);
+            this.serviceFactory = new ServicesFactory(data);
         }
 
         public Game CreateNewHumanVsHumanGame(string homeSideUserName, string currentUserName)
         {
-            GameFactory gameFactory = this.serviceFactory.GetGameFactory();
+            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
 
-            GameCreator gameCreatorHelper = gameFactory.GetGameCreatorHelper();
+            IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
 
-            Game newGame = gameCreatorHelper.CreateNewHumanVsHumanGame(homeSideUserName, currentUserName);
+            Game newGame = gameCreator.CreateNewHumanVsHumanGame(homeSideUserName, currentUserName);
 
             return newGame;
+        }
+
+        public void PlaceTurn(int gameId, int tileIndex, string currentUserName)
+        {
+            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
+
+            IGameUpdator gameUpdator = gameFactory.GetGameUpdatorHelper();
+
+            gameUpdator.PlaceTurn(gameId, tileIndex, currentUserName);
+        }
+
+        public Game GetGameById(int gameId)
+        {
+            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
+
+            IGameReader gameReader = gameFactory.GetGameReaderHelper();
+
+            Game game = gameReader.GetGameById(gameId);
+
+            return game;
         }
     }
 }

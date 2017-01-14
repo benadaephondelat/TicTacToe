@@ -3,24 +3,30 @@
     using System;
     using System.Web.Mvc;
     using System.Collections.Generic;
-    using ServiceLayer.TicTacToeGameService;
+
     using TicTacToe.Models;
+
+    using ServiceLayer.TicTacToeGameService;
+
     using Constants;
     using Views.ViewConstants;
+    using Models.Game.ViewModels;
+    using Models.Tiles.ViewModels;
+    using FrameworkExtentions.Filters.Security;
     using FrameworkExtentions.Filters.ActionFilters;
     using Models.HumanVsHuman.NewGame.ViewModels;
     using Models.HumanVsHuman.NewGame.InputModels;
-    using Models.Game.ViewModels;
-    using Models.Tiles.ViewModels;
+    using Models.HumanVsHuman.PlaceTurn.InputModels;
+
     using AutoMapper;
     using Microsoft.AspNet.Identity;
 
     [CheckIfLoggedInFilter]
     public class HumanVsHumanController : Controller
     {
-        public ITicTacToeGameService ticTacToeGameService;
-
         public Func<string> GetCurrentUserName;
+
+        private ITicTacToeGameService ticTacToeGameService;
 
         public HumanVsHumanController()
         {
@@ -53,6 +59,23 @@
             string currentUserName = GetCurrentUserName();
             
             Game game = ticTacToeGameService.CreateNewHumanVsHumanGame(homeSideUserName, currentUserName);
+
+            NewGameViewModel viewModel = new NewGameViewModel()
+            {
+                GameInfo = Mapper.Map<NewGameInfoModel>(game),
+                GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
+            };
+
+            return PartialView(ViewConstants.NewGamePartialView, viewModel);
+        }
+
+        [HttpPost, ValidateAntiForgeryTokenAjax]
+        [CheckModelStateAjax]
+        public ActionResult PlaceTurn(PlaceTurnInputModel model)
+        {
+            this.ticTacToeGameService.PlaceTurn(model.GameId, model.TileIndex, this.GetCurrentUserName());
+
+            Game game = ticTacToeGameService.GetGameById(model.GameId);
 
             NewGameViewModel viewModel = new NewGameViewModel()
             {

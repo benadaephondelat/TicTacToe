@@ -4,9 +4,9 @@
     using DataLayer.Data;
 
     /// <summary>
-    /// Game CRUD operations factory
+    /// Game Repository CRUD operations factory
     /// </summary>
-    public class GameFactory
+    public class GameFactory : IGameFactory
     {
         private readonly ITicTacToeData data;
 
@@ -19,9 +19,27 @@
         /// Contains methods for CREATE operations on the Game class
         /// </summary>
         /// <returns>GameCreator</returns>
-        public GameCreator GetGameCreatorHelper()
+        public IGameCreator GetGameCreatorHelper()
         {
             return new GameCreator(this.data);
+        }
+
+        /// <summary>
+        /// Contains methods for READ operations on the Game class
+        /// </summary>
+        /// <returns>GameReader</returns>
+        public IGameReader GetGameReaderHelper()
+        {
+            return new GameReader(this.data);
+        }
+
+        /// <summary>
+        /// Contains methods for UPDATE operations on the Game class
+        /// </summary>
+        /// <returns>GameUpdator</returns>
+        public IGameUpdator GetGameUpdatorHelper()
+        {
+            return new GameUpdator(this.data);
         }
     }
 }

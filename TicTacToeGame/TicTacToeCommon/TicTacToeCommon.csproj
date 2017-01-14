@@ -41,8 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\Game\GameException.cs" />
+    <Compile Include="Exceptions\Game\GameIsFinishedException.cs" />
+    <Compile Include="Exceptions\Game\GameNotFoundException.cs" />
     <Compile Include="Exceptions\TicTacToeException.cs" />
+    <Compile Include="Exceptions\Tile\TileException.cs" />
+    <Compile Include="Exceptions\Tile\TileValidationException.cs" />
     <Compile Include="Exceptions\User\UserException.cs" />
+    <Compile Include="Exceptions\User\UserNotAuthorizedException.cs" />
     <Compile Include="Exceptions\User\UserNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -146,10 +146,109 @@
         {
             List<Game> gamesList = new List<Game>()
             {
-                new Game() { Id = 1,  StartDate = DateTime.Now, }
+                this.CreateNewHumanVsHumanGameMock(),
+                this.CreateFinishedGame(),
+                this.CreateSameUserInvalidGame()
             };
 
             return gamesList;
+        }
+
+        /// <summary>
+        /// Creates a mock of game
+        /// Same user is both the homeside and the awayside.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateSameUserInvalidGame()
+        {
+            Game game = new Game()
+            {
+                Id = 3,
+                StartDate = DateTime.Now,
+                ApplicationUser = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                ApplicationUserId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                Oponent = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                OponentId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                TurnsCount = 0,
+                GameName = "georgi_iliev@yahoo.com vs the-other-guy@yahoo.com",
+                OponentName = "the-other-guy@yahoo.com",
+                IsFinished = false,
+                Tiles = this.GetDefaultTilesList()
+            };
+
+            return game;
+        }
+
+        /// <summary>
+        /// Creates a mock of a finished game.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateFinishedGame()
+        {
+            Game finishedGame = new Game()
+            {
+                Id = 2,
+                StartDate = DateTime.Now,
+                ApplicationUser = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                ApplicationUserId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                Oponent = new ApplicationUser()
+                {
+                    Id = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
+                    UserName = "the-other-guy@yahoo.com"
+                },
+                OponentId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                TurnsCount = 9,
+                GameName = "georgi_iliev@yahoo.com vs the-other-guy@yahoo.com",
+                OponentName = "the-other-guy@yahoo.com",
+                IsFinished = true,
+                Tiles = this.GetDefaultTilesList()
+            };
+
+            return finishedGame;
+        }
+
+        /// <summary>
+        /// Creates a mock of a new human vs human game.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateNewHumanVsHumanGameMock()
+        {
+            Game game = new Game()
+            {
+                Id = 1,
+                StartDate = DateTime.Now,
+                ApplicationUser = new ApplicationUser()
+                                      {
+                                          Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                                          UserName = "georgi_iliev@yahoo.com"
+                                      },
+                ApplicationUserId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                Oponent = new ApplicationUser()
+                              {
+                                  Id = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
+                                  UserName = "the-other-guy@yahoo.com"
+                              },
+                OponentId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                TurnsCount = 1,
+                GameName = "georgi_iliev@yahoo.com vs the-other-guy@yahoo.com",
+                OponentName = "the-other-guy@yahoo.com",
+                IsFinished = false,
+                Tiles = this.GetDefaultTilesList()
+            };
+
+            return game;
         }
 
         /// <summary>

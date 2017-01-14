@@ -54,6 +54,7 @@
         /// <summary>
         /// Checks if a given integer number is odd.
         /// </summary>
+        /// <returns>bool</returns>
         private bool IsOddNumber(int turnsCount)
         {
             return turnsCount % 2 != 0;

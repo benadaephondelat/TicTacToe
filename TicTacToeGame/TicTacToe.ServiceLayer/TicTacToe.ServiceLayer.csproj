@@ -113,9 +113,15 @@
     <Compile Include="TicTacToeGameService\ITicTacToeGameService.cs" />
     <Compile Include="TicTacToeGameService\TicTacToeGameService.cs" />
     <Compile Include="TicTacToeService\Factories\Game\CRUD\GameCreator.cs" />
+    <Compile Include="TicTacToeService\Factories\Game\CRUD\GameReader.cs" />
+    <Compile Include="TicTacToeService\Factories\Game\CRUD\GameUpdator.cs" />
+    <Compile Include="TicTacToeService\Factories\Game\CRUD\IGameCreator.cs" />
+    <Compile Include="TicTacToeService\Factories\Game\CRUD\IGameReader.cs" />
+    <Compile Include="TicTacToeService\Factories\Game\CRUD\IGameUpdator.cs" />
     <Compile Include="TicTacToeService\Factories\Game\GameFactory.cs" />
-    <Compile Include="TicTacToeService\IServicesAbstractFactory.cs" />
-    <Compile Include="TicTacToeService\ServicesAbstractFactory.cs" />
+    <Compile Include="TicTacToeService\Factories\Game\IGameFactory.cs" />
+    <Compile Include="TicTacToeService\IServicesFactory.cs" />
+    <Compile Include="TicTacToeService\ServicesFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

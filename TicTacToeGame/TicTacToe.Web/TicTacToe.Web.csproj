@@ -229,7 +229,9 @@
     <Compile Include="Controllers\HumanVsHumanController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="FrameworkExtentions\Filters\ActionFilters\CheckIfLoggedIn.cs" />
+    <Compile Include="FrameworkExtentions\Filters\ActionFilters\CheckModelStateAjax.cs" />
     <Compile Include="FrameworkExtentions\Filters\ActionFilters\CheckModelStateFilter.cs" />
+    <Compile Include="FrameworkExtentions\Filters\Security\ValidateAntiForgeryTokenAjax.cs" />
     <Compile Include="FrameworkExtentions\Mappings\AutoMapperConfig.cs" />
     <Compile Include="FrameworkExtentions\Mappings\AutoMapperExtensions.cs" />
     <Compile Include="FrameworkExtentions\Mappings\IHaveCustomMappings.cs" />
@@ -237,6 +239,7 @@
     <Compile Include="FrameworkExtentions\Mappings\IMapTo.cs" />
     <Compile Include="FrameworkExtentions\Mappings\TypesMap.cs" />
     <Compile Include="FrameworkExtentions\UserIdentityHelpers\UserIdentityHelper.cs" />
+    <Compile Include="FrameworkExtentions\ViewHelpers\AntiForgeryTokenHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -244,6 +247,7 @@
     <Compile Include="Models\Game\ViewModels\NewGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\NewGame\InputModels\NewGameInputModel.cs" />
     <Compile Include="Models\HumanVsHuman\NewGame\ViewModels\NewGameViewModel.cs" />
+    <Compile Include="Models\HumanVsHuman\PlaceTurn\InputModels\PlaceTurnInputModel.cs" />
     <Compile Include="Models\Manage\ManageViewModels.cs" />
     <Compile Include="Models\Tiles\ViewModels\TileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -328,6 +332,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Home\" />
+    <Folder Include="Models\HumanVsHuman\PlaceTurn\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
