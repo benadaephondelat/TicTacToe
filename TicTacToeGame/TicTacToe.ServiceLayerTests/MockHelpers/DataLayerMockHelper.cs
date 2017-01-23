@@ -6,6 +6,7 @@
     using DataLayer.Data;
     using DataLayer.Repository;
     using Models;
+    using Models.Enums;
     using Moq;
 
     /// <summary>
@@ -148,7 +149,7 @@
             {
                 this.CreateNewHumanVsHumanGameMock(),
                 this.CreateFinishedGame(),
-                this.CreateSameUserInvalidGame()
+                this.CreateSameUserInvalidGame(),
             };
 
             return gamesList;
@@ -181,6 +182,7 @@
                 GameName = "georgi_iliev@yahoo.com vs the-other-guy@yahoo.com",
                 OponentName = "the-other-guy@yahoo.com",
                 IsFinished = false,
+                GameState = GameState.NotFinished,
                 Tiles = this.GetDefaultTilesList()
             };
 
@@ -213,7 +215,8 @@
                 GameName = "georgi_iliev@yahoo.com vs the-other-guy@yahoo.com",
                 OponentName = "the-other-guy@yahoo.com",
                 IsFinished = true,
-                Tiles = this.GetDefaultTilesList()
+                GameState = GameState.Won,
+                Tiles = this.GetHomesideUserEarlyWinTilesList(),
             };
 
             return finishedGame;
@@ -240,15 +243,44 @@
                     Id = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
                     UserName = "the-other-guy@yahoo.com"
                 },
-                OponentId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                OponentId = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
                 TurnsCount = 1,
                 GameName = "georgi_iliev@yahoo.com vs the-other-guy@yahoo.com",
                 OponentName = "the-other-guy@yahoo.com",
                 IsFinished = false,
-                Tiles = this.GetDefaultTilesList()
+                Tiles = this.GetDefaultTilesList(),
+                GameState = GameState.NotFinished
             };
 
             return game;
+        }
+
+        /// <summary>
+        /// Return a list of ti
+        /// </summary>
+        /// <returns>List<Tile></Tile></returns>
+        private List<Tile> GetHomesideUserEarlyWinTilesList()
+        {
+            List<Tile> defaultTilesList = GenerateHomesideUserEarlyWinTiles();
+
+            return defaultTilesList;
+        }
+
+        /// <summary>
+        /// Creates a list of tiles
+        /// </summary>
+        /// <returns>List Tile</returns>
+        private List<Tile> GenerateHomesideUserEarlyWinTiles()
+        {
+            List<Tile> result = GenerateDefaultTilesList();
+
+            result.ElementAt(0).Value = "X";
+            result.ElementAt(1).Value = "X";
+            result.ElementAt(2).Value = "X";
+            result.ElementAt(3).Value = "O";
+            result.ElementAt(4).Value = "O";
+
+            return result;
         }
 
         /// <summary>

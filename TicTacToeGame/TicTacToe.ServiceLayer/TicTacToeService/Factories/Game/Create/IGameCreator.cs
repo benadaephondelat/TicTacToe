@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.CRUD
+﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.Create
 {
     using Models;
 

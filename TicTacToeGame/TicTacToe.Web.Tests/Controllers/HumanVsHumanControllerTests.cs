@@ -6,7 +6,6 @@
     using System.Reflection;
     using System.Collections.Generic;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Models.HumanVsHuman.NewGame.InputModels;
     using MockHelpers;
     using Web.Controllers;
     using Web.Controllers.Constants;
@@ -14,8 +13,8 @@
     using Moq;
     using Models.Game.ViewModels;
     using Constants;
-
-    using TicTacToe.Web.Models.HumanVsHuman.PlaceTurn.InputModels;
+    using Models.Game.InputModels;
+    using Models.HumanVsHuman.PlaceTurn.InputModels;
 
     [TestClass]
     public class HumanVsHumanControllerTests
@@ -39,6 +38,14 @@
         }
 
         [TestMethod]
+        public void HumanVsHuman_Controller_Should_Have_Empty_Constructor()
+        {
+            HumanVsHumanController controller = new HumanVsHumanController();
+
+            Assert.IsNotNull(controller);
+        }
+
+        [TestMethod]
         public void HumanVsHuman_Controller_Should_Have_Private_Property_Named_TicTacToeGameService()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
@@ -46,6 +53,18 @@
             bool result = controller.GetType()
                                     .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                     .Any(field => field.Name == "ticTacToeGameService");
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void HumanVsHuman_Controller_Should_Have_Private_Method_Named_CurrentUserName()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            bool result = controller.GetType()
+                                    .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                                    .Any(field => field.Name == "CurrentUserName");
 
             Assert.IsTrue(result);
         }
@@ -62,6 +81,16 @@
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void HumanVsHuman_Controller_Should_Have_PrivateMethod_Named_CurrentUserName()
+        {
+            var privateObject = new PrivateObject(this.CreateHumanVsHumanControllerMock());
+
+            var result = (string)privateObject.Invoke("CurrentUserName");
+
+            Assert.IsNull(result);
+        }
+        
         #endregion
 
         #region NewGame Tests
@@ -261,7 +290,7 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_Should_Return_NewGameViewModel_As_Model_To_The_View()
+        public void NewGame_Post_Should_Return_HumanVsHumanGameViewModel_As_Model_To_The_View()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -284,7 +313,7 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_NewGameViewModel_Properties_Should_Not_Be_Null()
+        public void NewGame_Post_HumanVsHumanGameViewModel_Properties_Should_Not_Be_Null()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -309,7 +338,7 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_NewGameViewModel_Should_Contain_9_Empty_Tiles()
+        public void NewGame_Post_HumanVsHumanGameViewModel_Should_Contain_9_Empty_Tiles()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -335,7 +364,7 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_NewGameViewModel_Every_Tile_Should_Be_Empty()
+        public void NewGame_Post_HumanVsHumanGameViewModel_Every_Tile_Should_Be_Empty()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -404,9 +433,7 @@
         {
             PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 5 };
 
-            int gameId = model.GameId;
-
-            Assert.IsTrue(true);
+            Assert.AreEqual(5, model.GameId);
         }
 
         [TestMethod]
@@ -422,7 +449,7 @@
         {
             PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 5, TileIndex = 0 };
 
-            Assert.IsTrue(true);
+            Assert.AreEqual(0, model.TileIndex);
         }
 
         [TestMethod]
@@ -435,6 +462,156 @@
             ActionResult actionResult = controller.PlaceTurn(model);
 
             Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Return_PartialView_Named__HumanVsHumanGame()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual("_HumanVsHumanGame", result.ViewName);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Return_HumanVsHumanGameViewModel_As_Model_To_The_View()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            bool isCastValidCast = partialViewResult.Model is HumanVsHumanGameViewModel;
+
+            Assert.IsTrue(isCastValidCast);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_HumanVsHumanGameViewModel_Properties_Should_Not_Be_Null()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.GameInfo);
+            Assert.IsNotNull(result.GameTiles);
+        }
+
+        [TestMethod]
+        public void PlaceTurn_Should_Redirect_To_FinishedGame_Action_If_Game_Is_Finished()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 2, TileIndex = 0 };
+
+            RedirectToRouteResult redirectResult = (RedirectToRouteResult)controller.PlaceTurn(model);
+
+            Assert.AreEqual(redirectResult.RouteValues.Values.ElementAt(1), "FinishedGame");
+        }
+
+        #endregion
+
+        #region FinishedGame Tests
+
+        [TestMethod]
+        public void FinishedGame_Action_Should_Exist()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            Assert.IsNotNull(controller.FinishedGame(1));
+        }
+
+        [TestMethod]
+        public void FinishedGame_Action_Should_Accept_gameId_As_Parameter()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            Type controllerType = controller.GetType();
+
+            var method = controllerType.GetTypeInfo().DeclaredMethods.ToList().FirstOrDefault(m => m.Name == "FinishedGame");
+
+            Assert.IsNotNull(method);
+
+            Assert.IsTrue(method.ToString().Contains("Int32"));
+        }
+
+        [TestMethod]
+        public void FinishedGame_Should_Return_PartialView()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.FinishedGame(1);
+
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
+        }
+
+        [TestMethod]
+        public void FinishedGame_Should_Return_PartialView_Named__FinishedHumanVsHumanGame()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.FinishedGame(1);
+
+            PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual("_FinishedHumanVsHumanGame", result.ViewName);
+        }
+
+        [TestMethod]
+        public void FinishedGame_Should_Return_FinishedGameViewModel_As_Model_To_The_View()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.FinishedGame(1);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            bool isCastValidCast = partialViewResult.Model is FinishedGameViewModel;
+
+            Assert.IsTrue(isCastValidCast);
+        }
+
+        [TestMethod]
+        public void FinishedGame_FinishedGameViewModel_Properties_Should_Not_Be_Null()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.FinishedGame(1);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            FinishedGameViewModel result = partialViewResult.Model as FinishedGameViewModel;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.GameInfo);
+            Assert.IsNotNull(result.GameTiles);
         }
 
         #endregion

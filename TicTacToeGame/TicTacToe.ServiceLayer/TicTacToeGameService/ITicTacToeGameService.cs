@@ -36,5 +36,22 @@
         /// <exception cref="GameNotFoundException"></exception>
         /// <returns>Game</returns>
         Game GetGameById(int gameId);
+
+        /// <summary>
+        /// Checks if a Game is finished or throws exception.
+        /// </summary>
+        /// <param name="gameId">id of the game</param>
+        /// <exception cref="GameNotFoundException"></exception>
+        /// <returns>Game</returns>
+        bool IsGameFinished(int gameId);
+
+        /// <summary>
+        /// Checks a Game for a winner or throws exception.
+        /// Sets Game properties if the game has a winner.
+        /// </summary>
+        /// <param name="gameId">id of the game</param>
+        /// <exception cref="GameNotFoundException"></exception>
+        /// <exception cref="GameIsFinishedException"></exception>
+        void CheckGameForOutcome(int gameId);
     }
 }

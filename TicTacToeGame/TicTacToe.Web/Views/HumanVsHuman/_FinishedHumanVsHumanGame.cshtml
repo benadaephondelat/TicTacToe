@@ -1,0 +1,202 @@
+﻿@using TicTacToe.Models.Enums
+@using TicTacToe.Web.FrameworkExtentions.ViewHelpers
+@model TicTacToe.Web.Models.Game.ViewModels.FinishedGameViewModel
+
+<style>
+    #first-column, #second-column, #third-column {
+        display: inline-flex;
+    }
+
+
+    .red {
+        color: red;
+    }
+
+    .blue {
+        color: blue;
+    }
+
+    #first-column > div {
+        border: 1px solid black;
+        width: 125px;
+        height: 125px;
+    }
+
+    #second-column > div {
+        border: 1px solid black;
+        width: 125px;
+        height: 125px;
+    }
+
+    #third-column > div {
+        border: 1px solid black;
+        width: 125px;
+        height: 125px;
+    }
+
+    #grid-container {
+        width: 35%;
+    }
+
+    #home-side-container, #away-side-container, #grid-container {
+        float: left;
+    }
+
+    #turn-container {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 5%;
+    }
+
+    #back-to-main-menu-button {
+        float: left;
+        clear: both;
+        margin-left: 42%;
+        width: 16%;
+        margin-top: 3%;
+    }
+
+    #away-side-container {
+        margin-left: 15%;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #grid-container {
+        margin-left: 17.5%;
+        margin-top: -3%;
+    }
+
+    #home-side-container {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #turn-info {
+        font-weight: bold;
+    }
+
+    .tile {
+        font-weight: bold;
+        font-size: 90px;
+        padding-left: 9%;
+    }
+
+        .X {
+        color: red;
+    }
+
+    .O {
+        color: blue;
+    }
+
+    .red-text {
+        font-weight: bold;
+        color: red;
+    }
+
+    .blue-text {
+        font-weight: bold;
+        color: blue;
+    }
+
+    #replay-game-button {
+        float: left;
+        clear: both;
+        margin-left: 42%;
+        margin-top: 2%;
+        margin-bottom: -2%;
+        width: 16%;
+    }
+</style>
+
+@if (Model.GameInfo.GameState == GameState.Draw)
+{
+    <h4 class="text-center">DRAW</h4>
+}
+else if (Model.GameInfo.GameState == GameState.Won)
+{
+    if (Model.GameInfo.WinnerId == Model.GameInfo.HomeSideUserId)
+    {
+        <h4 class="text-center red-text">@Model.GameInfo.HomeSideUserName WINS</h4>
+    }
+    else
+    {
+        <h4 class="text-center blue-text">@Model.GameInfo.AwaySideUserName WINS</h4>
+    }
+}
+
+<div id="turn-container">
+    <h5>Game finished at turn: @(Model.GameInfo.TurnsCount - 1)</h5>
+    <h5>Game duration: @Model.GameInfo.GameDuration.Minutes minutes and @Model.GameInfo.GameDuration.Seconds seconds </h5>
+</div>
+
+<div id="home-side-container">
+    <h4>Home Side - <span class="red">X</span></h4>
+    @Model.GameInfo.HomeSideUserName
+    
+    @if (Model.GameInfo.GameState == GameState.Won)
+    {
+        if (Model.GameInfo.WinnerId == Model.GameInfo.HomeSideUserId)
+        {
+            <h4 class="red-text">YOU WON</h4>
+        }
+    }
+</div>
+
+<div id="grid-container">
+
+    <div id="first-column">
+        <div class="tile @Model.GameTiles.ElementAt(0).Value" data-index="0" data-isEmpty="@Model.GameTiles.ElementAt(0).IsEmpty">
+            @Model.GameTiles.ElementAt(0).Value
+        </div>
+        <div class="tile @Model.GameTiles.ElementAt(1).Value" data-index="1" data-isEmpty="@Model.GameTiles.ElementAt(1).IsEmpty">
+            @Model.GameTiles.ElementAt(1).Value
+        </div>
+        <div class="tile @Model.GameTiles.ElementAt(2).Value" data-index="2" data-isEmpty="@Model.GameTiles.ElementAt(2).IsEmpty">
+            @Model.GameTiles.ElementAt(2).Value
+        </div>
+    </div>
+
+    <div id="second-column">
+        <div class="tile @Model.GameTiles.ElementAt(3).Value" data-index="3" data-isEmpty="@Model.GameTiles.ElementAt(3).IsEmpty">
+            @Model.GameTiles.ElementAt(3).Value
+        </div>
+        <div class="tile @Model.GameTiles.ElementAt(4).Value" data-index="4" data-isEmpty="@Model.GameTiles.ElementAt(4).IsEmpty">
+            @Model.GameTiles.ElementAt(4).Value
+        </div>
+        <div class="tile @Model.GameTiles.ElementAt(5).Value" data-index="5" data-isEmpty="@Model.GameTiles.ElementAt(5).IsEmpty">
+            @Model.GameTiles.ElementAt(5).Value
+        </div>
+    </div>
+
+    <div id="third-column">
+        <div class="tile @Model.GameTiles.ElementAt(6).Value" data-index="6" data-isEmpty="@Model.GameTiles.ElementAt(6).IsEmpty">
+            @Model.GameTiles.ElementAt(6).Value
+        </div>
+        <div class="tile @Model.GameTiles.ElementAt(7).Value" data-index="7" data-isEmpty="@Model.GameTiles.ElementAt(7).IsEmpty">
+            @Model.GameTiles.ElementAt(7).Value
+        </div>
+        <div class="tile @Model.GameTiles.ElementAt(8).Value" data-index="8" data-isEmpty="@Model.GameTiles.ElementAt(8).IsEmpty">
+            @Model.GameTiles.ElementAt(8).Value
+        </div>
+    </div>
+
+</div>
+
+<div id="away-side-container">
+    <h4>Away Side - <span class="blue">0</span></h4>
+    @Model.GameInfo.AwaySideUserName
+    
+    @if (Model.GameInfo.GameState == GameState.Won)
+    {
+        if (Model.GameInfo.WinnerId == Model.GameInfo.AwaySideUserId)
+        {
+            <h4 class="blue-text">YOU WON</h4>
+        }
+    }
+</div>
+
+@*<button class="btn btn-primary btn-lg" id="replay-game-button">Replay Game</button>*@
+
+<input type="hidden" id="finished-game-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />

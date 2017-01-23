@@ -3,10 +3,10 @@
     using System.Collections.Generic;
     using Tiles.ViewModels;
 
-    public class HumanVsHumanGameViewModel
+    public class FinishedGameViewModel
     {
-        public HumanVsHumanGameInfoModel GameInfo { get; set; }
-
+        public FinishedGameInfoViewModel GameInfo { get; set; }
+        
         public IEnumerable<TileViewModel> GameTiles { get; set; }
     }
 }

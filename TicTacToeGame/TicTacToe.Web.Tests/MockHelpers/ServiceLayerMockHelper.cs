@@ -22,11 +22,14 @@
 
         private Game Game { get; }
 
+        private Game FinishedGame { get; }
+
         public ServiceLayerMockHelper()
         {
             this.Users = this.CreateDefaultUsersMock();
             this.DefaultTilesList = this.CreateDefaultTilesMock();
             this.Game = this.CreateNewGameMock();
+            this.FinishedGame = this.CreateFinishGameMock();
 
             this.ConfigureAutoMapper();
         }
@@ -45,6 +48,8 @@
             serviceMock.Setup(p => p.PlaceTurn(1, 0, "georgi_iliev@yahoo.com"));
 
             serviceMock.Setup(p => p.GetGameById(1)).Returns(this.Game);
+
+            serviceMock.Setup(p => p.GetGameById(2)).Returns(this.FinishedGame);
 
             return serviceMock;
         }
@@ -151,6 +156,32 @@
                 OponentId = this.Users[1].Id,
                 OponentName = this.Users[1].UserName,
                 TurnsCount = 1,
+                Tiles = this.DefaultTilesList
+            };
+
+            return game;
+        }
+
+        /// <summary>
+        /// Creates a finished human vs human game 
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateFinishGameMock()
+        {
+            Game game = new Game()
+            {
+                Id = 2,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                GameName = "MOCKED GAME",
+                ApplicationUser = this.Users[0],
+                ApplicationUserId = this.Users[0].Id,
+                Oponent = this.Users[1],
+                OponentId = this.Users[1].Id,
+                OponentName = this.Users[1].UserName,
+                TurnsCount = 2,
+                WinnerId = this.Users[1].UserName,
+                IsFinished = true,
                 Tiles = this.DefaultTilesList
             };
 

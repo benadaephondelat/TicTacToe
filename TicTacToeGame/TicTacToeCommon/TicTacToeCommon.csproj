@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\GameConstants.cs" />
+    <Compile Include="Constants\TileConstants.cs" />
     <Compile Include="Exceptions\Game\GameException.cs" />
     <Compile Include="Exceptions\Game\GameIsFinishedException.cs" />
     <Compile Include="Exceptions\Game\GameNotFoundException.cs" />
@@ -51,9 +53,7 @@
     <Compile Include="Exceptions\User\UserNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

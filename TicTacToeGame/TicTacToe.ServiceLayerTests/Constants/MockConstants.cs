@@ -26,6 +26,24 @@
 
         public const int SameOponentGameIndex = 3;
 
+        public const int TopLeftTileIndex = 0;
+
+        public const int TopMiddleTileIndex = 1;
+
+        public const int TopRightTileIndex = 2;
+
+        public const int MiddleLeftTileIndex = 3;
+
+        public const int MiddleMiddleTileIndex = 4;
+
+        public const int MiddleRightTileIndex = 5;
+
+        public const int BottomLeftTileIndex = 6;
+
+        public const int BottomMiddleTileIndex = 7;
+
+        public const int BottomRightTileIndex = 8;
+
         #endregion
     }
 }

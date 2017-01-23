@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Web.Models.HumanVsHuman.NewGame.ViewModels
+﻿namespace TicTacToe.Web.Models.Game.ViewModels
 {
     using System;
     using TicTacToe.Models;
@@ -9,9 +9,13 @@
     {
         public int Id { get; set; }
 
-        public ApplicationUser HomeSideUser { get; set; }
+        public string HomeSideUserId { get; set; }
 
-        public ApplicationUser AwaySideUser { get; set; }
+        public string HomeSideUserName { get; set; }
+
+        public string AwaySideUserId { get; set; }
+
+        public string AwaySideUserName { get; set; }
 
         public int TurnsCount { get; set; }
 
@@ -21,27 +25,24 @@
 
         public DateTime StartDate { get; set; }
 
-        public bool IsFinished { get; set; }
-
-        public string WinnerName { get; set; }
-
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Game, HumanVsHumanGameInfoModel>()
-                         .ForMember(vm => vm.HomeSideUser, opt => opt.MapFrom(s => s.ApplicationUser))
-                         .ForMember(vm => vm.AwaySideUser, opt => opt.MapFrom(s => s.Oponent))
-                         .ForMember(vm => vm.CurrentTurnHolderId, opt => opt.MapFrom(s => CalculateTurnHolderId(s.TurnsCount ?? 1, s.ApplicationUser.Id, s.Oponent.Id)));
+                         .ForMember(vm => vm.HomeSideUserName, opt => opt.MapFrom(s => s.ApplicationUser.UserName))
+                         .ForMember(vm => vm.HomeSideUserId, opt => opt.MapFrom(s => s.ApplicationUserId))
+                         .ForMember(vm => vm.AwaySideUserId, opt => opt.MapFrom(s => s.OponentId))
+                         .ForMember(vm => vm.AwaySideUserName, opt => opt.MapFrom(s => s.Oponent.UserName))
+                         .ForMember(vm => vm.CurrentTurnHolderId, opt => opt.MapFrom(s => this.GetCurrentTurnHolderId(s.TurnsCount ?? 1, s.ApplicationUser.Id, s.Oponent.Id)));
         }
 
         /// <summary>
-        /// If turns count is odd number then is the homeside user's turn
-        /// else it is the awayside's turn
+        /// If turns count is odd number then it's the homeside user's turn
         /// </summary>
         /// <param name="turnsCount">the current turn count</param>
         /// <param name="homeUserId">id of the homeside user</param>
         /// <param name="awayUserId">id of the awayside user</param>
         /// <returns>string</returns>
-        public string CalculateTurnHolderId(int turnsCount, string homeUserId, string awayUserId)
+        public string GetCurrentTurnHolderId(int turnsCount, string homeUserId, string awayUserId)
         {
             if (IsOddNumber(turnsCount))
             {

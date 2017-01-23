@@ -1,6 +1,8 @@
 ﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game
 {
-    using CRUD;
+    using Create;
+    using Read;
+    using Update;
 
     /// <summary>
     /// Game Repository CRUD operations Factory

@@ -1,10 +1,13 @@
 ﻿namespace TicTacToe.ServiceLayer.TicTacToeGameService
 {
+    using System;
     using Models;
     using DataLayer.Data;
-    using TicTacToeService;
     using TicTacToeService.Factories.Game;
-    using TicTacToeService.Factories.Game.CRUD;
+    using TicTacToeService.Factories.Game.Create;
+    using TicTacToeService.Factories.Game.Read;
+    using TicTacToeService.Factories.Game.Update;
+    using TicTacToeService;
 
     public class TicTacToeGameService : ITicTacToeGameService
     {
@@ -44,6 +47,26 @@
             Game game = gameReader.GetGameById(gameId);
 
             return game;
+        }
+
+        public bool IsGameFinished(int gameId)
+        {
+            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
+
+            IGameReader gameReader = gameFactory.GetGameReaderHelper();
+
+            bool isFinished = gameReader.IsGameFinished(gameId);
+
+            return isFinished;
+        }
+
+        public void CheckGameForOutcome(int gameId)
+        {
+            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
+
+            IGameUpdator gameUpdator = gameFactory.GetGameUpdatorHelper();
+
+            gameUpdator.CheckGameForOutcome(gameId);
         }
     }
 }

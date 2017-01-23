@@ -5,19 +5,20 @@
     using DataLayer.Data;
     using ServiceLayer.TicTacToeGameService;
     using Models;
+    using Models.Enums;
     using Constants;
     using MockHelpers;
     using TicTacToeCommon.Exceptions.User;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Moq;
-
-    using TicTacToeCommon.Exceptions.Game;
     using TicTacToeCommon.Exceptions.Tile;
+    using TicTacToeCommon.Exceptions.Game;
+    using Moq;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class TicTacToeGameServiceTests
     {
         private Mock<ITicTacToeData> dataLayerMock;
+
         private TicTacToeGameService gameService;
 
         [TestInitialize]
@@ -124,7 +125,7 @@
 
             bool isWithinTenSeconds = game.StartDate <= expectedTime;
 
-            Assert.IsTrue(isWithinTenSeconds); 
+            Assert.IsTrue(isWithinTenSeconds);
         }
 
         [TestMethod]
@@ -184,7 +185,8 @@
         }
 
         [TestMethod]
-        public void CreateNewHumanVsHumanGame_Game_If_The_CurrentUser_Starts_First_The_Oponent_Should_Be_The_DefaultUser()
+        public void CreateNewHumanVsHumanGame_Game_If_The_CurrentUser_Starts_First_The_Oponent_Should_Be_The_DefaultUser
+            ()
         {
             Game game = gameService.CreateNewHumanVsHumanGame(MockConstants.UserName, MockConstants.UserName);
 
@@ -192,7 +194,8 @@
         }
 
         [TestMethod]
-        public void CreateNewHumanVsHumanGame_Game_If_The_CurrentUser_Starts_Second_The_HomeSideUser_Should_Be_The_DefaultUser()
+        public void
+            CreateNewHumanVsHumanGame_Game_If_The_CurrentUser_Starts_Second_The_HomeSideUser_Should_Be_The_DefaultUser()
         {
             Game game = gameService.CreateNewHumanVsHumanGame(MockConstants.OtherGuyUserName, MockConstants.UserName);
 
@@ -256,7 +259,7 @@
 
         [TestMethod]
         [ExpectedException(typeof(GameNotFoundException))]
-        public void PlaceTurn_Action_Should_Throw_GameNotFoundException_If_GameId_Is_Not_In_The_Database()
+        public void PlaceTurn_Should_Throw_GameNotFoundException_If_GameId_Is_Not_In_The_Database()
         {
             string username = MockConstants.UserName;
             int gameId = MockConstants.InvalidGameId;
@@ -276,7 +279,7 @@
         [ExpectedException(typeof(UserNotAuthorizedException))]
         public void PlaceTurn_Should_Throw_UserNotAuthorized_If_CurrentUser_Is_Not_Part_Of_The_Game()
         {
-           this.gameService.PlaceTurn(MockConstants.SameOponentGameIndex, 0, "alibaba@yahoo.com");
+            this.gameService.PlaceTurn(MockConstants.SameOponentGameIndex, 0, "alibaba@yahoo.com");
         }
 
         [TestMethod]
@@ -313,7 +316,7 @@
                 if (IsOddNumber(i) == false)
                 {
                     evenNumbersCount++;
-                    
+
                     string tileValue = game.Tiles.ElementAt(i).Value;
 
                     if (tileValue == "X")
@@ -423,6 +426,427 @@
         private bool IsOddNumber(int turnsCount)
         {
             return turnsCount % 2 != 0;
+        }
+
+        #endregion
+
+        #region CheckGameForOutcome
+
+        [TestMethod]
+        [ExpectedException(typeof(GameNotFoundException))]
+        public void CheckGameForWinner_Should_Throw_GameNotFoundException_If_GameId_Is_Not_In_The_Database()
+        {
+            int gameId = MockConstants.InvalidGameId;
+
+            this.gameService.CheckGameForOutcome(gameId);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(GameIsFinishedException))]
+        public void CheckGameForWinner_Should_Throw_GameIsFinishedException_If_Game_Is_Finished()
+        {
+            int gameId = MockConstants.FinishedGameIndex;
+
+            this.gameService.CheckGameForOutcome(gameId);
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Not_Check_For_Winner_If_Game_Turns_Count_Is_Less_Than_5()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.AreEqual(GameState.NotFinished, game.GameState);
+            Assert.AreEqual(false, game.IsFinished);
+            Assert.AreEqual(null, game.EndDate);
+            Assert.IsTrue(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_IsFinished_Property_To_True_If_There_Is_A_Winner()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.SimulateGameWonByTheHomesideUser(game);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_EndDate_Property_If_There_Is_A_Winner()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.SimulateGameWonByTheHomesideUser(game);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsNotNull(game.EndDate);
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_GameState_Property_To_Won_If_There_Is_A_Winner()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.SimulateGameWonByTheHomesideUser(game);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.AreEqual(GameState.Won, game.GameState);
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_WinnerId_Property_To_Be_The_HomeSideUserId_If_The_HomeSideUser_Has_Won()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.SimulateGameWonByTheHomesideUser(game);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.AreEqual(MockConstants.UserId, game.WinnerId);
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_WinnerId_Property_To_Be_The_AwaySideUserId_If_The_AwaySideUser_Has_Won()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleRightTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopMiddleTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopRightTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.AreEqual(MockConstants.OtherGuyId, game.WinnerId);
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_GameState_Property_To_Draw_If_TheGame_Is_A_Draw()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.SimulateDrawGame(game);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.AreEqual(GameState.Draw, game.GameState);
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_IsFinished_Property_To_True_If_TheGame_Is_A_Draw()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.SimulateDrawGame(game);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_EndDate_Property_If_TheGame_Is_A_Draw()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.SimulateDrawGame(game);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsNotNull(game.EndDate);
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Not_Set_Game_WinnerId_Property_If_TheGame_Is_A_Draw()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.SimulateDrawGame(game);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Not_Set_Game_Finished_Properties_If_TheGame_Is_Not_Finished()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.UserName);
+            
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsFalse(game.IsFinished);
+            Assert.AreEqual(GameState.NotFinished, game.GameState);
+            Assert.IsNull(game.EndDate);
+            Assert.IsTrue(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_Win_Properties_If_Horizontal_Tiles_Are_Equal_Starting_From_Top_Left()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomRightTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopRightTileIndex, MockConstants.UserName);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+            Assert.AreEqual(GameState.Won, game.GameState);
+            Assert.IsNotNull(game.EndDate);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_Win_Properties_If_Horizontal_Tiles_Are_Equal_Starting_From_Middle_Left()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomRightTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleRightTileIndex, MockConstants.UserName);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+            Assert.AreEqual(GameState.Won, game.GameState);
+            Assert.IsNotNull(game.EndDate);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_Win_Properties_If_Horizontal_Tiles_Are_Equal_Starting_From_Bottom_Left()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopRightTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomRightTileIndex, MockConstants.UserName);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+            Assert.AreEqual(GameState.Won, game.GameState);
+            Assert.IsNotNull(game.EndDate);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_Win_Properties_If_Vertical_Tiles_Are_Equal_Starting_From_Top_Left()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleMiddleTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleRightTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+            Assert.AreEqual(GameState.Won, game.GameState);
+            Assert.IsNotNull(game.EndDate);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_Win_Properties_If_Vertical_Tiles_Are_Equal_Starting_From_Top_Middle()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleRightTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+            Assert.AreEqual(GameState.Won, game.GameState);
+            Assert.IsNotNull(game.EndDate);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_Win_Properties_If_Vertical_Tiles_Are_Equal_Starting_From_Top_Right()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopRightTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleRightTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomRightTileIndex, MockConstants.UserName);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+            Assert.AreEqual(GameState.Won, game.GameState);
+            Assert.IsNotNull(game.EndDate);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_Win_Properties_If_Diagonal_Tiles_Are_Equal_Starting_From_Top_Left()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomRightTileIndex, MockConstants.UserName);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+            Assert.AreEqual(GameState.Won, game.GameState);
+            Assert.IsNotNull(game.EndDate);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void CheckGameForWinner_Should_Set_Game_Win_Properties_If_Diagonal_Tiles_Are_Equal_Starting_From_Top_Right()
+        {
+            Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopRightTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.CheckGameForOutcome(game.Id);
+
+            Assert.IsTrue(game.IsFinished);
+            Assert.AreEqual(GameState.Won, game.GameState);
+            Assert.IsNotNull(game.EndDate);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        /// <summary>
+        /// Simulates a game won by the homeside user
+        /// </summary>
+        /// <param name="game">Game</param>
+        private void SimulateGameWonByTheHomesideUser(Game game)
+        {
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomRightTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopRightTileIndex, MockConstants.UserName);
+        }
+
+        /// <summary>
+        /// Simulates a draw game
+        /// </summary>
+        /// <param name="game">Game</param>
+        private void SimulateDrawGame(Game game)
+        {
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopRightTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomLeftTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomRightTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleRightTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleLeftTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.TopMiddleTileIndex, MockConstants.UserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.MiddleMiddleTileIndex, MockConstants.OtherGuyUserName);
+
+            this.gameService.PlaceTurn(game.Id, MockConstants.BottomMiddleTileIndex, MockConstants.UserName);
+        }
+
+        #endregion
+
+        #region IsGameFinished
+
+        [TestMethod]
+        [ExpectedException(typeof(GameNotFoundException))]
+        public void IsGameFinished_Should_Throw_GameNotFoundException_If_Id_Is_Invalid()
+        {
+            this.gameService.GetGameById(MockConstants.InvalidGameId);
+        }
+
+        [TestMethod]
+        public void IsGameFinished_Should_Return_True_If_Game_Is_Finished()
+        {
+            bool result = this.gameService.IsGameFinished(MockConstants.FinishedGameIndex);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void IsGameFinished_Should_Return_False_If_Game_Is_Not_Finished()
+        {
+            bool result = this.gameService.IsGameFinished(MockConstants.NewGameIndex);
+
+            Assert.IsFalse(result);
         }
 
         #endregion

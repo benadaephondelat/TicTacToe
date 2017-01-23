@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace TicTacToe.Web.FrameworkExtentions.Filters.ActionFilters
+﻿namespace TicTacToe.Web.FrameworkExtentions.Filters.ActionFilters
 {
     using System.Linq;
     using System.Web.Mvc;

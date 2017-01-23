@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.CRUD
+﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.Update.Helpers
 {
     using System.Linq;
     using Models;
@@ -7,20 +7,17 @@
     using TicTacToeCommon.Exceptions.Tile;
     using TicTacToeCommon.Exceptions.User;
 
-    public class GameUpdator : IGameUpdator
+    public class PlaceTurnHelper : GameUpdator
     {
-        private readonly ITicTacToeData data;
-
-        public GameUpdator(ITicTacToeData data)
+        public PlaceTurnHelper(ITicTacToeData data) : base(data)
         {
-            this.data = data;
         }
 
-        public void PlaceTurn(int gameId, int tileIndex, string currentUserName)
+        public new void PlaceTurn(int gameId, int tileIndex, string currentUserName)
         {
             Game game = this.GetGameById(gameId);
             this.ValidateGame(game, currentUserName);
-            
+
             Tile tile = this.GetTileByIndex(game, tileIndex);
             this.ValidateTile(tile);
 
@@ -28,39 +25,6 @@
             this.SetTileValue(game, tile);
 
             this.SavePlaceTurnChanges(tile, game);
-        }
-
-        /// <summary>
-        /// Returns a game by id or throws exception
-        /// </summary>
-        /// <param name="gameId"></param>
-        /// <exception cref="GameNotFoundException"></exception>
-        /// <returns>Game</returns>
-        private Game GetGameById(int gameId)
-        {
-            Game game = this.data.Games.All().FirstOrDefault(g => g.Id == gameId);
-
-            if (GameIsNull(game))
-            {
-                throw new GameNotFoundException();
-            }
-
-            return game;
-        }
-
-        /// <summary>
-        /// Checks if a Game is null
-        /// </summary>
-        /// <param name="game">Game to check for null</param>
-        /// <returns>bool</returns>
-        private bool GameIsNull(Game game)
-        {
-            if (game == null)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         /// <summary>
@@ -148,7 +112,7 @@
 
             return true;
         }
-        
+
         /// <summary>
         /// Returns a Game's tile by tile index or throws exception.
         /// </summary>

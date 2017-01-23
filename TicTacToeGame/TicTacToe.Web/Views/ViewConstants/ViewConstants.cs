@@ -41,9 +41,19 @@
         public const string NewGameView = "NewGame";
 
         /// <summary>
-        /// _NewGame partial view
+        /// _HumanVsHumanGame partial view
         /// </summary>
         public const string HumanVsHumanGame = "_HumanVsHumanGame";
+
+        /// <summary>
+        /// _FinishedHumanVsHumanGame partial view
+        /// </summary>
+        public const string FinishedHumanVsHumanGame = "_FinishedHumanVsHumanGame";
+
+        /// <summary>
+        /// FinishedGame Action name
+        /// </summary>
+        public const string FinishedGame = "FinishedGame";
 
         /// <summary>
         /// Index view name

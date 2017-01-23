@@ -1,22 +1,20 @@
-﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.CRUD
+﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.Create.Helpers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using DataLayer.Data;
     using Models;
+    using Models.Enums;
     using TicTacToeCommon.Exceptions.User;
 
-    public class GameCreator : IGameCreator
+    public class CreateNewHumanVsHumanGameHelper : GameCreator
     {
-        private readonly ITicTacToeData data;
-
-        public GameCreator(ITicTacToeData data)
+        public CreateNewHumanVsHumanGameHelper(ITicTacToeData data) : base(data)
         {
-            this.data = data;
         }
 
-        public Game CreateNewHumanVsHumanGame(string homeSideUserName, string currentUserName)
+        public new Game CreateNewHumanVsHumanGame(string homeSideUserName, string currentUserName)
         {
             ApplicationUser homeSideUser = GetUserByUsername(homeSideUserName);
 
@@ -43,7 +41,7 @@
 
             return user;
         }
-        
+
         /// <summary>
         /// If the ApplicatioUser is null throw UserNotFound exception
         /// </summary>
@@ -121,10 +119,11 @@
         }
 
         /// <summary>
-        /// Sets the Game's general info properties. StartDate, GameName etc...
+        /// Sets the Game's general info properties. GameState, StartDate, GameName etc...
         /// </summary>
         private void AddInfoToGame(string homeSideUsername, string awaySideUsername, Game game)
         {
+            game.GameState = GameState.NotFinished;
             game.StartDate = DateTime.Now;
             game.OponentName = awaySideUsername;
             game.GameName = homeSideUsername + " vs " + awaySideUsername;
@@ -174,8 +173,8 @@
         /// <param name="game">Game to add</param>
         private void AddGameToRepositoryAndSaveChanges(Game game)
         {
-            data.Games.Add(game);
-            data.SaveChanges();
+            this.data.Games.Add(game);
+            this.data.SaveChanges();
         }
     }
 }

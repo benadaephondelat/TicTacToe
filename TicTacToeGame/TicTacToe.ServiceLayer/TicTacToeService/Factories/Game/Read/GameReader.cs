@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.CRUD
+﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.Read
 {
     using System.Linq;
     using Models;
@@ -24,6 +24,18 @@
             }
 
             return game;
+        }
+
+        public bool IsGameFinished(int gameId)
+        {
+            Game game = this.data.Games.All().FirstOrDefault(g => g.Id == gameId);
+
+            if (game == null)
+            {
+                throw new GameNotFoundException();
+            }
+
+            return game.IsFinished;
         }
     }
 }

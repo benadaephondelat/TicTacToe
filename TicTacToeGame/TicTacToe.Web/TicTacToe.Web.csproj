@@ -244,9 +244,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\AccountViewModels.cs" />
+    <Compile Include="Models\Game\ViewModels\FinishedGameInfoViewModel.cs" />
     <Compile Include="Models\Game\ViewModels\HumanVsHumanGameViewModel.cs" />
-    <Compile Include="Models\HumanVsHuman\NewGame\InputModels\NewGameInputModel.cs" />
-    <Compile Include="Models\HumanVsHuman\NewGame\ViewModels\NewGameViewModel.cs" />
+    <Compile Include="Models\Game\ViewModels\FinishedGameViewModel.cs" />
+    <Compile Include="Models\Game\InputModels\NewGameInputModel.cs" />
+    <Compile Include="Models\Game\ViewModels\NewGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\PlaceTurn\InputModels\PlaceTurnInputModel.cs" />
     <Compile Include="Models\Manage\ManageViewModels.cs" />
     <Compile Include="Models\Tiles\ViewModels\TileViewModel.cs" />
@@ -328,11 +330,12 @@
     <Content Include="Views\Home\_HumanVsHuman.cshtml" />
     <Content Include="Views\HumanVsHuman\NewGame.cshtml" />
     <Content Include="Views\HumanVsHuman\_HumanVsHumanGame.cshtml" />
+    <Content Include="Views\HumanVsHuman\_FinishedHumanVsHumanGame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Home\" />
     <Folder Include="Models\HumanVsHuman\PlaceTurn\ViewModels\" />
+    <Folder Include="Models\Tiles\InputModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

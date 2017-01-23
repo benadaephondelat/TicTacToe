@@ -1,4 +1,4 @@
-﻿@model TicTacToe.Web.Models.HumanVsHuman.NewGame.InputModels.NewHumanVsHumanGameInputModel
+﻿@model TicTacToe.Web.Models.Game.InputModels.NewHumanVsHumanGameInputModel
 
 @{
     ViewBag.Title = "HumanVsHuman";
@@ -34,9 +34,9 @@
 
 </style>
 
-<h2 class="text-center">New Game</h2>
-
 <div id="new-game-container">
+    
+    <h2 class="text-center">Human vs Human</h2>
 
     @using(Ajax.BeginForm("NewGame", "HumanVsHuman", null, new AjaxOptions()
     {

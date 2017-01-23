@@ -6,31 +6,33 @@
         display: inline-flex;
     }
 
-
     .red {
         color: red;
+        font-weight: bold;
     }
 
     .blue {
         color: blue;
+        font-weight: bold;
     }
-        #first-column > div {
-            border: 1px solid black;
-            width: 125px;
-            height: 125px;
-        }
 
-        #second-column > div {
-            border: 1px solid black;
-            width: 125px;
-            height: 125px;
-        }
+    #first-column > div {
+        border: 1px solid black;
+        width: 125px;
+        height: 125px;
+    }
 
-        #third-column > div {
-            border: 1px solid black;
-            width: 125px;
-            height: 125px;
-        }
+    #second-column > div {
+        border: 1px solid black;
+        width: 125px;
+        height: 125px;
+    }
+
+    #third-column > div {
+        border: 1px solid black;
+        width: 125px;
+        height: 125px;
+    }
 
     #grid-container {
         width: 35%;
@@ -83,27 +85,26 @@
 
 <div id="turn-container">
     <h5>@Model.GameInfo.GameName</h5>
+
     <h5>Turn: @Model.GameInfo.TurnsCount</h5>
-    <h5>
-        Turn Holder:
-        @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUser.Id)
-        {
-            @Model.GameInfo.HomeSideUser.UserName
-        }
-        else
-        {
-            @Model.GameInfo.AwaySideUser.UserName
-        }
-    </h5>
+
+    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUserId)
+    {
+        <h5 class="red">Turn Holder: @Model.GameInfo.HomeSideUserName</h5>
+    }
+    else
+    {
+        <h5 class="blue">Turn Holder: @Model.GameInfo.AwaySideUserName</h5>
+    }
 </div>
 
 <div id="home-side-container">
-    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUser.Id)
+    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUserId)
     {
         <h4 id="turn-info" class="red">YOUR TURN</h4>
     }
     <h4>Home Side - <span class="red">X</span></h4>
-    @Model.GameInfo.HomeSideUser.UserName
+    @Model.GameInfo.HomeSideUserName
 </div>
 
 <div id="grid-container">
@@ -147,12 +148,12 @@
 </div>
 
 <div id="away-side-container">
-    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.AwaySideUser.Id)
+    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.AwaySideUserId)
     {
         <h4 id="turn-info" class="blue">YOUR TURN</h4>
     }
     <h4>Away Side - <span class="blue">0</span></h4>
-    @Model.GameInfo.AwaySideUser.UserName
+    @Model.GameInfo.AwaySideUserName
 </div>
 
 <input type="hidden" id="userId" value="@Model.GameInfo.CurrentTurnHolderId" />
