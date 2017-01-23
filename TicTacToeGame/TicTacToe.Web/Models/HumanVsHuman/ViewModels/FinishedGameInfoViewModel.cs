@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Web.Models.Game.ViewModels
+﻿namespace TicTacToe.Web.Models.HumanVsHuman.ViewModels
 {
     using System;
     using TicTacToe.Models;

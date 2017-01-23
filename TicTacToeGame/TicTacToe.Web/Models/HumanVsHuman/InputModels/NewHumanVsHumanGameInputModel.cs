@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Web.Models.Game.InputModels
+﻿namespace TicTacToe.Web.Models.HumanVsHuman.InputModels
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

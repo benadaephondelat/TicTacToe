@@ -6,12 +6,10 @@
     using TicTacToe.Models;
     using ServiceLayer.TicTacToeGameService;
     using Constants;
-    using Models.Game.InputModels;
-    using Models.Game.ViewModels;
-    using Models.Tiles.ViewModels;
     using FrameworkExtentions.Filters.Security;
     using FrameworkExtentions.Filters.ActionFilters;
-    using Models.HumanVsHuman.PlaceTurn.InputModels;
+    using Models.HumanVsHuman.InputModels;
+    using Models.HumanVsHuman.ViewModels;
     using AutoMapper;
     using Microsoft.AspNet.Identity;
     using static Views.ViewConstants.ViewConstants;

@@ -9,13 +9,12 @@
     using MockHelpers;
     using Web.Controllers;
     using Web.Controllers.Constants;
+    using Models.HumanVsHuman.InputModels;
+    using Models.HumanVsHuman.ViewModels;
     using ServiceLayer.TicTacToeGameService;
     using Moq;
-    using Models.Game.ViewModels;
     using Constants;
-    using Models.Game.InputModels;
-    using Models.HumanVsHuman.PlaceTurn.InputModels;
-
+    
     [TestClass]
     public class HumanVsHumanControllerTests
     {

@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Web.Models.HumanVsHuman.PlaceTurn.InputModels
+﻿namespace TicTacToe.Web.Models.HumanVsHuman.InputModels
 {
     using System.ComponentModel.DataAnnotations;
 
