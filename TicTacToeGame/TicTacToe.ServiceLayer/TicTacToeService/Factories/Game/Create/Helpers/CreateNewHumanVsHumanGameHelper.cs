@@ -16,42 +16,15 @@
 
         public new Game CreateNewHumanVsHumanGame(string homeSideUserName, string currentUserName)
         {
-            ApplicationUser homeSideUser = GetUserByUsername(homeSideUserName);
+            ApplicationUser homeSideUser = this.GetUserByUsername(homeSideUserName);
 
             ApplicationUser awaySideUser = GetAwaySideUser(homeSideUserName, currentUserName);
 
             Game game = CreateNewHumanVsHumanGame(homeSideUser, awaySideUser);
-
-            AddGameToRepositoryAndSaveChanges(game);
+            
+            this.SaveChanges(game, currentUserName);
 
             return game;
-        }
-
-        /// <summary>
-        /// Returns a user by username or throws exception
-        /// </summary>
-        /// <param name="homeSideUsername">username of the target</param>
-        /// <exception cref="UserNotFoundException"></exception>
-        /// <returns>ApplicationUser</returns>
-        private ApplicationUser GetUserByUsername(string homeSideUsername)
-        {
-            ApplicationUser user = this.data.Users.All().FirstOrDefault(u => u.UserName == homeSideUsername);
-
-            IfUserIsNullThrowException(user);
-
-            return user;
-        }
-
-        /// <summary>
-        /// If the ApplicatioUser is null throw UserNotFound exception
-        /// </summary>
-        /// <param name="user">User to check</param>
-        private void IfUserIsNullThrowException(ApplicationUser user)
-        {
-            if (user == null)
-            {
-                throw new UserNotFoundException();
-            }
         }
 
         /// <summary>
@@ -168,12 +141,18 @@
         }
 
         /// <summary>
-        /// Adds a Game to the the Games Repository and Saves Changes to the DB
+        /// Updated the DB
         /// </summary>
         /// <param name="game">Game to add</param>
-        private void AddGameToRepositoryAndSaveChanges(Game game)
+        /// <param name="currentUserName">Username of the current user</param>
+        private void SaveChanges(Game game, string currentUserName)
         {
+            ApplicationUser user = GetUserByUsername(currentUserName);
+
+            user.Games.Add(game);
+
             this.data.Games.Add(game);
+
             this.data.SaveChanges();
         }
     }

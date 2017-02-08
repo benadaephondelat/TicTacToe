@@ -15,7 +15,7 @@
             this.Games = new HashSet<Game>();
         }
 
-        public ICollection<Game> Games
+        public virtual ICollection<Game> Games
         {
             get
             {
@@ -30,9 +30,7 @@
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
-            const string applicationCookie = DefaultAuthenticationTypes.ApplicationCookie;
-
-            ClaimsIdentity userIdentity = await manager.CreateIdentityAsync(this, applicationCookie);
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
 
             return userIdentity;
         }

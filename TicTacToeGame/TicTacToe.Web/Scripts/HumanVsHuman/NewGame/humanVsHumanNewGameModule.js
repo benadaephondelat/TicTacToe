@@ -17,6 +17,7 @@ var humanVsHumanNewGameModule = (function (jQuery) {
     var $gameId = $('#gameId'),
         $newGameContainer = $('#new-game-container'),
         $emptyGameTiles = $(".tile[data-isEmpty='True']"),
+        $fullGameTiles = $(".tile[data-isEmpty='False']"),
         _antiForgeryToken = $('#place-turn-token').attr('value');
 
     /**
@@ -102,7 +103,7 @@ var humanVsHumanNewGameModule = (function (jQuery) {
      * Adds a css class to all not empty tiles based on tile's value.
      */
     gameBoardColouringHandler = function() {
-        $(".tile[data-isEmpty='False']").each(function (i, obj) {
+        $fullGameTiles.each(function (i, obj) {
             if (obj.outerText === 'X') {
                 $(obj).addClass('red');
             } else {

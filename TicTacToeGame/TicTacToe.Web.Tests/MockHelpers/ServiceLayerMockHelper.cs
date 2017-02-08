@@ -42,10 +42,16 @@
         {
             Mock<ITicTacToeGameService> serviceMock = new Mock<ITicTacToeGameService>();
 
-            serviceMock.Setup(p => p.CreateNewHumanVsHumanGame(MockConstants.UserId, MockConstants.OtherGuyId))
+            serviceMock.Setup(p => p.CreateNewHumanVsHumanGame(MockConstants.UserEmail, MockConstants.OtherGuyEmail))
                        .Returns(this.Game);
 
+            serviceMock.Setup(p => p.CreateNewHumanVsHumanGame(MockConstants.OtherGuyEmail, MockConstants.UserEmail))
+                       .Returns(this.Game);
+
+
             serviceMock.Setup(p => p.PlaceTurn(1, 0, "georgi_iliev@yahoo.com"));
+
+            serviceMock.Setup(p => p.RecreatePreviousGame(MockConstants.UserEmail)).Returns(this.Game);
 
             serviceMock.Setup(p => p.GetGameById(1)).Returns(this.Game);
 

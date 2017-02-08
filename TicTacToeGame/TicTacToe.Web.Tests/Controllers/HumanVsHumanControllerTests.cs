@@ -57,35 +57,35 @@
         }
 
         [TestMethod]
-        public void HumanVsHuman_Controller_Should_Have_Private_Method_Named_CurrentUserName()
+        public void HumanVsHuman_Controller_Should_Have_Private_Method_Named_GetUserIdentityUsername()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
             bool result = controller.GetType()
                                     .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                                    .Any(field => field.Name == "GetUserIdentityUsername");
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void HumanVsHuman_Controller_Should_Have_Public_Property_Named_CurrentUserName()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            bool result = controller.GetType()
+                                    .GetFields(BindingFlags.Instance | BindingFlags.Public)
                                     .Any(field => field.Name == "CurrentUserName");
 
             Assert.IsTrue(result);
         }
 
         [TestMethod]
-        public void HumanVsHuman_Controller_Should_Have_Public_Property_Named_GetCurrentUserName()
-        {
-            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
-
-            bool result = controller.GetType()
-                                    .GetFields(BindingFlags.Instance | BindingFlags.Public)
-                                    .Any(field => field.Name == "GetCurrentUserName");
-
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        public void HumanVsHuman_Controller_Should_Have_PrivateMethod_Named_CurrentUserName()
+        public void HumanVsHuman_Controller_Should_Have_PrivateMethod_Named_GetUserIdentityUsername()
         {
             var privateObject = new PrivateObject(this.CreateHumanVsHumanControllerMock());
 
-            var result = (string)privateObject.Invoke("CurrentUserName");
+            var result = (string)privateObject.Invoke("GetUserIdentityUsername");
 
             Assert.IsNull(result);
         }
@@ -256,7 +256,7 @@
             {
                 Players = new List<string>()
                 {
-                    HumanVsHumanConstants.HumanVsHumanOponentUserId,
+                    HumanVsHumanConstants.HumanVsHumanOponentUsername,
                 }
             };
 
@@ -274,7 +274,7 @@
 
             model.Players = new List<string>()
             {
-                HumanVsHumanConstants.HumanVsHumanOponentUserId,
+                HumanVsHumanConstants.HumanVsHumanOponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -297,7 +297,7 @@
 
             model.Players = new List<string>()
             {
-                HumanVsHumanConstants.HumanVsHumanOponentUserId,
+                HumanVsHumanConstants.HumanVsHumanOponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -320,7 +320,7 @@
 
             model.Players = new List<string>()
             {
-                HumanVsHumanConstants.HumanVsHumanOponentUserId,
+                HumanVsHumanConstants.HumanVsHumanOponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -345,7 +345,7 @@
 
             model.Players = new List<string>()
             {
-                HumanVsHumanConstants.HumanVsHumanOponentUserId,
+                HumanVsHumanConstants.HumanVsHumanOponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -371,7 +371,7 @@
             {
                 Players = new List<string>()
                 {
-                    HumanVsHumanConstants.HumanVsHumanOponentUserId,
+                    HumanVsHumanConstants.HumanVsHumanOponentUsername,
                 }
             };
 
@@ -615,6 +615,66 @@
 
         #endregion
 
+        #region ReplayGame Tests
+
+        [TestMethod]
+        public void ReplayGame_Action_Should_Exist()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            Assert.IsNotNull(controller.ReplayGame());
+        }
+
+        [TestMethod]
+        public void ReplayGame_Should_Return_PartialView_Named__HumanVsHumanGame()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.ReplayGame();
+
+            PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual("_HumanVsHumanGame", result.ViewName);
+        }
+
+        [TestMethod]
+        public void Replay_Should_Return_HumanVsHumanGameViewModel_As_Model_To_The_View()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.ReplayGame();
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            bool isCastValidCast = partialViewResult.Model is HumanVsHumanGameViewModel;
+
+            Assert.IsTrue(isCastValidCast);
+        }
+
+        [TestMethod]
+        public void ReplayGame_HumanVsHumanGameViewModel_Properties_Should_Not_Be_Null()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.ReplayGame();
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.GameInfo);
+            Assert.IsNotNull(result.GameTiles);
+        }
+
+        #endregion
+
         /// <summary>
         /// Creates a mocked instance of HumanVsHuman controller
         /// </summary>
@@ -628,7 +688,7 @@
             HumanVsHumanController controller = new HumanVsHumanController(ticTacToeServiceMock.Object)
             {
                 ControllerContext = mockContext.Object,
-                GetCurrentUserName = () => MockConstants.OtherGuyId
+                CurrentUserName = () => MockConstants.UserEmail
             };
 
             return controller;

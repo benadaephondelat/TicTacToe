@@ -127,12 +127,20 @@
                 new ApplicationUser()
                 {
                     Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
-                    UserName = "georgi_iliev@yahoo.com"
+                    UserName = "georgi_iliev@yahoo.com",
+                    Games = GetDefaultGamesList()
                 },
                 new ApplicationUser()
                 {
                     Id = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
-                    UserName = "the-other-guy@yahoo.com"
+                    UserName = "the-other-guy@yahoo.com",
+                    Games = GetDefaultGamesList()
+                },
+                new ApplicationUser()
+                {
+                    Id = "132e3484-b47a-47af-b384-cd6e99a3a6123",
+                    UserName = "new-user-without-games@yahoo.com",
+                    Games = new List<Game>()
                 }
             };
 
@@ -148,8 +156,9 @@
             List<Game> gamesList = new List<Game>()
             {
                 this.CreateNewHumanVsHumanGameMock(),
-                this.CreateFinishedGame(),
                 this.CreateSameUserInvalidGame(),
+                this.CreateFinishedGame(),
+                this.CreateLastFinishedGame(),
             };
 
             return gamesList;
@@ -183,7 +192,7 @@
                 OponentName = "the-other-guy@yahoo.com",
                 IsFinished = false,
                 GameState = GameState.NotFinished,
-                Tiles = this.GetDefaultTilesList()
+                Tiles = this.GetDefaultTilesList(),
             };
 
             return game;
@@ -199,6 +208,41 @@
             {
                 Id = 2,
                 StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMinutes(1),
+                ApplicationUser = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                ApplicationUserId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                Oponent = new ApplicationUser()
+                {
+                    Id = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
+                    UserName = "the-other-guy@yahoo.com"
+                },
+                OponentId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                TurnsCount = 9,
+                GameName = "georgi_iliev@yahoo.com vs the-other-guy@yahoo.com",
+                OponentName = "the-other-guy@yahoo.com",
+                IsFinished = true,
+                GameState = GameState.Won,
+                Tiles = this.GetHomesideUserEarlyWinTilesList(),
+            };
+
+            return finishedGame;
+        }
+
+        /// <summary>
+        /// Creates a mock of a finished game that is played after the first finished game.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateLastFinishedGame()
+        {
+            Game finishedGame = new Game()
+            {
+                Id = 7,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMinutes(2),
                 ApplicationUser = new ApplicationUser()
                 {
                     Id = "45897caa-c581-442d-a11a-7cf9b2375e13",

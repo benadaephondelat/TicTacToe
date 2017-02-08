@@ -38,6 +38,9 @@
             bundles.Add(new ScriptBundle("~/bundles/humanVsHumanNewGameModule")
                    .Include("~/Scripts/HumanVsHuman/NewGame/humanVsHumanNewGameModule.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/finishedHumanVsHumanGameModule")
+                   .Include("~/Scripts/HumanVsHuman/_FinishedHumanVsHumanGame/finishedHumanVsHumanGameModule.js"));
+            
             #endregion
 
             #region Custom Style Bundles
@@ -45,7 +48,7 @@
             #endregion
 
             #if DEBUG
-                BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = false;
             #else
                 BundleTable.EnableOptimizations = true;
             #endif

@@ -109,11 +109,13 @@
     <Compile Include="IdentityConfiguration\ApplicationSignInManager.cs" />
     <Compile Include="IdentityConfiguration\ApplicationUserManager.cs" />
     <Compile Include="IdentityConfiguration\OwinConfiguration.cs" />
+    <Compile Include="LinqExtentions\LinqExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicTacToeGameService\ITicTacToeGameService.cs" />
     <Compile Include="TicTacToeGameService\TicTacToeGameService.cs" />
     <Compile Include="TicTacToeService\Factories\Game\Create\GameCreator.cs" />
     <Compile Include="TicTacToeService\Factories\Game\Create\Helpers\CreateNewHumanVsHumanGameHelper.cs" />
+    <Compile Include="TicTacToeService\Factories\Game\Create\Helpers\RecreatePreviousGameHelper.cs" />
     <Compile Include="TicTacToeService\Factories\Game\Read\GameReader.cs" />
     <Compile Include="TicTacToeService\Factories\Game\Update\GameUpdator.cs" />
     <Compile Include="TicTacToeService\Factories\Game\Create\IGameCreator.cs" />

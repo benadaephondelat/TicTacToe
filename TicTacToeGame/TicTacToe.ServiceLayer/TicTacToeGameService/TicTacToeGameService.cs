@@ -68,5 +68,16 @@
 
             gameUpdator.CheckGameForOutcome(gameId);
         }
+
+        public Game RecreatePreviousGame(string currentUserName)
+        {
+            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
+
+            IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
+
+            Game game = gameCreator.RecreatePreviousGame(currentUserName);
+
+            return game;
+        }
     }
 }

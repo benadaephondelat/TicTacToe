@@ -289,6 +289,9 @@
     <Content Include="Scripts\HumanVsHuman\NewGame\tests\index.html" />
     <Content Include="Scripts\Default\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Default\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\finishedHumanVsHumanGameModule.js" />
+    <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\tests\finishedHumanVsHumanGameModuleTests.js" />
+    <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\tests\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

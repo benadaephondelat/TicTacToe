@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Constants\GameConstants.cs" />
     <Compile Include="Constants\TileConstants.cs" />
+    <Compile Include="Constants\UserConstants.cs" />
     <Compile Include="Exceptions\Game\GameException.cs" />
     <Compile Include="Exceptions\Game\GameIsFinishedException.cs" />
     <Compile Include="Exceptions\Game\GameNotFoundException.cs" />

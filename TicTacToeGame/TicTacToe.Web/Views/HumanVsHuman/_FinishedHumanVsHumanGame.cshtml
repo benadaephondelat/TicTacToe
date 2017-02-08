@@ -197,6 +197,8 @@ else if (Model.GameInfo.GameState == GameState.Won)
     }
 </div>
 
-@*<button class="btn btn-primary btn-lg" id="replay-game-button">Replay Game</button>*@
+<button class="btn btn-primary btn-lg" id="replay-game-button">Replay Game</button>
 
 <input type="hidden" id="finished-game-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
+
+@Scripts.Render("~/bundles/finishedHumanVsHumanGameModule")

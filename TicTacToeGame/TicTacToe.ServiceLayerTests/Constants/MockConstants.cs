@@ -16,6 +16,10 @@
 
         public const string InvalidUsername = "no_such_name_in_the_system@invalid.com";
 
+        public const string NewUserWithoutGamesId = "132e3484-b47a-47af-b384-cd6e99a3a6123";
+
+        public const string NewUserWithoutGamesUsername = "new-user-without-games@yahoo.com";
+
         public const int ZeroTileIndex = 0;
 
         public const int InvalidGameId = 5318008;

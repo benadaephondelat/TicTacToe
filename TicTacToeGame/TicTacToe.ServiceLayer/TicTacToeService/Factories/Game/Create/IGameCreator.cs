@@ -5,5 +5,7 @@
     public interface IGameCreator
     {
         Game CreateNewHumanVsHumanGame(string homeSideUserName, string currentUserName);
+
+        Game RecreatePreviousGame(string currentUserName);
     }
 }

@@ -194,8 +194,7 @@
         }
 
         [TestMethod]
-        public void
-            CreateNewHumanVsHumanGame_Game_If_The_CurrentUser_Starts_Second_The_HomeSideUser_Should_Be_The_DefaultUser()
+        public void CreateNewHumanVsHumanGame_Game_If_The_CurrentUser_Starts_Second_The_HomeSideUser_Should_Be_The_DefaultUser()
         {
             Game game = gameService.CreateNewHumanVsHumanGame(MockConstants.OtherGuyUserName, MockConstants.UserName);
 
@@ -242,6 +241,14 @@
             this.dataLayerMock.Verify(x => x.Tiles.Add(It.IsAny<Tile>()), Times.Exactly(9));
 
             Assert.AreEqual(9, addTIleCounter);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsHumanGame_Game_Should_Add_Game_To_User_Games_Collection()
+        {
+            Game game = CreateNewHumanVsHumanGameWithTwoValidUsers();
+
+            Assert.IsTrue(game.ApplicationUser.Games.Any());
         }
 
         /// <summary>
@@ -847,6 +854,51 @@
             bool result = this.gameService.IsGameFinished(MockConstants.NewGameIndex);
 
             Assert.IsFalse(result);
+        }
+
+        #endregion
+
+        #region RecreatePreviousGame
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotFoundException))]
+        public void ReplayGame_Should_Throw_Exception_If_There_Is_No_Such_User_In_The_Database()
+        {
+            this.gameService.RecreatePreviousGame(MockConstants.InvalidUsername);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(GameNotFoundException))]
+        public void ReplayGame_Should_Throw_Exception_If_The_User_Did_Not_Played_Any_Games()
+        {
+            this.gameService.RecreatePreviousGame(MockConstants.NewUserWithoutGamesUsername);
+        }
+
+        [TestMethod]
+        public void ReplayGame_Should_Return_Game_That_Is_Not_Null()
+        {
+            Game game = this.gameService.RecreatePreviousGame(MockConstants.UserName);
+
+            Assert.IsNotNull(game);
+        }
+
+        [TestMethod]
+        public void ReplayGame_Should_Return_New_Game()
+        {
+            Game game = this.gameService.RecreatePreviousGame(MockConstants.UserName);
+
+            Assert.IsFalse(game.IsFinished);
+            Assert.IsNull(game.EndDate);
+            Assert.AreEqual(9, game.Tiles.Count(t => t.IsEmpty));
+            Assert.IsTrue(string.IsNullOrWhiteSpace(game.WinnerId));
+        }
+
+        [TestMethod]
+        public void ReplayGame_Should_Return_New_Game_Where_The_Homeside_Is_The_Current_User()
+        {
+            Game game = this.gameService.RecreatePreviousGame(MockConstants.UserName);
+
+            Assert.AreEqual(MockConstants.UserName, game.ApplicationUser.UserName);
         }
 
         #endregion
