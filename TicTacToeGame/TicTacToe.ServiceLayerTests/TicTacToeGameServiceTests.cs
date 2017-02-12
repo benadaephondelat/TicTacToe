@@ -920,7 +920,6 @@
             Assert.AreEqual(2, result.Count());
         }
 
-
         [TestMethod]
         public void GetAllUnfinishedGames_Should_Return_Two_Games_With_IsFinished_Property_Set_To_False()
         {
@@ -931,6 +930,14 @@
             Assert.IsFalse(result.ElementAt(0).IsFinished);
 
             Assert.IsFalse(result.ElementAt(1).IsFinished);
+        }
+
+        [TestMethod]
+        public void GetAllUnfinishedGames_Should_Return_Zero_Games_If_The_User_Has_No_Games()
+        {
+            var result = gameService.GetAllUnfinishedGames(MockConstants.NewUserWithoutGamesUsername);
+
+            Assert.AreEqual(0, result.Count());
         }
 
         #endregion

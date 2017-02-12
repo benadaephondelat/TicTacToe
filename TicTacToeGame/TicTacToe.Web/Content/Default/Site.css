@@ -15,3 +15,11 @@
 input, select, textarea {
     max-width: 280px;
 }
+
+.mvc-grid-pager {
+    text-align: center;
+}
+
+#back-to-main-menu-button {
+    margin-left: 42%;
+}

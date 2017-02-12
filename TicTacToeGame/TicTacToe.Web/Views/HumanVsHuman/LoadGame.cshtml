@@ -1,25 +1,13 @@
 ﻿@using TicTacToe.Web.FrameworkExtentions.ViewHelpers
 
-<link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
-
-<script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
-
-<input type="hidden" id="load-game-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
-
-<style>
-    .mvc-grid-pager {
-        text-align: center;
-    }
-
-    #back-to-main-menu-button {
-        margin-left: 42%;
-    }
-</style>
-
 @{
     ViewBag.Title = "LoadGame";
     Layout = "~/Views/Shared/_AuthenticatedUserLayout.cshtml";
 }
+
+@Styles.Render("~/Content/mvc-grid-css")
+
+@Scripts.Render("~/Scripts/MvcGrid/mvc-grid.js")
 
 <div id="game-container">
 
@@ -30,6 +18,8 @@
     </div>
 
 </div>
+
+<input type="hidden" id="load-game-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
 
 @Ajax.ActionLink("Back to Main Menu", "HumanVsHuman", "Home", null, new AjaxOptions()
 {

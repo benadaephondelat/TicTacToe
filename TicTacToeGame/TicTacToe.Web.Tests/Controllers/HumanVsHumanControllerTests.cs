@@ -793,6 +793,7 @@
             Assert.IsNotNull(result.GameInfo);
             Assert.IsNotNull(result.GameTiles);
         }
+
         #endregion
 
         #region LoadGameGrid Tests

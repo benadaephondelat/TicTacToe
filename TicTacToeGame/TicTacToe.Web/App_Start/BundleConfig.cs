@@ -28,6 +28,9 @@
                       "~/Content/Default/bootstrap.css",
                       "~/Content/Default/site.css"));
 
+            bundles.Add(new StyleBundle("~/Content/mvc-grid-css")
+                   .Include("~/Content/MvcGrid/mvc-grid.css"));
+
             #endregion
 
             #region Custom Script Bundles
@@ -44,14 +47,13 @@
             bundles.Add(new ScriptBundle("~/bundles/loadGameGridModule")
                    .Include("~/Scripts/HumanVsHuman/_LoadGameGrid/loadGameGridModule.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/mvc-grid")
+                   .Include("~/Scripts/MvcGrid/mvc-grid.js"));
+
             #endregion
 
-            #region Custom Style Bundles
-
-            #endregion
-
-#if DEBUG
-            BundleTable.EnableOptimizations = false;
+            #if DEBUG
+                BundleTable.EnableOptimizations = false;
             #else
                 BundleTable.EnableOptimizations = true;
             #endif
