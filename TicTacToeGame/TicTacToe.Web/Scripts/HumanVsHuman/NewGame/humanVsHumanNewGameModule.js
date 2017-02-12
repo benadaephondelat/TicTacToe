@@ -15,7 +15,7 @@ var humanVsHumanNewGameModule = (function (jQuery) {
 
     /* cached dom objects */
     var $gameId = $('#gameId'),
-        $newGameContainer = $('#new-game-container'),
+        $newGameContainer = $('#game-container'),
         $emptyGameTiles = $(".tile[data-isEmpty='True']"),
         $fullGameTiles = $(".tile[data-isEmpty='False']"),
         _antiForgeryToken = $('#place-turn-token').attr('value');
@@ -93,8 +93,6 @@ var humanVsHumanNewGameModule = (function (jQuery) {
 
             _placeTurnAjaxCall(_antiForgeryToken, data).done(function (result) {
                 $newGameContainer.html(result);
-            }).fail(function (error) {
-                console.dir(error);
             });
         });
     };

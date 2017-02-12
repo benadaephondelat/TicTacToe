@@ -93,6 +93,10 @@
       <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NonFactors.Mvc.Grid, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NonFactors.Grid.Core.Mvc5.3.3.0\lib\net45\NonFactors.Mvc.Grid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="StyleCop, Version=4.7.1000.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
       <HintPath>..\packages\StyleCop.4.7.55\lib\net35\StyleCop.dll</HintPath>
       <Private>True</Private>
@@ -248,6 +252,7 @@
     <Compile Include="Models\HumanVsHuman\ViewModels\HumanVsHumanGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\FinishedGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\InputModels\NewHumanVsHumanGameInputModel.cs" />
+    <Compile Include="Models\HumanVsHuman\ViewModels\LoadGameGridViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\NewGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\InputModels\PlaceTurnInputModel.cs" />
     <Compile Include="Models\Manage\ManageViewModels.cs" />
@@ -259,6 +264,7 @@
   <ItemGroup>
     <Content Include="Content\Default\bootstrap.css" />
     <Content Include="Content\Default\bootstrap.min.css" />
+    <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -292,6 +298,11 @@
     <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\finishedHumanVsHumanGameModule.js" />
     <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\tests\finishedHumanVsHumanGameModuleTests.js" />
     <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\tests\index.html" />
+    <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\loadGameGridModule.js" />
+    <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\tests\index.html" />
+    <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\tests\loadGameGridModuleTests.js" />
+    <Content Include="Scripts\MvcGrid\mvc-grid.js" />
+    <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -334,6 +345,11 @@
     <Content Include="Views\HumanVsHuman\NewGame.cshtml" />
     <Content Include="Views\HumanVsHuman\_HumanVsHumanGame.cshtml" />
     <Content Include="Views\HumanVsHuman\_FinishedHumanVsHumanGame.cshtml" />
+    <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
+    <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
+    <Content Include="Views\Shared\MvcGrid\_AjaxGrid.cshtml" />
+    <Content Include="Views\HumanVsHuman\LoadGame.cshtml" />
+    <Content Include="Views\HumanVsHuman\_LoadGameGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

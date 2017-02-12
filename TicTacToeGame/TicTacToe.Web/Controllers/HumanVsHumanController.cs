@@ -102,6 +102,38 @@
             return PartialView(HumanVsHumanGame, viewModel);
         }
 
+        [HttpGet]
+        public ActionResult LoadGame()
+        {
+            return View(LoadGameView);
+        }
+
+        [HttpGet]
+        public ActionResult LoadGameGrid()
+        {
+            string currentUsername = this.CurrentUserName();
+
+            IEnumerable<Game> unfinishedGames = this.ticTacToeGameService.GetAllUnfinishedGames(currentUsername);
+
+            IEnumerable<LoadGameGridViewModel> result = Mapper.Map<IEnumerable<LoadGameGridViewModel>>(unfinishedGames);
+
+            return PartialView(LoadGameGridPartialView, result);
+        }
+
+        [HttpPost, ValidateAntiForgeryTokenAjax]
+        public ActionResult LoadGame(int gameId)
+        {
+            Game game = this.ticTacToeGameService.GetGameById(gameId);
+
+            HumanVsHumanGameViewModel viewModel = new HumanVsHumanGameViewModel()
+            {
+                GameInfo = Mapper.Map<HumanVsHumanGameInfoModel>(game),
+                GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
+            };
+
+            return PartialView(HumanVsHumanGame, viewModel);
+        }
+
         public ActionResult FinishedGame(int gameId)
         {
             Game game = this.ticTacToeGameService.GetGameById(gameId);

@@ -34,14 +34,14 @@
 
 </style>
 
-<div id="new-game-container">
+<div id="game-container">
     
     <h2 class="text-center">Human vs Human</h2>
 
     @using(Ajax.BeginForm("NewGame", "HumanVsHuman", null, new AjaxOptions()
     {
         InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "new-game-container"
+        UpdateTargetId = "game-container"
     }))
     {
         @Html.AntiForgeryToken()
@@ -66,14 +66,14 @@
 </div>
 
 @Ajax.ActionLink("Back to Main Menu", "HumanVsHuman", "Home", null, new AjaxOptions()
-                {
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "main-content"
-                },
-                new
-                {
-                    @class = "btn btn-primary btn-lg text-center",
-                    @id = "back-to-main-menu-button"
-                })
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "main-content"
+},
+new
+{
+    @class = "btn btn-primary btn-lg text-center",
+    @id = "back-to-main-menu-button"
+})
 
 @Scripts.Render("~/bundles/humanVsHumanNewGameModule")

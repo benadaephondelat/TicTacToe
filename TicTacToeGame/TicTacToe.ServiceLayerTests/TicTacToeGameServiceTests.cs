@@ -902,5 +902,37 @@
         }
 
         #endregion
+
+        #region GetAllUnfinishedGames
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotFoundException))]
+        public void GetAllUnfinishedGames_Should_Throw_UserNotFoundException_If_No_User_Exists_In_The_Database()
+        {
+            gameService.GetAllUnfinishedGames(MockConstants.InvalidUsername);
+        }
+
+        [TestMethod]
+        public void GetAllUnfinishedGames_Should_Return_Two_UnfinishedGames()
+        {
+            var result = gameService.GetAllUnfinishedGames(MockConstants.UserName);
+
+            Assert.AreEqual(2, result.Count());
+        }
+
+
+        [TestMethod]
+        public void GetAllUnfinishedGames_Should_Return_Two_Games_With_IsFinished_Property_Set_To_False()
+        {
+            var result = gameService.GetAllUnfinishedGames(MockConstants.UserName);
+
+            Assert.AreEqual(2, result.Count());
+
+            Assert.IsFalse(result.ElementAt(0).IsFinished);
+
+            Assert.IsFalse(result.ElementAt(1).IsFinished);
+        }
+
+        #endregion
     }
 }

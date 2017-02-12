@@ -675,6 +675,201 @@
 
         #endregion
 
+        #region LoadGame Tests
+
+        [TestMethod]
+        public void LoadGame_Action_Should_Exist()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            Assert.IsNotNull(controller.LoadGame());
+        }
+
+        [TestMethod]
+        public void LoadGame_Should_Return_View()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGame();
+
+            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void LoadGame_Should_Return_View_Named_LoadGame()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGame();
+
+            ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
+
+            string expectedViewName = "LoadGame";
+
+            Assert.AreEqual(expectedViewName, result.ViewName);
+        }
+
+        [TestMethod]
+        public void LoadGame_Post_Action_Should_Exist()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            Assert.IsNotNull(controller.LoadGame(1));
+        }
+
+        [TestMethod]
+        public void LoadGame_Post_Should_Return_PartialView()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGame(1);
+
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
+        }
+
+        [TestMethod]
+        public void LoadGame_Post_Should_Return_PartialView_Named__HumanVsHumanGame()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGame(1);
+
+            PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
+
+            string expectedViewName = "_HumanVsHumanGame";
+
+            Assert.AreEqual(expectedViewName, result.ViewName);
+        }
+
+        [TestMethod]
+        public void LoadGame_Post_Should_Accept_Int_As_Parameter()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            Type controllerType = controller.GetType();
+
+            var method = controllerType.GetTypeInfo().DeclaredMethods.ToList()
+                                       .Where(m => m.Name == "LoadGame").ElementAt(1);
+
+            Assert.IsNotNull(method);
+
+            Assert.IsTrue(method.ToString().Contains("Int32"));
+        }
+
+        [TestMethod]
+        public void LoadGame_Post_Should_Pass_HumanVsHumanGameViewModel_As_Model_To_The_View()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGame(1);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            bool isCastValidCast = partialViewResult.Model is HumanVsHumanGameViewModel;
+
+            Assert.IsTrue(isCastValidCast);
+        }
+
+        [TestMethod]
+        public void LoadGame_Post_HumanVsHumanGameViewModel_Properties_Should_Not_Be_Null()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGame(1);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.GameInfo);
+            Assert.IsNotNull(result.GameTiles);
+        }
+        #endregion
+
+        #region LoadGameGrid Tests
+
+        [TestMethod]
+        public void LoadGameGrid_Action_Should_Exist()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            Assert.IsNotNull(controller.LoadGameGrid());
+        }
+
+        [TestMethod]
+        public void LoadGameGrid_Should_Return_PartialView()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGameGrid();
+
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
+        }
+
+        [TestMethod]
+        public void LoadGameGrid_Should_Return_PartialView_Named__LoadGameGrid()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGameGrid();
+
+            PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual("_LoadGameGrid", result.ViewName);
+        }
+
+        [TestMethod]
+        public void LoadGameGrid_Should_Pass_List_Of_LoadGameGridViewModel_To_The_View()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGameGrid();
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            bool isCastValidCast = partialViewResult.Model is IEnumerable<LoadGameGridViewModel>;
+
+            Assert.IsTrue(isCastValidCast);
+        }
+
+        [TestMethod]
+        public void LoadGameGrid_LoadGameGridViewModel_Properties_Should_Not_Be_Null()
+        {
+            HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
+
+            ActionResult actionResult = controller.LoadGameGrid();
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            var result = partialViewResult.Model as IEnumerable<LoadGameGridViewModel>;
+
+            var firstUnfinishedGame = result.FirstOrDefault();
+
+            Assert.IsNotNull(firstUnfinishedGame);
+            Assert.IsNotNull(firstUnfinishedGame.Id);
+            Assert.IsNotNull(firstUnfinishedGame.StartDate);
+            Assert.IsNotNull(firstUnfinishedGame.TurnsCount);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(firstUnfinishedGame.HomeSideUserName));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(firstUnfinishedGame.OponentName));
+        }
+
+        #endregion
+
         /// <summary>
         /// Creates a mocked instance of HumanVsHuman controller
         /// </summary>

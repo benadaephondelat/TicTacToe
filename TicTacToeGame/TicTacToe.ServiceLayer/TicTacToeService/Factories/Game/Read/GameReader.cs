@@ -1,9 +1,11 @@
 ﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.Read
 {
     using System.Linq;
+    using System.Collections.Generic;
     using Models;
     using DataLayer.Data;
     using TicTacToeCommon.Exceptions.Game;
+    using TicTacToeCommon.Exceptions.User;
 
     public class GameReader : IGameReader
     {
@@ -36,6 +38,20 @@
             }
 
             return game.IsFinished;
+        }
+
+        public IEnumerable<Game> GetAllUnfinishedGames(string currentUsername)
+        {
+            ApplicationUser user = this.data.Users.All().FirstOrDefault(u => u.UserName == currentUsername);
+
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+
+            IEnumerable<Game> unfinishedGames = user.Games.Where(g => g.IsFinished == false);
+
+            return unfinishedGames;
         }
     }
 }

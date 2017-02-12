@@ -10,6 +10,7 @@
     using Constants;
     using FrameworkExtentions.Mappings;
     using Moq;
+    using System.Collections;
 
     /// <summary>
     /// Generates a mock of the ServiceLayer
@@ -56,6 +57,8 @@
             serviceMock.Setup(p => p.GetGameById(1)).Returns(this.Game);
 
             serviceMock.Setup(p => p.GetGameById(2)).Returns(this.FinishedGame);
+
+            serviceMock.Setup(p => p.GetAllUnfinishedGames("georgi_iliev@yahoo.com")).Returns(new List<Game>() { this.FinishedGame });
 
             return serviceMock;
         }

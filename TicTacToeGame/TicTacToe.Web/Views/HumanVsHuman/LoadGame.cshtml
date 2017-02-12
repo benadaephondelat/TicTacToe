@@ -1,0 +1,51 @@
+﻿@using TicTacToe.Web.FrameworkExtentions.ViewHelpers
+
+<link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+
+<script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+
+<input type="hidden" id="load-game-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
+
+<style>
+    .mvc-grid-pager {
+        text-align: center;
+    }
+
+    #back-to-main-menu-button {
+        margin-left: 42%;
+    }
+</style>
+
+@{
+    ViewBag.Title = "LoadGame";
+    Layout = "~/Views/Shared/_AuthenticatedUserLayout.cshtml";
+}
+
+<div id="game-container">
+
+    <h2 class="text-center">LoadGame</h2>
+
+    <div id="gridContainer">
+        @Html.AjaxGrid(Url.Action("LoadGameGrid", "HumanVsHuman"))
+    </div>
+
+</div>
+
+@Ajax.ActionLink("Back to Main Menu", "HumanVsHuman", "Home", null, new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "main-content"
+},
+new
+{
+    @class = "btn btn-primary btn-lg text-center",
+    @id = "back-to-main-menu-button"
+})
+
+<script>
+    $(document).ready(function () {
+        $('.mvc-grid').mvcgrid({
+            reload: true,
+        });
+    });
+</script>

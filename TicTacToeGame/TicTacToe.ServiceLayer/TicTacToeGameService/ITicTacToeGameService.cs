@@ -1,7 +1,8 @@
 ﻿namespace TicTacToe.ServiceLayer.TicTacToeGameService
 {
     using Models;
-
+    using System.Collections;
+    using System.Collections.Generic;
     using TicTacToeCommon.Exceptions.Game;
     using TicTacToeCommon.Exceptions.Tile;
     using TicTacToeCommon.Exceptions.User;
@@ -62,5 +63,13 @@
         /// <exception cref="GameNotFoundException"></exception>
         /// <returns>Game</returns>
         Game RecreatePreviousGame(string currentUserName);
+
+        /// <summary>
+        /// Returns all user's games that are not finished or throws exception.
+        /// </summary>
+        /// <param name="currentUsername">Username of the current user</param>
+        /// <exception cref="UserNotFoundException"></exception>
+        /// <returns>IEnumerable<Game></Game></returns>
+        IEnumerable<Game> GetAllUnfinishedGames(string currentUsername);
     }
 }

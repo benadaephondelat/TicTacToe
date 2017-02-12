@@ -59,5 +59,15 @@
         /// Index view name
         /// </summary>
         public const string IndexView = "Index";
+
+        /// <summary>
+        /// Load Game view name
+        /// </summary>
+        public const string LoadGameView = "LoadGame";
+
+        /// <summary>
+        /// Load Game Grid partial view name
+        /// </summary>
+        public const string LoadGameGridPartialView = "_LoadGameGrid";
     }
 }

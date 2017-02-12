@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe.ServiceLayer.TicTacToeGameService
 {
-    using System;
+    using System.Collections.Generic;
     using Models;
     using DataLayer.Data;
     using TicTacToeService.Factories.Game;
@@ -78,6 +78,17 @@
             Game game = gameCreator.RecreatePreviousGame(currentUserName);
 
             return game;
+        }
+
+        public IEnumerable<Game> GetAllUnfinishedGames(string currentUsername)
+        {
+            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
+
+            IGameReader gameReader = gameFactory.GetGameReaderHelper();
+
+            IEnumerable<Game> unfinishedGames = gameReader.GetAllUnfinishedGames(currentUsername);
+
+            return unfinishedGames;
         }
     }
 }

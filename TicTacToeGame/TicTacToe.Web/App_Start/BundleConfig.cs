@@ -40,14 +40,17 @@
 
             bundles.Add(new ScriptBundle("~/bundles/finishedHumanVsHumanGameModule")
                    .Include("~/Scripts/HumanVsHuman/_FinishedHumanVsHumanGame/finishedHumanVsHumanGameModule.js"));
-            
+
+            bundles.Add(new ScriptBundle("~/bundles/loadGameGridModule")
+                   .Include("~/Scripts/HumanVsHuman/_LoadGameGrid/loadGameGridModule.js"));
+
             #endregion
 
             #region Custom Style Bundles
 
             #endregion
 
-            #if DEBUG
+#if DEBUG
             BundleTable.EnableOptimizations = false;
             #else
                 BundleTable.EnableOptimizations = true;
