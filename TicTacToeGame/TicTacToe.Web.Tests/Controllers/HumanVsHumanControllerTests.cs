@@ -111,7 +111,7 @@
         }
 
         [TestMethod]
-        public void NewGame_Should_Pass_NewHumanVsHumanGameInputModel_To_The_View()
+        public void NewGame_Should_Pass_NewGameInputModel_To_The_View()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -127,7 +127,7 @@
         }
 
         [TestMethod]
-        public void NewHumanVsHumanGameInputModel_Should_Have_Property_Named_Players()
+        public void NewGameInputModel_Should_Have_Property_Named_Players()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -195,7 +195,7 @@
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Contain_The_Default_HumanVsHuman_Oponent_Username_As_Second_Parameter()
+        public void NewGameInputModel_Players_Property_Should_Contain_The_Default_Oponent_Username_As_Second_Parameter()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -211,7 +211,7 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_Should_Exist_And_Accept_NewHumanVsHumanGameInputModel_As_A_Parameter()
+        public void NewGame_Post_Should_Exist_And_Accept_NewGameInputModel_As_A_Parameter()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
