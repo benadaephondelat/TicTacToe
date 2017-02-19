@@ -1,6 +1,5 @@
 ﻿namespace TicTacToe.Web.Controllers
 {
-    using System;
     using System.Web.Mvc;
     using System.Collections.Generic;
     using TicTacToe.Models;
@@ -11,13 +10,12 @@
     using Models.HumanVsHuman.InputModels;
     using Models.HumanVsHuman.ViewModels;
     using AutoMapper;
-    using Microsoft.AspNet.Identity;
     using static Views.ViewConstants.ViewConstants;
 
     [CheckIfLoggedInFilter]
-    public class HumanVsHumanController : Controller
+    public class HumanVsHumanController : BaseController
     {
-        public Func<string> CurrentUserName;
+        private readonly ITicTacToeGameService ticTacToeGameService;
 
         public HumanVsHumanController()
         {
@@ -26,18 +24,14 @@
         public HumanVsHumanController(ITicTacToeGameService ticTacToeGameService)
         {
             this.ticTacToeGameService = ticTacToeGameService;
-
-            this.CurrentUserName = this.GetUserIdentityUsername;
         }
-
-        private readonly ITicTacToeGameService ticTacToeGameService;
 
         [HttpGet]
         public ActionResult NewGame()
         {
-            NewHumanVsHumanGameInputModel inputModel = new NewHumanVsHumanGameInputModel()
+            NewGameInputModel inputModel = new NewGameInputModel()
             {
-                Players = GetDefaultHumanVsHumanPlayersList(),
+                Players = base.GetDefaultPlayersList(),
             };
 
             return View(NewGameView, inputModel);
@@ -45,11 +39,11 @@
 
         [HttpPost, ValidateAntiForgeryToken]
         [CheckModelStateFilter]
-        public ActionResult NewGame(NewHumanVsHumanGameInputModel inputModel)
+        public ActionResult NewGame(NewGameInputModel inputModel)
         {
             string homeSideUserName = inputModel.Players[0];
 
-            string currentUserName = this.CurrentUserName();
+            string currentUserName = base.CurrentUserName();
             
             Game game = ticTacToeGameService.CreateNewHumanVsHumanGame(homeSideUserName, currentUserName);
 
@@ -65,7 +59,7 @@
         [HttpPost, ValidateAntiForgeryTokenAjax]
         public ActionResult ReplayGame()
         {
-            string currentUsername = this.CurrentUserName();
+            string currentUsername = base.CurrentUserName();
 
             Game game = ticTacToeGameService.RecreatePreviousGame(currentUsername);
 
@@ -82,7 +76,7 @@
         [CheckModelStateAjax]
         public ActionResult PlaceTurn(PlaceTurnInputModel model)
         {
-            this.ticTacToeGameService.PlaceTurn(model.GameId, model.TileIndex, this.CurrentUserName());
+            this.ticTacToeGameService.PlaceTurn(model.GameId, model.TileIndex, base.CurrentUserName());
 
             Game game = this.ticTacToeGameService.GetGameById(model.GameId);
 
@@ -111,7 +105,7 @@
         [HttpGet]
         public ActionResult LoadGameGrid()
         {
-            string currentUsername = this.CurrentUserName();
+            string currentUsername = base.CurrentUserName();
 
             IEnumerable<Game> unfinishedGames = this.ticTacToeGameService.GetAllUnfinishedGames(currentUsername);
 
@@ -145,32 +139,6 @@
             };
 
             return PartialView(FinishedHumanVsHumanGame, viewModel);
-        }
-
-        /// <summary>
-        /// Returns a list containing the current user's Id and the default oponent's Id
-        /// </summary>
-        /// <returns>List<string></string></returns>
-        private List<string> GetDefaultHumanVsHumanPlayersList()
-        {
-            List<string> humanVsHumanDefaultPlayers = new List<string>()
-            {
-                this.CurrentUserName(),
-                HumanVsHumanConstants.HumanVsHumanOponentUsername
-            };
-
-            return humanVsHumanDefaultPlayers;
-        }
-        
-        /// <summary>
-        /// Returns the current user's username
-        /// </summary>
-        /// <returns>string</returns>
-        private string GetUserIdentityUsername()
-        {
-            string result = this.User.Identity.GetUserName();
-
-            return result;
         }
     }
 }

@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\MockConstants.cs" />
+    <Compile Include="Controllers\HumanVsComputerControllerTests.cs" />
     <Compile Include="Controllers\HumanVsHumanControllerTests.cs" />
     <Compile Include="MockHelpers\ServiceLayerMockHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

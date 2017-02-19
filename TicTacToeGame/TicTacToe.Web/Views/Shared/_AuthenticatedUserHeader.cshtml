@@ -12,7 +12,14 @@
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
-                <li>@Html.ActionLink("Human vs Computer", "Index", "Home")</li>
+                <li>
+                    @Ajax.ActionLink("Human vs Computer", "HumanVsComputer", "Home", null,
+                                     new AjaxOptions()
+                                     {
+                                         InsertionMode = InsertionMode.Replace,
+                                         UpdateTargetId = "main-content"
+                                     }, null)
+                </li>
 
                 <li>
                     @Ajax.ActionLink("Human vs Human", "HumanVsHuman", "Home", null,

@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class NewHumanVsHumanGameInputModel
+    public class NewGameInputModel
     {
         [Required(ErrorMessage = "You must choose who will go first.")]
         [Display(Name = "Choose a side")]

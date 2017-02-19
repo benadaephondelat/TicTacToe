@@ -18,11 +18,11 @@
         /// <summary>
         /// Username of the human oponent, already created(seed method) ApplicationUser
         /// </summary>
-        public const string HumanVsHumanOponentUsername = "the-other-guy@yahoo.com";
+        public const string OponentUsername = "the-other-guy@yahoo.com";
 
         /// <summary>
         /// Id of the human oponent, already created(seed method) ApplicationUser
         /// </summary>
-        public const string HumanVsHumanOponentUserId = "6e335e25-14ab-4ed8-8f9f-5301208304e7";
+        public const string OponentUserId = "6e335e25-14ab-4ed8-8f9f-5301208304e7";
     }
 }

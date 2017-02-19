@@ -1,11 +1,10 @@
 ﻿@model TicTacToe.Web.Models.HumanVsHuman.InputModels.NewGameInputModel
 
 @{
-    ViewBag.Title = "HumanVsHuman";
+    ViewBag.Title = "HumanVsComputer";
 }
 
 <style>
-    
     #back-to-main-menu-button {
         margin-left: 42%;
     }
@@ -31,14 +30,13 @@
         margin-left: 4%;
         font-weight: bold;
     }
-
 </style>
 
 <div id="game-container">
-    
-    <h2 class="text-center">Human vs Human</h2>
 
-    @using(Ajax.BeginForm("NewGame", "HumanVsHuman", null, new AjaxOptions()
+    <h2 class="text-center">Human vs Computer</h2>
+
+    @using (Ajax.BeginForm("NewGame", "HumanVsComputer", null, new AjaxOptions()
     {
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "game-container"
@@ -65,7 +63,7 @@
     }
 </div>
 
-@Ajax.ActionLink("Back to Main Menu", "HumanVsHuman", "Home", null, new AjaxOptions()
+@Ajax.ActionLink("Back to Main Menu", "HumanVsComputer", "Home", null, new AjaxOptions()
 {
     InsertionMode = InsertionMode.Replace,
     UpdateTargetId = "main-content"

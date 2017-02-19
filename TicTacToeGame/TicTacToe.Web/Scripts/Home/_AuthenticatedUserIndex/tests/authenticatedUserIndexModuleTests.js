@@ -73,4 +73,44 @@ describe('authenticatedUserIndexModule', function () {
             done();
         });
     });
+
+    describe('humanVsComputerAjaxCall tests', function () {
+        beforeEach(function () {
+            this.xhr = sinon.useFakeXMLHttpRequest();
+
+            this.requests = [];
+
+            this.xhr.onCreate = function (xhr) {
+                this.requests.push(xhr);
+            }.bind(this);
+
+        });
+
+        afterEach(function () {
+            this.xhr.restore();
+        });
+
+        it('humanVsComputerAjaxCall should not be undefined', function () {
+            var isUndefined = typeof authenticatedUserIndexModule.humanVsComputerAjaxCall === 'undefined';
+
+            isUndefined.should.equal(false);
+        });
+
+        it('humanVsHumanAjaxCall should be a function', function () {
+            var type = typeof authenticatedUserIndexModule.humanVsComputerAjaxCall;
+
+            type.should.equal('function');
+        });
+
+        it('humanVsHumanAjaxCall function should make a GET request to Home/HumanVsComputer', function (done) {
+            authenticatedUserIndexModule.humanVsComputerAjaxCall().done(function () {
+                done();
+            });
+
+            this.requests[0].method.should.equal('GET');
+            this.requests[0].url.should.equal('/Home/HumanVsComputer');
+
+            done();
+        });
+    });
 });

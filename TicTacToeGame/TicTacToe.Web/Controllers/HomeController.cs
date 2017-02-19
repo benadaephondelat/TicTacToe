@@ -27,5 +27,16 @@
 
             return RedirectToAction(IndexView);
         }
+
+        [HttpGet]
+        public ActionResult HumanVsComputer()
+        {
+            if (UserIsLoggedIn(this.User))
+            {
+                return PartialView(HumanVsComputerPartialView);
+            }
+
+            return RedirectToAction(IndexView);
+        }
     }
 }

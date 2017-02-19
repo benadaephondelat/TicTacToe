@@ -9,12 +9,14 @@ var authenticatedUserIndexModule = (function (jQuery) {
     }
 
     /* function declarations */
-    var humanVsHumanButtonsClickHandler,
+    var humanVsHumanButtonClickHandler,
+        humanVsComputerButtonClickHandler,
         initiliazieModule;
     
     /* cached dom objects */
     var $contentContainer = $('#main-content'),
-        $humanVshumanButton = $('#human-vs-human-button');
+        $humanVsHumanButton = $('#human-vs-human-button'),
+        $humanVsComputerButton = $('#human-vs-computer-button');
     
     /**
     * Ajax call to get the _HumanVsHuman partial view.
@@ -29,28 +31,54 @@ var authenticatedUserIndexModule = (function (jQuery) {
 
         return ajaxCall;
     }
+
+    /**
+    * Ajax call to get the _HumanVsComputer partial view.
+    */
+    function _humanVsComputerAjaxCall() {
+        var ajaxCall = $.ajax({
+            url: '/Home/HumanVsComputer',
+            type: 'GET',
+            dataType: 'html',
+            async: true
+        });
+
+        return ajaxCall;
+    }
     
     /**
     * When the user clicks humanVshumanButton make an ajax call to the server
     * and append the result to the DOM
     */
-    humanVsHumanButtonsClickHandler = function () {
-        $($humanVshumanButton).on('click', function () {
+    humanVsHumanButtonClickHandler = function () {
+        $humanVsHumanButton.on('click', function () {
             _humanVsHumanAjaxCall().done(function (data) {
                 $contentContainer.html(data);
-            }).fail(function (error) {
-                console.dir(error);
+            });
+        });
+    };
+
+    /**
+    * When the user clicks humanVsCompuer Button make an ajax call to the server
+    * and append the result to the DOM
+    */
+    humanVsComputerButtonClickHandler = function () {
+        $humanVsComputerButton.on('click', function () {
+            _humanVsComputerAjaxCall().done(function (data) {
+                $contentContainer.html(data);
             });
         });
     };
 
     initiliazieModule = function () {
-        humanVsHumanButtonsClickHandler();
+        humanVsHumanButtonClickHandler();
+        humanVsComputerButtonClickHandler();
     };
 
     return {
         init: initiliazieModule,
-        humanVsHumanAjaxCall: _humanVsHumanAjaxCall
+        humanVsHumanAjaxCall: _humanVsHumanAjaxCall,
+        humanVsComputerAjaxCall: _humanVsComputerAjaxCall
     }
 
 })(jQuery || {});

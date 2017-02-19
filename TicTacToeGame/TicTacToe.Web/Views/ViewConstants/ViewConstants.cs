@@ -31,6 +31,11 @@
         public const string HumanVsHumanPartialView = "_HumanVsHuman";
 
         /// <summary>
+        /// Human vs Computer partial view name
+        /// </summary>
+        public const string HumanVsComputerPartialView = "_HumanVsComputer";
+
+        /// <summary>
         /// HumanVsHuman Controller name
         /// </summary>
         public const string HumanVsHumanController = "HumanVsHuman";

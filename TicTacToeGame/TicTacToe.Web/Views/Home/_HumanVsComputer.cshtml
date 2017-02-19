@@ -1,0 +1,25 @@
+﻿<style>
+    #human-vs-computer-main-menu-title {
+        text-align: center;
+    }
+
+    #human-vs-computer-main-menu {
+        width: 230px;
+        text-align: center;
+        margin-top: 2%;
+        margin-left: 40%;
+    }
+
+    .menu-option {
+        width: 100%;
+        margin-top: 3%;
+    }
+</style>
+
+<h2 id="human-vs-computer-main-menu-title">Human vs Computer</h2>
+
+<div id="human-vs-computer-main-menu">
+    @Html.ActionLink("Start New Game", "NewGame", "HumanVsComputer", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg menu-option" })
+
+    @Html.ActionLink("Back to home", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg menu-option" })
+</div>

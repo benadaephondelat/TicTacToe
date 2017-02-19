@@ -228,8 +228,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Constants\HumanVsHumanConstants.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HumanVsComputerController.cs" />
     <Compile Include="Controllers\HumanVsHumanController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="FrameworkExtentions\Filters\ActionFilters\CheckIfLoggedIn.cs" />
@@ -251,7 +253,7 @@
     <Compile Include="Models\HumanVsHuman\ViewModels\FinishedGameInfoViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\HumanVsHumanGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\FinishedGameViewModel.cs" />
-    <Compile Include="Models\HumanVsHuman\InputModels\NewHumanVsHumanGameInputModel.cs" />
+    <Compile Include="Models\HumanVsHuman\InputModels\NewGameInputModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\LoadGameGridViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\NewGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\InputModels\PlaceTurnInputModel.cs" />
@@ -350,6 +352,8 @@
     <Content Include="Views\Shared\MvcGrid\_AjaxGrid.cshtml" />
     <Content Include="Views\HumanVsHuman\LoadGame.cshtml" />
     <Content Include="Views\HumanVsHuman\_LoadGameGrid.cshtml" />
+    <Content Include="Views\Home\_HumanVsComputer.cshtml" />
+    <Content Include="Views\HumanVsComputer\NewGame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,11 +1,11 @@
 ﻿namespace TicTacToe.ServiceLayer.TicTacToeGameService
 {
-    using Models;
     using System.Collections;
     using System.Collections.Generic;
     using TicTacToeCommon.Exceptions.Game;
     using TicTacToeCommon.Exceptions.Tile;
     using TicTacToeCommon.Exceptions.User;
+    using Models;
 
     public interface ITicTacToeGameService
     {

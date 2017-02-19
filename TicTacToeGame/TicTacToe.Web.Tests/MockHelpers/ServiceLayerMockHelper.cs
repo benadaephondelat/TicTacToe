@@ -10,7 +10,6 @@
     using Constants;
     using FrameworkExtentions.Mappings;
     using Moq;
-    using System.Collections;
 
     /// <summary>
     /// Generates a mock of the ServiceLayer
