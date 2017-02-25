@@ -14,12 +14,12 @@
         {
             this.Random = new Random(DateTime.Now.Second);
         }
-        
+
         /// <summary>
         /// If Game.IsFinished throw exception.
         /// </summary>
-        /// <exception cref="GameIsFinishedException"></exception>
         /// <param name="IComputerGameModel">Game to check</param>
+        /// <exception cref="GameIsFinishedException"></exception>
         protected void ValidateGame(IComputerGameModel game)
         {
             if (game.IsFinished)

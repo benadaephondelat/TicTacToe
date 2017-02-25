@@ -10,6 +10,7 @@
     using TicTacToeService.Factories.Game.Update;
     using Computer;
     using Computer.Models;
+    using System.Linq;
 
     public class TicTacToeGameService : ITicTacToeGameService
     {
@@ -119,6 +120,12 @@
             result.AwaysideUsername = game.Oponent.UserName;
             result.TurnsCount = game.TurnsCount.Value;
             result.IsFinished = game.IsFinished;
+
+            result.Tiles = game.Tiles.Select(x => new ComputerGameTileModel()
+            {
+                IsEmpty = x.IsEmpty,
+                Value = x.Value
+            }).ToList();
 
             return result;
         }
