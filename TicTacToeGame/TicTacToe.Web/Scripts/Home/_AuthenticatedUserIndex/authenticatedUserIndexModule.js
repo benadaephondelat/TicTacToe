@@ -1,11 +1,16 @@
 ﻿/**
  * Contains the JavaScript code to be used in the _AuthenticatedUserIndex partial view.
- * @dependencies: jQuery
- * @param {function} jQuery - jQuery library.
+ * @dependencies: jQuery and ajaxCallsModule
+ * @param {function} jQuery
+ * @param {Module} ajaxCallsModule
  */
-var authenticatedUserIndexModule = (function (jQuery) {
+var authenticatedUserIndexModule = (function (jQuery, ajaxCallsModule) {
     if (typeof jQuery === 'undefined') {
         throw new Error('jQuery is not found.');
+    }
+
+    if (typeof ajaxCallsModule === 'undefined') {
+        throw new Error('ajaxCallsModule is not found.');
     }
 
     /* function declarations */
@@ -19,40 +24,12 @@ var authenticatedUserIndexModule = (function (jQuery) {
         $humanVsComputerButton = $('#human-vs-computer-button');
     
     /**
-    * Ajax call to get the _HumanVsHuman partial view.
-    */
-    function _humanVsHumanAjaxCall() {
-        var ajaxCall = $.ajax({
-            url: '/Home/HumanVsHuman',
-            type: 'GET',
-            dataType: 'html',
-            async: true
-        });
-
-        return ajaxCall;
-    }
-
-    /**
-    * Ajax call to get the _HumanVsComputer partial view.
-    */
-    function _humanVsComputerAjaxCall() {
-        var ajaxCall = $.ajax({
-            url: '/Home/HumanVsComputer',
-            type: 'GET',
-            dataType: 'html',
-            async: true
-        });
-
-        return ajaxCall;
-    }
-    
-    /**
     * When the user clicks humanVshumanButton make an ajax call to the server
     * and append the result to the DOM
     */
     humanVsHumanButtonClickHandler = function () {
         $humanVsHumanButton.on('click', function () {
-            _humanVsHumanAjaxCall().done(function (data) {
+            ajaxCallsModule.humanVsHumanCalls.humanVsHuman().done(function (data) {
                 $contentContainer.html(data);
             });
         });
@@ -64,7 +41,7 @@ var authenticatedUserIndexModule = (function (jQuery) {
     */
     humanVsComputerButtonClickHandler = function () {
         $humanVsComputerButton.on('click', function () {
-            _humanVsComputerAjaxCall().done(function (data) {
+            ajaxCallsModule.humanVsComputerCalls.humanVsComputer().done(function (data) {
                 $contentContainer.html(data);
             });
         });
@@ -76,11 +53,9 @@ var authenticatedUserIndexModule = (function (jQuery) {
     };
 
     return {
-        init: initiliazieModule,
-        humanVsHumanAjaxCall: _humanVsHumanAjaxCall,
-        humanVsComputerAjaxCall: _humanVsComputerAjaxCall
+        init: initiliazieModule
     }
 
-})(jQuery || {});
+})(jQuery || {}, ajaxCallsModule || {});
 
 authenticatedUserIndexModule.init();

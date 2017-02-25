@@ -50,6 +50,12 @@
         /// </summary>
         public const string HumanVsHumanGame = "_HumanVsHumanGame";
 
+
+        /// <summary>
+        /// _HumanVsComputerGame partial view
+        /// </summary>
+        public const string HumanVsComputerGame = "_HumanVsComputerGame";
+
         /// <summary>
         /// _FinishedHumanVsHumanGame partial view
         /// </summary>

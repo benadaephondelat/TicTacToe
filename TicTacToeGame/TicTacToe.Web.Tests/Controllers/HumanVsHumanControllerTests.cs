@@ -18,12 +18,12 @@
     [TestClass]
     public class HumanVsHumanControllerTests
     {
-        private ServiceLayerMockHelper mockHelper;
+        private HumanVsHumanServiceLayerMockHelper mockHelper;
 
         [TestInitialize]
         public void Setup()
         {
-            this.mockHelper = new ServiceLayerMockHelper();
+            this.mockHelper = new HumanVsHumanServiceLayerMockHelper();
         }
 
         #region Controller Tests
@@ -284,7 +284,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            bool isCastValidCast = partialViewResult.Model is HumanVsHumanGameViewModel;
+            bool isCastValidCast = partialViewResult.Model is GameViewModel;
 
             Assert.IsTrue(isCastValidCast);
         }
@@ -307,7 +307,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
+            GameViewModel result = partialViewResult.Model as GameViewModel;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.GameInfo);
@@ -332,7 +332,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
+            GameViewModel result = partialViewResult.Model as GameViewModel;
 
             Assert.IsNotNull(result);
 
@@ -359,7 +359,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
+            GameViewModel result = partialViewResult.Model as GameViewModel;
 
             Assert.IsNotNull(result);
 
@@ -458,7 +458,7 @@
         }
 
         [TestMethod]
-        public void PlaceTurn_Should_Return_HumanVsHumanGameViewModel_As_Model_To_The_View()
+        public void PlaceTurn_Should_Return_GameViewModel_As_Model_To_The_View()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -470,13 +470,13 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            bool isCastValidCast = partialViewResult.Model is HumanVsHumanGameViewModel;
+            bool isCastValidCast = partialViewResult.Model is GameViewModel;
 
             Assert.IsTrue(isCastValidCast);
         }
 
         [TestMethod]
-        public void PlaceTurn_HumanVsHumanGameViewModel_Properties_Should_Not_Be_Null()
+        public void PlaceTurn_GameViewModel_Properties_Should_Not_Be_Null()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -488,7 +488,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
+            GameViewModel result = partialViewResult.Model as GameViewModel;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.GameInfo);
@@ -628,7 +628,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            bool isCastValidCast = partialViewResult.Model is HumanVsHumanGameViewModel;
+            bool isCastValidCast = partialViewResult.Model is GameViewModel;
 
             Assert.IsTrue(isCastValidCast);
         }
@@ -644,7 +644,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
+            GameViewModel result = partialViewResult.Model as GameViewModel;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.GameInfo);
@@ -749,7 +749,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            bool isCastValidCast = partialViewResult.Model is HumanVsHumanGameViewModel;
+            bool isCastValidCast = partialViewResult.Model is GameViewModel;
 
             Assert.IsTrue(isCastValidCast);
         }
@@ -765,7 +765,7 @@
 
             Assert.IsNotNull(partialViewResult);
 
-            HumanVsHumanGameViewModel result = partialViewResult.Model as HumanVsHumanGameViewModel;
+            GameViewModel result = partialViewResult.Model as GameViewModel;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.GameInfo);

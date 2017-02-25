@@ -5,7 +5,7 @@
     using FrameworkExtentions.Mappings;
     using AutoMapper;
 
-    public class HumanVsHumanGameInfoModel : IMapFrom<Game>, IHaveCustomMappings
+    public class GameInfoViewModel : IMapFrom<Game>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -27,7 +27,7 @@
 
         public void CreateMappings(IConfiguration configuration)
         {
-            configuration.CreateMap<Game, HumanVsHumanGameInfoModel>()
+            configuration.CreateMap<Game, GameInfoViewModel>()
                          .ForMember(vm => vm.HomeSideUserName, opt => opt.MapFrom(s => s.ApplicationUser.UserName))
                          .ForMember(vm => vm.HomeSideUserId, opt => opt.MapFrom(s => s.ApplicationUserId))
                          .ForMember(vm => vm.AwaySideUserId, opt => opt.MapFrom(s => s.OponentId))

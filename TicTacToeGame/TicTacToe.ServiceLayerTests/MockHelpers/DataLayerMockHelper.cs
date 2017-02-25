@@ -8,6 +8,7 @@
     using Models;
     using Models.Enums;
     using Moq;
+    using TicTacToeCommon.Constants;
 
     /// <summary>
     /// Generates a mock of the DataLayer
@@ -159,6 +160,7 @@
                 this.CreateSameUserInvalidGame(),
                 this.CreateFinishedGame(),
                 this.CreateLastFinishedGame(),
+                this.CreateComputerVsHumanGame(),
             };
 
             return gamesList;
@@ -261,6 +263,41 @@
                 IsFinished = true,
                 GameState = GameState.Won,
                 Tiles = this.GetHomesideUserEarlyWinTilesList(),
+            };
+
+            return finishedGame;
+        }
+
+        /// <summary>
+        /// Creates a mock of a computer vs human game.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateComputerVsHumanGame()
+        {
+            Game finishedGame = new Game()
+            {
+                Id = 8,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMinutes(2),
+                ApplicationUser = new ApplicationUser()
+                {
+                    Id = UserConstants.ComputerId,
+                    UserName = UserConstants.ComputerUsername
+                },
+                ApplicationUserId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                Oponent = new ApplicationUser()
+                {
+                    Id = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
+                    UserName = "the-other-guy@yahoo.com"
+                },
+                OponentId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                TurnsCount = 1,
+                GameName = "computer@yahoo.com vs the-other-guy@yahoo.com",
+                OponentName = "the-other-guy@yahoo.com",
+                IsFinished = false,
+                GameState = GameState.Won,
+                GameMode = GameMode.ComputerVsComputer,
+                Tiles = this.GetDefaultTilesList(),
             };
 
             return finishedGame;

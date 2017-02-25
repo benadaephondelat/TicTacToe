@@ -1,12 +1,17 @@
 ﻿/**
  * Contains the JavaScript to be used in the HumanVsHumanController's _LoadGameGrid partial view.
- * @dependencies: jQuery
+ * @dependencies: jQuery and ajaxCallsModule
  * @param {function} jQuery
+ * @param {Module} ajaxCallsModule.js
  */
-var loadGameGridModule = (function (jQuery) {
+var loadGameGridModule = (function (jQuery, ajaxCallsModule) {
 
     if (typeof jQuery === 'undefined') {
         throw new Error('jQuery is not found.');
+    }
+
+    if (typeof ajaxCallsModule === 'undefined') {
+        throw new Error('ajaxCallsModule is not found.');
     }
 
     /* function declarations */
@@ -19,25 +24,6 @@ var loadGameGridModule = (function (jQuery) {
     var $gridRows = $('.mvc-grid tbody tr'),
         $gameContainer = $('#game-container'),
         _antiForgeryToken = $('#load-game-token').attr('value');
-
-    /**
-    * Ajax call to load a Game.
-    * @param token: AntiForgeryToken
-    * @param data: Request data as JSON object
-    */
-    function _loadGameAjaxCall(data) {
-        var ajaxCall = $.ajax({
-            url: "/HumanVsHuman/LoadGame",
-            type: 'POST',
-            data: data,
-            headers: { 'RequestVerificationToken': _antiForgeryToken },
-            contentType: 'application/json',
-            dataType: 'html',
-            async: true
-        });
-
-        return ajaxCall;
-    };
 
     /**
     * Checks if the grid is empty.
@@ -63,7 +49,7 @@ var loadGameGridModule = (function (jQuery) {
     * Calls loadGameAjaxCall and appends the result to the DOM
     */
     loadGameRequest = function (data) {
-        _loadGameAjaxCall(data).done(function (result) {
+        ajaxCallsModule.humanVsHumanCalls.loadGame(_antiForgeryToken, data).done(function (result) {
             $gameContainer.html(result);
         });
     };
@@ -102,10 +88,9 @@ var loadGameGridModule = (function (jQuery) {
     };
 
     return {
-        init: initiliazieModule,
-        loadGameAjaxCall: _loadGameAjaxCall
+        init: initiliazieModule
     }
 
-})(jQuery || {});
+})(jQuery || {}, ajaxCallsModule || {});
 
 loadGameGridModule.init();

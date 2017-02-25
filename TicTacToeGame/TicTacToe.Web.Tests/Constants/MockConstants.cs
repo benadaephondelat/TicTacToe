@@ -9,5 +9,11 @@
         public const string OtherGuyId = "df7a5022-4fa9-42d9-ba27-7bc45a935199";
 
         public const string OtherGuyEmail = "the-other-guy@yahoo.com";
+
+        public const string ComputerId = "computer-id";
+
+        public const string ComputerUsername = "computer@yahoo.com";
+
+        public const string ComputerEmail = "computer@yahoo.com";
     }
 }

@@ -16,7 +16,16 @@
         /// <param name="currentUserName">The username of the current user</param>
         /// <exception cref="UserNotFoundException"></exception>
         /// <returns>Game</returns>
-        Game CreateNewHumanVsHumanGame(string homeSideUserName, string currentUserName);
+        Game CreateNewGame(string homeSideUserName, string currentUserName);
+
+        /// <summary>
+        /// Returns the computer's chosen tile index or throws exception
+        /// </summary>
+        /// <param name="gameId">Game.Id</param>
+        /// <exception cref="GameNotFoundException"></exception>
+        /// <exception cref="GameIsFinishedException"></exception>
+        /// <returns>int</returns>
+        int GetComputerMove(int gameId);
 
         /// <summary>
         /// Places a turn on a Game or throws exception

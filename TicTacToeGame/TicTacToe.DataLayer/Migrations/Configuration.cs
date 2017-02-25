@@ -40,8 +40,18 @@ namespace TicTacToe.DataLayer.Migrations
                 SecurityStamp = "edb0a930-0105-4d19-a4f1-5ffdb99c9a46"
             };
 
+            ApplicationUser computer = new ApplicationUser()
+            {
+                Id = "computer-id",
+                UserName = "computer@yahoo.com",
+                Email = "computer@yahoo.com",
+                PasswordHash = "AJBLSm6hkwpNbL1DatGCOkRF3QXYnjltoOPM7Tzw3GyPn/QKz4luJyoBUXtcwIUKjw==",
+                SecurityStamp = "edb0a930-0105-4d19-a4f1-5ffdb99c9a46"
+            };
+
             context.Users.Add(defaultUser);
             context.Users.Add(oponentUser);
+            context.Users.Add(computer);
 
             context.SaveChanges();
         }

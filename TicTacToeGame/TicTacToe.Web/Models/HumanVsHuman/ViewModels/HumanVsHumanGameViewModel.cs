@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class HumanVsHumanGameViewModel
+    public class GameViewModel
     {
-        public HumanVsHumanGameInfoModel GameInfo { get; set; }
+        public GameInfoViewModel GameInfo { get; set; }
 
         public IEnumerable<TileViewModel> GameTiles { get; set; }
     }

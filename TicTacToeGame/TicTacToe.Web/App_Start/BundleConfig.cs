@@ -35,6 +35,12 @@
 
             #region Custom Script Bundles
 
+            bundles.Add(new ScriptBundle("~/bundles/ajaxCallsModule")
+                   .Include("~/Scripts/Modules/AjaxCallsModule/ajaxCallsModule.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/gameModule")
+                   .Include("~/Scripts/Modules/GameModule/gameModule.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/authenticatedUserIndexModule")
                    .Include("~/Scripts/Home/_AuthenticatedUserIndex/authenticatedUserIndexModule.js"));
 
@@ -47,8 +53,18 @@
             bundles.Add(new ScriptBundle("~/bundles/loadGameGridModule")
                    .Include("~/Scripts/HumanVsHuman/_LoadGameGrid/loadGameGridModule.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/humanVsComputerGameModule")
+                   .Include("~/Scripts/HumanVsComputer/NewGame/humanVsComputerGameModule.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/mvc-grid")
                    .Include("~/Scripts/MvcGrid/mvc-grid.js"));
+
+            #endregion
+
+            #region Custom Style Bundles
+
+            bundles.Add(new StyleBundle("~/Content/game-style")
+                   .Include("~/Content/Custom/game-style.css"));
 
             #endregion
 

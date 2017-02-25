@@ -1,0 +1,83 @@
+﻿@using TicTacToe.Web.FrameworkExtentions.ViewHelpers
+@model TicTacToe.Web.Models.HumanVsHuman.ViewModels.GameViewModel
+
+@Styles.Render("~/Content/game-style")
+
+<div id="turn-container">
+    <h5>@Model.GameInfo.GameName</h5>
+
+    <h5>Turn: @Model.GameInfo.TurnsCount</h5>
+
+    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUserId)
+    {
+        <h5 class="red">Turn Holder: @Model.GameInfo.HomeSideUserName</h5>
+    }
+    else
+    {
+        <h5 class="blue">Turn Holder: @Model.GameInfo.AwaySideUserName</h5>
+    }
+</div>
+
+<div id="home-side-container">
+    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUserId)
+    {
+        <h4 id="turn-info" class="red">YOUR TURN</h4>
+    }
+    <h4>Home Side - <span class="red">X</span></h4>
+    @Model.GameInfo.HomeSideUserName
+</div>
+
+<div id="grid-container">
+
+    <div id="first-column">
+        <div class="tile" data-index="0" data-isEmpty="@Model.GameTiles.ElementAt(0).IsEmpty">
+            @Model.GameTiles.ElementAt(0).Value
+        </div>
+        <div class="tile" data-index="1" data-isEmpty="@Model.GameTiles.ElementAt(1).IsEmpty">
+            @Model.GameTiles.ElementAt(1).Value
+        </div>
+        <div class="tile" data-index="2" data-isEmpty="@Model.GameTiles.ElementAt(2).IsEmpty">
+            @Model.GameTiles.ElementAt(2).Value
+        </div>
+    </div>
+
+    <div id="second-column">
+        <div class="tile" data-index="3" data-isEmpty="@Model.GameTiles.ElementAt(3).IsEmpty">
+            @Model.GameTiles.ElementAt(3).Value
+        </div>
+        <div class="tile" data-index="4" data-isEmpty="@Model.GameTiles.ElementAt(4).IsEmpty">
+            @Model.GameTiles.ElementAt(4).Value
+        </div>
+        <div class="tile" data-index="5" data-isEmpty="@Model.GameTiles.ElementAt(5).IsEmpty">
+            @Model.GameTiles.ElementAt(5).Value
+        </div>
+    </div>
+
+    <div id="third-column">
+        <div class="tile" data-index="6" data-isEmpty="@Model.GameTiles.ElementAt(6).IsEmpty">
+            @Model.GameTiles.ElementAt(6).Value
+        </div>
+        <div class="tile" data-index="7" data-isEmpty="@Model.GameTiles.ElementAt(7).IsEmpty">
+            @Model.GameTiles.ElementAt(7).Value
+        </div>
+        <div class="tile" data-index="8" data-isEmpty="@Model.GameTiles.ElementAt(8).IsEmpty">
+            @Model.GameTiles.ElementAt(8).Value
+        </div>
+    </div>
+
+</div>
+
+<div id="away-side-container">
+    @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.AwaySideUserId)
+    {
+        <h4 id="turn-info" class="blue">YOUR TURN</h4>
+    }
+    <h4>Away Side - <span class="blue">0</span></h4>
+    @Model.GameInfo.AwaySideUserName
+</div>
+
+<input type="hidden" id="userId" value="@Model.GameInfo.CurrentTurnHolderId" />
+<input type="hidden" id="gameId" value="@Model.GameInfo.Id" />
+<input type="hidden" id="place-turn-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
+
+@Scripts.Render("~/bundles/humanVsComputerGameModule")

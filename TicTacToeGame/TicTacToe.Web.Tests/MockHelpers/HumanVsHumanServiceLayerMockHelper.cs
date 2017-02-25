@@ -14,7 +14,7 @@
     /// <summary>
     /// Generates a mock of the ServiceLayer
     /// </summary>
-    public class ServiceLayerMockHelper
+    public class HumanVsHumanServiceLayerMockHelper
     {
         private List<ApplicationUser> Users { get; }
 
@@ -24,7 +24,7 @@
 
         private Game FinishedGame { get; }
 
-        public ServiceLayerMockHelper()
+        public HumanVsHumanServiceLayerMockHelper()
         {
             this.Users = this.CreateDefaultUsersMock();
             this.DefaultTilesList = this.CreateDefaultTilesMock();
@@ -42,12 +42,11 @@
         {
             Mock<ITicTacToeGameService> serviceMock = new Mock<ITicTacToeGameService>();
 
-            serviceMock.Setup(p => p.CreateNewHumanVsHumanGame(MockConstants.UserEmail, MockConstants.OtherGuyEmail))
+            serviceMock.Setup(p => p.CreateNewGame(MockConstants.UserEmail, MockConstants.OtherGuyEmail))
                        .Returns(this.Game);
 
-            serviceMock.Setup(p => p.CreateNewHumanVsHumanGame(MockConstants.OtherGuyEmail, MockConstants.UserEmail))
+            serviceMock.Setup(p => p.CreateNewGame(MockConstants.OtherGuyEmail, MockConstants.UserEmail))
                        .Returns(this.Game);
-
 
             serviceMock.Setup(p => p.PlaceTurn(1, 0, "georgi_iliev@yahoo.com"));
 

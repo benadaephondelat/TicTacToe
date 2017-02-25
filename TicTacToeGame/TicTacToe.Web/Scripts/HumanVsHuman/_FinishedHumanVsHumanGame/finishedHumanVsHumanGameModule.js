@@ -1,12 +1,17 @@
 ﻿/**
  * Contains the JavaScript to be used in the HumanVsHumanController's ReplayGame partial view.
- * @dependencies: jQuery
+ * @dependencies: jQuery and ajaxCallsModule
  * @param {function} jQuery
+ * @param {Module} ajaxCallsModule
  */
-var finishedHumanVsHumanGameModule = (function (jQuery) {
+var finishedHumanVsHumanGameModule = (function (jQuery, ajaxCallsModule) {
 
     if (typeof jQuery === 'undefined') {
         throw new Error('jQuery is not found.');
+    }
+
+    if (typeof ajaxCallsModule === 'undefined') {
+        throw new Error('ajaxCallsModule is not found.');
     }
 
     /* function declarations */
@@ -15,25 +20,8 @@ var finishedHumanVsHumanGameModule = (function (jQuery) {
 
     /* cached DOM objects */
     var $replayGameButton = $('#replay-game-button'),
-        $newGameContainer = $('#new-game-container'),
+        $newGameContainer = $('#game-container'),
         _antiForgeryToken = $('#finished-game-token').attr('value');
-
-    /**
-    * Ajax call to place a turn.
-    * @param token: AntiForgeryToken
-    * @param data: Request data as JSON object
-    */
-    function humanVsHumanReplayGameAjaxCall() {
-        var ajaxCall = $.ajax({
-            url: "/HumanVsHuman/ReplayGame",
-            type: 'POST',
-            headers: { 'RequestVerificationToken': _antiForgeryToken },
-            dataType: 'html',
-            async: true
-        });
-
-        return ajaxCall;
-    };
 
     /**
      * When the user clicks on the replay game button
@@ -41,7 +29,7 @@ var finishedHumanVsHumanGameModule = (function (jQuery) {
      */
     replayGameButtonClickHandler = function() {
         $replayGameButton.on('click', function() {
-            humanVsHumanReplayGameAjaxCall().done(function(result) {
+            ajaxCallsModule.humanVsHumanCalls.replayGame(_antiForgeryToken, {}).done(function (result) {
                 $newGameContainer.html(result);
             });
         });
@@ -52,10 +40,9 @@ var finishedHumanVsHumanGameModule = (function (jQuery) {
     };
 
     return {
-        init: initiliazieModule,
-        humanVsHumanReplayGameAjaxCall: humanVsHumanReplayGameAjaxCall
+        init: initiliazieModule
     }
 
-})(jQuery || {});
+})(jQuery || {}, ajaxCallsModule || {});
 
 finishedHumanVsHumanGameModule.init();

@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using TicTacToe.Models.Enums;
+    using Enums;
 
     public class Game
     {
@@ -46,6 +45,8 @@
         public string WinnerId { get; set; }
 
         public string GameName { get; set; }
+
+        public GameMode GameMode { get; set; }
 
         public GameState GameState { get; set; }
 

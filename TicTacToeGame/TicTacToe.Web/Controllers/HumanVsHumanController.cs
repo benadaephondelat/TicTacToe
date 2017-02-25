@@ -31,7 +31,7 @@
         {
             NewGameInputModel inputModel = new NewGameInputModel()
             {
-                Players = base.GetDefaultPlayersList(),
+                Players = this.GetDefaultPlayersList(),
             };
 
             return View(NewGameView, inputModel);
@@ -45,11 +45,11 @@
 
             string currentUserName = base.CurrentUserName();
             
-            Game game = ticTacToeGameService.CreateNewHumanVsHumanGame(homeSideUserName, currentUserName);
+            Game game = ticTacToeGameService.CreateNewGame(homeSideUserName, currentUserName);
 
-            HumanVsHumanGameViewModel viewModel = new HumanVsHumanGameViewModel()
+            GameViewModel viewModel = new GameViewModel()
             {
-                GameInfo = Mapper.Map<HumanVsHumanGameInfoModel>(game),
+                GameInfo = Mapper.Map<GameInfoViewModel>(game),
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
@@ -63,9 +63,9 @@
 
             Game game = ticTacToeGameService.RecreatePreviousGame(currentUsername);
 
-            HumanVsHumanGameViewModel viewModel = new HumanVsHumanGameViewModel()
+            GameViewModel viewModel = new GameViewModel()
             {
-                GameInfo = Mapper.Map<HumanVsHumanGameInfoModel>(game),
+                GameInfo = Mapper.Map<GameInfoViewModel>(game),
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
@@ -87,9 +87,9 @@
                 return RedirectToAction("FinishedGame", new { @gameId = game.Id });
             }
 
-            HumanVsHumanGameViewModel viewModel = new HumanVsHumanGameViewModel()
+            GameViewModel viewModel = new GameViewModel()
             {
-                GameInfo = Mapper.Map<HumanVsHumanGameInfoModel>(game),
+                GameInfo = Mapper.Map<GameInfoViewModel>(game),
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
@@ -119,9 +119,9 @@
         {
             Game game = this.ticTacToeGameService.GetGameById(gameId);
 
-            HumanVsHumanGameViewModel viewModel = new HumanVsHumanGameViewModel()
+            GameViewModel viewModel = new GameViewModel()
             {
-                GameInfo = Mapper.Map<HumanVsHumanGameInfoModel>(game),
+                GameInfo = Mapper.Map<GameInfoViewModel>(game),
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
@@ -139,6 +139,21 @@
             };
 
             return PartialView(FinishedHumanVsHumanGame, viewModel);
+        }
+
+        /// <summary>
+        /// Returns a list containing the current user's Id and the default oponent's Id
+        /// </summary>
+        /// <returns>List<string></string></returns>
+        private List<string> GetDefaultPlayersList()
+        {
+            List<string> humanVsHumanDefaultPlayers = new List<string>()
+            {
+                this.CurrentUserName(),
+                HumanVsHumanConstants.OponentUsername
+            };
+
+            return humanVsHumanDefaultPlayers;
         }
     }
 }

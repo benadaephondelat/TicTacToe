@@ -264,6 +264,7 @@
     <Compile Include="Views\ViewConstants\ViewConstants.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Custom\game-style.css" />
     <Content Include="Content\Default\bootstrap.css" />
     <Content Include="Content\Default\bootstrap.min.css" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
@@ -292,6 +293,9 @@
     <Content Include="Scripts\Default\respond.js" />
     <Content Include="Scripts\Default\respond.min.js" />
     <Content Include="Scripts\Default\_references.js" />
+    <Content Include="Scripts\HumanVsComputer\NewGame\humanVsComputerGameModule.js" />
+    <Content Include="Scripts\HumanVsComputer\NewGame\tests\humanVsComputerGameModuleTests.js" />
+    <Content Include="Scripts\HumanVsComputer\NewGame\tests\index.html" />
     <Content Include="Scripts\HumanVsHuman\NewGame\humanVsHumanNewGameModule.js" />
     <Content Include="Scripts\HumanVsHuman\NewGame\tests\humanVsHumanNewGameModuleTests.js" />
     <Content Include="Scripts\HumanVsHuman\NewGame\tests\index.html" />
@@ -303,6 +307,10 @@
     <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\loadGameGridModule.js" />
     <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\tests\index.html" />
     <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\tests\loadGameGridModuleTests.js" />
+    <Content Include="Scripts\Modules\AjaxCallsModule\ajaxCallsModule.js" />
+    <Content Include="Scripts\Modules\AjaxCallsModule\tests\index.html" />
+    <Content Include="Scripts\Modules\AjaxCallsModule\tests\ajaxCallsModuleTests.js" />
+    <Content Include="Scripts\Modules\GameModule\gameModule.js" />
     <Content Include="Scripts\MvcGrid\mvc-grid.js" />
     <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Web.config" />
@@ -354,6 +362,7 @@
     <Content Include="Views\HumanVsHuman\_LoadGameGrid.cshtml" />
     <Content Include="Views\Home\_HumanVsComputer.cshtml" />
     <Content Include="Views\HumanVsComputer\NewGame.cshtml" />
+    <Content Include="Views\HumanVsComputer\_HumanVsComputerGame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -369,10 +378,6 @@
     <Content Include="Scripts\Default\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TicTacToe.DataLayer\TicTacToe.DataLayer.csproj">
-      <Project>{DDC07EFA-EB4E-47E9-B940-19155ADD8230}</Project>
-      <Name>TicTacToe.DataLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.Models\TicTacToe.Models.csproj">
       <Project>{0FBCC8C3-C3FA-4895-A4F6-70BEC6A0754F}</Project>
       <Name>TicTacToe.Models</Name>
@@ -380,6 +385,10 @@
     <ProjectReference Include="..\TicTacToe.ServiceLayer\TicTacToe.ServiceLayer.csproj">
       <Project>{CD064B6E-1D82-4EC2-9D32-2D63A5640EFB}</Project>
       <Name>TicTacToe.ServiceLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToeCommon\TicTacToeCommon.csproj">
+      <Project>{9aeddcf1-9b80-4369-ac0f-8514b7384b89}</Project>
+      <Name>TicTacToeCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
