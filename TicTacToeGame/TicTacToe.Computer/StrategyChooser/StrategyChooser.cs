@@ -2,7 +2,7 @@
 {
     using Models;
     using Strategies;
-    using static TicTacToeCommon.Constants.UserConstants;
+    using TicTacToeCommon.Constants;
 
     public static class StrategyChooser
     {
@@ -28,7 +28,7 @@
         /// <returns>bool</returns>
         private static bool ComputerIsStartingFirst(string homesideUsername)
         {
-            if (homesideUsername == ComputerUsername)
+            if (homesideUsername == UserConstants.ComputerUsername)
             {
                 return true;
             }
