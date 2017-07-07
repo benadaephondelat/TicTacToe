@@ -45,24 +45,60 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DataMockHelper\DataMockHelper.cs" />
     <Compile Include="ComputerTests.cs" />
+    <Compile Include="Helpers\TileHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\CanWinCheck\CanWinCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\ColumnsCheck\FirstColumnCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\ColumnsCheck\SecondColumnCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\ColumnsCheck\ThirdColumnCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\DiagonalsCheck\FirstDiagonalCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\DiagonalsCheck\SecondDiagonalCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\EdgesCheck\ClosestEdgeCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\FirstEmptyCheck\FirstEmptyCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\InnerCheck\InnerCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\FirstRowCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\SecondRowCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\ThirdRowCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\MainStrategyTests.cs" />
+    <Compile Include="Strategies\StartingFirst\StartingFirstStrategyTests.cs" />
+    <Compile Include="Strategies\StartingFirst\TurnStrategies\FirstTurnStrategy\FirstTurnStrategyTests.cs" />
+    <Compile Include="Strategies\StartingFirst\TurnStrategies\SecondTurnStrategy\SecondTurnStrategyTests.cs" />
+    <Compile Include="Strategies\StartingSecond\StartingSecondStrategyTests.cs" />
+    <Compile Include="Strategies\ComputerStrategyTests.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\FirstTurnStrategy\FirstTurnStrategyTests.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\AggressiveMoveCheckTests.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\AgressiveMoveResponsibilityTests.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\KnightsMoveCheck\KnightMoveCheckTests.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\RhombusMoveCheck\RhombusMoveCheckTests.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\TwoEdgesCheck\TwoEdgesMoveCheckTests.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\SecondTurnStrategyTests.cs" />
+    <Compile Include="Strategies\TurnStrategyTests.cs" />
+    <Compile Include="StrategyChooser\StrategyChooserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicTacToe.Computer\TicTacToe.Computer.csproj">
       <Project>{3050abec-0881-49bd-9d42-d775ddeac8ea}</Project>
       <Name>TicTacToe.Computer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.ServiceLayerTests\TicTacToe.ServiceLayerTests.csproj">
+      <Project>{7544CAB0-D69B-411C-A250-0EE8A4D41670}</Project>
+      <Name>TicTacToe.ServiceLayerTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToeCommon\TicTacToeCommon.csproj">
       <Project>{9aeddcf1-9b80-4369-ac0f-8514b7384b89}</Project>
       <Name>TicTacToeCommon</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

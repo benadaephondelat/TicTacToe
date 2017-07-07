@@ -12,6 +12,6 @@
 
         public bool IsFinished { get; set; }
 
-        public IEnumerable<ComputerGameTileModel> Tiles { get; set; }
+        public IEnumerable<IComputerGameTileModel> Tiles { get; set; }
     }
 }

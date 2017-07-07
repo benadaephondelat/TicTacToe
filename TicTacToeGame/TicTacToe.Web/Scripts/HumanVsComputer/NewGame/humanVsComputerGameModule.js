@@ -20,7 +20,7 @@ var humanVsComputerGameModule = (function (jQuery, ajaxCallsModule, gameModule) 
 
     /* function declarations */
     var gameBoardClickHandler,
-        initiliazieModule;
+        initializeModule;
 
     /* cached dom objects */
     var $gameId = $('#gameId'),
@@ -43,13 +43,13 @@ var humanVsComputerGameModule = (function (jQuery, ajaxCallsModule, gameModule) 
         });
     };
 
-    initiliazieModule = function () {
+    initializeModule = function () {
         gameBoardClickHandler();
         gameModule.gameBoardColouringHandler($fullGameTiles);
     };
 
     return {
-        init: initiliazieModule
+        init: initializeModule
     }
 
 })(jQuery || {}, ajaxCallsModule || {}, gameModule || {});

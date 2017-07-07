@@ -534,17 +534,6 @@
             Assert.IsNotNull(result.GameTiles);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void PlaceTurn_Should_Throw_NotImplementedException_If_Game_Is_Finished()
-        {
-            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
-
-            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 3, TileIndex = 0 };
-
-            controller.PlaceTurn(model);
-        }
-
         #endregion
 
         /// <summary>

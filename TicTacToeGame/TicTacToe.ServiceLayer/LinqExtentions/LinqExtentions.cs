@@ -7,7 +7,7 @@
     public static class LinqExtentions
     {
         /// <summary>
-        /// Returns the last finished game sorted by date.
+        /// Returns the last finished game
         /// </summary>
         /// <param name="source">List of games</param>
         /// <returns>Game</returns>

@@ -2,15 +2,18 @@
 {
     using System;
     using System.Linq;
-    using DataLayer.Data;
-    using ServiceLayer.TicTacToeGameService;
+
+    using Computer;
     using Models;
     using Models.Enums;
-    using Constants;
     using MockHelpers;
+    using Constants;
+    using DataLayer.Data;
+    using ServiceLayer.TicTacToeGameService;
     using TicTacToeCommon.Exceptions.User;
     using TicTacToeCommon.Exceptions.Tile;
     using TicTacToeCommon.Exceptions.Game;
+
     using Moq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,6 +24,8 @@
 
         private TicTacToeGameService gameService;
 
+        private IComputer computer;
+
         [TestInitialize]
         public void SetUp()
         {
@@ -28,7 +33,9 @@
 
             this.dataLayerMock = mockHelper.SetupTicTacToeDataMock();
 
-            this.gameService = new TicTacToeGameService(dataLayerMock.Object);
+            this.computer = new Computer();
+
+            this.gameService = new TicTacToeGameService(dataLayerMock.Object, computer);
         }
 
         #region GetGameById
@@ -110,7 +117,7 @@
         }
 
         [TestMethod]
-        public void CreateNewGame_Game_Should_Set_The_User_From_homeSideUserName_As_Game_Owner()
+        public void CreateNewGame_Game_Should_Set_The_User_From_HomeSideUserName_As_Game_Owner()
         {
             Game game = gameService.CreateNewGame(MockConstants.UserName, MockConstants.OtherGuyUserName);
 
@@ -118,7 +125,7 @@
         }
 
         [TestMethod]
-        public void CreateNewGame_Game_Should_Set_The_awaySideUserName_As_Oponent()
+        public void CreateNewGame_Game_Should_Set_The_AwaySideUserName_As_Oponent()
         {
             Game game = gameService.CreateNewGame(MockConstants.UserName, MockConstants.OtherGuyUserName);
 

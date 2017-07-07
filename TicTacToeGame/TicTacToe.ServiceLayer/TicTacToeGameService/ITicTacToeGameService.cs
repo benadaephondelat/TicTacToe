@@ -57,7 +57,7 @@
 
         /// <summary>
         /// Checks a Game for a winner or throws exception.
-        /// Sets Game properties if the game has an outcome.
+        /// Modifies a Game's properties to reflect the outcome of the current game.
         /// </summary>
         /// <param name="gameId">id of the game</param>
         /// <exception cref="GameNotFoundException"></exception>

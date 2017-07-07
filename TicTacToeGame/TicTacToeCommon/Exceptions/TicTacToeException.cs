@@ -9,7 +9,7 @@
     [Serializable]
     public abstract class TicTacToeException : Exception
     {
-        public static string CustomMessage = "OnlineShop Exception.";
+        public static string CustomMessage = "TicTacToe Main Application Exception.";
 
         public TicTacToeException() : base()
         {

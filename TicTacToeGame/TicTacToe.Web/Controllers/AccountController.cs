@@ -12,7 +12,7 @@
     using Models.Account;
     using TicTacToe.Models;
     using ServiceLayer.IdentityConfiguration;
-    
+
     [Authorize]
     public class AccountController : Controller
     {

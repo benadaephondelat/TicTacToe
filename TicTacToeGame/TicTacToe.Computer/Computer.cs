@@ -2,22 +2,28 @@
 {
     using Models;
     using Strategies;
-    using static StrategyChooser.StrategyChooser;
+    using ComputerStrategyChooser = StrategyChooser.StrategyChooser;
 
-    public class Computer
+    /// <summary>
+    /// TicTacToe Computer
+    /// </summary>
+    public class Computer : IComputer
     {
-        private ComputerStrategy strategy;
+        private ComputerStrategy computerStrategy;
+        private ComputerStrategyChooser strategyChooser;
 
-        public Computer(IComputerGameModel game)
+        public Computer()
         {
-            this.strategy = GetComputerStrategy(game);
+            this.strategyChooser = new ComputerStrategyChooser();
         }
 
-        public int GetComputerMove()
+        public int GetComputerMoveIndex(IComputerGameModel game)
         {
-            int tileIndex = this.strategy.GetComputerMove();
+            this.computerStrategy = this.strategyChooser.GetComputerStrategy(game);
 
-            return tileIndex;
+            int computerMove = this.computerStrategy.GetComputerMove();
+
+            return computerMove;
         }
     }
 }

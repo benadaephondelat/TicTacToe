@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TicTacToe.Computer.Constants.ComputerConstants" Collapsed="true">
+    <Position X="31.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAgAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Constants\ComputerConstants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Models.ComputerGameModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAgAAAAAAAAAIABAAAAAAQAAA=</HashCode>
+      <FileName>Models\ComputerGameModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicTacToe.Computer.Models.ComputerGameTileModel" BaseTypeListCollapsed="true">
+    <Position X="28" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Models\ComputerGameTileModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.ComputerStrategy" Collapsed="true">
+    <Position X="5.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\ComputerStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.TurnStrategy" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAABAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\TurnStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.ColumnsCheck.FirstColumnCheck" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAIAAAAAAAAAAAAAAQAAAAAAAAAAAQACAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\ColumnsCheck\FirstColumnCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.ColumnsCheck.SecondColumnCheck" Collapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAIAAAAAAAAAAAAgAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\ColumnsCheck\SecondColumnCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.ColumnsCheck.ThirdColumnCheck" Collapsed="true">
+    <Position X="18.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAIAAAAAAIAAAAAAAAAAAQAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\ColumnsCheck\ThirdColumnCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.DiagonalsCheck.FirstDiagonalCheck" Collapsed="true">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAIAAAAAAAAAAAAAAAAAAAAAgAAAAAACAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\DiagonalsCheck\FirstDiagonalCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.DiagonalsCheck.SecondDiagonalCheck" Collapsed="true">
+    <Position X="25.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAIAAAAAAAAAAAAAAAAAAQAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\DiagonalsCheck\SecondDiagonalCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.FirstEmptyCheck.FirstEmptyTileCheck" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\FirstEmptyCheck\FirstEmptyTileCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.Responsibility" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAEAAgAABAAAAAABAAAAAAEAAAAAAQA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\Responsibility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.MainStrategy" Collapsed="true">
+    <Position X="6.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABGIIAQoAAAAiAAQEEAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\MainStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingFirst.StartingFirstComputerStrategy" Collapsed="true">
+    <Position X="4" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAAAAAAAAAIIAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\StartingFirst\StartingFirstComputerStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingFirst.TurnStrategies.FirstTurnStrategy.FirstTurnStrategy" Collapsed="true">
+    <Position X="8.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\StartingFirst\TurnStrategies\FirstTurnStrategy\FirstTurnStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingFirst.TurnStrategies.SecondTurnStrategy.SecondTurnStrategy" Collapsed="true">
+    <Position X="11" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEAAAAAAICAAAAAAgAAAAAAABEAIAAAAAAAAAAABAgA=</HashCode>
+      <FileName>Strategies\StartingFirst\TurnStrategies\SecondTurnStrategy\SecondTurnStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingSecond.StartingSecondComputerStrategy" Collapsed="true">
+    <Position X="7" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAAAAAAAAAIIAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\StartingSecond\StartingSecondComputerStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingSecond.TurnStrategies.FirstTurnStrategy.FirstTurnStrategy" Collapsed="true">
+    <Position X="4.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\StartingSecond\TurnStrategies\FirstTurnStrategy\FirstTurnStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.StrategyChooser.StrategyChooser" Collapsed="true">
+    <Position X="31.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAA=</HashCode>
+      <FileName>StrategyChooser\StrategyChooser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Computer" Collapsed="true">
+    <Position X="29.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Computer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.CanWinCheck.CanWinCheck" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAIAAABAAIBAAAAgAQAAAQAAhAAAAQACAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\CanWinCheck\CanWinCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.EdgesCheck.ClosestEdgeCheck" Collapsed="true">
+    <Position X="34.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAIIAAAACAIAAAAAAAAAgQAAgAAAAQACIAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\EdgesCheck\ClosestEdgeCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.InnerCheck.InnerCheck" Collapsed="true">
+    <Position X="38" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAIAAAAAAIAAAAAgAQAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\InnerCheck\InnerCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.RowsCheck.FirstRowCheck" Collapsed="true">
+    <Position X="40.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAIAAAAAAAAAAAAAAAAAAQAABAAAAAACAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\RowsCheck\FirstRowCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.RowsCheck.SecondRowCheck" Collapsed="true">
+    <Position X="42.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAIAAAAAAIAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\RowsCheck\SecondRowCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.MainStrategy.Checks.RowsCheck.ThirdRowCheck" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAIAAAAAAAAAAAAgAAAAAAAAgAAAAQAAAAAAA=</HashCode>
+      <FileName>Strategies\MainStrategy\Checks\RowsCheck\ThirdRowCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingSecond.TurnStrategies.SecondTurnStrategy.AggressiveMoveStrategy.AggressiveMoveCheck" Collapsed="true">
+    <Position X="45" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAFAIAAAABAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\AggressiveMoveCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingSecond.TurnStrategies.SecondTurnStrategy.AggressiveMoveStrategy.Checks.AgressiveMoveResponsibility" Collapsed="true">
+    <Position X="12" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAEAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\AgressiveMoveResponsibility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingSecond.TurnStrategies.SecondTurnStrategy.AggressiveMoveStrategy.Checks.KnightMoveCheck.KnightMoveCheck" Collapsed="true">
+    <Position X="9.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASAAADIAAAAAACAAAAAAAAAAAAIAAAAAQIAAAEAAA=</HashCode>
+      <FileName>Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\KnightMoveCheck\KnightMoveCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingSecond.TurnStrategies.SecondTurnStrategy.AggressiveMoveStrategy.Checks.RhombusMoveCheck.RhombusMoveCheck" Collapsed="true">
+    <Position X="12" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAIAAAAAAAAAFAAABAAAAAAAAAAAAAAEQAA=</HashCode>
+      <FileName>Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\RhombusMoveCheck\RhombusMoveCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingSecond.TurnStrategies.SecondTurnStrategy.AggressiveMoveStrategy.Checks.TwoEdgesMoveCheck.TwoEdgesMoveCheck" Collapsed="true">
+    <Position X="14.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAIAAAAAEAAAAARAAAAAAAQAACAAAAAAAMIAA=</HashCode>
+      <FileName>Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\TwoEdgesMoveCheck\TwoEdgesMoveCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Strategies.StartingSecond.TurnStrategies.SecondTurnStrategy.SecondTurnStrategy" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAIAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\SecondTurnStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicTacToe.Computer.Exceptions.ComputerException" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ComputerException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TicTacToe.Computer.Models.IComputerGameModel" Collapsed="true">
+    <Position X="28" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAgAAAAAAAAAIABAAAAAAQAAA=</HashCode>
+      <FileName>Models\IComputerGameModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicTacToe.Computer.Models.IComputerGameTileModel" Collapsed="true">
+    <Position X="30.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Models\IComputerGameTileModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicTacToe.Computer.IComputer" Collapsed="true">
+    <Position X="45" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IComputer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

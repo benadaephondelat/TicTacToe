@@ -70,6 +70,10 @@
     <Compile Include="TicTacToeGameServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicTacToe.Computer\TicTacToe.Computer.csproj">
+      <Project>{3050ABEC-0881-49BD-9D42-D775DDEAC8EA}</Project>
+      <Name>TicTacToe.Computer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.DataLayer\TicTacToe.DataLayer.csproj">
       <Project>{DDC07EFA-EB4E-47E9-B940-19155ADD8230}</Project>
       <Name>TicTacToe.DataLayer</Name>

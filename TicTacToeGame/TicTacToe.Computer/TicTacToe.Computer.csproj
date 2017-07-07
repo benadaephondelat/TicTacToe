@@ -48,6 +48,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -66,6 +67,22 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ComputerException.cs" />
+    <Compile Include="Helpers\TileHelper.cs" />
+    <Compile Include="IComputer.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\CanWinCheck\CanWinCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\EdgesCheck\ClosestEdgeCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\ColumnsCheck\FirstColumnCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\DiagonalsCheck\FirstDiagonalCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\FirstEmptyCheck\FirstEmptyTileCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\FirstRowCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\Responsibility.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\InnerCheck\InnerCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\ColumnsCheck\SecondColumnCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\DiagonalsCheck\SecondDiagonalCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\SecondRowCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\ColumnsCheck\ThirdColumnCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\ThirdRowCheck.cs" />
     <Compile Include="Computer.cs" />
     <Compile Include="Constants\ComputerConstants.cs" />
     <Compile Include="Models\ComputerGameModel.cs" />
@@ -73,19 +90,32 @@
     <Compile Include="Models\IComputerGameModel.cs" />
     <Compile Include="Models\IComputerGameTileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategies\StartingFirst\TurnStrategies\FirstTurnStrategy\FirstTurnStrategy.cs" />
+    <Compile Include="Strategies\StartingFirst\TurnStrategies\SecondTurnStrategy\SecondTurnStrategy.cs" />
+    <Compile Include="Strategies\MainStrategy\MainStrategy.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\AggressiveMoveCheck.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\AgressiveMoveResponsibility.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\KnightMoveCheck\KnightMoveCheck.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\RhombusMoveCheck\RhombusMoveCheck.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\TwoEdgesMoveCheck\TwoEdgesMoveCheck.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\SecondTurnStrategy.cs" />
+    <Compile Include="Strategies\TurnStrategy.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\FirstTurnStrategy\FirstTurnStrategy.cs" />
     <Compile Include="StrategyChooser\StrategyChooser.cs" />
     <Compile Include="Strategies\ComputerStrategy.cs" />
-    <Compile Include="Strategies\StartingFirstStrategy.cs" />
-    <Compile Include="Strategies\StartingSecondStrategy.cs" />
+    <Compile Include="Strategies\StartingFirst\StartingFirstComputerStrategy.cs" />
+    <Compile Include="Strategies\StartingSecond\StartingSecondComputerStrategy.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\TicTacToeCommon\TicTacToeCommon.csproj">
       <Project>{9aeddcf1-9b80-4369-ac0f-8514b7384b89}</Project>
       <Name>TicTacToeCommon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Computer.cd" />
+    <Content Include="Documents\knight-move-example.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

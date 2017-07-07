@@ -1,5 +1,6 @@
 ﻿namespace TicTacToe.ServiceLayer.TicTacToeGameService
 {
+    using System.Linq;
     using System.Collections.Generic;
     using Models;
     using DataLayer.Data;
@@ -10,15 +11,16 @@
     using TicTacToeService.Factories.Game.Update;
     using Computer;
     using Computer.Models;
-    using System.Linq;
 
     public class TicTacToeGameService : ITicTacToeGameService
     {
         private readonly IServicesFactory serviceFactory;
+        private readonly IComputer computer;
 
-        public TicTacToeGameService(ITicTacToeData data)
+        public TicTacToeGameService(ITicTacToeData data, IComputer computer)
         {
             this.serviceFactory = new ServicesFactory(data);
+            this.computer = computer;
         }
 
         public Game GetGameById(int gameId)
@@ -98,11 +100,9 @@
         {
             Game game = this.GetGameById(gameId);
 
-            ComputerGameModel computerGame = this.CreateComputerGameModel(game);
+            IComputerGameModel computerGame = this.CreateComputerGameModel(game);
 
-            Computer computer = new Computer(computerGame);
-
-            int tileIndex = computer.GetComputerMove();
+            int tileIndex = this.computer.GetComputerMoveIndex(computerGame);
 
             return tileIndex;
         }
@@ -112,7 +112,7 @@
         /// </summary>
         /// <param name="game">Game</param>
         /// <returns>ComputerGameModel</returns>
-        private ComputerGameModel CreateComputerGameModel(Game game)
+        private IComputerGameModel CreateComputerGameModel(Game game)
         {
             ComputerGameModel result = new ComputerGameModel();
 

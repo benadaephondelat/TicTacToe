@@ -57,7 +57,7 @@ var gameModule = (function (jQuery) {
     }
 
     /**
-     * Adds a css class to all not empty tiles based on tile's value.
+     * Adds a css class to all not empty tiles based on the tile's value.
      * @param {jQuery DOM element} tiles DOM element
      */
     var gameBoardColouringHandler = function ($fullGameTiles) {

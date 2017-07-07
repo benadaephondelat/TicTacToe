@@ -1,0 +1,74 @@
+﻿namespace TicTacToe.Computer.Strategies.MainStrategy
+{
+    using System;
+    using System.Collections.Generic;
+    using Models;
+    using Checks.RowsCheck;
+    using Checks.ColumnsCheck;
+    using Checks.DiagonalsCheck;
+    using Checks.EdgesCheck;
+    using Checks.InnerCheck;
+    using Checks.FirstEmptyCheck;
+    using Checks.CanWinCheck;
+
+    public class MainStrategy : TurnStrategy
+    {
+        private CanWinCheck canWinCheck;
+        private FirstRowCheck firstRowCheck;
+        private SecondRowCheck secondRowCheck;
+        private ThirdRowCheck thirdRowCheck;
+        private FirstColumnCheck firstColumnCheck;
+        private SecondColumnCheck secondColumnCheck;
+        private ThirdColumnCheck thirdColumnCheck;
+        private FirstDiagonalCheck firstDiagonalCheck;
+        private SecondDiagonalCheck secondDiagonalCheck;
+        private ClosestEdgeCheck edgesCheck;
+        private InnerCheck innerCheck;
+        private FirstEmptyTileCheck firstEmptyTileCheck;
+
+        public MainStrategy(IEnumerable<IComputerGameTileModel> gameTiles, string playerSign) : base(gameTiles)
+        {
+            this.canWinCheck = new CanWinCheck(playerSign);
+            this.firstRowCheck = new FirstRowCheck();
+            this.secondRowCheck = new SecondRowCheck();
+            this.thirdRowCheck = new ThirdRowCheck();
+            this.firstColumnCheck = new FirstColumnCheck();
+            this.secondColumnCheck = new SecondColumnCheck();
+            this.thirdColumnCheck = new ThirdColumnCheck();
+            this.firstDiagonalCheck = new FirstDiagonalCheck();
+            this.secondDiagonalCheck = new SecondDiagonalCheck();
+            this.edgesCheck = new ClosestEdgeCheck();
+            this.innerCheck = new InnerCheck();
+            this.firstEmptyTileCheck = new FirstEmptyTileCheck();
+        }
+
+        public override int? GetMove()
+        {
+            this.SetupChainOfResponsibility();
+
+            int? computerMove = this.canWinCheck.GetMove(base.gameTiles);
+
+            if (computerMove == null)
+            {
+                throw new NotImplementedException();
+            }
+
+            return computerMove;
+        }
+
+        private void SetupChainOfResponsibility()
+        {
+            this.canWinCheck.SetSuccessor(this.firstRowCheck);
+            this.firstRowCheck.SetSuccessor(this.secondRowCheck);
+            this.secondRowCheck.SetSuccessor(this.thirdRowCheck);
+            this.thirdRowCheck.SetSuccessor(this.firstColumnCheck);
+            this.firstColumnCheck.SetSuccessor(this.secondColumnCheck);
+            this.secondColumnCheck.SetSuccessor(this.thirdColumnCheck);
+            this.thirdColumnCheck.SetSuccessor(this.firstDiagonalCheck);
+            this.firstDiagonalCheck.SetSuccessor(this.secondDiagonalCheck);
+            this.secondDiagonalCheck.SetSuccessor(this.edgesCheck);
+            this.edgesCheck.SetSuccessor(this.innerCheck);
+            this.innerCheck.SetSuccessor(this.firstEmptyTileCheck);
+        }
+    }
+}

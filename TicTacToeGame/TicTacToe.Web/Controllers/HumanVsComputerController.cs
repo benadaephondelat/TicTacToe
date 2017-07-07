@@ -1,6 +1,5 @@
 ﻿namespace TicTacToe.Web.Controllers
 {
-    using System;
     using System.Web.Mvc;
     using System.Collections.Generic;
     using ServiceLayer.TicTacToeGameService;
@@ -48,11 +47,9 @@
 
             Game game = ticTacToeGameService.CreateNewGame(homeSideUserName, currentUserName);
 
-            if (ComputerIsStartingFirst(game.ApplicationUser.UserName))
+            if (this.ComputerIsStartingFirst(game.ApplicationUser.UserName))
             {
-                int tileIndex = this.ticTacToeGameService.GetComputerMove(game.Id);
-
-                this.ticTacToeGameService.PlaceTurn(game.Id, tileIndex, currentUserName);
+                this.PlaceComputerTurn(game.Id, currentUserName);
             }
 
             GameViewModel viewModel = new GameViewModel()
@@ -78,7 +75,7 @@
 
             if (game.IsFinished)
             {
-                throw new NotImplementedException();
+                return RedirectToAction("FinishedGame", "HumanVsHuman", new { @gameId = game.Id });
             }
 
             GameViewModel viewModel = new GameViewModel()
@@ -101,6 +98,7 @@
 
             this.ticTacToeGameService.PlaceTurn(gameId, computerMoveTileIndex, currentUsername);
 
+            //TODO REMOVE THAT CHECK FROM THIS FUNCTION
             this.ticTacToeGameService.CheckGameForOutcome(gameId);
         }
 
@@ -114,6 +112,7 @@
         {
             this.ticTacToeGameService.PlaceTurn(gameId, tileIndex, currentUsername);
 
+            //TODO REMOVE THIS CALL FROM THIS FUNCTION
             this.ticTacToeGameService.CheckGameForOutcome(gameId);
         }
 

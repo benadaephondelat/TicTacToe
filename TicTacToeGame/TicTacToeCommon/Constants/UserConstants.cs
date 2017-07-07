@@ -19,5 +19,11 @@
         public const string ComputerUsername = "computer@yahoo.com";
 
         public const string ComputerEmail = "computer@yahoo.com";
+
+        public const string SecondComputerId = "second-computer-id";
+
+        public const string SecondComputerUsername = "second-computer@yahoo.com";
+
+        public const string SecondComputerEmail = "second-computer@yahoo.com";
     }
 }
