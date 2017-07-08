@@ -29,7 +29,7 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.BottomMiddleTile, ComputerConstants.HomeSideSign);
 
-            TwoEdgesMoveCheck twoEdgesMoveCheck = new TwoEdgesMoveCheck();
+            EdgesMoveCheck twoEdgesMoveCheck = new EdgesMoveCheck();
 
             int? result = twoEdgesMoveCheck.GetMove(model.Tiles);
 
@@ -47,7 +47,7 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.MiddleLeftTile, ComputerConstants.HomeSideSign);
 
-            TwoEdgesMoveCheck twoEdgesMoveCheck = new TwoEdgesMoveCheck();
+            EdgesMoveCheck twoEdgesMoveCheck = new EdgesMoveCheck();
 
             twoEdgesMoveCheck.SetSuccessor(new RhombusMoveCheck());
 
@@ -67,7 +67,7 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.TopRightTile, ComputerConstants.HomeSideSign);
 
-            TwoEdgesMoveCheck twoEdgesMoveCheck = new TwoEdgesMoveCheck();
+            EdgesMoveCheck twoEdgesMoveCheck = new EdgesMoveCheck();
 
             int? result = twoEdgesMoveCheck.GetMove(model.Tiles);
 
@@ -85,7 +85,7 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.BottomRightTile, ComputerConstants.HomeSideSign);
 
-            TwoEdgesMoveCheck twoEdgesMoveCheck = new TwoEdgesMoveCheck();
+            EdgesMoveCheck twoEdgesMoveCheck = new EdgesMoveCheck();
 
             int? result = twoEdgesMoveCheck.GetMove(model.Tiles);
 
@@ -103,7 +103,7 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.BottomLeftTile, ComputerConstants.HomeSideSign);
 
-            TwoEdgesMoveCheck twoEdgesMoveCheck = new TwoEdgesMoveCheck();
+            EdgesMoveCheck twoEdgesMoveCheck = new EdgesMoveCheck();
 
             int? result = twoEdgesMoveCheck.GetMove(model.Tiles);
 
@@ -121,7 +121,7 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.BottomRightTile, ComputerConstants.HomeSideSign);
 
-            TwoEdgesMoveCheck twoEdgesMoveCheck = new TwoEdgesMoveCheck();
+            EdgesMoveCheck twoEdgesMoveCheck = new EdgesMoveCheck();
 
             int? result = twoEdgesMoveCheck.GetMove(model.Tiles);
 
@@ -139,7 +139,7 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.BottomRightTile, ComputerConstants.HomeSideSign);
 
-            TwoEdgesMoveCheck twoEdgesMoveCheck = new TwoEdgesMoveCheck();
+            EdgesMoveCheck twoEdgesMoveCheck = new EdgesMoveCheck();
 
             int? result = twoEdgesMoveCheck.GetMove(model.Tiles);
 
@@ -157,7 +157,7 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.BottomLeftTile, ComputerConstants.HomeSideSign);
 
-            TwoEdgesMoveCheck twoEdgesMoveCheck = new TwoEdgesMoveCheck();
+            EdgesMoveCheck twoEdgesMoveCheck = new EdgesMoveCheck();
 
             int? result = twoEdgesMoveCheck.GetMove(model.Tiles);
 

@@ -52,7 +52,7 @@
 
             KnightMoveCheck knightMoveCheck = new KnightMoveCheck();
 
-            knightMoveCheck.SetSuccessor(new TwoEdgesMoveCheck());
+            knightMoveCheck.SetSuccessor(new EdgesMoveCheck());
 
             int? result = knightMoveCheck.GetMove(model.Tiles);
 

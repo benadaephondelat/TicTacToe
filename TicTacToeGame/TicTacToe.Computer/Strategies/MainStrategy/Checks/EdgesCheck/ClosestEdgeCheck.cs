@@ -4,6 +4,10 @@
     using TicTacToeCommon.Constants;
     using Models;
 
+    /// <summary>
+    /// If the oponent has placed a turn on an edge, choose the closest free edge(except diagonal)
+    /// <see cref="Documents/edges-move-example.png"/>
+    /// </summary>
     public class ClosestEdgeCheck : Responsibility
     {
         public string TopLeftTileValue { get; set; }
@@ -33,10 +37,6 @@
             return null;
         }
 
-        /// <summary>
-        /// Checks all edges of a gameboard. Returns int if success, else return null
-        /// </summary>
-        /// <returns>int?</returns>
         private int? CheckAllEdges()
         {
             int? topLeftCheck = this.CheckTopLeftTile();
@@ -72,14 +72,14 @@
 
         private int? CheckTopLeftTile()
         {
-            if (TileIsNotEmpty(this.TopLeftTileValue))
+            if (base.TileIsNotEmpty(this.TopLeftTileValue))
             {
-                if (TileIsEmpty(this.TopRightTileValue))
+                if (base.TileIsEmpty(this.TopRightTileValue))
                 {
                     return TileConstants.TopRightTile;
                 }
 
-                if (TileIsEmpty(this.BottomLeftTileValue))
+                if (base.TileIsEmpty(this.BottomLeftTileValue))
                 {
                     return TileConstants.BottomLeftTile;
                 }
@@ -90,14 +90,14 @@
 
         private int? CheckTopRightTile()
         {
-            if (TileIsNotEmpty(this.TopRightTileValue))
+            if (base.TileIsNotEmpty(this.TopRightTileValue))
             {
-                if (TileIsEmpty(this.TopLeftTileValue))
+                if (base.TileIsEmpty(this.TopLeftTileValue))
                 {
                     return TileConstants.TopLeftTile;
                 }
 
-                if (TileIsEmpty(this.BottomRightTileValue))
+                if (base.TileIsEmpty(this.BottomRightTileValue))
                 {
                     return TileConstants.BottomRightTile;
                 }
@@ -108,14 +108,14 @@
 
         private int? CheckBottomLeftTile()
         {
-            if (TileIsNotEmpty(this.BottomLeftTileValue))
+            if (base.TileIsNotEmpty(this.BottomLeftTileValue))
             {
-                if (TileIsEmpty(this.TopLeftTileValue))
+                if (base.TileIsEmpty(this.TopLeftTileValue))
                 {
                     return TileConstants.TopLeftTile;
                 }
 
-                if (TileIsEmpty(this.BottomRightTileValue))
+                if (base.TileIsEmpty(this.BottomRightTileValue))
                 {
                     return TileConstants.BottomRightTile;
                 }
@@ -126,14 +126,14 @@
 
         private int? CheckBottomRightTile()
         {
-            if (TileIsNotEmpty(this.BottomRightTileValue))
+            if (base.TileIsNotEmpty(this.BottomRightTileValue))
             {
-                if (TileIsEmpty(this.TopRightTileValue))
+                if (base.TileIsEmpty(this.TopRightTileValue))
                 {
                     return TileConstants.TopRightTile;
                 }
 
-                if (TileIsEmpty(this.BottomLeftTileValue))
+                if (base.TileIsEmpty(this.BottomLeftTileValue))
                 {
                     return TileConstants.BottomLeftTile;
                 }

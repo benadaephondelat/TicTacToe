@@ -4,18 +4,20 @@
     using System.Collections.Generic;
     using Models;
 
+    /// <summary>
+    /// Returns the first empty tile.
+    /// If there is no free tile it delegates the responsibility to the successor
+    /// If there is no successor set, it returns null
+    /// </summary>
     public class FirstEmptyTileCheck : Responsibility
     {
         public override int? GetMove(IEnumerable<IComputerGameTileModel> tiles)
         {
-            for (int i = 0; i < tiles.Count(); i++)
-            {
-                var currentTile = tiles.ElementAt(i);
+            int? computerMove = this.GetFirstEmptyTile(tiles);
 
-                if (currentTile.IsEmpty && string.IsNullOrWhiteSpace(currentTile.Value))
-                {
-                    return i;
-                }
+            if (computerMove != null)
+            {
+                return computerMove;
             }
 
             if (base.successor == null)
@@ -24,6 +26,21 @@
             }
 
             return base.successor.GetMove(tiles);
+        }
+
+        private int? GetFirstEmptyTile(IEnumerable<IComputerGameTileModel> tiles)
+        {
+            for (int i = 0; i < tiles.Count(); i++)
+            {
+                var currentTile = tiles.ElementAt(i);
+
+                if (base.TileIsEmpty(currentTile.Value))
+                {
+                    return i;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -77,7 +77,7 @@
     <Compile Include="Strategies\MainStrategy\Checks\FirstEmptyCheck\FirstEmptyTileCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\FirstRowCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\Responsibility.cs" />
-    <Compile Include="Strategies\MainStrategy\Checks\InnerCheck\InnerCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\OppositeTileCheck\OppositeTileCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\ColumnsCheck\SecondColumnCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\DiagonalsCheck\SecondDiagonalCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\SecondRowCheck.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\AgressiveMoveResponsibility.cs" />
     <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\KnightMoveCheck\KnightMoveCheck.cs" />
     <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\RhombusMoveCheck\RhombusMoveCheck.cs" />
-    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\TwoEdgesMoveCheck\TwoEdgesMoveCheck.cs" />
+    <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\EdgesMoveCheck\EdgesMoveCheck.cs" />
     <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\SecondTurnStrategy.cs" />
     <Compile Include="Strategies\TurnStrategy.cs" />
     <Compile Include="Strategies\StartingSecond\TurnStrategies\FirstTurnStrategy\FirstTurnStrategy.cs" />
@@ -115,7 +115,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Computer.cd" />
+    <Content Include="Documents\edges-move-example.png" />
+    <Content Include="Documents\opposite-check-example.png" />
     <Content Include="Documents\knight-move-example.png" />
+    <Content Include="Documents\rhombus-move-example.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

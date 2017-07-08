@@ -1,20 +1,25 @@
 ﻿namespace TicTacToe.Computer.Strategies.StartingSecond.TurnStrategies.SecondTurnStrategy.AggressiveMoveStrategy.Checks.RhombusMoveCheck
 {
-    using System;
     using System.Linq;
     using System.Collections.Generic;
     using TicTacToeCommon.Constants;
     using Models;
     using Constants;
 
+    /// <summary>
+    /// Checks if the oponent has made a Rhombus move
+    /// <see cref="Documents/rhombus-move-example.png"/>
+    /// If there is no result and there is no successor set it returns null.
+    /// If there is a successor it delegates the responsibility to him.
+    /// </summary>
     public class RhombusMoveCheck : AgressiveMoveResponsibility
     {
         public override int? GetMove(IEnumerable<IComputerGameTileModel> gameTiles)
         {
-            if (this.TheOponentHasMadeRhombusMove(gameTiles))
-            {
-                int computerMove = this.BlockRhombusMove(gameTiles);
+            int? computerMove = this.BlockRhombusMove(gameTiles);
 
+            if (computerMove != null)
+            {
                 return computerMove;
             }
             else if (base.IsSuccessorSet())
@@ -27,32 +32,12 @@
             }
         }
 
-        private bool TheOponentHasMadeRhombusMove(IEnumerable<IComputerGameTileModel> gameTiles)
-        {
-            if (this.MiddleLeftAndTopMiddleTilesAreTakenByTheOponent(gameTiles))
-            {
-                return true;
-            }
-
-            if (this.TopMiddleAndMiddleRightTilesAreTakenByTheOponent(gameTiles))
-            {
-                return true;
-            }
-
-            if (this.MiddleRightAndBottomMiddleTilesAreTakenByTheOponent(gameTiles))
-            {
-                return true;
-            }
-
-            if (this.BottomMiddleAndMiddleLeftTilesAreTakenByTheOponent(gameTiles))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private int BlockRhombusMove(IEnumerable<IComputerGameTileModel> gameTiles)
+        /// <summary>
+        /// Blocks Rhombus move or returns null if the oponent has not made L move
+        /// </summary>
+        /// <param name="gameTiles">Game tiles to check</param>
+        /// <returns>int?</returns>
+        private int? BlockRhombusMove(IEnumerable<IComputerGameTileModel> gameTiles)
         {
             if (this.MiddleLeftAndTopMiddleTilesAreTakenByTheOponent(gameTiles))
             {
@@ -74,7 +59,7 @@
                 return TileConstants.BottomLeftTile;
             }
 
-            throw new NotImplementedException();
+            return null;
         }
 
         private bool MiddleLeftAndTopMiddleTilesAreTakenByTheOponent(IEnumerable<IComputerGameTileModel> gameTiles)

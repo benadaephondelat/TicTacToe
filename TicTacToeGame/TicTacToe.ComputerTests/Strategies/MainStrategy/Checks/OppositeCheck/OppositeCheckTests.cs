@@ -8,17 +8,17 @@
     using DataMockHelper;
 
     [TestClass]
-    public class InnerCheckTests
+    public class OppositeCheckTests
     {
         private DataMockHelper dataLayerMockHelper;
 
-        public InnerCheckTests()
+        public OppositeCheckTests()
         {
             this.dataLayerMockHelper = new DataMockHelper();
         }
 
         [TestMethod]
-        public void InnerCheck_Should_Return_Null_If_All_Acceptable_Tiles_Are_Taken_And_There_Is_No_Successor_Set()
+        public void OppositeCheck_Should_Return_Null_If_All_Acceptable_Tiles_Are_Taken_And_There_Is_No_Successor_Set()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
@@ -30,9 +30,9 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.MiddleRightTile, ComputerConstants.HomeSideSign);
 
-            InnerCheck innerChek = new InnerCheck();
+            OppositeTileCheck oppositeCheck = new OppositeTileCheck();
 
-            var result = innerChek.GetMove(model.Tiles);
+            var result = oppositeCheck.GetMove(model.Tiles);
 
             Assert.IsNull(result);
         }
@@ -44,9 +44,9 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.TopMiddleTile, ComputerConstants.HomeSideSign);
 
-            InnerCheck innerChek = new InnerCheck();
+            OppositeTileCheck oppositeCheck = new OppositeTileCheck();
 
-            var result = innerChek.GetMove(model.Tiles);
+            var result = oppositeCheck.GetMove(model.Tiles);
 
             Assert.AreEqual(TileConstants.BottomMiddleTile, result);
         }
@@ -58,9 +58,9 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.BottomMiddleTile, ComputerConstants.HomeSideSign);
 
-            InnerCheck innerChek = new InnerCheck();
+            OppositeTileCheck oppositeCheck = new OppositeTileCheck();
 
-            var result = innerChek.GetMove(model.Tiles);
+            var result = oppositeCheck.GetMove(model.Tiles);
 
             Assert.AreEqual(TileConstants.TopMiddleTile, result);
         }
@@ -72,9 +72,9 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.MiddleLeftTile, ComputerConstants.HomeSideSign);
 
-            InnerCheck innerChek = new InnerCheck();
+            OppositeTileCheck oppositeCheck = new OppositeTileCheck();
 
-            var result = innerChek.GetMove(model.Tiles);
+            var result = oppositeCheck.GetMove(model.Tiles);
 
             Assert.AreEqual(TileConstants.MiddleRightTile, result);
         }
@@ -86,9 +86,9 @@
 
             this.dataLayerMockHelper.SetTileValue(model.Tiles, TileConstants.MiddleRightTile, ComputerConstants.HomeSideSign);
 
-            InnerCheck innerChek = new InnerCheck();
+            OppositeTileCheck oppositeCheck = new OppositeTileCheck();
 
-            var result = innerChek.GetMove(model.Tiles);
+            var result = oppositeCheck.GetMove(model.Tiles);
 
             Assert.AreEqual(TileConstants.MiddleLeftTile, result);
         }

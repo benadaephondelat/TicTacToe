@@ -39,7 +39,42 @@
             this.PlayerSign = playerSign;
         }
 
-        private void PopulatePositions()
+        public override int? GetMove(IEnumerable<IComputerGameTileModel> tiles)
+        {
+            this.PopulateFields(tiles);
+            this.PopulateWinningPositions();
+
+            int? computerMove = this.CheckForWinner();
+
+            if (computerMove != null)
+            {
+                return computerMove;
+            }
+
+            if (base.successor == null)
+            {
+                return null;
+            }
+
+            return base.successor.GetMove(tiles);
+        }
+
+        private void PopulateFields(IEnumerable<IComputerGameTileModel> tiles)
+        {
+            this.TopLeftTileValue = base.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
+            this.TopMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.TopMiddleTile).Value;
+            this.TopRightTileValue = base.GetTileByIndex(tiles, TileConstants.TopRightTile).Value;
+
+            this.MiddleLeftTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleLeftTile).Value;
+            this.MiddleMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleMiddleTile).Value;
+            this.MiddleRightTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleRightTile).Value;
+
+            this.BottomLeftTileValue = base.GetTileByIndex(tiles, TileConstants.BottomLeftTile).Value;
+            this.BottomMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.BottomMiddleTile).Value;
+            this.BottomRightTileValue = base.GetTileByIndex(tiles, TileConstants.BottomRightTile).Value;
+        }
+
+        private void PopulateWinningPositions()
         {
             this.winningPositions.Add(new Tuple<string[], string>(new string[2] { TopLeftTileValue, TopMiddleTileValue }, TopRightTileValue), TileConstants.TopRightTile);
             this.winningPositions.Add(new Tuple<string[], string>(new string[2] { TopLeftTileValue, TopRightTileValue }, TopMiddleTileValue), TileConstants.TopMiddleTile);
@@ -65,44 +100,17 @@
             this.winningPositions.Add(new Tuple<string[], string>(new string[2] { BottomLeftTileValue, TopRightTileValue }, MiddleMiddleTileValue), TileConstants.MiddleMiddleTile);
         }
 
-        public override int? GetMove(IEnumerable<IComputerGameTileModel> tiles)
+        private int? CheckForWinner()
         {
-            this.PopulateFields(tiles);
-            this.PopulatePositions();
-
             foreach (var position in this.winningPositions)
             {
-                if (TwoTilesHasTheSameValue(position.Key.Item1[0], position.Key.Item1[1], PlayerSign) && TileIsEmpty(position.Key.Item2))
+                if (this.TwoTilesHasTheSameValue(position.Key.Item1[0], position.Key.Item1[1], this.PlayerSign) && this.TileIsEmpty(position.Key.Item2))
                 {
                     return position.Value;
                 }
             }
 
-            if (base.successor == null)
-            {
-                return null;
-            }
-
-            return base.successor.GetMove(tiles);
-        }
-
-        /// <summary>
-        /// Populates the fields with the coresponding values of the tiles
-        /// </summary>
-        /// <param name="tiles">IEnumerable<IComputerGameTileModel></ComputerGameTileModel></param>
-        private void PopulateFields(IEnumerable<IComputerGameTileModel> tiles)
-        {
-            this.TopLeftTileValue = base.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
-            this.TopMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.TopMiddleTile).Value;
-            this.TopRightTileValue = base.GetTileByIndex(tiles, TileConstants.TopRightTile).Value;
-
-            this.MiddleLeftTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleLeftTile).Value;
-            this.MiddleMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleMiddleTile).Value;
-            this.MiddleRightTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleRightTile).Value;
-
-            this.BottomLeftTileValue = base.GetTileByIndex(tiles, TileConstants.BottomLeftTile).Value;
-            this.BottomMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.BottomMiddleTile).Value;
-            this.BottomRightTileValue = base.GetTileByIndex(tiles, TileConstants.BottomRightTile).Value;
+            return null;
         }
 
         /// <summary>

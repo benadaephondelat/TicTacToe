@@ -23,7 +23,7 @@
         private FirstDiagonalCheck firstDiagonalCheck;
         private SecondDiagonalCheck secondDiagonalCheck;
         private ClosestEdgeCheck edgesCheck;
-        private InnerCheck innerCheck;
+        private OppositeTileCheck oppositeCheck;
         private FirstEmptyTileCheck firstEmptyTileCheck;
 
         public MainStrategy(IEnumerable<IComputerGameTileModel> gameTiles, string playerSign) : base(gameTiles)
@@ -38,7 +38,7 @@
             this.firstDiagonalCheck = new FirstDiagonalCheck();
             this.secondDiagonalCheck = new SecondDiagonalCheck();
             this.edgesCheck = new ClosestEdgeCheck();
-            this.innerCheck = new InnerCheck();
+            this.oppositeCheck = new OppositeTileCheck();
             this.firstEmptyTileCheck = new FirstEmptyTileCheck();
         }
 
@@ -67,8 +67,8 @@
             this.thirdColumnCheck.SetSuccessor(this.firstDiagonalCheck);
             this.firstDiagonalCheck.SetSuccessor(this.secondDiagonalCheck);
             this.secondDiagonalCheck.SetSuccessor(this.edgesCheck);
-            this.edgesCheck.SetSuccessor(this.innerCheck);
-            this.innerCheck.SetSuccessor(this.firstEmptyTileCheck);
+            this.edgesCheck.SetSuccessor(this.oppositeCheck);
+            this.oppositeCheck.SetSuccessor(this.firstEmptyTileCheck);
         }
     }
 }

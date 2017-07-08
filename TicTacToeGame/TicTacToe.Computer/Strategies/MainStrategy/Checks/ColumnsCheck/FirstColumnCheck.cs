@@ -21,26 +21,11 @@
         {
             this.PopulateFields(tiles);
 
-            if (TileIsNotEmpty(this.TopLeftTileValue) && BothTilesAreTheSame(this.TopLeftTileValue, this.MiddleLeftTileValue))
+            int? computerMove = this.CheckFirstColumn();
+
+            if (computerMove != null)
             {
-                if (TileIsEmpty(this.BottomLeftTileValue))
-                {
-                    return TileConstants.BottomLeftTile;
-                }
-            }
-            else if (TileIsNotEmpty(this.MiddleLeftTileValue) && BothTilesAreTheSame(this.MiddleLeftTileValue, this.BottomLeftTileValue))
-            {
-                if (TileIsEmpty(this.TopLeftTileValue))
-                {
-                    return TileConstants.TopLeftTile;
-                }
-            }
-            else if (TileIsNotEmpty(this.TopLeftTileValue) && BothTilesAreTheSame(this.TopLeftTileValue, this.BottomLeftTileValue))
-            {
-                if (TileIsEmpty(this.MiddleLeftTileValue))
-                {
-                    return TileConstants.MiddleLeftTile;
-                }
+                return computerMove;
             }
 
             if (base.successor == null)
@@ -49,6 +34,71 @@
             }
 
             return base.successor.GetMove(tiles);
+        }
+
+        private int? CheckFirstColumn()
+        {
+            int? topLeftCheck = this.TopLeftCheck();
+
+            if (topLeftCheck != null)
+            {
+                return topLeftCheck;
+            }
+
+            int? middleLeftCheck = this.MiddleLeftCheck();
+
+            if (middleLeftCheck != null)
+            {
+                return middleLeftCheck;
+            }
+
+            int? bottomLeftCheck = this.BottomLeftCheck();
+
+            if (bottomLeftCheck != null)
+            {
+                return bottomLeftCheck;
+            }
+
+            return null;
+        }
+
+        private int? TopLeftCheck()
+        {
+            if (base.TileIsNotEmpty(this.MiddleLeftTileValue) && base.BothTilesAreTheSame(this.MiddleLeftTileValue, this.BottomLeftTileValue))
+            {
+                if (base.TileIsEmpty(this.TopLeftTileValue))
+                {
+                    return TileConstants.TopLeftTile;
+                }
+            }
+
+            return null;
+        }
+
+        private int? MiddleLeftCheck()
+        {
+            if (base.TileIsNotEmpty(this.TopLeftTileValue) && base.BothTilesAreTheSame(this.TopLeftTileValue, this.BottomLeftTileValue))
+            {
+                if (base.TileIsEmpty(this.MiddleLeftTileValue))
+                {
+                    return TileConstants.MiddleLeftTile;
+                }
+            }
+
+            return null;
+        }
+
+        private int? BottomLeftCheck()
+        {
+            if (base.TileIsNotEmpty(this.TopLeftTileValue) && base.BothTilesAreTheSame(this.TopLeftTileValue, this.MiddleLeftTileValue))
+            {
+                if (base.TileIsEmpty(this.BottomLeftTileValue))
+                {
+                    return TileConstants.BottomLeftTile;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>

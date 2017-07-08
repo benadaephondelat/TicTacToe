@@ -1,10 +1,14 @@
 ﻿namespace TicTacToe.Computer.Strategies.MainStrategy.Checks.ColumnsCheck
 {
-    using System.Linq;
     using System.Collections.Generic;
     using TicTacToeCommon.Constants;
     using Models;
 
+    /// <summary>
+    /// Checks the third column for a possible winner
+    /// If there is no winner and there is no successor set it returns null
+    /// If there is a successor it delegates the responsibility to him
+    /// </summary>
     public class ThirdColumnCheck : Responsibility
     {
         public string TopRightTileValue { get; set; }
@@ -17,26 +21,11 @@
         {
             this.PopulateFields(tiles);
 
-            if (this.TopRightTileValue == this.MiddleRightTileValue && this.TopRightTileValue != string.Empty)
+            int? computerMove = this.CheckThirdColumn();
+
+            if (computerMove != null)
             {
-                if (string.IsNullOrWhiteSpace(tiles.ToList().ElementAt(TileConstants.BottomRightTile).Value))
-                {
-                    return TileConstants.BottomRightTile;
-                }
-            }
-            else if (this.MiddleRightTileValue == this.BottomRightTileValue && this.MiddleRightTileValue != string.Empty)
-            {
-                if (string.IsNullOrWhiteSpace(tiles.ToList().ElementAt(TileConstants.TopRightTile).Value))
-                {
-                    return TileConstants.TopRightTile;
-                }
-            }
-            else if (this.BottomRightTileValue == this.TopRightTileValue && this.BottomRightTileValue != string.Empty)
-            {
-                if (string.IsNullOrWhiteSpace(tiles.ToList().ElementAt(TileConstants.MiddleRightTile).Value))
-                {
-                    return TileConstants.MiddleRightTile;
-                }
+                return computerMove;
             }
 
             if (base.successor == null)
@@ -45,6 +34,71 @@
             }
 
             return base.successor.GetMove(tiles);
+        }
+
+        private int? CheckThirdColumn()
+        {
+            int? topRightCheck = this.TopRightCheck();
+
+            if (topRightCheck != null)
+            {
+                return topRightCheck;
+            }
+
+            int? middleRightCheck = this.MiddleRightCheck();
+
+            if (middleRightCheck != null)
+            {
+                return middleRightCheck;
+            }
+
+            int? bottomRightCheck = this.BottomRightCheck();
+
+            if (bottomRightCheck != null)
+            {
+                return bottomRightCheck;
+            }
+
+            return null;
+        }
+
+        private int? TopRightCheck()
+        {
+            if (base.TileIsNotEmpty(this.MiddleRightTileValue) && base.BothTilesAreTheSame(this.MiddleRightTileValue, this.BottomRightTileValue))
+            {
+                if (base.TileIsEmpty(this.TopRightTileValue))
+                {
+                    return TileConstants.TopRightTile;
+                }
+            }
+
+            return null;
+        }
+
+        private int? MiddleRightCheck()
+        {
+            if (base.TileIsNotEmpty(this.BottomRightTileValue) && base.BothTilesAreTheSame(this.BottomRightTileValue, this.TopRightTileValue))
+            {
+                if (base.TileIsEmpty(this.MiddleRightTileValue))
+                {
+                    return TileConstants.MiddleRightTile;
+                }
+            }
+
+            return null;
+        }
+
+        private int? BottomRightCheck()
+        {
+            if (base.TileIsNotEmpty(this.TopRightTileValue) && base.BothTilesAreTheSame(this.TopRightTileValue, this.MiddleRightTileValue))
+            {
+                if (base.TileIsEmpty(this.BottomRightTileValue))
+                {
+                    return TileConstants.BottomRightTile;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>

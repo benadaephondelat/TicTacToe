@@ -64,7 +64,7 @@
     <Compile Include="Strategies\MainStrategy\Checks\DiagonalsCheck\SecondDiagonalCheckTests.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\EdgesCheck\ClosestEdgeCheckTests.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\FirstEmptyCheck\FirstEmptyCheckTests.cs" />
-    <Compile Include="Strategies\MainStrategy\Checks\InnerCheck\InnerCheckTests.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\OppositeCheck\OppositeCheckTests.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\FirstRowCheckTests.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\SecondRowCheckTests.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\ThirdRowCheckTests.cs" />

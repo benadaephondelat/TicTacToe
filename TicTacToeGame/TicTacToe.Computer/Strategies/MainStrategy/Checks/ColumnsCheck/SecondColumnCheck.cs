@@ -1,6 +1,5 @@
 ﻿namespace TicTacToe.Computer.Strategies.MainStrategy.Checks.ColumnsCheck
 {
-    using System.Linq;
     using System.Collections.Generic;
     using Models;
     using TicTacToeCommon.Constants;
@@ -22,26 +21,11 @@
         {
             this.PopulateFields(tiles);
 
-            if (TileIsNotEmpty(this.TopMiddleTileValue) && BothTilesAreTheSame(this.TopMiddleTileValue, this.MiddleMiddleTileValue))
+            int? computerMove = this.CheckSecondColumn();
+
+            if (computerMove != null)
             {
-                if (TileIsEmpty(this.BottomMiddleTileValue))
-                {
-                    return TileConstants.BottomMiddleTile;
-                }
-            }
-            else if (this.MiddleMiddleTileValue == this.BottomMiddleTileValue && this.MiddleMiddleTileValue != string.Empty)
-            {
-                if (string.IsNullOrWhiteSpace(tiles.ToList().ElementAt(TileConstants.TopMiddleTile).Value))
-                {
-                    return TileConstants.TopMiddleTile;
-                }
-            }
-            else if (this.BottomMiddleTileValue == this.TopMiddleTileValue && this.BottomMiddleTileValue != string.Empty)
-            {
-                if (string.IsNullOrWhiteSpace(tiles.ToList().ElementAt(TileConstants.MiddleMiddleTile).Value))
-                {
-                    return TileConstants.MiddleMiddleTile;
-                }
+                return computerMove;
             }
 
             if (base.successor == null)
@@ -50,6 +34,71 @@
             }
 
             return base.successor.GetMove(tiles);
+        }
+
+        private int? CheckSecondColumn()
+        {
+            int? topMiddleCheck = this.TopMiddleCheck();
+
+            if (topMiddleCheck != null)
+            {
+                return topMiddleCheck;
+            }
+
+            int? middleMiddleCheck = this.MiddleMiddleCheck();
+
+            if (middleMiddleCheck != null)
+            {
+                return middleMiddleCheck;
+            }
+
+            int? bottomMiddleCheck = this.BottomMiddleCheck();
+
+            if (bottomMiddleCheck != null)
+            {
+                return bottomMiddleCheck;
+            }
+
+            return null;
+        }
+
+        private int? TopMiddleCheck()
+        {
+            if (base.TileIsNotEmpty(this.MiddleMiddleTileValue) && base.BothTilesAreTheSame(this.MiddleMiddleTileValue, this.BottomMiddleTileValue))
+            {
+                if (base.TileIsEmpty(this.TopMiddleTileValue))
+                {
+                    return TileConstants.TopMiddleTile;
+                }
+            }
+
+            return null;
+        }
+
+        private int? MiddleMiddleCheck()
+        {
+            if (base.TileIsNotEmpty(this.BottomMiddleTileValue) && base.BothTilesAreTheSame(this.BottomMiddleTileValue, this.TopMiddleTileValue))
+            {
+                if (base.TileIsEmpty(this.MiddleMiddleTileValue))
+                {
+                    return TileConstants.MiddleMiddleTile;
+                }
+            }
+
+            return null;
+        }
+
+        private int? BottomMiddleCheck()
+        {
+            if (base.TileIsNotEmpty(this.TopMiddleTileValue) && base.BothTilesAreTheSame(this.TopMiddleTileValue, this.MiddleMiddleTileValue))
+            {
+                if (base.TileIsEmpty(this.BottomMiddleTileValue))
+                {
+                    return TileConstants.BottomMiddleTile;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>

@@ -15,7 +15,7 @@
 
         private KnightMoveCheck knightMoveCheck = new KnightMoveCheck();
         private RhombusMoveCheck rhombusMoveCheck = new RhombusMoveCheck();
-        private TwoEdgesMoveCheck twoEdgesMoveCheck = new TwoEdgesMoveCheck();
+        private EdgesMoveCheck twoEdgesMoveCheck = new EdgesMoveCheck();
 
         public AggressiveMoveCheck(IEnumerable<IComputerGameTileModel> gameTiles)
         {

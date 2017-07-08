@@ -49,7 +49,7 @@
 
             RhombusMoveCheck rhombusMoveCheck = new RhombusMoveCheck();
 
-            rhombusMoveCheck.SetSuccessor(new TwoEdgesMoveCheck());
+            rhombusMoveCheck.SetSuccessor(new EdgesMoveCheck());
 
             int? result = rhombusMoveCheck.GetMove(model.Tiles);
 

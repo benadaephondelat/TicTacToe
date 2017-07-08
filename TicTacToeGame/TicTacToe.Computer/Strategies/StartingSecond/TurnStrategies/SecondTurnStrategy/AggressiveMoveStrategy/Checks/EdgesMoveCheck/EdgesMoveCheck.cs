@@ -1,20 +1,25 @@
 ﻿namespace TicTacToe.Computer.Strategies.StartingSecond.TurnStrategies.SecondTurnStrategy.AggressiveMoveStrategy.Checks.TwoEdgesMoveCheck
 {
-    using System;
     using System.Linq;
     using System.Collections.Generic;
     using Constants;
     using TicTacToeCommon.Constants;
     using Models;
 
-    public class TwoEdgesMoveCheck : AgressiveMoveResponsibility
+    /// <summary>
+    /// Checks if the oponent has placed his first two turns on edges
+    /// <see cref="Documents/edges-move-example.png"/>
+    /// If there is no result and there is no successor set it returns null.
+    /// If there is a successor it delegates the responsibility to him.
+    /// </summary>
+    public class EdgesMoveCheck : AgressiveMoveResponsibility
     {
         public override int? GetMove(IEnumerable<IComputerGameTileModel> gameTiles)
         {
-            if (this.TheOponentHasPlacedOnTwoEdges(gameTiles))
-            {
-                int computerMove = this.PlaceTurnBetweenTwoOponentTiles(gameTiles);
+            int? computerMove = this.BlockEdgesMove(gameTiles);
 
+            if (computerMove != null)
+            {
                 return computerMove;
             }
             else if (base.IsSuccessorSet())
@@ -27,39 +32,44 @@
             }
         }
 
-        private bool TheOponentHasPlacedOnTwoEdges(IEnumerable<IComputerGameTileModel> gameTiles)
+        /// <summary>
+        /// Blocks edges move or returns null if the oponent has not made L move
+        /// </summary>
+        /// <param name="gameTiles">Game tiles to check</param>
+        /// <returns>int?</returns>
+        private int? BlockEdgesMove(IEnumerable<IComputerGameTileModel> gameTiles)
         {
             if (this.TopLeftAndTopRightTilesAreTakenByTheOponent(gameTiles))
             {
-                return true;
+                return TileConstants.TopMiddleTile;
             }
 
             if (this.BottomLeftAndBottomRightTilesAreTakenByTheOponent(gameTiles))
             {
-                return true;
+                return TileConstants.BottomMiddleTile;
             }
 
             if (this.TopLeftAndBottomLeftTilesAreTakenByTheOponent(gameTiles))
             {
-                return true;
+                return TileConstants.MiddleLeftTile;
             }
 
             if (this.TopRightAndBottomRightTilesAreTakenByTheOponent(gameTiles))
             {
-                return true;
+                return TileConstants.MiddleRightTile;
             }
 
             if (this.TopLeftAndBottomRightTilesAreTakenByTheOponent(gameTiles))
             {
-                return true;
+                return TileConstants.TopMiddleTile;
             }
 
             if (this.TopRightAndBottomLeftTilesAreTakenByTheOponent(gameTiles))
             {
-                return true;
+                return TileConstants.BottomMiddleTile;
             }
 
-            return false;
+            return null;
         }
 
         private bool TopLeftAndTopRightTilesAreTakenByTheOponent(IEnumerable<IComputerGameTileModel> gameTiles)
@@ -126,41 +136,6 @@
             bool result = topRightTile == ComputerConstants.HomeSideSign && bottomLeftTile == ComputerConstants.HomeSideSign;
 
             return result;
-        }
-
-        private int PlaceTurnBetweenTwoOponentTiles(IEnumerable<IComputerGameTileModel> gameTiles)
-        {
-            if (this.TopLeftAndTopRightTilesAreTakenByTheOponent(gameTiles))
-            {
-                return TileConstants.TopMiddleTile;
-            }
-
-            if (this.BottomLeftAndBottomRightTilesAreTakenByTheOponent(gameTiles))
-            {
-                return TileConstants.BottomMiddleTile;
-            }
-
-            if (this.TopLeftAndBottomLeftTilesAreTakenByTheOponent(gameTiles))
-            {
-                return TileConstants.MiddleLeftTile;
-            }
-
-            if (this.TopRightAndBottomRightTilesAreTakenByTheOponent(gameTiles))
-            {
-                return TileConstants.MiddleRightTile;
-            }
-
-            if (this.TopLeftAndBottomRightTilesAreTakenByTheOponent(gameTiles))
-            {
-                return TileConstants.TopMiddleTile;
-            }
-
-            if (this.TopRightAndBottomLeftTilesAreTakenByTheOponent(gameTiles))
-            {
-                return TileConstants.BottomMiddleTile;
-            }
-
-            throw new NotImplementedException();
         }
     }
 }

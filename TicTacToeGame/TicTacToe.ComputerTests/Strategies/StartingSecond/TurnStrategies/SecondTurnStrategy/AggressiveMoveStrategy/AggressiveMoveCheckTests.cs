@@ -114,7 +114,7 @@
 
             var successor = parentClassProperty.GetValue(rhombusMoveCheck);
 
-            Assert.IsTrue(successor is TwoEdgesMoveCheck);
+            Assert.IsTrue(successor is EdgesMoveCheck);
         }
 
         [TestMethod]
@@ -150,7 +150,7 @@
 
             var twoEdgesPropertyCandidate = twoEdgesCheckCheckFieldInfo.GetValue(aggresiveMoveCheck);
 
-            var twoEdgesCheck = twoEdgesPropertyCandidate as TwoEdgesMoveCheck;
+            var twoEdgesCheck = twoEdgesPropertyCandidate as EdgesMoveCheck;
 
             Assert.IsNotNull(twoEdgesCheck, "twoEdgesCheck is not an instance of TwoEdgesMoveCheck");
 
