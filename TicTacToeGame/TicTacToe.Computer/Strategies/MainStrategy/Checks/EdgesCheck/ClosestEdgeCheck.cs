@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using TicTacToeCommon.Constants;
     using Models;
+    using Helpers;
 
     /// <summary>
     /// If the oponent has placed a turn on an edge, choose the closest free edge(except diagonal)
@@ -72,14 +73,14 @@
 
         private int? CheckTopLeftTile()
         {
-            if (base.TileIsNotEmpty(this.TopLeftTileValue))
+            if (TileHelper.TileIsNotEmpty(this.TopLeftTileValue))
             {
-                if (base.TileIsEmpty(this.TopRightTileValue))
+                if (TileHelper.TileIsEmpty(this.TopRightTileValue))
                 {
                     return TileConstants.TopRightTile;
                 }
 
-                if (base.TileIsEmpty(this.BottomLeftTileValue))
+                if (TileHelper.TileIsEmpty(this.BottomLeftTileValue))
                 {
                     return TileConstants.BottomLeftTile;
                 }
@@ -90,14 +91,14 @@
 
         private int? CheckTopRightTile()
         {
-            if (base.TileIsNotEmpty(this.TopRightTileValue))
+            if (TileHelper.TileIsNotEmpty(this.TopRightTileValue))
             {
-                if (base.TileIsEmpty(this.TopLeftTileValue))
+                if (TileHelper.TileIsEmpty(this.TopLeftTileValue))
                 {
                     return TileConstants.TopLeftTile;
                 }
 
-                if (base.TileIsEmpty(this.BottomRightTileValue))
+                if (TileHelper.TileIsEmpty(this.BottomRightTileValue))
                 {
                     return TileConstants.BottomRightTile;
                 }
@@ -108,14 +109,14 @@
 
         private int? CheckBottomLeftTile()
         {
-            if (base.TileIsNotEmpty(this.BottomLeftTileValue))
+            if (TileHelper.TileIsNotEmpty(this.BottomLeftTileValue))
             {
-                if (base.TileIsEmpty(this.TopLeftTileValue))
+                if (TileHelper.TileIsEmpty(this.TopLeftTileValue))
                 {
                     return TileConstants.TopLeftTile;
                 }
 
-                if (base.TileIsEmpty(this.BottomRightTileValue))
+                if (TileHelper.TileIsEmpty(this.BottomRightTileValue))
                 {
                     return TileConstants.BottomRightTile;
                 }
@@ -126,14 +127,14 @@
 
         private int? CheckBottomRightTile()
         {
-            if (base.TileIsNotEmpty(this.BottomRightTileValue))
+            if (TileHelper.TileIsNotEmpty(this.BottomRightTileValue))
             {
-                if (base.TileIsEmpty(this.TopRightTileValue))
+                if (TileHelper.TileIsEmpty(this.TopRightTileValue))
                 {
                     return TileConstants.TopRightTile;
                 }
 
-                if (base.TileIsEmpty(this.BottomLeftTileValue))
+                if (TileHelper.TileIsEmpty(this.BottomLeftTileValue))
                 {
                     return TileConstants.BottomLeftTile;
                 }
@@ -148,10 +149,10 @@
         /// <param name="tiles">IEnumerable<IComputerGameTileModel></ComputerGameTileModel></param>
         private void PopulateFields(IEnumerable<IComputerGameTileModel> tiles)
         {
-            this.TopLeftTileValue = base.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
-            this.TopRightTileValue = base.GetTileByIndex(tiles, TileConstants.TopRightTile).Value;
-            this.BottomLeftTileValue = base.GetTileByIndex(tiles, TileConstants.BottomLeftTile).Value;
-            this.BottomRightTileValue = base.GetTileByIndex(tiles, TileConstants.BottomRightTile).Value;
+            this.TopLeftTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
+            this.TopRightTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.TopRightTile).Value;
+            this.BottomLeftTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.BottomLeftTile).Value;
+            this.BottomRightTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.BottomRightTile).Value;
         }
     }
 }

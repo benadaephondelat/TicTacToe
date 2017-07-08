@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Models;
     using TicTacToeCommon.Constants;
+    using Helpers;
 
     /// <summary>
     /// Checks the first row for a possible winner
@@ -64,9 +65,9 @@
 
         private int? TopLeftCheck()
         {
-            if (base.TileIsNotEmpty(this.TopMiddleTileValue) && base.BothTilesAreTheSame(this.TopMiddleTileValue, this.TopRightTileValue))
+            if (TileHelper.TileIsNotEmpty(this.TopMiddleTileValue) && TileHelper.BothTilesAreTheSame(this.TopMiddleTileValue, this.TopRightTileValue))
             {
-                if (base.TileIsEmpty(this.TopLeftTileValue))
+                if (TileHelper.TileIsEmpty(this.TopLeftTileValue))
                 {
                     return TileConstants.TopLeftTile;
                 }
@@ -77,9 +78,9 @@
 
         private int? TopMiddleCheck()
         {
-            if (base.TileIsNotEmpty(TopRightTileValue) && base.BothTilesAreTheSame(this.TopRightTileValue, this.TopLeftTileValue))
+            if (TileHelper.TileIsNotEmpty(TopRightTileValue) && TileHelper.BothTilesAreTheSame(this.TopRightTileValue, this.TopLeftTileValue))
             {
-                if (TileIsEmpty(this.TopMiddleTileValue))
+                if (TileHelper.TileIsEmpty(this.TopMiddleTileValue))
                 {
                     return TileConstants.TopMiddleTile;
                 }
@@ -90,9 +91,9 @@
 
         private int? TopRightCheck()
         {
-            if (base.TileIsNotEmpty(this.TopLeftTileValue) && base.BothTilesAreTheSame(this.TopLeftTileValue, this.TopMiddleTileValue))
+            if (TileHelper.TileIsNotEmpty(this.TopLeftTileValue) && TileHelper.BothTilesAreTheSame(this.TopLeftTileValue, this.TopMiddleTileValue))
             {
-                if (base.TileIsEmpty(this.TopRightTileValue))
+                if (TileHelper.TileIsEmpty(this.TopRightTileValue))
                 {
                     return TileConstants.TopRightTile;
                 }
@@ -107,9 +108,9 @@
         /// <param name="tiles">IEnumerable<IComputerGameTileModel></ComputerGameTileModel></param>
         private void PopulateFields(IEnumerable<IComputerGameTileModel> tiles)
         {
-            this.TopLeftTileValue = base.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
-            this.TopMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.TopMiddleTile).Value;
-            this.TopRightTileValue = base.GetTileByIndex(tiles, TileConstants.TopRightTile).Value;
+            this.TopLeftTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
+            this.TopMiddleTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.TopMiddleTile).Value;
+            this.TopRightTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.TopRightTile).Value;
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Models;
     using TicTacToeCommon.Constants;
+    using Helpers;
 
     /// <summary>
     /// Checks if the player in turn can win.
@@ -61,17 +62,17 @@
 
         private void PopulateFields(IEnumerable<IComputerGameTileModel> tiles)
         {
-            this.TopLeftTileValue = base.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
-            this.TopMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.TopMiddleTile).Value;
-            this.TopRightTileValue = base.GetTileByIndex(tiles, TileConstants.TopRightTile).Value;
+            this.TopLeftTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
+            this.TopMiddleTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.TopMiddleTile).Value;
+            this.TopRightTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.TopRightTile).Value;
 
-            this.MiddleLeftTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleLeftTile).Value;
-            this.MiddleMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleMiddleTile).Value;
-            this.MiddleRightTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleRightTile).Value;
+            this.MiddleLeftTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.MiddleLeftTile).Value;
+            this.MiddleMiddleTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.MiddleMiddleTile).Value;
+            this.MiddleRightTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.MiddleRightTile).Value;
 
-            this.BottomLeftTileValue = base.GetTileByIndex(tiles, TileConstants.BottomLeftTile).Value;
-            this.BottomMiddleTileValue = base.GetTileByIndex(tiles, TileConstants.BottomMiddleTile).Value;
-            this.BottomRightTileValue = base.GetTileByIndex(tiles, TileConstants.BottomRightTile).Value;
+            this.BottomLeftTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.BottomLeftTile).Value;
+            this.BottomMiddleTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.BottomMiddleTile).Value;
+            this.BottomRightTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.BottomRightTile).Value;
         }
 
         private void PopulateWinningPositions()
@@ -104,7 +105,7 @@
         {
             foreach (var position in this.winningPositions)
             {
-                if (this.TwoTilesHasTheSameValue(position.Key.Item1[0], position.Key.Item1[1], this.PlayerSign) && this.TileIsEmpty(position.Key.Item2))
+                if (this.TwoTilesHasTheSameValue(position.Key.Item1[0], position.Key.Item1[1], this.PlayerSign) && TileHelper.TileIsEmpty(position.Key.Item2))
                 {
                     return position.Value;
                 }

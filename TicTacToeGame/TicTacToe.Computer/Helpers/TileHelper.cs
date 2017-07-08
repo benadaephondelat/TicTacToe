@@ -39,12 +39,12 @@
         /// <summary>
         /// Checks if the two tiles has the same Tile.Value
         /// </summary>
-        /// <param name="firstTile"></param>
-        /// <param name="secondTile"></param>
+        /// <param name="firstTileValue">string</param>
+        /// <param name="secondTileValue">string</param>
         /// <returns>bool</returns>
-        public static bool BothTilesAreTheSame(IComputerGameTileModel firstTile, IComputerGameTileModel secondTile)
+        public static bool BothTilesAreTheSame(string firstTileValue, string secondTileValue)
         {
-            if (firstTile.Value.Equals(secondTile.Value, StringComparison.OrdinalIgnoreCase))
+            if (firstTileValue.Equals(secondTileValue, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
@@ -55,11 +55,11 @@
         /// <summary>
         /// If Tile.IsEmpty and Tile.Value is empty returns true, else returns false
         /// </summary>
-        /// <param name="tile">IComputerGameTileModel</param>
+        /// <param name="tileValue">string</param>
         /// <returns>bool</returns>
-        public static bool TileIsEmpty(IComputerGameTileModel tile)
+        public static bool TileIsEmpty(string tileValue)
         {
-            if (string.IsNullOrWhiteSpace(tile.Value) && tile.IsEmpty)
+            if (string.IsNullOrWhiteSpace(tileValue))
             {
                 return true;
             }
@@ -70,11 +70,11 @@
         /// <summary>
         /// If string is empty return false, else return true
         /// </summary>
-        /// <param name="tile">IComputerGameTileModel</param>
+        /// <param name="tileValue">string</param>
         /// <returns>bool</returns>
-        public static bool TileIsNotEmpty(IComputerGameTileModel tile)
+        public static bool TileIsNotEmpty(string tileValue)
         {
-            if (string.IsNullOrWhiteSpace(tile.Value) && tile.IsEmpty)
+            if (string.IsNullOrWhiteSpace(tileValue))
             {
                 return false;
             }

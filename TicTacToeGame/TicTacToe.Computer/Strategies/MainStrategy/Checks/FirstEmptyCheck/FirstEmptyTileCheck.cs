@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Collections.Generic;
     using Models;
+    using Helpers;
 
     /// <summary>
     /// Returns the first empty tile.
@@ -34,7 +35,7 @@
             {
                 var currentTile = tiles.ElementAt(i);
 
-                if (base.TileIsEmpty(currentTile.Value))
+                if (TileHelper.TileIsEmpty(currentTile.Value))
                 {
                     return i;
                 }

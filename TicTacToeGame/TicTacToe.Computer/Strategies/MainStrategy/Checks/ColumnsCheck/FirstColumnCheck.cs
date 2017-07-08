@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Models;
     using TicTacToeCommon.Constants;
+    using TicTacToe.Computer.Helpers;
 
     /// <summary>
     /// Checks the first column for a possible winner
@@ -64,9 +65,9 @@
 
         private int? TopLeftCheck()
         {
-            if (base.TileIsNotEmpty(this.MiddleLeftTileValue) && base.BothTilesAreTheSame(this.MiddleLeftTileValue, this.BottomLeftTileValue))
+            if (TileHelper.TileIsNotEmpty(this.MiddleLeftTileValue) && TileHelper.BothTilesAreTheSame(this.MiddleLeftTileValue, this.BottomLeftTileValue))
             {
-                if (base.TileIsEmpty(this.TopLeftTileValue))
+                if (TileHelper.TileIsEmpty(this.TopLeftTileValue))
                 {
                     return TileConstants.TopLeftTile;
                 }
@@ -77,9 +78,9 @@
 
         private int? MiddleLeftCheck()
         {
-            if (base.TileIsNotEmpty(this.TopLeftTileValue) && base.BothTilesAreTheSame(this.TopLeftTileValue, this.BottomLeftTileValue))
+            if (TileHelper.TileIsNotEmpty(this.TopLeftTileValue) && TileHelper.BothTilesAreTheSame(this.TopLeftTileValue, this.BottomLeftTileValue))
             {
-                if (base.TileIsEmpty(this.MiddleLeftTileValue))
+                if (TileHelper.TileIsEmpty(this.MiddleLeftTileValue))
                 {
                     return TileConstants.MiddleLeftTile;
                 }
@@ -90,9 +91,9 @@
 
         private int? BottomLeftCheck()
         {
-            if (base.TileIsNotEmpty(this.TopLeftTileValue) && base.BothTilesAreTheSame(this.TopLeftTileValue, this.MiddleLeftTileValue))
+            if (TileHelper.TileIsNotEmpty(this.TopLeftTileValue) && TileHelper.BothTilesAreTheSame(this.TopLeftTileValue, this.MiddleLeftTileValue))
             {
-                if (base.TileIsEmpty(this.BottomLeftTileValue))
+                if (TileHelper.TileIsEmpty(this.BottomLeftTileValue))
                 {
                     return TileConstants.BottomLeftTile;
                 }
@@ -107,9 +108,9 @@
         /// <param name="tiles">IEnumerable<IComputerGameTileModel></ComputerGameTileModel></param>
         private void PopulateFields(IEnumerable<IComputerGameTileModel> tiles)
         {
-            this.TopLeftTileValue = base.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
-            this.MiddleLeftTileValue = base.GetTileByIndex(tiles, TileConstants.MiddleLeftTile).Value;
-            this.BottomLeftTileValue = base.GetTileByIndex(tiles, TileConstants.BottomLeftTile).Value;
+            this.TopLeftTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.TopLeftTile).Value;
+            this.MiddleLeftTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.MiddleLeftTile).Value;
+            this.BottomLeftTileValue = TileHelper.GetTileByIndex(tiles, TileConstants.BottomLeftTile).Value;
         }
     }
 }
