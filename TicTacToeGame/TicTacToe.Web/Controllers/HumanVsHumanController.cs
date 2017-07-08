@@ -10,7 +10,7 @@
     using Models.HumanVsHuman.InputModels;
     using Models.HumanVsHuman.ViewModels;
     using AutoMapper;
-    using static Views.ViewConstants.ViewConstants;
+    using Views.ViewConstants;
 
     [CheckIfLoggedInFilter]
     public class HumanVsHumanController : BaseController
@@ -34,7 +34,7 @@
                 Players = this.GetDefaultPlayersList(),
             };
 
-            return View(NewGameView, inputModel);
+            return View(ViewConstants.NewGameView, inputModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -53,7 +53,7 @@
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
-            return PartialView(HumanVsHumanGame, viewModel);
+            return PartialView(ViewConstants.HumanVsHumanGame, viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryTokenAjax]
@@ -69,7 +69,7 @@
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
-            return PartialView(HumanVsHumanGame, viewModel);
+            return PartialView(ViewConstants.HumanVsHumanGame, viewModel);
         }
         
         [HttpPost, ValidateAntiForgeryTokenAjax]
@@ -84,7 +84,7 @@
 
             if (game.IsFinished)
             {
-                return RedirectToAction("FinishedGame", new { @gameId = game.Id });
+                return RedirectToAction(ViewConstants.FinishedGame, new { @gameId = game.Id });
             }
 
             GameViewModel viewModel = new GameViewModel()
@@ -93,13 +93,13 @@
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
-            return PartialView(HumanVsHumanGame, viewModel);
+            return PartialView(ViewConstants.HumanVsHumanGame, viewModel);
         }
 
         [HttpGet]
         public ActionResult LoadGame()
         {
-            return View(LoadGameView);
+            return View(ViewConstants.LoadGameView);
         }
 
         [HttpGet]
@@ -111,7 +111,7 @@
 
             IEnumerable<LoadGameGridViewModel> result = Mapper.Map<IEnumerable<LoadGameGridViewModel>>(unfinishedGames);
 
-            return PartialView(LoadGameGridPartialView, result);
+            return PartialView(ViewConstants.LoadGameGridPartialView, result);
         }
 
         [HttpPost, ValidateAntiForgeryTokenAjax]
@@ -125,7 +125,7 @@
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
-            return PartialView(HumanVsHumanGame, viewModel);
+            return PartialView(ViewConstants.HumanVsHumanGame, viewModel);
         }
 
         public ActionResult FinishedGame(int gameId)
@@ -138,7 +138,7 @@
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
-            return PartialView(FinishedHumanVsHumanGame, viewModel);
+            return PartialView(ViewConstants.FinishedHumanVsHumanGame, viewModel);
         }
 
         /// <summary>
