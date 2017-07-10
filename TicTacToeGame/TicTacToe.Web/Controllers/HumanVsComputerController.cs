@@ -10,7 +10,7 @@
     using AutoMapper;
     using FrameworkExtentions.Filters.Security;
     using FrameworkExtentions.Filters.ActionFilters;
-    using static Views.ViewConstants.ViewConstants;
+    using Views.ViewConstants;
 
     [CheckIfLoggedInFilter]
     public class HumanVsComputerController : BaseController
@@ -34,7 +34,7 @@
                 Players = this.GetDefaultPlayersList(),
             };
 
-            return View(NewGameView, inputModel);
+            return View(ViewConstants.NewGameView, inputModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -58,7 +58,7 @@
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
-            return PartialView(HumanVsComputerGame, viewModel);
+            return PartialView(ViewConstants.HumanVsComputerGame, viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryTokenAjax]
@@ -69,13 +69,24 @@
 
             this.PlaceHumanPlayerTurn(model.GameId, model.TileIndex, currentUsername);
 
-            this.PlaceComputerTurn(model.GameId, currentUsername);
+            this.ticTacToeGameService.CheckGameForOutcome(model.GameId);
 
             Game game = this.ticTacToeGameService.GetGameById(model.GameId);
 
             if (game.IsFinished)
             {
-                return RedirectToAction("FinishedGame", "HumanVsHuman", new { @gameId = game.Id });
+                return RedirectToAction(ViewConstants.FinishedGame, ViewConstants.HumanVsComputerController, new { model.GameId });
+            }
+
+            this.PlaceComputerTurn(model.GameId, currentUsername);
+
+            this.ticTacToeGameService.CheckGameForOutcome(model.GameId);
+
+            game = this.ticTacToeGameService.GetGameById(model.GameId);
+
+            if (game.IsFinished)
+            {
+                return RedirectToAction(ViewConstants.FinishedGame, ViewConstants.HumanVsComputerController, new { model.GameId });
             }
 
             GameViewModel viewModel = new GameViewModel()
@@ -84,11 +95,52 @@
                 GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
             };
 
-            return PartialView(HumanVsComputerGame, viewModel);
+            return PartialView(ViewConstants.HumanVsComputerGame, viewModel);
+        }
+
+        public ActionResult FinishedGame(int gameId)
+        {
+            Game game = this.ticTacToeGameService.GetGameById(gameId);
+
+            FinishedGameViewModel viewModel = new FinishedGameViewModel()
+            {
+                GameInfo = Mapper.Map<FinishedGameInfoViewModel>(game),
+                GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
+            };
+
+            return PartialView(ViewConstants.FinishedComputerVsHumanGame, viewModel);
+        }
+
+        [HttpPost, ValidateAntiForgeryTokenAjax]
+        public ActionResult ReplayGame()
+        {
+            string currentUsername = base.CurrentUserName();
+
+            //TODO MAKE THIS METHOD TO ACCEPT GAME TYPE
+            Game game = ticTacToeGameService.RecreatePreviousGame(currentUsername);
+
+            GameViewModel viewModel = new GameViewModel()
+            {
+                GameInfo = Mapper.Map<GameInfoViewModel>(game),
+                GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
+            };
+
+            return PartialView(ViewConstants.HumanVsComputerGame, viewModel);
         }
 
         /// <summary>
-        /// Places a computer turn on a Game and checks the game for outcome
+        /// Places a human player turn on a Game
+        /// </summary>
+        /// <param name="gameId">Game.Id</param>
+        /// <param name="tileIndex">Position to place the turn</param>
+        /// <param name="currentUsername">Username of the current user.</param>
+        private void PlaceHumanPlayerTurn(int gameId, int tileIndex, string currentUsername)
+        {
+            this.ticTacToeGameService.PlaceTurn(gameId, tileIndex, currentUsername);
+        }
+
+        /// <summary>
+        /// Places a computer turn on a Game
         /// </summary>
         /// <param name="gameId">Game.Id</param>
         /// <param name="currentUsername">Username of the current user.</param>
@@ -97,23 +149,6 @@
             int computerMoveTileIndex = this.ticTacToeGameService.GetComputerMove(gameId);
 
             this.ticTacToeGameService.PlaceTurn(gameId, computerMoveTileIndex, currentUsername);
-
-            //TODO REMOVE THAT CHECK FROM THIS FUNCTION
-            this.ticTacToeGameService.CheckGameForOutcome(gameId);
-        }
-
-        /// <summary>
-        /// Places a human player turn on a Game and checks the game for outcome
-        /// </summary>
-        /// <param name="gameId">Game.Id</param>
-        /// <param name="tileIndex">Position to place the turn</param>
-        /// <param name="currentUsername">Username of the current user.</param>
-        private void PlaceHumanPlayerTurn(int gameId, int tileIndex, string currentUsername)
-        {
-            this.ticTacToeGameService.PlaceTurn(gameId, tileIndex, currentUsername);
-
-            //TODO REMOVE THIS CALL FROM THIS FUNCTION
-            this.ticTacToeGameService.CheckGameForOutcome(gameId);
         }
 
         /// <summary>

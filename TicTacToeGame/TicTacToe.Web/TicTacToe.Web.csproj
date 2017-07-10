@@ -297,6 +297,9 @@
     <Content Include="Scripts\HumanVsComputer\NewGame\humanVsComputerGameModule.js" />
     <Content Include="Scripts\HumanVsComputer\NewGame\tests\humanVsComputerGameModuleTests.js" />
     <Content Include="Scripts\HumanVsComputer\NewGame\tests\index.html" />
+    <Content Include="Scripts\HumanVsComputer\_FinishedComputerVsHumanGame\finishedComputerVsHumanGameModule.js" />
+    <Content Include="Scripts\HumanVsComputer\_FinishedComputerVsHumanGame\tests\finishedComputerVsHumanGameModuleTests.js" />
+    <Content Include="Scripts\HumanVsComputer\_FinishedComputerVsHumanGame\tests\index.html" />
     <Content Include="Scripts\HumanVsHuman\NewGame\humanVsHumanNewGameModule.js" />
     <Content Include="Scripts\HumanVsHuman\NewGame\tests\humanVsHumanNewGameModuleTests.js" />
     <Content Include="Scripts\HumanVsHuman\NewGame\tests\index.html" />
@@ -364,6 +367,7 @@
     <Content Include="Views\Home\_HumanVsComputer.cshtml" />
     <Content Include="Views\HumanVsComputer\NewGame.cshtml" />
     <Content Include="Views\HumanVsComputer\_HumanVsComputerGame.cshtml" />
+    <Content Include="Views\HumanVsComputer\_FinishedComputerVsHumanGame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

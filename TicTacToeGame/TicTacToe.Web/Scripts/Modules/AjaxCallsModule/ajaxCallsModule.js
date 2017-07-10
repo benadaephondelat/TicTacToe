@@ -82,6 +82,20 @@ var ajaxCallsModule = (function (jQuery) {
     };
 
     /**
+    * Human vs Computer Ajax call to place a turn.
+    * @param {String} token: AntiForgeryToken
+    * @param {Object} data: Request data as JSON object
+    * @returns {Function}
+    */
+    var humanVsComputerReplayGameAjaxCall = function (token, data) {
+        var requestUrl = '/HumanVsComputer/ReplayGame';
+
+        var ajaxCall = _createPostRequestAjaxCall(token, data, requestUrl);
+
+        return ajaxCall;
+    };
+
+    /**
     * Human vs Human Ajax call
     * @returns {Function}
     */
@@ -139,7 +153,8 @@ var ajaxCallsModule = (function (jQuery) {
         },
         humanVsComputerCalls: {
             humanVsComputer: humanVsComputerAjaxCall,
-            placeTurn: humanVsComputerPlaceTurnAjaxCall
+            placeTurn: humanVsComputerPlaceTurnAjaxCall,
+            replayGame: humanVsComputerReplayGameAjaxCall,
         }
     }
 

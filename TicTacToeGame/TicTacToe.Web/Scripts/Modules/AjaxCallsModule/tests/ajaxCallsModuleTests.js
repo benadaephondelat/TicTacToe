@@ -303,4 +303,51 @@ describe('ajaxCallsModule', function () {
             done();
         });
     });
+
+    describe('humanVsComputerReplayGameAjaxCall tests', function () {
+        beforeEach(function () {
+            this.xhr = sinon.useFakeXMLHttpRequest();
+
+            this.requests = [];
+
+            this.xhr.onCreate = function (xhr) {
+                this.requests.push(xhr);
+            }.bind(this);
+
+        });
+
+        afterEach(function () {
+            this.xhr.restore();
+        });
+
+        it('humanVsComputerReplayGameAjaxCall should exist', function () {
+            var isUndefined = typeof ajaxCallsModule.humanVsComputerCalls.replayGame === 'undefined';
+
+            isUndefined.should.equal(false);
+        });
+
+
+        it('humanVsComputerReplayGameAjaxCall should be a function', function () {
+            var type = typeof ajaxCallsModule.humanVsComputerCalls.replayGame;
+
+            type.should.equal('function');
+        });
+
+        it('humanVsComputerReplayGameAjaxCall should accept 2 parameters', function () {
+            var parametersCount = ajaxCallsModule.humanVsComputerCalls.replayGame.length;
+
+            parametersCount.should.equal(2);
+        });
+
+        it('humanVsComputerReplayGameAjaxCall function should make a POST request to /HumanVsComputer/ReplayGame', function (done) {
+            ajaxCallsModule.humanVsComputerCalls.replayGame().done(function () {
+                done();
+            });
+
+            this.requests[0].method.should.equal('POST');
+            this.requests[0].url.should.equal('/HumanVsComputer/ReplayGame');
+
+            done();
+        });
+    });
 });

@@ -57,9 +57,19 @@
         public const string HumanVsComputerGame = "_HumanVsComputerGame";
 
         /// <summary>
+        /// HumanVsComputer Controller name
+        /// </summary>
+        public const string HumanVsComputerController = "HumanVsComputer";
+
+        /// <summary>
         /// _FinishedHumanVsHumanGame partial view
         /// </summary>
         public const string FinishedHumanVsHumanGame = "_FinishedHumanVsHumanGame";
+
+        /// <summary>
+        /// _FinishedComputerVsHumanGame partial view
+        /// </summary>
+        public const string FinishedComputerVsHumanGame = "_FinishedComputerVsHumanGame";
 
         /// <summary>
         /// FinishedGame Action name

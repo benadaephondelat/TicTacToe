@@ -9,24 +9,22 @@
             #region DefaultBundles
 
             bundles.Add(new ScriptBundle("~/bundles/jquery")
-                    .Include("~/Scripts/Default/jquery-2.1.4.js")
-                    .Include("~/Scripts/Default/jquery.validate.js")
-                    .Include("~/Scripts/Default/jquery.unobtrusive-ajax.js")
-                    .Include("~/Scripts/Default/jquery.validate.unobtrusive.js"));
+                   .Include("~/Scripts/Default/jquery-2.1.4.js")
+                   .Include("~/Scripts/Default/jquery.validate.js")
+                   .Include("~/Scripts/Default/jquery.unobtrusive-ajax.js")
+                   .Include("~/Scripts/Default/jquery.validate.unobtrusive.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/Default/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval")
+                   .Include("~/Scripts/Default/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/Default/modernizr-*"));
+            bundles.Add(new ScriptBundle("~/bundles/modernizr")
+                   .Include("~/Scripts/Default/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/Default/bootstrap.js",
-                      "~/Scripts/Default/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap")
+                   .Include("~/Scripts/Default/bootstrap.js", "~/Scripts/Default/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/Default/bootstrap.css",
-                      "~/Content/Default/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css")
+                   .Include("~/Content/Default/bootstrap.css", "~/Content/Default/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/mvc-grid-css")
                    .Include("~/Content/MvcGrid/mvc-grid.css"));
@@ -49,6 +47,9 @@
 
             bundles.Add(new ScriptBundle("~/bundles/finishedHumanVsHumanGameModule")
                    .Include("~/Scripts/HumanVsHuman/_FinishedHumanVsHumanGame/finishedHumanVsHumanGameModule.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/finishedComputerVsHumanGameModule")
+                   .Include("~/Scripts/HumanVsComputer/_FinishedComputerVsHumanGame/finishedComputerVsHumanGameModule.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/loadGameGridModule")
                    .Include("~/Scripts/HumanVsHuman/_LoadGameGrid/loadGameGridModule.js"));

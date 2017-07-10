@@ -618,7 +618,7 @@
         }
 
         [TestMethod]
-        public void Replay_Should_Return_HumanVsHumanGameViewModel_As_Model_To_The_View()
+        public void Replay_Should_Return_GameViewModel_As_Model_To_The_View()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -634,7 +634,7 @@
         }
 
         [TestMethod]
-        public void ReplayGame_HumanVsHumanGameViewModel_Properties_Should_Not_Be_Null()
+        public void ReplayGame_GameViewModel_Properties_Should_Not_Be_Null()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 

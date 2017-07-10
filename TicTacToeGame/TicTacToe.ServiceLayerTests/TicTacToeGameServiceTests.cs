@@ -410,15 +410,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(GameIsFinishedException))]
-        public void CheckGameForWinner_Should_Throw_GameIsFinishedException_If_Game_Is_Finished()
-        {
-            int gameId = MockConstants.FinishedGameIndex;
-
-            this.gameService.CheckGameForOutcome(gameId);
-        }
-
-        [TestMethod]
         public void CheckGameForWinner_Should_Not_Check_For_Winner_If_Game_Turns_Count_Is_Less_Than_5()
         {
             Game game = this.gameService.GetGameById(MockConstants.NewGameIndex);

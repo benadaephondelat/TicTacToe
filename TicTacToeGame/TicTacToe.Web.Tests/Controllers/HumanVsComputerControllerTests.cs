@@ -534,6 +534,168 @@
             Assert.IsNotNull(result.GameTiles);
         }
 
+        [TestMethod]
+        public void PlaceTurn_Should_Redirect_To_FinishedGame_ActionMethod_If_Game_Is_Finished()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 3, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            RedirectToRouteResult routeResult = actionResult as RedirectToRouteResult;
+
+            Assert.IsNotNull(routeResult);
+
+            Assert.AreEqual(routeResult.RouteValues["action"], "FinishedGame");
+
+            Assert.AreEqual(routeResult.RouteValues["controller"], "HumanVsComputer");
+        }
+
+        #endregion
+
+        #region FinishedGame Tests
+
+        [TestMethod]
+        public void FinishedGame_Action_Should_Exist()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            Assert.IsNotNull(controller.FinishedGame(1));
+        }
+
+        [TestMethod]
+        public void FinishedGame_Action_Should_Accept_gameId_As_Parameter()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            Type controllerType = controller.GetType();
+
+            var method = controllerType.GetTypeInfo().DeclaredMethods.ToList().FirstOrDefault(m => m.Name == "FinishedGame");
+
+            Assert.IsNotNull(method);
+
+            Assert.IsTrue(method.ToString().Contains("Int32"));
+        }
+
+        [TestMethod]
+        public void FinishedGame_Should_Return_PartialView()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.FinishedGame(1);
+
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
+        }
+
+        [TestMethod]
+        public void FinishedGame_Should_Return_PartialView_Named__FinishedComputerVsHumanGame()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.FinishedGame(1);
+
+            PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual("_FinishedComputerVsHumanGame", result.ViewName);
+        }
+
+        [TestMethod]
+        public void FinishedGame_Should_Return_FinishedGameViewModel_As_Model_To_The_View()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.FinishedGame(1);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            bool isCastValidCast = partialViewResult.Model is FinishedGameViewModel;
+
+            Assert.IsTrue(isCastValidCast);
+        }
+
+        [TestMethod]
+        public void FinishedGame_FinishedGameViewModel_Properties_Should_Not_Be_Null()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.FinishedGame(1);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            FinishedGameViewModel result = partialViewResult.Model as FinishedGameViewModel;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.GameInfo);
+            Assert.IsNotNull(result.GameTiles);
+        }
+
+        #endregion
+
+        #region ReplayGame Tests
+
+        [TestMethod]
+        public void ReplayGame_Action_Should_Exist()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            Assert.IsNotNull(controller.ReplayGame());
+        }
+
+        [TestMethod]
+        public void ReplayGame_Should_Return_PartialView_Named__HumanVsHumanGame()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.ReplayGame();
+
+            PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual("_HumanVsComputerGame", result.ViewName);
+        }
+
+        [TestMethod]
+        public void Replay_Should_Return_GameViewModel_As_Model_To_The_View()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.ReplayGame();
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            bool isCastValid = partialViewResult.Model is GameViewModel;
+
+            Assert.IsTrue(isCastValid);
+        }
+
+        [TestMethod]
+        public void ReplayGame_GameViewModel_Properties_Should_Not_Be_Null()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.ReplayGame();
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            GameViewModel result = partialViewResult.Model as GameViewModel;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.GameInfo);
+            Assert.IsNotNull(result.GameTiles);
+        }
+
         #endregion
 
         /// <summary>

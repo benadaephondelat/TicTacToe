@@ -135,7 +135,7 @@ else if (Model.GameInfo.GameState == GameState.Won)
 <div id="home-side-container">
     <h4>Home Side - <span class="red">X</span></h4>
     @Model.GameInfo.HomeSideUserName
-    
+
     @if (Model.GameInfo.GameState == GameState.Won)
     {
         if (Model.GameInfo.WinnerId == Model.GameInfo.HomeSideUserId)
@@ -188,7 +188,7 @@ else if (Model.GameInfo.GameState == GameState.Won)
 <div id="away-side-container">
     <h4>Away Side - <span class="blue">0</span></h4>
     @Model.GameInfo.AwaySideUserName
-    
+
     @if (Model.GameInfo.GameState == GameState.Won)
     {
         if (Model.GameInfo.WinnerId == Model.GameInfo.AwaySideUserId)
@@ -202,4 +202,4 @@ else if (Model.GameInfo.GameState == GameState.Won)
 
 <input type="hidden" id="finished-game-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
 
-@Scripts.Render("~/bundles/finishedHumanVsHumanGameModule")
+@Scripts.Render("~/bundles/finishedComputerVsHumanGameModule")
