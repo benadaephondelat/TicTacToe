@@ -138,7 +138,6 @@ describe('ajaxCallsModule', function () {
             isUndefined.should.equal(false);
         });
 
-
         it('humanVsHumanLoadGameAjaxCall should be a function', function () {
             var type = typeof ajaxCallsModule.humanVsHumanCalls.loadGame;
 

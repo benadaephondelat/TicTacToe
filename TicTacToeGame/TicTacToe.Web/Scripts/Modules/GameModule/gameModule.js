@@ -8,15 +8,41 @@ var gameModule = (function (jQuery) {
         throw new Error('jQuery is not found.');
     }
 
+    /* function declarations */
+    var getGameId,
+        getTileIndex,
+        getData,
+        gameBoardColouringHandler;
+
+    /* private functions */
+
+    /**
+     * Checks if an element is valid HTML element, if it's not it throws new Error
+     * @param {DOM element} element to check
+     */
+    function _throwErrorIfElementIsNotValidHtmlElement($element) {
+        if ($element instanceof HTMLElement) {
+            return false;
+        }
+
+        if ($element[0] instanceof HTMLElement) {
+            return false;
+        }
+
+        throw new Error('Invalid HTML element');
+    }
+
     /**
      * Returns the id of the current game or throws error
      * @param {jQuery DOM element} game-id DOM element
-     * @returns {Number} game id 
+     * @returns {String} game id 
      */
-    var getGameId = function($gameId) {
+    getGameId = function ($gameId) {
+        _throwErrorIfElementIsNotValidHtmlElement($gameId);
+
         var gameId = $gameId.attr('value');
 
-        if (typeof gameId === 'undefined') {
+        if (typeof gameId === 'undefined' || gameId === null) {
             throw new Error('Invalid Game Id');
         }
 
@@ -28,7 +54,7 @@ var gameModule = (function (jQuery) {
      * @param {jQuery DOM element} tile DOM element
      * @returns {Number} tile id 
      */
-    var getTileIndex = function($tile) {
+    getTileIndex = function($tile) {
         var tileIndex = $tile.data('index');
 
         if (tileIndex < 0 || tileIndex > 8) {
@@ -44,7 +70,7 @@ var gameModule = (function (jQuery) {
      * @param {jQuery DOM element} tile DOM element
      * @returns {Object} JSON
      */
-    var getData = function($gameId, $tile) {
+    getData = function($gameId, $tile) {
         var gameId = getGameId($gameId);
         var tileIndex = getTileIndex($tile);
 
@@ -60,7 +86,7 @@ var gameModule = (function (jQuery) {
      * Adds a css class to all not empty tiles based on the tile's value.
      * @param {jQuery DOM element} tiles DOM element
      */
-    var gameBoardColouringHandler = function ($fullGameTiles) {
+    gameBoardColouringHandler = function ($fullGameTiles) {
         $fullGameTiles.each(function (i, obj) {
             if (obj.outerText === 'X') {
                 $(obj).addClass('red');

@@ -308,9 +308,14 @@
     <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\finishedHumanVsHumanGameModule.js" />
     <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\tests\finishedHumanVsHumanGameModuleTests.js" />
     <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\tests\index.html" />
-    <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\loadGameGridModule.js" />
+    <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\loadHumanVsHumanGameModule.js" />
+    <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\tests\loadHumanVsHumanGameModuleTests.js" />
     <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\tests\index.html" />
-    <Content Include="Scripts\HumanVsHuman\_LoadGameGrid\tests\loadGameGridModuleTests.js" />
+    <Content Include="Scripts\Modules\GameModule\tests\gameModuleTests.js" />
+    <Content Include="Scripts\Modules\GameModule\tests\index.html" />
+    <Content Include="Scripts\Modules\LoadGameModule\loadGameGridModule.js" />
+    <Content Include="Scripts\Modules\LoadGameModule\tests\index.html" />
+    <Content Include="Scripts\Modules\LoadGameModule\tests\loadGameGridModuleTests.js" />
     <Content Include="Scripts\Modules\AjaxCallsModule\ajaxCallsModule.js" />
     <Content Include="Scripts\Modules\AjaxCallsModule\tests\index.html" />
     <Content Include="Scripts\Modules\AjaxCallsModule\tests\ajaxCallsModuleTests.js" />

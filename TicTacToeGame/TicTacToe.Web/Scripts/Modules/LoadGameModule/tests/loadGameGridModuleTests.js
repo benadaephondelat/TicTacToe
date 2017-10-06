@@ -26,5 +26,11 @@ describe('loadGameGridModule', function () {
 
             typeofInit.should.equal('function');
         });
+
+        it('init should accept one parameter', function () {
+            var parametersCount = loadGameGridModule.init.length;
+
+            parametersCount.should.equal(1);
+        });
     });
 });

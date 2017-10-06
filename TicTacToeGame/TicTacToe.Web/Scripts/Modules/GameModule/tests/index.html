@@ -1,12 +1,16 @@
 ﻿<html>
 <head>
-    <title>loadHumanVsHumanGameModule.js Tests</title>
+    <title>gameModule.js Tests</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.1.0/mocha.css">
 </head>
 <body>
     <div id="mocha">
 
     </div>
+
+    <input type="hidden" id="valid-dom-element" value="123" />
+    <input type="hidden" id="valid-dom-element-without-value-attribute" />
+
 
     <script src="../../../Default/jquery-1.10.2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.1.0/mocha.js"></script>
@@ -15,11 +19,8 @@
 
     <script>mocha.setup('bdd')</script>
 
-    <script src="../../../Modules/GameModule/gameModule.js"></script>
-    <script src="../../../Modules/AjaxCallsModule/ajaxCallsModule.js"></script>
-    <script src="../../../Modules/LoadGameModule/loadGameGridModule.js"></script>
-    <script src="../loadHumanVsHumanGameModule.js"></script>
-    <script src="loadHumanVsHumanGameModuleTests.js"></script>
+    <script src="../gameModule.js"></script>
+    <script src="gameModuleTests.js"></script>
 
     <script>
         mocha.run();

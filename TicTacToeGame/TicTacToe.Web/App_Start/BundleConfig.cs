@@ -39,6 +39,9 @@
             bundles.Add(new ScriptBundle("~/bundles/gameModule")
                    .Include("~/Scripts/Modules/GameModule/gameModule.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/loadGameGridModule")
+                   .Include("~/Scripts/Modules/LoadGameModule/loadGameGridModule.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/authenticatedUserIndexModule")
                    .Include("~/Scripts/Home/_AuthenticatedUserIndex/authenticatedUserIndexModule.js"));
 
@@ -51,8 +54,8 @@
             bundles.Add(new ScriptBundle("~/bundles/finishedComputerVsHumanGameModule")
                    .Include("~/Scripts/HumanVsComputer/_FinishedComputerVsHumanGame/finishedComputerVsHumanGameModule.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/loadGameGridModule")
-                   .Include("~/Scripts/HumanVsHuman/_LoadGameGrid/loadGameGridModule.js"));
+            bundles.Add(new ScriptBundle("~/bundles/loadHumanVsHumanGameModule")
+                   .Include("~/Scripts/HumanVsHuman/_LoadGameGrid/loadHumanVsHumanGameModule.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/humanVsComputerGameModule")
                    .Include("~/Scripts/HumanVsComputer/NewGame/humanVsComputerGameModule.js"));

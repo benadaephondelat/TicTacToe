@@ -1,11 +1,10 @@
 ﻿/**
- * Contains the JavaScript to be used in the HumanVsHumanController's _LoadGameGrid partial view.
- * @dependencies: jQuery and ajaxCallsModule
+ * Contains common functionality to be re-used for all modules responsible for loading a game
+ * @dependencies: jQuery, ajaxCallsModule
  * @param {function} jQuery
  * @param {Module} ajaxCallsModule.js
  */
 var loadGameGridModule = (function (jQuery, ajaxCallsModule) {
-
     if (typeof jQuery === 'undefined') {
         throw new Error('jQuery is not found.');
     }
@@ -16,14 +15,8 @@ var loadGameGridModule = (function (jQuery, ajaxCallsModule) {
 
     /* function declarations */
     var createButtons,
-        loadGameRequest,
         gridRowClickHandler,
         initiliazieModule;
-
-    /* cached DOM objects */
-    var $gridRows = $('.mvc-grid tbody tr'),
-        $gameContainer = $('#game-container'),
-        _antiForgeryToken = $('#load-game-token').attr('value');
 
     /**
     * Checks if the grid is empty.
@@ -46,20 +39,11 @@ var loadGameGridModule = (function (jQuery, ajaxCallsModule) {
     };
 
     /**
-    * Calls loadGameAjaxCall and appends the result to the DOM
-    */
-    loadGameRequest = function (data) {
-        ajaxCallsModule.humanVsHumanCalls.loadGame(_antiForgeryToken, data).done(function (result) {
-            $gameContainer.html(result);
-        });
-    };
-
-    /**
     * Attaches an event handler to a given grid row.
+    * @param gridRow {jQuery DOM object} Grid Row as html object
+    * @param loadGameRequest {function} A function that exeutes a specific request to the server
     */
-    gridRowClickHandler = function () {
-        var currentGridRow = $(this);
-
+    gridRowClickHandler = function (currentGridRow, loadGameRequest) {
         $(currentGridRow).on('click', function (event) {
             var clickedElement = event.target.id;
 
@@ -75,15 +59,19 @@ var loadGameGridModule = (function (jQuery, ajaxCallsModule) {
         });
     };
 
-    initiliazieModule = function () {
-        $gridRows.each(function (index, currentGridRow) {
+    /**
+    * Initializes the module
+    * @param loadGameRequest {function} A function that exeutes a specific request to the server
+    */
+    initiliazieModule = function (loadGameRequest) {
+        $('.mvc-grid tbody tr').each(function (index, currentGridRow) {
             if (_gridIsEmpty(currentGridRow)) {
                 return false;
             }
 
             createButtons.call(currentGridRow);
 
-            gridRowClickHandler.call(currentGridRow);
+            gridRowClickHandler(currentGridRow, loadGameRequest);
         });
     };
 
@@ -92,5 +80,3 @@ var loadGameGridModule = (function (jQuery, ajaxCallsModule) {
     }
 
 })(jQuery || {}, ajaxCallsModule || {});
-
-loadGameGridModule.init();
