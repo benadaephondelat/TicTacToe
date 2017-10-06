@@ -44,7 +44,7 @@
         /// <returns>string</returns>
         public string GetCurrentTurnHolderId(int turnsCount, string homeUserId, string awayUserId)
         {
-            if (IsOddNumber(turnsCount))
+            if (this.IsOddNumber(turnsCount))
             {
                 return homeUserId;
             }

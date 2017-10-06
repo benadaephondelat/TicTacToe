@@ -10,11 +10,11 @@
 
     @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUserId)
     {
-        <h5 class="red">Turn Holder: @Model.GameInfo.HomeSideUserName</h5>
+        <h5 id="current-turn-holder-username" class="red">Turn Holder: @Model.GameInfo.HomeSideUserName</h5>
     }
     else
     {
-        <h5 class="blue">Turn Holder: @Model.GameInfo.AwaySideUserName</h5>
+        <h5 id="current-turn-holder-username" class="blue">Turn Holder: @Model.GameInfo.AwaySideUserName</h5>
     }
 </div>
 

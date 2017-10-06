@@ -10,6 +10,8 @@
     using Constants;
     using FrameworkExtentions.Mappings;
     using Moq;
+    using TicTacToe.Models.Enums;
+    using TicTacToeCommon.Constants;
 
     /// <summary>
     /// Generates a mock of the ServiceLayer
@@ -20,7 +22,9 @@
 
         private List<Tile> DefaultTilesList { get; }
 
-        private Game Game { get; }
+        private Game NewHumanVsHumanGame { get; }
+
+        private Game NewHumanVsComputerGame { get; }
 
         private Game FinishedGame { get; }
 
@@ -28,7 +32,8 @@
         {
             this.Users = this.CreateDefaultUsersMock();
             this.DefaultTilesList = this.CreateDefaultTilesMock();
-            this.Game = this.CreateNewGameMock();
+            this.NewHumanVsHumanGame = this.CreateNewHumanVsHumanGameMock();
+            this.NewHumanVsComputerGame = this.CreateNewHumanVsComputerGameMock();
             this.FinishedGame = this.CreateFinishGameMock();
 
             this.ConfigureAutoMapper();
@@ -43,20 +48,22 @@
             Mock<ITicTacToeGameService> serviceMock = new Mock<ITicTacToeGameService>();
 
             serviceMock.Setup(p => p.CreateNewGame(MockConstants.UserEmail, MockConstants.OtherGuyEmail))
-                       .Returns(this.Game);
+                       .Returns(this.NewHumanVsHumanGame);
 
             serviceMock.Setup(p => p.CreateNewGame(MockConstants.OtherGuyEmail, MockConstants.UserEmail))
-                       .Returns(this.Game);
+                       .Returns(this.NewHumanVsHumanGame);
 
             serviceMock.Setup(p => p.PlaceTurn(1, 0, "georgi_iliev@yahoo.com"));
 
-            serviceMock.Setup(p => p.RecreatePreviousGame(MockConstants.UserEmail)).Returns(this.Game);
+            serviceMock.Setup(p => p.RecreatePreviousGame(MockConstants.UserEmail, GameMode.HumanVsHuman))
+                       .Returns(this.NewHumanVsHumanGame);
 
-            serviceMock.Setup(p => p.GetGameById(1)).Returns(this.Game);
+            serviceMock.Setup(p => p.GetGameById(1)).Returns(this.NewHumanVsHumanGame);
 
             serviceMock.Setup(p => p.GetGameById(2)).Returns(this.FinishedGame);
 
-            serviceMock.Setup(p => p.GetAllUnfinishedGames("georgi_iliev@yahoo.com")).Returns(new List<Game>() { this.FinishedGame });
+            serviceMock.Setup(p => p.GetAllUnfinishedGames("georgi_iliev@yahoo.com", GameMode.HumanVsHuman))
+                       .Returns(new List<Game>() { this.FinishedGame });
 
             return serviceMock;
         }
@@ -107,15 +114,21 @@
             {
                 new ApplicationUser()
                 {   
-                    Id = "applicationUserId",
-                    UserName = "georgi_iliev@yahoo.com",
-                    Email = "georgi_iliev@yahoo.com"
+                    Id = UserConstants.UserId,
+                    UserName = UserConstants.UserUsername,
+                    Email = UserConstants.UserEmail
                 },
                 new ApplicationUser()
                 {
-                    Id = "oponentUserId",
-                    UserName = "the-other-guy@yahoo.com",
-                    Email = "the-other-guy@yahoo.com"
+                    Id = UserConstants.OtherGuyId,
+                    UserName = UserConstants.OtherGuyUsername,
+                    Email = UserConstants.OtherGuyEmail
+                },
+                new ApplicationUser()
+                {
+                    Id = UserConstants.ComputerId,
+                    UserName = UserConstants.ComputerUsername,
+                    Email = UserConstants.ComputerEmail
                 }
             };
 
@@ -150,20 +163,45 @@
         /// Creates a new human vs human game 
         /// </summary>
         /// <returns>Game</returns>
-        private Game CreateNewGameMock()
+        private Game CreateNewHumanVsHumanGameMock()
         {
             Game game = new Game()
             {
                 Id = 1,
                 StartDate = DateTime.Now,
-                GameName = "MOCKED GAME",
+                GameName = "MOCKED HUMAN VS HUMAN GAME",
                 ApplicationUser = this.Users[0],
                 ApplicationUserId = this.Users[0].Id,
                 Oponent = this.Users[1],
                 OponentId = this.Users[1].Id,
                 OponentName = this.Users[1].UserName,
                 TurnsCount = 1,
-                Tiles = this.DefaultTilesList
+                Tiles = this.DefaultTilesList,
+                GameMode = GameMode.HumanVsHuman
+            };
+
+            return game;
+        }
+
+        /// <summary>
+        /// Creates a new human vs computer game 
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateNewHumanVsComputerGameMock()
+        {
+            Game game = new Game()
+            {
+                Id = 1,
+                StartDate = DateTime.Now,
+                GameName = "MOCKED HUMAN VS COMPUTER GAME",
+                ApplicationUser = this.Users[0],
+                ApplicationUserId = this.Users[0].Id,
+                Oponent = this.Users[2],
+                OponentId = this.Users[2].Id,
+                OponentName = this.Users[2].UserName,
+                TurnsCount = 1,
+                Tiles = this.DefaultTilesList,
+                GameMode = GameMode.HumanVsComputer
             };
 
             return game;
@@ -180,7 +218,7 @@
                 Id = 2,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now,
-                GameName = "MOCKED GAME",
+                GameName = "MOCKED FINISHED HUMAN VS HUMAN GAME",
                 ApplicationUser = this.Users[0],
                 ApplicationUserId = this.Users[0].Id,
                 Oponent = this.Users[1],
@@ -189,7 +227,8 @@
                 TurnsCount = 2,
                 WinnerId = this.Users[1].UserName,
                 IsFinished = true,
-                Tiles = this.DefaultTilesList
+                Tiles = this.DefaultTilesList,
+                GameMode = GameMode.HumanVsHuman
             };
 
             return game;

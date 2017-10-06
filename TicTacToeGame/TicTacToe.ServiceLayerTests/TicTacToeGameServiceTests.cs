@@ -16,6 +16,7 @@
 
     using Moq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Reflection;
 
     [TestClass]
     public class TicTacToeGameServiceTests
@@ -86,6 +87,16 @@
         public void CreateNewGame_Should_Throw_UserNotFoundException_If_No_User_With_awaySideUserName_Is_Found()
         {
             gameService.CreateNewGame(MockConstants.InvalidUserId, MockConstants.OtherGuyId);
+        }
+
+        [TestMethod]
+        public void CreateNewGame_Game_Should_Set_GameMode_To_HumanVsHuman()
+        {
+            Game game = CreateNewHumanVsHumanGameWithTwoValidUsers();
+
+            string actualGameMode = game.GameMode.ToString();
+
+            Assert.AreEqual(GameMode.HumanVsHuman.ToString(), actualGameMode);
         }
 
         [TestMethod]
@@ -287,47 +298,319 @@
 
         #endregion
 
+        #region CreateNewHummanVsComputerGame
+
+        [TestMethod]
+        public void CreateNewComputerVsHumanGame_Should_Not_Throw_UserNotFoundException_When_User_Is_Valid()
+        {
+            try
+            {
+                CreateValidNewHumanVsComputerGame();
+            }
+            catch (UserNotFoundException)
+            {
+                Assert.Fail();
+            }
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotFoundException))]
+        public void CreateNewHumanVsComputerGame_Should_Throw_UserNotFoundException_If_No_User_With_homeSideUserName_Is_Found()
+        {
+            gameService.CreateNewHumanVsComputerGame(MockConstants.InvalidUsername, true);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Should_Set_GameMode_To_HumanVsComputer()
+        {
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            string actualGameMode = game.GameMode.ToString();
+
+            Assert.AreEqual(GameMode.HumanVsComputer.ToString(), actualGameMode);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Should_Start_With_TurnsCount_Set_To_1()
+        {
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            var actualTurnsCount = game.TurnsCount;
+
+            Assert.AreEqual(1, actualTurnsCount);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Should_Have_Two_Valid_Users()
+        {
+            Game game = gameService.CreateNewHumanVsComputerGame(MockConstants.UserName, true);
+
+            bool isGameUserNull = game.ApplicationUser == null;
+            Assert.IsFalse(isGameUserNull);
+
+            bool isGameUserIdNullOrEmpty = string.IsNullOrWhiteSpace(game.ApplicationUserId);
+            Assert.IsFalse(isGameUserIdNullOrEmpty);
+
+            bool isGameOponentNull = game.Oponent == null;
+            Assert.IsFalse(isGameOponentNull);
+
+            bool isGameOponentIdNullOrEmpty = string.IsNullOrWhiteSpace(game.OponentId);
+            Assert.IsFalse(isGameOponentIdNullOrEmpty);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Should_Set_The_Human_User_As_Game_Owner()
+        {
+            Game game = gameService.CreateNewHumanVsComputerGame(MockConstants.UserName, true);
+
+            Assert.AreEqual(MockConstants.UserName, game.ApplicationUser.UserName);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Name_Should_Be_HomeSideUsername_vs_AwaySideUsername()
+        {
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            string expectedGameName = MockConstants.UserName + " vs " + MockConstants.ComputerUserName;
+
+            Assert.AreEqual(expectedGameName, game.GameName);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_StartDate_Should_Be_Within_Ten_Seconds_Of_Creation()
+        {
+            DateTime expectedTime = DateTime.Now.AddSeconds(10);
+
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            bool isWithinTenSeconds = game.StartDate <= expectedTime;
+
+            Assert.IsTrue(isWithinTenSeconds);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_OponentName_Should_Be_The_Computer_If_Human_Is_First()
+        {
+            Game game = gameService.CreateNewHumanVsComputerGame(MockConstants.UserName, true);
+
+            Assert.AreEqual(MockConstants.ComputerUserName, game.OponentName);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_OponentName_Should_Be_The_Human_If_The_Computer_Is_First()
+        {
+            Game game = gameService.CreateNewHumanVsComputerGame(MockConstants.UserName, false);
+
+            Assert.AreEqual(MockConstants.UserName, game.OponentName);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Should_Have_9_Tiles()
+        {
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            Assert.AreEqual(9, game.Tiles.Count);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_All_Tiles_IsEmpty_Property_Should_Be_Set_To_True()
+        {
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            int actualEmptyTilesCount = game.Tiles.Count(t => t.IsEmpty);
+
+            Assert.AreEqual(9, actualEmptyTilesCount);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_All_Tiles_Value_Property_Should_Be_Set_To_An_Empty_String()
+        {
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            int result = game.Tiles.Count(t => t.Value == string.Empty);
+
+            Assert.AreEqual(9, result);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_All_Tiles_Game_Property_Should_Be_Set_To_The_Same_Game()
+        {
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            int result = game.Tiles.Count(t => t.Game == game);
+
+            Assert.AreEqual(9, result);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_All_Tiles_GameId_Property_Should_Be_Set_To_The_Same_GameId()
+        {
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            int result = game.Tiles.Count(t => t.GameId == game.Id);
+
+            Assert.AreEqual(9, result);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_If_The_Human_Starts_First_The_Oponent_Should_Be_The_Computer()
+        {
+            Game game = gameService.CreateNewHumanVsComputerGame(MockConstants.UserName, true);
+
+            Assert.AreEqual(MockConstants.ComputerUserName, game.Oponent.UserName);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_If_The_Human_Starts_Second_The_HomeSideUser_Should_Be_The_Computer()
+        {
+            Game game = gameService.CreateNewHumanVsComputerGame(MockConstants.UserName, false);
+
+            Assert.AreEqual(MockConstants.ComputerUserName, game.ApplicationUser.UserName);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Should_Be_Added_Once_To_Games_Repository()
+        {
+            var addGameCounter = 0;
+
+            this.dataLayerMock.Setup(x => x.Games.Add(It.IsAny<Game>())).Callback(() => addGameCounter++);
+
+            CreateValidNewHumanVsComputerGame();
+
+            this.dataLayerMock.Verify(x => x.Games.Add(It.IsAny<Game>()), Times.Once());
+
+            Assert.AreEqual(1, addGameCounter);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Should_Call_SaveChanges_Once()
+        {
+            var saveChangesCounter = 0;
+
+            this.dataLayerMock.Setup(x => x.SaveChanges()).Callback(() => saveChangesCounter++);
+
+            CreateValidNewHumanVsComputerGame();
+
+            this.dataLayerMock.Verify(x => x.SaveChanges(), Times.Once());
+
+            Assert.AreEqual(1, saveChangesCounter);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Should_Add_9_Tiles_To_Tile_Repository()
+        {
+            var addTIleCounter = 0;
+
+            this.dataLayerMock.Setup(x => x.Tiles.Add(It.IsAny<Tile>())).Callback(() => addTIleCounter++);
+
+            CreateValidNewHumanVsComputerGame();
+
+            this.dataLayerMock.Verify(x => x.Tiles.Add(It.IsAny<Tile>()), Times.Exactly(9));
+
+            Assert.AreEqual(9, addTIleCounter);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_Should_Add_Game_To_User_Games_Collection()
+        {
+            Game game = CreateValidNewHumanVsComputerGame();
+
+            Assert.IsTrue(game.ApplicationUser.Games.Any());
+        }
+
+        /// <summary>
+        /// Creates a new human vs computer game with the current user serving as homeside.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateValidNewHumanVsComputerGame()
+        {
+            return gameService.CreateNewHumanVsComputerGame(MockConstants.UserName, true);
+        }
+
+        #endregion
+
         #region RecreatePreviousGame
 
         [TestMethod]
         [ExpectedException(typeof(UserNotFoundException))]
-        public void ReplayGame_Should_Throw_Exception_If_There_Is_No_Such_User_In_The_Database()
+        public void RecreatePreviousGame_Should_Throw_Exception_If_There_Is_No_Such_User_In_The_Database()
         {
-            this.gameService.RecreatePreviousGame(MockConstants.InvalidUsername);
+            this.gameService.RecreatePreviousGame(MockConstants.InvalidUsername, GameMode.HumanVsHuman);
         }
 
         [TestMethod]
         [ExpectedException(typeof(GameNotFoundException))]
-        public void ReplayGame_Should_Throw_Exception_If_The_User_Did_Not_Played_Any_Games()
+        public void RecreatePreviousGame_Should_Throw_Exception_If_The_User_Did_Not_Played_Any_Games()
         {
-            this.gameService.RecreatePreviousGame(MockConstants.NewUserWithoutGamesUsername);
+            this.gameService.RecreatePreviousGame(MockConstants.NewUserWithoutGamesUsername, GameMode.HumanVsHuman);
         }
 
         [TestMethod]
-        public void ReplayGame_Should_Return_Game_That_Is_Not_Null()
+        public void RecreatePreviousGame_Should_Accept_Two_Parameters()
         {
-            Game game = this.gameService.RecreatePreviousGame(MockConstants.UserName);
+            ParameterInfo[] methodParameters = this.gameService.GetType().GetMethod("RecreatePreviousGame").GetParameters();
+
+            int parametersCount = methodParameters.Count();
+
+            Assert.AreEqual(2, parametersCount);
+        }
+
+        [TestMethod]
+        public void RecreatePreviousGame_Should_Accept_String_As_First_Parameter()
+        {
+            ParameterInfo[] methodParameters = this.gameService.GetType().GetMethod("RecreatePreviousGame").GetParameters();
+
+            bool isFirstParameterString = methodParameters[0].ParameterType.Name == "String";
+
+            Assert.IsTrue(isFirstParameterString);
+        }
+
+        [TestMethod]
+        public void RecreatePreviousGame_Should_Accept_Enum_Named_GameMode_As_Second_Parameter()
+        {
+            ParameterInfo[] methodParameters = this.gameService.GetType().GetMethod("RecreatePreviousGame").GetParameters();
+
+            bool isSecondParameterNamedGameMode = methodParameters[1].ParameterType.FullName.Contains("GameMode");
+
+            Assert.IsTrue(isSecondParameterNamedGameMode);
+
+            bool isSecondParameterEnum = methodParameters[1].ParameterType.FullName.Contains("Enum");
+
+            Assert.IsTrue(isSecondParameterEnum);
+        }
+
+        [TestMethod]
+        public void RecreatePreviousGame_Should_Return_Game_That_Is_Not_Null()
+        {
+            Game game = this.gameService.RecreatePreviousGame(MockConstants.UserName, GameMode.HumanVsHuman);
 
             Assert.IsNotNull(game);
         }
 
         [TestMethod]
-        public void ReplayGame_Should_Return_New_Game()
+        public void RecreatePreviousGame_Should_Return_New_HumanVsHuman_Game_When_Game_Mode_Is_HumanVsHuman()
         {
-            Game game = this.gameService.RecreatePreviousGame(MockConstants.UserName);
+            Game game = this.gameService.RecreatePreviousGame(MockConstants.UserName, GameMode.HumanVsHuman);
 
             Assert.IsFalse(game.IsFinished);
             Assert.IsNull(game.EndDate);
             Assert.AreEqual(9, game.Tiles.Count(t => t.IsEmpty));
             Assert.IsTrue(string.IsNullOrWhiteSpace(game.WinnerId));
+            Assert.AreEqual(GameMode.HumanVsHuman, game.GameMode);
         }
 
         [TestMethod]
-        public void ReplayGame_Should_Return_New_Game_Where_The_Homeside_Is_The_Current_User()
+        public void RecreatePreviousGame_Should_Return_New_HumanVsComputer_Game_When_Game_Mode_Is_HumanVsComputer()
         {
-            Game game = this.gameService.RecreatePreviousGame(MockConstants.UserName);
+            Game game = this.gameService.RecreatePreviousGame(MockConstants.UserName, GameMode.HumanVsComputer);
 
-            Assert.AreEqual(MockConstants.UserName, game.ApplicationUser.UserName);
+            Assert.IsFalse(game.IsFinished);
+            Assert.IsNull(game.EndDate);
+            Assert.AreEqual(9, game.Tiles.Count(t => t.IsEmpty));
+            Assert.IsTrue(string.IsNullOrWhiteSpace(game.WinnerId));
+            Assert.AreEqual(GameMode.HumanVsComputer, game.GameMode);
         }
 
         #endregion
@@ -338,33 +621,71 @@
         [ExpectedException(typeof(UserNotFoundException))]
         public void GetAllUnfinishedGames_Should_Throw_UserNotFoundException_If_No_User_Exists_In_The_Database()
         {
-            gameService.GetAllUnfinishedGames(MockConstants.InvalidUsername);
+            gameService.GetAllUnfinishedGames(MockConstants.InvalidUsername, GameMode.HumanVsHuman);
         }
 
         [TestMethod]
-        public void GetAllUnfinishedGames_Should_Return_3_UnfinishedGames()
+        public void GetAllUnfinishedGames_Should_Accept_Two_Parameters()
         {
-            var result = gameService.GetAllUnfinishedGames(MockConstants.UserName);
+            ParameterInfo[] methodParameters = this.gameService.GetType().GetMethod("GetAllUnfinishedGames").GetParameters();
 
-            Assert.AreEqual(3, result.Count());
+            int parametersCount = methodParameters.Count();
+
+            Assert.AreEqual(2, parametersCount);
         }
 
         [TestMethod]
-        public void GetAllUnfinishedGames_Should_Return_3_Games_With_IsFinished_Property_Set_To_False()
+        public void GetAllUnfinishedGames_Should_Accept_String_As_First_Parameter()
         {
-            var result = gameService.GetAllUnfinishedGames(MockConstants.UserName);
+            ParameterInfo[] methodParameters = this.gameService.GetType().GetMethod("GetAllUnfinishedGames").GetParameters();
 
-            Assert.AreEqual(3, result.Count());
+            bool isFirstParameterString = methodParameters[0].ParameterType.Name == "String";
 
-            Assert.IsFalse(result.ElementAt(0).IsFinished);
+            Assert.IsTrue(isFirstParameterString);
+        }
 
-            Assert.IsFalse(result.ElementAt(1).IsFinished);
+        [TestMethod]
+        public void GetAllUnfinishedGames_Should_Accept_Enum_Named_GameMode_As_Second_Parameter()
+        {
+            ParameterInfo[] methodParameters = this.gameService.GetType().GetMethod("GetAllUnfinishedGames").GetParameters();
+
+            bool isSecondParameterNamedGameMode = methodParameters[1].ParameterType.FullName.Contains("GameMode");
+
+            Assert.IsTrue(isSecondParameterNamedGameMode);
+
+            bool isSecondParameterEnum = methodParameters[1].ParameterType.FullName.Contains("Enum");
+
+            Assert.IsTrue(isSecondParameterEnum);
+        }
+
+        [TestMethod]
+        public void GetAllUnfinishedGames_Should_Return_2_Finished_HumanVsHuman_Games()
+        {
+            var result = gameService.GetAllUnfinishedGames(MockConstants.UserName, GameMode.HumanVsHuman);
+
+            var test = result.Count();
+
+            Assert.AreEqual(2, result.Count());
+
+            Assert.IsFalse(result.ToList().Any(g => g.IsFinished));
+        }
+
+        [TestMethod]
+        public void GetAllUnfinishedGames_Should_Return_2_Finished_HumanVsComputer_Games()
+        {
+            var result = gameService.GetAllUnfinishedGames(MockConstants.UserName, GameMode.HumanVsComputer);
+
+            var test = result.Count();
+
+            Assert.AreEqual(2, result.Count());
+
+            Assert.IsFalse(result.ToList().Any(g => g.IsFinished));
         }
 
         [TestMethod]
         public void GetAllUnfinishedGames_Should_Return_Zero_Games_If_The_User_Has_No_Games()
         {
-            var result = gameService.GetAllUnfinishedGames(MockConstants.NewUserWithoutGamesUsername);
+            var result = gameService.GetAllUnfinishedGames(MockConstants.NewUserWithoutGamesUsername, GameMode.HumanVsHuman);
 
             Assert.AreEqual(0, result.Count());
         }

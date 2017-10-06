@@ -11,6 +11,7 @@
     using FrameworkExtentions.Filters.Security;
     using FrameworkExtentions.Filters.ActionFilters;
     using Views.ViewConstants;
+    using TicTacToe.Models.Enums;
 
     [CheckIfLoggedInFilter]
     public class HumanVsComputerController : BaseController
@@ -41,11 +42,11 @@
         [CheckModelStateFilter]
         public ActionResult NewGame(NewGameInputModel inputModel)
         {
-            string homeSideUserName = inputModel.Players[0];
+            bool isHumanPlayerStartingFirst = this.HumanIsStartingFirst(inputModel.Players[0]);
 
             string currentUserName = base.CurrentUserName();
 
-            Game game = ticTacToeGameService.CreateNewGame(homeSideUserName, currentUserName);
+            Game game = ticTacToeGameService.CreateNewHumanVsComputerGame(currentUserName, isHumanPlayerStartingFirst);
 
             if (this.ComputerIsStartingFirst(game.ApplicationUser.UserName))
             {
@@ -77,12 +78,27 @@
             {
                 return RedirectToAction(ViewConstants.FinishedGame, ViewConstants.HumanVsComputerController, new { model.GameId });
             }
+            
+            GameViewModel viewModel = new GameViewModel()
+            {
+                GameInfo = Mapper.Map<GameInfoViewModel>(game),
+                GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
+            };
+
+            return PartialView(ViewConstants.HumanVsComputerGame, viewModel);
+        }
+
+        [HttpPost, ValidateAntiForgeryTokenAjax]
+        [CheckModelStateAjax]
+        public ActionResult PlaceComputerTurn([Bind(Exclude = "TileIndex")]PlaceTurnInputModel model)
+        {
+            string currentUsername = base.CurrentUserName();
 
             this.PlaceComputerTurn(model.GameId, currentUsername);
 
             this.ticTacToeGameService.CheckGameForOutcome(model.GameId);
 
-            game = this.ticTacToeGameService.GetGameById(model.GameId);
+            Game game = this.ticTacToeGameService.GetGameById(model.GameId);
 
             if (game.IsFinished)
             {
@@ -116,8 +132,12 @@
         {
             string currentUsername = base.CurrentUserName();
 
-            //TODO MAKE THIS METHOD TO ACCEPT GAME TYPE
-            Game game = ticTacToeGameService.RecreatePreviousGame(currentUsername);
+            Game game = ticTacToeGameService.RecreatePreviousGame(currentUsername, GameMode.HumanVsComputer);
+
+            if (this.ComputerIsStartingFirst(game.ApplicationUser.UserName))
+            {
+                this.PlaceComputerTurn(game.Id, currentUsername);
+            }
 
             GameViewModel viewModel = new GameViewModel()
             {
@@ -164,6 +184,18 @@
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Checks if the human is starting first
+        /// </summary>
+        /// <param name="homesideUsername">Game.ApplicationUser.Username</param>
+        /// <returns>bool</returns>
+        private bool HumanIsStartingFirst(string homesideUsername)
+        {
+            bool isHumanFirst = this.ComputerIsStartingFirst(homesideUsername) == false;
+
+            return isHumanFirst;
         }
 
         /// <summary>

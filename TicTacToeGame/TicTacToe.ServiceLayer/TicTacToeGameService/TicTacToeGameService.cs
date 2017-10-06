@@ -11,6 +11,7 @@
     using TicTacToeService.Factories.Game.Update;
     using Computer;
     using Computer.Models;
+    using Models.Enums;
 
     public class TicTacToeGameService : ITicTacToeGameService
     {
@@ -45,24 +46,35 @@
             return newGame;
         }
 
-        public Game RecreatePreviousGame(string currentUserName)
+        public Game CreateNewHumanVsComputerGame(string currentUserName, bool isHumanStartingFirst)
         {
             IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
 
             IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
 
-            Game game = gameCreator.RecreatePreviousGame(currentUserName);
+            Game newGame = gameCreator.CreateNewHumanVsComputerGame(currentUserName, isHumanStartingFirst);
+
+            return newGame;
+        }
+
+        public Game RecreatePreviousGame(string currentUserName, GameMode gameMode)
+        {
+            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
+
+            IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
+
+            Game game = gameCreator.RecreatePreviousGameOfType(currentUserName, gameMode);
 
             return game;
         }
 
-        public IEnumerable<Game> GetAllUnfinishedGames(string currentUsername)
+        public IEnumerable<Game> GetAllUnfinishedGames(string currentUsername, GameMode gameMode)
         {
             IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
 
             IGameReader gameReader = gameFactory.GetGameReaderHelper();
 
-            IEnumerable<Game> unfinishedGames = gameReader.GetAllUnfinishedGames(currentUsername);
+            IEnumerable<Game> unfinishedGames = gameReader.GetAllUnfinishedGames(currentUsername, gameMode);
 
             return unfinishedGames;
         }

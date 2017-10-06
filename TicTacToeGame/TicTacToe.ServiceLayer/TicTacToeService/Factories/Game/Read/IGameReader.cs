@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Models;
+    using Models.Enums;
 
     public interface IGameReader
     {
@@ -9,6 +10,6 @@
 
         bool IsGameFinished(int gameId);
 
-        IEnumerable<Game> GetAllUnfinishedGames(string currentUsername);
+        IEnumerable<Game> GetAllUnfinishedGames(string currentUsername, GameMode gameMode);
     }
 }

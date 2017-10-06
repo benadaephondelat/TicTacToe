@@ -11,6 +11,7 @@
     using Models.HumanVsHuman.ViewModels;
     using AutoMapper;
     using Views.ViewConstants;
+    using TicTacToe.Models.Enums;
 
     [CheckIfLoggedInFilter]
     public class HumanVsHumanController : BaseController
@@ -61,7 +62,7 @@
         {
             string currentUsername = base.CurrentUserName();
 
-            Game game = ticTacToeGameService.RecreatePreviousGame(currentUsername);
+            Game game = ticTacToeGameService.RecreatePreviousGame(currentUsername, GameMode.HumanVsHuman);
 
             GameViewModel viewModel = new GameViewModel()
             {
@@ -107,7 +108,7 @@
         {
             string currentUsername = base.CurrentUserName();
 
-            IEnumerable<Game> unfinishedGames = this.ticTacToeGameService.GetAllUnfinishedGames(currentUsername);
+            IEnumerable<Game> unfinishedGames = this.ticTacToeGameService.GetAllUnfinishedGames(currentUsername, GameMode.HumanVsHuman);
 
             IEnumerable<LoadGameGridViewModel> result = Mapper.Map<IEnumerable<LoadGameGridViewModel>>(unfinishedGames);
 

@@ -23,9 +23,9 @@
 
         public DataLayerMockHelper()
         {
-            this.Users = GetDefaultUsersList();
-            this.Games = GetDefaultGamesList();
-            this.Tiles = GetDefaultTilesList();
+            this.Users = this.GetDefaultUsersList();
+            this.Games = this.GetDefaultGamesList();
+            this.Tiles = this.GetDefaultTilesList();
         }
 
         /// <summary>
@@ -142,6 +142,12 @@
                     Id = "132e3484-b47a-47af-b384-cd6e99a3a6123",
                     UserName = "new-user-without-games@yahoo.com",
                     Games = new List<Game>()
+                },
+                new ApplicationUser()
+                {
+                    Id = "computer-id",
+                    UserName = "computer@yahoo.com",
+                    Games = new List<Game>()
                 }
             };
 
@@ -160,7 +166,10 @@
                 this.CreateSameUserInvalidGame(),
                 this.CreateFinishedGame(),
                 this.CreateLastFinishedGame(),
-                this.CreateComputerVsHumanGame(),
+                this.CreateNewHumanVsComputerGame(),
+                this.CreateFinishedHumanVsComputerGame(),
+                this.CreateNewComputerVsHumanGame(),
+                this.CreateFinishedComputerVsHumanGame(),
             };
 
             return gamesList;
@@ -269,12 +278,82 @@
         }
 
         /// <summary>
-        /// Creates a mock of a computer vs human game.
+        /// Creates a mock of a new human vs computer game.
         /// </summary>
         /// <returns>Game</returns>
-        private Game CreateComputerVsHumanGame()
+        private Game CreateNewHumanVsComputerGame()
         {
-            Game finishedGame = new Game()
+            Game newHumanVsComputerGame = new Game()
+            {
+                Id = 8,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMinutes(2),
+                ApplicationUser = new ApplicationUser()
+                {
+                    Id = UserConstants.UserId,
+                    UserName = UserConstants.UserUsername
+                },
+                ApplicationUserId = UserConstants.UserId,
+                Oponent = new ApplicationUser()
+                {
+                    Id = UserConstants.ComputerId,
+                    UserName = UserConstants.ComputerUsername
+                },
+                OponentId = UserConstants.SecondComputerId,
+                TurnsCount = 1,
+                GameName = UserConstants.UserUsername + " vs " + UserConstants.SecondComputerUsername,
+                OponentName = UserConstants.ComputerUsername,
+                IsFinished = false,
+                GameState = GameState.NotFinished,
+                GameMode = GameMode.HumanVsComputer,
+                Tiles = this.GetDefaultTilesList(),
+            };
+
+            return newHumanVsComputerGame;
+        }
+
+        /// <summary>
+        /// Creates a mock of a finished human vs computer game.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateFinishedHumanVsComputerGame()
+        {
+            Game finishedHumanVsComputerGame = new Game()
+            {
+                Id = 8,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMinutes(2),
+                ApplicationUser = new ApplicationUser()
+                {
+                    Id = UserConstants.UserId,
+                    UserName = UserConstants.UserUsername
+                },
+                ApplicationUserId = UserConstants.UserId,
+                Oponent = new ApplicationUser()
+                {
+                    Id = UserConstants.ComputerId,
+                    UserName = UserConstants.ComputerUsername
+                },
+                OponentId = UserConstants.SecondComputerId,
+                TurnsCount = 9,
+                GameName = UserConstants.UserUsername + " vs " + UserConstants.SecondComputerUsername,
+                OponentName = UserConstants.ComputerUsername,
+                IsFinished = true,
+                GameState = GameState.Won,
+                GameMode = GameMode.HumanVsComputer,
+                Tiles = this.GenerateHomesideUserEarlyWinTiles(),
+            };
+
+            return finishedHumanVsComputerGame;
+        }
+
+        /// <summary>
+        /// Creates a mock of a new computer vs human game.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateNewComputerVsHumanGame()
+        {
+            Game newComputerVsHumanGame = new Game()
             {
                 Id = 8,
                 StartDate = DateTime.Now,
@@ -284,23 +363,58 @@
                     Id = UserConstants.ComputerId,
                     UserName = UserConstants.ComputerUsername
                 },
-                ApplicationUserId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                ApplicationUserId = UserConstants.ComputerId,
                 Oponent = new ApplicationUser()
                 {
-                    Id = "047e3484-b47a-47af-b384-cd6e99a3a6b8",
-                    UserName = "the-other-guy@yahoo.com"
+                    Id = UserConstants.UserId,
+                    UserName = UserConstants.UserUsername
                 },
-                OponentId = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                OponentId = UserConstants.UserId,
                 TurnsCount = 1,
-                GameName = "computer@yahoo.com vs the-other-guy@yahoo.com",
-                OponentName = "the-other-guy@yahoo.com",
+                GameName = UserConstants.ComputerUsername + " vs " + UserConstants.UserUsername,
+                OponentName = UserConstants.UserUsername,
                 IsFinished = false,
-                GameState = GameState.Won,
-                GameMode = GameMode.ComputerVsComputer,
+                GameState = GameState.NotFinished,
+                GameMode = GameMode.HumanVsComputer,
                 Tiles = this.GetDefaultTilesList(),
             };
 
-            return finishedGame;
+            return newComputerVsHumanGame;
+        }
+
+        /// <summary>
+        /// Creates a mock of a new computer vs human game.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateFinishedComputerVsHumanGame()
+        {
+            Game finishedComputerVsHumanGame = new Game()
+            {
+                Id = 8,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMinutes(2),
+                ApplicationUser = new ApplicationUser()
+                {
+                    Id = UserConstants.ComputerId,
+                    UserName = UserConstants.ComputerUsername
+                },
+                ApplicationUserId = UserConstants.ComputerId,
+                Oponent = new ApplicationUser()
+                {
+                    Id = UserConstants.UserId,
+                    UserName = UserConstants.UserUsername
+                },
+                OponentId = UserConstants.UserId,
+                TurnsCount = 9,
+                GameName = UserConstants.ComputerUsername + " vs " + UserConstants.UserUsername,
+                OponentName = UserConstants.UserUsername,
+                IsFinished = true,
+                GameState = GameState.Won,
+                GameMode = GameMode.HumanVsComputer,
+                Tiles = this.GenerateHomesideUserEarlyWinTiles(),
+            };
+
+            return finishedComputerVsHumanGame;
         }
 
         /// <summary>

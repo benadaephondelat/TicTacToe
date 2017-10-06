@@ -6,6 +6,7 @@
     using TicTacToeCommon.Exceptions.Tile;
     using TicTacToeCommon.Exceptions.User;
     using Models;
+    using Models.Enums;
 
     public interface ITicTacToeGameService
     {
@@ -17,6 +18,15 @@
         /// <exception cref="UserNotFoundException"></exception>
         /// <returns>Game</returns>
         Game CreateNewGame(string homeSideUserName, string currentUserName);
+
+        /// <summary>
+        /// Creates a new HumanVsHuman Game or throws exception
+        /// </summary>
+        /// <param name="currentUserName">The username of the current user</param>
+        /// <param name="isHumanStartingFirst">Indicates whether the human is starting first</param>
+        /// <exception cref="UserNotFoundException"></exception>
+        /// <returns>Game</returns>
+        Game CreateNewHumanVsComputerGame(string currentUserName, bool isHumanStartingFirst);
 
         /// <summary>
         /// Returns the computer's chosen tile index or throws exception
@@ -68,17 +78,19 @@
         /// Creates a Game that is a copy of the current user's last finished game or throws exception.
         /// </summary>
         /// <param name="currentUserName">Username of the current user</param>
+        /// <param name="gameMode">Game's GameMode</param>
         /// <exception cref="UserNotFoundException"></exception>
         /// <exception cref="GameNotFoundException"></exception>
         /// <returns>Game</returns>
-        Game RecreatePreviousGame(string currentUserName);
+        Game RecreatePreviousGame(string currentUserName, GameMode gameMode);
 
         /// <summary>
-        /// Returns all user's games that are not finished or throws exception.
+        /// Returns all user's games of a certain GameMode that are not finished or throws exception.
         /// </summary>
         /// <param name="currentUsername">Username of the current user</param>
+        /// <param name="gameMode">Games's GameMode</param>
         /// <exception cref="UserNotFoundException"></exception>
         /// <returns>IEnumerable<Game></Game></returns>
-        IEnumerable<Game> GetAllUnfinishedGames(string currentUsername);
+        IEnumerable<Game> GetAllUnfinishedGames(string currentUsername, GameMode gameMode);
     }
 }

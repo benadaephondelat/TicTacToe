@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Models;
+    using Models.Enums;
 
     public static class LinqExtentions
     {
@@ -11,9 +12,13 @@
         /// </summary>
         /// <param name="source">List of games</param>
         /// <returns>Game</returns>
-        public static Game GetLastFinishedGame(this IEnumerable<Game> source)
+        public static Game GetLastFinishedGame(this IEnumerable<Game> source, GameMode gameMode)
         {
-            return source.Where(g => g.IsFinished).OrderByDescending(g => g.EndDate).FirstOrDefault();
+            Game result = source.Where(g => g.IsFinished && g.GameMode == gameMode)
+                                .OrderByDescending(g => g.EndDate)
+                                .FirstOrDefault();
+
+            return result;
         }
     }
 }

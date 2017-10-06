@@ -16,9 +16,9 @@
 
         public new Game CreateNewHumanVsHumanGame(string homeSideUserName, string currentUserName)
         {
-            ApplicationUser homeSideUser = this.GetUserByUsername(homeSideUserName);
+            ApplicationUser homeSideUser = base.GetUserByUsername(homeSideUserName);
 
-            ApplicationUser awaySideUser = GetAwaySideUser(homeSideUserName, currentUserName);
+            ApplicationUser awaySideUser = this.GetAwaySideUser(homeSideUserName, currentUserName);
 
             Game game = CreateNewHumanVsHumanGame(homeSideUser, awaySideUser);
             
@@ -67,11 +67,11 @@
         {
             Game game = new Game() { TurnsCount = 1 };
 
-            AddUsersToGame(homeSideUser, awaySideUser, game);
+            this.AddUsersToGame(homeSideUser, awaySideUser, game);
 
-            AddInfoToGame(homeSideUser.UserName, awaySideUser.UserName, game);
+            this.AddInfoToGame(homeSideUser.UserName, awaySideUser.UserName, game);
 
-            AddEmptyTilesToGame(game);
+            base.AddEmptyTilesToGame(game);
 
             return game;
         }
@@ -100,60 +100,6 @@
             game.StartDate = DateTime.Now;
             game.OponentName = awaySideUsername;
             game.GameName = homeSideUsername + " vs " + awaySideUsername;
-        }
-
-        /// <summary>
-        /// Adds 9 empty tiles to a Game
-        /// </summary>
-        /// <param name="game">Game</param>
-        private void AddEmptyTilesToGame(Game game)
-        {
-            List<Tile> emptyTilesList = new List<Tile>();
-
-            for (var i = 0; i < 9; i++)
-            {
-                Tile tile = CreateEmptyTile(game);
-
-                data.Tiles.Add(tile);
-
-                emptyTilesList.Add(tile);
-            }
-
-            game.Tiles = emptyTilesList;
-        }
-
-        /// <summary>
-        /// Creates an empty Tile
-        /// </summary>
-        /// <param name="game">Tiles's game</param>
-        /// <returns>Tile</returns>
-        private Tile CreateEmptyTile(Game game)
-        {
-            Tile emptyTile = new Tile()
-            {
-                Game = game,
-                GameId = game.Id,
-                IsEmpty = true,
-                Value = string.Empty
-            };
-
-            return emptyTile;
-        }
-
-        /// <summary>
-        /// Updated the DB
-        /// </summary>
-        /// <param name="game">Game to add</param>
-        /// <param name="currentUserName">Username of the current user</param>
-        private void SaveChanges(Game game, string currentUserName)
-        {
-            ApplicationUser user = GetUserByUsername(currentUserName);
-
-            user.Games.Add(game);
-
-            this.data.Games.Add(game);
-
-            this.data.SaveChanges();
         }
     }
 }

@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Collections.Generic;
     using Models;
+    using Models.Enums;
     using DataLayer.Data;
     using TicTacToeCommon.Exceptions.Game;
     using TicTacToeCommon.Exceptions.User;
@@ -40,7 +41,7 @@
             return game.IsFinished;
         }
 
-        public IEnumerable<Game> GetAllUnfinishedGames(string currentUsername)
+        public IEnumerable<Game> GetAllUnfinishedGames(string currentUsername, GameMode gameMode)
         {
             ApplicationUser user = this.data.Users.All().FirstOrDefault(u => u.UserName == currentUsername);
 
@@ -49,7 +50,7 @@
                 throw new UserNotFoundException();
             }
 
-            IEnumerable<Game> unfinishedGames = user.Games.Where(g => g.IsFinished == false);
+            IEnumerable<Game> unfinishedGames = user.Games.Where(g => g.IsFinished == false && g.GameMode == gameMode);
 
             return unfinishedGames;
         }

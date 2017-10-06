@@ -12,6 +12,7 @@
     using FrameworkExtentions.Mappings;
     using Moq;
     using TicTacToeCommon.Constants;
+    using TicTacToe.Models.Enums;
 
     /// <summary>
     /// Generates a mock of the ServiceLayer
@@ -54,6 +55,15 @@
                        .Returns(this.ComputerVsHumanNewGameMock);
 
             serviceMock.Setup(p => p.CreateNewGame(MockConstants.UserEmail, MockConstants.UserEmail))
+                       .Returns(this.HumanVsComputerNewGameMock);
+
+            serviceMock.Setup(p => p.CreateNewHumanVsComputerGame(MockConstants.UserEmail, true))
+                       .Returns(this.HumanVsComputerNewGameMock);
+
+            serviceMock.Setup(p => p.CreateNewHumanVsComputerGame(MockConstants.UserEmail, false))
+                       .Returns(this.ComputerVsHumanNewGameMock);
+
+            serviceMock.Setup(p => p.RecreatePreviousGame(MockConstants.UserEmail, GameMode.HumanVsComputer))
                        .Returns(this.HumanVsComputerNewGameMock);
 
             serviceMock.Setup(p => p.GetGameById(1)).Returns(this.ComputerVsHumanNewGameMock);

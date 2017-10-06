@@ -554,6 +554,120 @@
 
         #endregion
 
+        #region PlaceComputerTurn Tests
+
+        [TestMethod]
+        public void PlaceComputerTurn_Action_Should_Exist()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            Assert.IsNotNull(controller.PlaceComputerTurn(model));
+        }
+
+
+        [TestMethod]
+        public void PlaceComputerTurn_Action_Should_Accept_PlaceTurnInputModel_As_Parameter()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            Type controllerType = controller.GetType();
+
+            int methodsCount = controllerType.GetTypeInfo()
+                                             .DeclaredMethods
+                                             .Count(m => m.Name.Contains(nameof(controller.PlaceTurn)) &&
+                                                         m.ToString().Contains("PlaceTurnInputModel"));
+
+            Assert.AreEqual(1, methodsCount);
+        }
+
+        [TestMethod]
+        public void PlaceComputerTurn_Should_Return_PartialView()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
+        }
+
+        [TestMethod]
+        public void PlaceComputerTurn_Should_Return_PartialView_Named__HumanVsComputerGame()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual("_HumanVsComputerGame", result.ViewName);
+        }
+
+        [TestMethod]
+        public void PlaceComputerTurn_Should_Return_GameViewModel_As_Model_To_The_View()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            bool isCastValidCast = partialViewResult.Model is GameViewModel;
+
+            Assert.IsTrue(isCastValidCast);
+        }
+
+        [TestMethod]
+        public void PlaceComputerTurn_GameViewModel_Properties_Should_Not_Be_Null()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 1, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            GameViewModel result = partialViewResult.Model as GameViewModel;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.GameInfo);
+            Assert.IsNotNull(result.GameTiles);
+        }
+
+        [TestMethod]
+        public void PlaceComputerTurn_Should_Redirect_To_FinishedGame_ActionMethod_If_Game_Is_Finished()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            PlaceTurnInputModel model = new PlaceTurnInputModel() { GameId = 3, TileIndex = 0 };
+
+            ActionResult actionResult = controller.PlaceTurn(model);
+
+            RedirectToRouteResult routeResult = actionResult as RedirectToRouteResult;
+
+            Assert.IsNotNull(routeResult);
+
+            Assert.AreEqual(routeResult.RouteValues["action"], "FinishedGame");
+
+            Assert.AreEqual(routeResult.RouteValues["controller"], "HumanVsComputer");
+        }
+
+        #endregion
+
         #region FinishedGame Tests
 
         [TestMethod]

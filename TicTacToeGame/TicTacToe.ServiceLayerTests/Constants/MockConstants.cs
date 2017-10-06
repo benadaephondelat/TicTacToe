@@ -20,6 +20,10 @@
 
         public const string NewUserWithoutGamesUsername = "new-user-without-games@yahoo.com";
 
+        public const string ComputerId = "computer-id";
+
+        public const string ComputerUserName = "computer@yahoo.com";
+
         public const int ZeroTileIndex = 0;
 
         public const int InvalidGameId = 5318008;

@@ -27,7 +27,10 @@ var humanVsComputerGameModule = (function (jQuery, ajaxCallsModule, gameModule) 
         $newGameContainer = $('#game-container'),
         $emptyGameTiles = $(".tile[data-isEmpty='True']"),
         $fullGameTiles = $(".tile[data-isEmpty='False']"),
-        _antiForgeryToken = $('#place-turn-token').attr('value');
+        turnHolderId = $('#userId').attr('value'),
+        computerId = 'computer-id',
+        _antiForgeryToken = $('#place-turn-token').attr('value'),
+        _computerTurnDelayInMiliseconds = 1500;
 
     /**
     * When the user clicks on the board make an ajax call to the server
@@ -43,9 +46,51 @@ var humanVsComputerGameModule = (function (jQuery, ajaxCallsModule, gameModule) 
         });
     };
 
+    /**
+    * Checks if it's the computer's turn
+    * @returns {Boolean}
+    */
+    function _isTheComputerTurn() {
+        if (turnHolderId === computerId) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
+    * Places a computer turn by making an ajax call to the server with a certain delay 
+    */
+    function _placeComputerTurn() {
+        setTimeout(function () {
+            var data = _getComputerTurnData();
+
+            ajaxCallsModule.humanVsComputerCalls.placeComputerTurn(_antiForgeryToken, data).done(function (result) {
+                $newGameContainer.html(result);
+            });
+        }, _computerTurnDelayInMiliseconds);
+    }
+
+    /**
+    * Gets the data needed for the computer's turn ajax call
+    * @returns {JSON Object}
+    */
+    function _getComputerTurnData() {
+        var data = JSON.stringify({
+            gameId: $gameId.attr('value'),
+        });
+        
+        return data;
+    }
+
     initializeModule = function () {
-        gameBoardClickHandler();
         gameModule.gameBoardColouringHandler($fullGameTiles);
+
+        if (_isTheComputerTurn()) {
+            _placeComputerTurn();
+        } else {
+            gameBoardClickHandler();
+        }
     };
 
     return {
