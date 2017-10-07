@@ -10,7 +10,11 @@
 
     <input type="hidden" id="valid-dom-element" value="123" />
     <input type="hidden" id="valid-dom-element-without-value-attribute" />
-
+    <input type="hidden" id="valid-dom-element-with-invalid-data-value" data-index="9" />
+    <input type="hidden" id="valid-dom-element-with-valid-data-value" data-index="0" />
+    <div class="tile" id="empty-tile" data-index="0" data-isempty="True"> </div>
+    <div class="tile" id="X-tile" data-index="1" data-isempty="False"> X </div>
+    <div class="tile" id="O-tile" data-index="2" data-isempty="False"> O </div>
 
     <script src="../../../Default/jquery-1.10.2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.1.0/mocha.js"></script>

@@ -33,6 +33,18 @@ var gameModule = (function (jQuery) {
     }
 
     /**
+     * Checks if an array of elements contains valid HTML elements, if any of the elements are not valid it throws error
+     * @param {DOM element []} array of elements to check
+     */
+    function _throwErrorIfArrayDoesNotContainValidHtmlElements($elementsArray) {
+        var i, count = $elementsArray.length;
+
+        for (i = 0; i < count; i+=1) {
+            _throwErrorIfElementIsNotValidHtmlElement($elementsArray[i]);
+        }
+    }
+
+    /**
      * Returns the id of the current game or throws error
      * @param {jQuery DOM element} game-id DOM element
      * @returns {String} game id 
@@ -50,13 +62,15 @@ var gameModule = (function (jQuery) {
     }
 
     /**
-     * Returns the the clicked tile's index or throws error. 
+     * Returns the clicked tile's index or throws error. 
      * @param {jQuery DOM element} tile DOM element
      * @returns {Number} tile id 
      */
-    getTileIndex = function($tile) {
-        var tileIndex = $tile.data('index');
+    getTileIndex = function ($tile) {
+        _throwErrorIfElementIsNotValidHtmlElement($tile);
 
+        var tileIndex = $tile.data('index');
+           
         if (tileIndex < 0 || tileIndex > 8) {
             throw new Error('Invalid Tile Index');
         }
@@ -70,7 +84,10 @@ var gameModule = (function (jQuery) {
      * @param {jQuery DOM element} tile DOM element
      * @returns {Object} JSON
      */
-    getData = function($gameId, $tile) {
+    getData = function ($gameId, $tile) {
+        _throwErrorIfElementIsNotValidHtmlElement($gameId);
+        _throwErrorIfElementIsNotValidHtmlElement($tile);
+
         var gameId = getGameId($gameId);
         var tileIndex = getTileIndex($tile);
 
@@ -84,13 +101,25 @@ var gameModule = (function (jQuery) {
 
     /**
      * Adds a css class to all not empty tiles based on the tile's value.
-     * @param {jQuery DOM element} tiles DOM element
+     * If tile value is X it adds a CSS class named - red
+     * If tile value is O it adds a CSS class named - blue
+     * @param {jQuery DOM element} Divs that represent the game's tiles that are already taken
      */
     gameBoardColouringHandler = function ($fullGameTiles) {
-        $fullGameTiles.each(function (i, obj) {
+        if (typeof $fullGameTiles[0] === 'undefined') {
+            return false;
+        }
+
+        _throwErrorIfArrayDoesNotContainValidHtmlElements($fullGameTiles);
+
+        $($fullGameTiles).each(function (i, obj) {
+            if (typeof obj.outerText === 'undefined') {
+                obj = obj[0];
+            }
+
             if (obj.outerText === 'X') {
                 $(obj).addClass('red');
-            } else {
+            } else if (obj.outerText === 'O') {
                 $(obj).addClass('blue');
             }
         });
