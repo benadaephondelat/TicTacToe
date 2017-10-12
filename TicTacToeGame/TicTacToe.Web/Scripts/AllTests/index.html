@@ -1,0 +1,66 @@
+﻿<html>
+<head>
+    <title>All modules tets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.1.0/mocha.css">
+</head>
+<body>
+    <div id="mocha">
+
+    </div>
+
+    <input type="hidden" id="valid-dom-element" value="123" />
+    <input type="hidden" id="valid-dom-element-without-value-attribute" />
+    <input type="hidden" id="valid-dom-element-with-invalid-data-value" data-index="9" />
+    <input type="hidden" id="valid-dom-element-with-valid-data-value" data-index="0" />
+    <div class="tile" id="empty-tile" data-index="0" data-isempty="True"> </div>
+    <div class="tile" id="X-tile" data-index="1" data-isempty="False"> X </div>
+    <div class="tile" id="O-tile" data-index="2" data-isempty="False"> O </div>
+
+    <script src="../Default/jquery-1.10.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.1.0/mocha.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+
+    <script>mocha.setup('bdd')</script>
+
+    <!--dependencies-->
+    <script src="../Modules/AjaxCallsModule/ajaxCallsModule.js"></script>
+    <script src="../Modules/GameModule/gameModule.js"></script>
+    <script src="../Modules/LoadGameModule/loadGameGridModule.js"></script>
+
+    <!--tests-->
+    <script src="../Home/_AuthenticatedUserIndex/authenticatedUserIndexModule.js"></script>
+    <script src="../Home/_AuthenticatedUserIndex/tests/authenticatedUserIndexModuleTests.js"></script>
+
+    <script src="../HumanVsComputer/NewGame/humanVsComputerGameModule.js"></script>
+    <script src="../HumanVsComputer/NewGame/tests/humanVsComputerGameModuleTests.js"></script>
+
+    <script src="../HumanVsComputer/_LoadGameGrid/loadHumanVsComputerGameModule.js"></script>
+    <script src="../HumanVsComputer/_LoadGameGrid/tests/loadHumanVsComputerGameModuleTests.js"></script>
+
+    <script src="../HumanVsComputer/_FinishedComputerVsHumanGame/finishedComputerVsHumanGameModule.js"></script>
+    <script src="../HumanVsComputer/_FinishedComputerVsHumanGame/tests/finishedComputerVsHumanGameModuleTests.js"></script>
+
+    <script src="../HumanVsHuman/NewGame/humanVsHumanGameModule.js"></script>
+    <script src="../HumanVsHuman/NewGame/tests/humanVsHumanGameModuleTests.js"></script>
+
+    <script src="../HumanVsHuman/_LoadGameGrid/loadHumanVsHumanGameModule.js"></script>
+    <script src="../HumanVsHuman/_LoadGameGrid/tests/loadHumanVsHumanGameModuleTests.js"></script>
+
+    <script src="../HumanVsHuman/_FinishedHumanVsHumanGame/finishedHumanVsHumanGameModule.js"></script>
+    <script src="../HumanVsHuman/_FinishedHumanVsHumanGame/tests/finishedHumanVsHumanGameModuleTests.js"></script>
+
+    <script src="../Modules/AjaxCallsModule/ajaxCallsModule.js"></script>
+    <script src="../Modules/AjaxCallsModule/tests/ajaxCallsModuleTests.js"></script>
+
+    <script src="../Modules/GameModule/gameModule.js"></script>
+    <script src="../Modules/GameModule/tests/gameModuleTests.js"></script>
+
+    <script src="../Modules/LoadGameModule/loadGameGridModule.js"></script>
+    <script src="../Modules/LoadGameModule/tests/loadGameGridModuleTests.js"></script>
+
+    <script>
+        mocha.run();
+    </script>
+</body>
+</html>

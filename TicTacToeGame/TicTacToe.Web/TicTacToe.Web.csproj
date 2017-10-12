@@ -273,6 +273,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Default\Site.css" />
+    <Content Include="Scripts\AllTests\index.html" />
     <Content Include="Scripts\Default\bootstrap.js" />
     <Content Include="Scripts\Default\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -383,7 +384,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\Home\InputModels\" />
     <Folder Include="Models\Home\ViewModels\" />
-    <Folder Include="Scripts\AllTests\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
