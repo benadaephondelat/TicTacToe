@@ -10,6 +10,7 @@
     using Checks.InnerCheck;
     using Checks.FirstEmptyCheck;
     using Checks.CanWinCheck;
+    using Checks.PossibleWinCheck;
 
     public class MainStrategy : TurnStrategy
     {
@@ -22,6 +23,7 @@
         private ThirdColumnCheck thirdColumnCheck;
         private FirstDiagonalCheck firstDiagonalCheck;
         private SecondDiagonalCheck secondDiagonalCheck;
+        private PossibleWinCheck possibleWinCheck;
         private ClosestEdgeCheck edgesCheck;
         private OppositeTileCheck oppositeCheck;
         private FirstEmptyTileCheck firstEmptyTileCheck;
@@ -37,6 +39,7 @@
             this.thirdColumnCheck = new ThirdColumnCheck();
             this.firstDiagonalCheck = new FirstDiagonalCheck();
             this.secondDiagonalCheck = new SecondDiagonalCheck();
+            this.possibleWinCheck = new PossibleWinCheck(playerSign);
             this.edgesCheck = new ClosestEdgeCheck();
             this.oppositeCheck = new OppositeTileCheck();
             this.firstEmptyTileCheck = new FirstEmptyTileCheck();
@@ -66,7 +69,8 @@
             this.secondColumnCheck.SetSuccessor(this.thirdColumnCheck);
             this.thirdColumnCheck.SetSuccessor(this.firstDiagonalCheck);
             this.firstDiagonalCheck.SetSuccessor(this.secondDiagonalCheck);
-            this.secondDiagonalCheck.SetSuccessor(this.edgesCheck);
+            this.secondDiagonalCheck.SetSuccessor(this.possibleWinCheck);
+            this.possibleWinCheck.SetSuccessor(this.edgesCheck);
             this.edgesCheck.SetSuccessor(this.oppositeCheck);
             this.oppositeCheck.SetSuccessor(this.firstEmptyTileCheck);
         }

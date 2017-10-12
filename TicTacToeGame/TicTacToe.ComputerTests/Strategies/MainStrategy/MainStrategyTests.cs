@@ -1,5 +1,6 @@
 ﻿namespace TicTacToe.ComputerTests.Strategies.MainStrategy
 {
+    using System;
     using System.Linq;
     using System.Reflection;
     using Computer.Models;
@@ -7,7 +8,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using DataMockHelper;
     using Computer.Constants;
-    using System;
 
     [TestClass]
     public class MainStrategyTests
@@ -29,7 +29,7 @@
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("CanWinCheck"));
 
-            Assert.IsTrue(true);
+            Assert.IsTrue(result);
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("FirstRowCheck"));
 
-            Assert.IsTrue(true);
+            Assert.IsTrue(result);
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("SecondRowCheck"));
 
-            Assert.IsTrue(true);
+            Assert.IsTrue(result);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("ThirdRowCheck"));
 
-            Assert.IsTrue(true);
+            Assert.IsTrue(result);
         }
 
         [TestMethod]

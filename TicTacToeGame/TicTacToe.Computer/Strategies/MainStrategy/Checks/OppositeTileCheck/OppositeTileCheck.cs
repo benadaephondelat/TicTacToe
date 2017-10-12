@@ -75,7 +75,7 @@
         {
             if (TileHelper.TileIsNotEmpty(this.TopMiddleTileValue))
             {
-                if (TileHelper.TileIsEmpty(BottomMiddleTileValue))
+                if (TileHelper.TileIsEmpty(this.BottomMiddleTileValue))
                 {
                     return TileConstants.BottomMiddleTile;
                 }

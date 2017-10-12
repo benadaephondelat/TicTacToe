@@ -30,7 +30,7 @@ var humanVsComputerGameModule = (function (jQuery, ajaxCallsModule, gameModule) 
         turnHolderId = $('#userId').attr('value'),
         computerId = 'computer-id',
         _antiForgeryToken = $('#place-turn-token').attr('value'),
-        _computerTurnDelayInMiliseconds = 1500;
+        _computerTurnDelayInMiliseconds = 0;
 
     /**
     * When the user clicks on the board make an ajax call to the server

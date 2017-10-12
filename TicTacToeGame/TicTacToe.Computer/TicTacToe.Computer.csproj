@@ -75,6 +75,15 @@
     <Compile Include="Strategies\MainStrategy\Checks\ColumnsCheck\FirstColumnCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\DiagonalsCheck\FirstDiagonalCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\FirstEmptyCheck\FirstEmptyTileCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\PossibleWinCheck\Checks\FirstColumnCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\PossibleWinCheck\Checks\FirstDiagonalCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\PossibleWinCheck\Checks\FirstRowCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\PossibleWinCheck\Checks\SecondColumnCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\PossibleWinCheck\Checks\SecondDiagonalCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\PossibleWinCheck\Checks\SecondRowCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\PossibleWinCheck\Checks\ThirdColumnCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\PossibleWinCheck\Checks\ThirdRowCheck.cs" />
+    <Compile Include="Strategies\MainStrategy\Checks\PossibleWinCheck\PossibleWinCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\FirstRowCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\Responsibility.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\OppositeTileCheck\OppositeTileCheck.cs" />
