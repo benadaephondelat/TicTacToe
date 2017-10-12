@@ -1,0 +1,41 @@
+﻿@using TicTacToe.Web.FrameworkExtentions.ViewHelpers
+
+@{
+    ViewBag.Title = "LoadGame";
+    Layout = "~/Views/Shared/_AuthenticatedUserLayout.cshtml";
+}
+
+@Styles.Render("~/Content/mvc-grid-css")
+
+@Scripts.Render("~/Scripts/MvcGrid/mvc-grid.js")
+
+<div id="game-container">
+
+    <h2 class="text-center">LoadGame</h2>
+
+    <div id="gridContainer">
+        @Html.AjaxGrid(Url.Action("LoadGameGrid", "HumanVsComputer"))
+    </div>
+
+</div>
+
+<input type="hidden" id="load-game-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
+
+@Ajax.ActionLink("Back to Main Menu", "HumanVsComputer", "Home", null, new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "main-content"
+},
+new
+{
+    @class = "btn btn-primary btn-lg text-center",
+    @id = "back-to-main-menu-button"
+})
+
+<script>
+    $(document).ready(function () {
+        $('.mvc-grid').mvcgrid({
+            reload: true,
+        });
+    });
+</script>

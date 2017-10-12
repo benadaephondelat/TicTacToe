@@ -148,6 +148,38 @@
             return PartialView(ViewConstants.HumanVsComputerGame, viewModel);
         }
 
+        [HttpGet]
+        public ActionResult LoadGame()
+        {
+            return View(ViewConstants.LoadGameView);
+        }
+
+        [HttpGet]
+        public ActionResult LoadGameGrid()
+        {
+            string currentUsername = base.CurrentUserName();
+
+            IEnumerable<Game> unfinishedGames = this.ticTacToeGameService.GetAllUnfinishedGames(currentUsername, GameMode.HumanVsComputer);
+
+            IEnumerable<LoadGameGridViewModel> result = Mapper.Map<IEnumerable<LoadGameGridViewModel>>(unfinishedGames);
+
+            return PartialView(ViewConstants.LoadGameGridPartialView, result);
+        }
+
+        [HttpPost, ValidateAntiForgeryTokenAjax]
+        public ActionResult LoadGame(int gameId)
+        {
+            Game game = this.ticTacToeGameService.GetGameById(gameId);
+
+            GameViewModel viewModel = new GameViewModel()
+            {
+                GameInfo = Mapper.Map<GameInfoViewModel>(game),
+                GameTiles = Mapper.Map<IEnumerable<TileViewModel>>(game.Tiles)
+            };
+
+            return PartialView(ViewConstants.HumanVsComputerGame, viewModel);
+        }
+
         /// <summary>
         /// Places a human player turn on a Game
         /// </summary>

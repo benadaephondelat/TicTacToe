@@ -28,7 +28,7 @@ var ajaxCallsModule = (function (jQuery) {
     };
 
     /**
-    * Human vs Human Ajax call to place a turn.
+    * Human vs Human Ajax call to load a game.
     * @param {String} token: AntiForgeryToken
     * @param {Object} data: Request data as JSON object
     * @returns {Function}
@@ -42,7 +42,7 @@ var ajaxCallsModule = (function (jQuery) {
     };
 
     /**
-    * Human vs Human Ajax call to place a turn.
+    * Human vs Human Ajax call to replay a game.
     * @param {String} token: AntiForgeryToken
     * @param {Object} data: Request data as JSON object
     * @returns {Function}
@@ -96,7 +96,21 @@ var ajaxCallsModule = (function (jQuery) {
     };
 
     /**
-    * Human vs Computer Ajax call to place a turn.
+    * Human vs Computer Ajax call to load a game.
+    * @param {String} token: AntiForgeryToken
+    * @param {Object} data: Request data as JSON object
+    * @returns {Function}
+    */
+    var humanVsComputerLoadGameAjaxCall = function (token, data) {
+        var requestUrl = '/HumanVsComputer/LoadGame';
+
+        var ajaxCall = _createPostRequestAjaxCall(token, data, requestUrl);
+
+        return ajaxCall;
+    };
+
+    /**
+    * Human vs Computer Ajax call to Replay a game.
     * @param {String} token: AntiForgeryToken
     * @param {Object} data: Request data as JSON object
     * @returns {Function}
@@ -110,7 +124,7 @@ var ajaxCallsModule = (function (jQuery) {
     };
 
     /**
-    * Human vs Human Ajax call
+    * Human vs Computer Ajax call
     * @returns {Function}
     */
     var humanVsComputerAjaxCall = function() {
@@ -169,6 +183,7 @@ var ajaxCallsModule = (function (jQuery) {
             humanVsComputer: humanVsComputerAjaxCall,
             placeTurn: humanVsComputerPlaceTurnAjaxCall,
             placeComputerTurn: humanVsComputerPlaceComputerTurnAjaxCall,
+            loadGame: humanVsComputerLoadGameAjaxCall,
             replayGame: humanVsComputerReplayGameAjaxCall,
         }
     }

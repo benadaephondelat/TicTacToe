@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TicTacToe.Web.Models.HumanVsHuman.ViewModels.LoadGameGridViewModel>
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.Id).Titled("Game ID").Css("hidden game-id");
+        columns.Add(model => model.StartDate).Titled("Start Date").InitialSort(GridSortOrder.Desc);
+        columns.Add(model => model.TurnsCount).Titled("Current Turn Count");
+        columns.Add(model => model.HomeSideUserName).Titled("Homeside User");
+        columns.Add(model => model.OponentName).Titled("Awayside User");
+    })
+    .Pageable(pager =>
+    {
+        pager.PagesToDisplay = 3;
+        pager.RowsPerPage = 10;
+    })
+    .Filterable()
+    .Sortable()
+    .Empty("No data found")
+)
+
+@Scripts.Render("~/bundles/loadHumanVsComputerGameModule")

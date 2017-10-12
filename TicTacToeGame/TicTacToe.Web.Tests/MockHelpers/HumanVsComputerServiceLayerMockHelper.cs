@@ -77,6 +77,9 @@
 
             serviceMock.Setup(p => p.PlaceTurn(1, 4, MockConstants.ComputerEmail));
 
+            serviceMock.Setup(p => p.GetAllUnfinishedGames("georgi_iliev@yahoo.com", GameMode.HumanVsComputer))
+                       .Returns(new List<Game>() { this.HumanVsComputerFinishedGameMock });
+
             return serviceMock;
         }
 

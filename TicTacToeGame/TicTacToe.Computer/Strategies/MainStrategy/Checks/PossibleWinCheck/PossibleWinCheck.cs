@@ -55,13 +55,13 @@
 
         private void SetupChainOfResponsibility()
         {
+            this.firstDiagonalCheck.SetSuccessor(this.secondDiagonalCheck);
+            this.secondDiagonalCheck.SetSuccessor(this.firstRowCheck);
             this.firstRowCheck.SetSuccessor(this.secondRowCheck);
             this.secondRowCheck.SetSuccessor(this.thirdRowCheck);
             this.thirdRowCheck.SetSuccessor(this.firstColumnCheck);
             this.firstColumnCheck.SetSuccessor(this.secondColumnCheck);
             this.secondColumnCheck.SetSuccessor(this.thirdColumnCheck);
-            this.thirdColumnCheck.SetSuccessor(this.firstDiagonalCheck);
-            this.firstDiagonalCheck.SetSuccessor(this.secondDiagonalCheck);
         }
     }
 }
