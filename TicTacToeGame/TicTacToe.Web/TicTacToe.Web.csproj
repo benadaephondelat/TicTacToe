@@ -379,6 +379,7 @@
     <Content Include="Views\HumanVsComputer\_FinishedComputerVsHumanGame.cshtml" />
     <Content Include="Views\HumanVsComputer\LoadGame.cshtml" />
     <Content Include="Views\HumanVsComputer\_LoadGameGrid.cshtml" />
+    <Content Include="Views\Home\_ComputerVsComputer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

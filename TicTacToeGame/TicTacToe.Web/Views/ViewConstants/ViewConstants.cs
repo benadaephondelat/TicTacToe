@@ -50,6 +50,10 @@
         /// </summary>
         public const string HumanVsHumanGame = "_HumanVsHumanGame";
 
+        /// <summary>
+        /// Computer vs Computer partial view name
+        /// </summary>
+        public const string ComputerVsComputerPartialView = "_ComputerVsComputer";
 
         /// <summary>
         /// _HumanVsComputerGame partial view

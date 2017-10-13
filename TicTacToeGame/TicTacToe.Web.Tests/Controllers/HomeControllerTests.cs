@@ -189,6 +189,66 @@
 
         #endregion
 
+        #region ComputerVsComputer Tests
+
+        [TestMethod]
+        public void ComputerVsComputer_Action_Should_Exist()
+        {
+            HomeController controller = CreateHomeControllerAsAnonymousUser();
+
+            Assert.IsNotNull(controller);
+
+            string indexActionName = nameof(controller.ComputerVsComputer);
+
+            Assert.AreEqual("ComputerVsComputer", indexActionName);
+        }
+
+        [TestMethod]
+        public void Anonymous_ComputerVsComputer_Should_Redirect_To_Index()
+        {
+            HomeController controller = CreateHomeControllerAsAnonymousUser();
+
+            ActionResult actionResult = controller.ComputerVsComputer();
+
+            Assert.IsInstanceOfType(actionResult, typeof(RedirectToRouteResult));
+
+            RedirectToRouteResult routeResult = actionResult as RedirectToRouteResult;
+
+            Assert.IsNotNull(routeResult);
+
+            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
+        }
+
+        [TestMethod]
+        public void Authenticated_ComputerVsComputer_Should_Return_PartialView()
+        {
+            HomeController controller = CreateHomeControllerAsAuthenticatedUser();
+
+            ActionResult actionResult = controller.ComputerVsComputer();
+
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
+        }
+
+        [TestMethod]
+        public void Authenticated_ComputerVsComputer_Should_Return_PartialView_Named_ComputerVsComputer()
+        {
+            HomeController controller = CreateHomeControllerAsAuthenticatedUser();
+
+            ActionResult actionResult = controller.ComputerVsComputer();
+
+            Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
+
+            PartialViewResult result = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(result);
+
+            string expectedPartialViewName = "_ComputerVsComputer";
+
+            Assert.AreEqual(expectedPartialViewName, result.ViewName);
+        }
+
+        #endregion
+
         /// <summary>
         /// Creates an instance of HomeController with an aunthenticated user
         /// </summary>

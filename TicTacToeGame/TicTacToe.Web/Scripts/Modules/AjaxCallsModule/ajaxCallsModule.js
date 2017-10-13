@@ -11,7 +11,8 @@ var ajaxCallsModule = (function (jQuery) {
 
     /* return objects declarations */
     var humanVsHumanCalls,
-        humanVsComputerCalls;
+        humanVsComputerCalls,
+        computerVsComputerCalls;
 
     /**
     * Human vs Human Ajax call to place a turn.
@@ -136,6 +137,18 @@ var ajaxCallsModule = (function (jQuery) {
     };
 
     /**
+    * Computer vs Computer Ajax call
+    * @returns {Function}
+    */
+    var computerVsComputerAjaxCall = function () {
+        var requestUrl = '/Home/ComputerVsComputer';
+
+        var ajaxCall = _createGetRequestAjaxCall(requestUrl);
+
+        return ajaxCall;
+    };
+
+    /**
     * Creates a post request ajax call
     * @param {String} token: AntiForgeryToken
     * @param {Object} data: Request data as JSON object
@@ -185,6 +198,9 @@ var ajaxCallsModule = (function (jQuery) {
             placeComputerTurn: humanVsComputerPlaceComputerTurnAjaxCall,
             loadGame: humanVsComputerLoadGameAjaxCall,
             replayGame: humanVsComputerReplayGameAjaxCall,
+        },
+        computerVsComputerCalls: {
+            computerVsComputer: computerVsComputerAjaxCall
         }
     }
 

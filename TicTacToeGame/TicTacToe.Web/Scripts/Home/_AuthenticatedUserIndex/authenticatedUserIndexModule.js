@@ -16,15 +16,17 @@ var authenticatedUserIndexModule = (function (jQuery, ajaxCallsModule) {
     /* function declarations */
     var humanVsHumanButtonClickHandler,
         humanVsComputerButtonClickHandler,
+        computerVsComputerButtonClickHandler,
         initiliazieModule;
     
     /* cached dom objects */
     var $contentContainer = $('#main-content'),
         $humanVsHumanButton = $('#human-vs-human-button'),
-        $humanVsComputerButton = $('#human-vs-computer-button');
+        $humanVsComputerButton = $('#human-vs-computer-button'),
+        $computerVsComputerButton = $('#computer-vs-computer-button');
     
     /**
-    * When the user clicks humanVshumanButton make an ajax call to the server
+    * When the user clicks human vs human Button make an ajax call to the server
     * and append the result to the DOM
     */
     humanVsHumanButtonClickHandler = function () {
@@ -36,7 +38,7 @@ var authenticatedUserIndexModule = (function (jQuery, ajaxCallsModule) {
     };
 
     /**
-    * When the user clicks humanVsCompuer Button make an ajax call to the server
+    * When the user clicks human vs computer Button make an ajax call to the server
     * and append the result to the DOM
     */
     humanVsComputerButtonClickHandler = function () {
@@ -47,9 +49,22 @@ var authenticatedUserIndexModule = (function (jQuery, ajaxCallsModule) {
         });
     };
 
+    /**
+    * When the user clicks computer-vs-computer Button make an ajax call to the server
+    * and append the result to the DOM
+    */
+    computerVsComputerButtonClickHandler = function () {
+        $computerVsComputerButton.on('click', function () {
+            ajaxCallsModule.computerVsComputerCalls.computerVsComputer().done(function (data) {
+                $contentContainer.html(data);
+            });
+        });
+    };
+
     initiliazieModule = function () {
         humanVsHumanButtonClickHandler();
         humanVsComputerButtonClickHandler();
+        computerVsComputerButtonClickHandler();
     };
 
     return {

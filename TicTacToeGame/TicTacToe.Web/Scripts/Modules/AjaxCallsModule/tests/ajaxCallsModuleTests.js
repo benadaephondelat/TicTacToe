@@ -441,4 +441,51 @@ describe('ajaxCallsModule', function () {
             done();
         });
     });
+
+    describe('computerVsComputer tests', function () {
+        beforeEach(function () {
+            this.xhr = sinon.useFakeXMLHttpRequest();
+
+            this.requests = [];
+
+            this.xhr.onCreate = function (xhr) {
+                this.requests.push(xhr);
+            }.bind(this);
+
+        });
+
+        afterEach(function () {
+            this.xhr.restore();
+        });
+
+        it('computerVsComputer should exist', function () {
+            var isUndefined = typeof ajaxCallsModule.computerVsComputerCalls.computerVsComputer === 'undefined';
+
+            isUndefined.should.equal(false);
+        });
+
+
+        it('computerVsComputer should be a function', function () {
+            var type = typeof ajaxCallsModule.computerVsComputerCalls.computerVsComputer;
+
+            type.should.equal('function');
+        });
+
+        it('computerVsComputer should accept no parameters', function () {
+            var parametersCount = ajaxCallsModule.computerVsComputerCalls.computerVsComputer.length;
+
+            parametersCount.should.equal(0);
+        });
+
+        it('computerVsComputer function should make a GET request to /Home/ComputerVsComputer', function (done) {
+            ajaxCallsModule.computerVsComputerCalls.computerVsComputer().done(function () {
+                done();
+            });
+
+            this.requests[0].method.should.equal('GET');
+            this.requests[0].url.should.equal('/Home/ComputerVsComputer');
+
+            done();
+        });
+    });
 });

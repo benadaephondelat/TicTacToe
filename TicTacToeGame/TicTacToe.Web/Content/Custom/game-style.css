@@ -32,6 +32,8 @@
 
 #grid-container {
     width: 35%;
+    margin-left: 23.5%;
+    margin-top: -3%;
 }
 
 #home-side-container, #away-side-container, #grid-container {
@@ -56,11 +58,6 @@
     margin-left: 15%;
     text-align: center;
     font-weight: bold;
-}
-
-#grid-container {
-    margin-left: 17.5%;
-    margin-top: -3%;
 }
 
 #home-side-container {
