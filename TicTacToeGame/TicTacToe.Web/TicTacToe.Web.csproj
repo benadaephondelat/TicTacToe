@@ -230,6 +230,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ComputerVsComputerController.cs" />
     <Compile Include="Controllers\Constants\HumanVsHumanConstants.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HumanVsComputerController.cs" />
@@ -380,6 +381,7 @@
     <Content Include="Views\HumanVsComputer\LoadGame.cshtml" />
     <Content Include="Views\HumanVsComputer\_LoadGameGrid.cshtml" />
     <Content Include="Views\Home\_ComputerVsComputer.cshtml" />
+    <Content Include="Views\ComputerVsComputer\_ComputerVsComputerGame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

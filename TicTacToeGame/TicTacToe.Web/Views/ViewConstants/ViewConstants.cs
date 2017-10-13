@@ -76,6 +76,11 @@
         public const string FinishedComputerVsHumanGame = "_FinishedComputerVsHumanGame";
 
         /// <summary>
+        /// _ComputerVsComputerGame partial view
+        /// </summary>
+        public const string ComputerVsComputerGame = "_ComputerVsComputerGame";
+
+        /// <summary>
         /// FinishedGame Action name
         /// </summary>
         public const string FinishedGame = "FinishedGame";

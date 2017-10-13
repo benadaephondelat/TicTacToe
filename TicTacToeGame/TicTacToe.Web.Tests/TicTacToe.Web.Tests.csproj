@@ -107,8 +107,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\MockConstants.cs" />
+    <Compile Include="Controllers\ComputerVsComputerControllerTests.cs" />
     <Compile Include="Controllers\HumanVsComputerControllerTests.cs" />
     <Compile Include="Controllers\HumanVsHumanControllerTests.cs" />
+    <Compile Include="MockHelpers\ComputerVsComputerServiceLayerMockHelper.cs" />
     <Compile Include="MockHelpers\HumanVsComputerServiceLayerMockHelper.cs" />
     <Compile Include="MockHelpers\HumanVsHumanServiceLayerMockHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,6 +130,10 @@
     <ProjectReference Include="..\TicTacToe.Models\TicTacToe.Models.csproj">
       <Project>{0FBCC8C3-C3FA-4895-A4F6-70BEC6A0754F}</Project>
       <Name>TicTacToe.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.ServiceLayerTests\TicTacToe.ServiceLayerTests.csproj">
+      <Project>{7544CAB0-D69B-411C-A250-0EE8A4D41670}</Project>
+      <Name>TicTacToe.ServiceLayerTests</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicTacToe.ServiceLayer\TicTacToe.ServiceLayer.csproj">
       <Project>{cd064b6e-1d82-4ec2-9d32-2d63a5640efb}</Project>

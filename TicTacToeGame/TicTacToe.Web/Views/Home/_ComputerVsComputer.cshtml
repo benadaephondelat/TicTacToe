@@ -19,9 +19,13 @@
 <h2 id="computer-vs-computer-main-menu-title">Computer vs Computer</h2>
 
 <div id="computer-vs-computer-main-menu">
-    @Html.ActionLink("Start New Game", "NewGame", "ComputerVsComputer", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg menu-option" })
-
-    @Html.ActionLink("Load Game", "LoadGame", "ComputerVsComputer", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg menu-option" })
+    @using (Html.BeginForm("NewGame", "ComputerVsComputer"))
+    {
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-primary btn-lg menu-option" >Start New Game</button>
+    }
+    
+    @*@Html.ActionLink("Load Game", "LoadGame", "ComputerVsComputer", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg menu-option" })*@
 
     @Html.ActionLink("Back to home", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg menu-option" })
 </div>

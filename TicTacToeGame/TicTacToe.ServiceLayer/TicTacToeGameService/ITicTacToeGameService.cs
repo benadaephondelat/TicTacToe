@@ -29,6 +29,14 @@
         Game CreateNewHumanVsComputerGame(string currentUserName, bool isHumanStartingFirst);
 
         /// <summary>
+        /// Creates a new Computer vs Computer Game or throws exception
+        /// </summary>
+        /// <param name="currentUserName">The username of the current user</param>
+        /// <exception cref="UserNotFoundException"></exception>
+        /// <returns>Game</returns>
+        Game CreateNewComputerVsComputerGame(string currentUserName);
+
+        /// <summary>
         /// Returns the computer's chosen tile index or throws exception
         /// </summary>
         /// <param name="gameId">Game.Id</param>

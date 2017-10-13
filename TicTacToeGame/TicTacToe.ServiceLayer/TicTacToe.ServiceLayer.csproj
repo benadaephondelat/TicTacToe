@@ -114,6 +114,7 @@
     <Compile Include="TicTacToeGameService\ITicTacToeGameService.cs" />
     <Compile Include="TicTacToeGameService\TicTacToeGameService.cs" />
     <Compile Include="TicTacToeService\Factories\Game\Create\GameCreator.cs" />
+    <Compile Include="TicTacToeService\Factories\Game\Create\Helpers\CreateNewComputerVsComputerHelper.cs" />
     <Compile Include="TicTacToeService\Factories\Game\Create\Helpers\CreateNewHumanVsComputerGameHelper.cs" />
     <Compile Include="TicTacToeService\Factories\Game\Create\Helpers\CreateNewHumanVsHumanGameHelper.cs" />
     <Compile Include="TicTacToeService\Factories\Game\Create\Helpers\RecreatePreviousGameHelper.cs" />

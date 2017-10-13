@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Reflection;
 
     using Computer;
     using Models;
@@ -16,7 +17,6 @@
 
     using Moq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System.Reflection;
 
     [TestClass]
     public class TicTacToeGameServiceTests
@@ -527,6 +527,231 @@
         private Game CreateValidNewHumanVsComputerGame()
         {
             return gameService.CreateNewHumanVsComputerGame(MockConstants.UserName, true);
+        }
+
+        #endregion
+
+        #region CreateNewComputerVsComputerGame
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Should_Not_Throw_UserNotFoundException_When_User_Is_Valid()
+        {
+            try
+            {
+                this.CreateValidNewComputerVsComputerGame();
+            }
+            catch (UserNotFoundException)
+            {
+                Assert.Fail();
+            }
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotFoundException))]
+        public void CreateNewComputerVsComputerGame_Should_Throw_UserNotFoundException_If_No_User_With_currentUserName_Is_Found()
+        {
+            gameService.CreateNewComputerVsComputerGame(MockConstants.InvalidUsername);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Set_GameMode_To_ComputerVsComputer()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            string actualGameMode = game.GameMode.ToString();
+
+            Assert.AreEqual(GameMode.ComputerVsComputer.ToString(), actualGameMode);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Set_Game_Is_Finished_To_False()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            Assert.IsFalse(game.IsFinished);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Set_GameState_To_NotFinished()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            Assert.AreEqual(GameState.NotFinished.ToString(), game.GameState.ToString());
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Start_With_TurnsCount_Set_To_1()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            var actualTurnsCount = game.TurnsCount;
+
+            Assert.AreEqual(1, actualTurnsCount);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Have_Two_Valid_Users()
+        {
+            Game game = gameService.CreateNewComputerVsComputerGame(MockConstants.UserName);
+
+            bool isGameUserNull = game.ApplicationUser == null;
+            Assert.IsFalse(isGameUserNull);
+
+            bool isGameUserIdNullOrEmpty = string.IsNullOrWhiteSpace(game.ApplicationUserId);
+            Assert.IsFalse(isGameUserIdNullOrEmpty);
+
+            bool isGameOponentNull = game.Oponent == null;
+            Assert.IsFalse(isGameOponentNull);
+
+            bool isGameOponentIdNullOrEmpty = string.IsNullOrWhiteSpace(game.OponentId);
+            Assert.IsFalse(isGameOponentIdNullOrEmpty);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Set_The_Human_User_As_Game_Owner()
+        {
+            Game game = gameService.CreateNewComputerVsComputerGame(MockConstants.UserName);
+
+            Assert.AreEqual(MockConstants.UserName, game.ApplicationUser.UserName);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Name_Should_Be_HomeSideUsername_vs_AwaySideUsername()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            string expectedGameName = MockConstants.UserName + " vs " + MockConstants.ComputerUserName;
+
+            Assert.AreEqual(expectedGameName, game.GameName);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_StartDate_Should_Be_Within_Ten_Seconds_Of_Creation()
+        {
+            DateTime expectedTime = DateTime.Now.AddSeconds(10);
+
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            bool isWithinTenSeconds = game.StartDate <= expectedTime;
+
+            Assert.IsTrue(isWithinTenSeconds);
+        }
+
+        [TestMethod]
+        public void CreateNewHumanVsComputerGame_Game_OponentName_Should_Be_The_Computer()
+        {
+            Game game = gameService.CreateNewComputerVsComputerGame(MockConstants.UserName);
+
+            Assert.AreEqual(MockConstants.ComputerUserName, game.OponentName);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Have_9_Tiles()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            Assert.AreEqual(9, game.Tiles.Count);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_All_Tiles_IsEmpty_Property_Should_Be_Set_To_True()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            int actualEmptyTilesCount = game.Tiles.Count(t => t.IsEmpty);
+
+            Assert.AreEqual(9, actualEmptyTilesCount);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_All_Tiles_Value_Property_Should_Be_Set_To_An_Empty_String()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            int result = game.Tiles.Count(t => t.Value == string.Empty);
+
+            Assert.AreEqual(9, result);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_All_Tiles_Game_Property_Should_Be_Set_To_The_Same_Game()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            int result = game.Tiles.Count(t => t.Game == game);
+
+            Assert.AreEqual(9, result);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_All_Tiles_GameId_Property_Should_Be_Set_To_The_Same_GameId()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            int result = game.Tiles.Count(t => t.GameId == game.Id);
+
+            Assert.AreEqual(9, result);
+        }
+        
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Be_Added_Once_To_Games_Repository()
+        {
+            var addGameCounter = 0;
+
+            this.dataLayerMock.Setup(x => x.Games.Add(It.IsAny<Game>())).Callback(() => addGameCounter++);
+
+            CreateValidNewComputerVsComputerGame();
+
+            this.dataLayerMock.Verify(x => x.Games.Add(It.IsAny<Game>()), Times.Once());
+
+            Assert.AreEqual(1, addGameCounter);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Call_SaveChanges_Once()
+        {
+            var saveChangesCounter = 0;
+
+            this.dataLayerMock.Setup(x => x.SaveChanges()).Callback(() => saveChangesCounter++);
+
+            CreateValidNewComputerVsComputerGame();
+
+            this.dataLayerMock.Verify(x => x.SaveChanges(), Times.Once());
+
+            Assert.AreEqual(1, saveChangesCounter);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Add_9_Tiles_To_Tile_Repository()
+        {
+            var addTIleCounter = 0;
+
+            this.dataLayerMock.Setup(x => x.Tiles.Add(It.IsAny<Tile>())).Callback(() => addTIleCounter++);
+
+            CreateValidNewComputerVsComputerGame();
+
+            this.dataLayerMock.Verify(x => x.Tiles.Add(It.IsAny<Tile>()), Times.Exactly(9));
+
+            Assert.AreEqual(9, addTIleCounter);
+        }
+
+        [TestMethod]
+        public void CreateNewComputerVsComputerGame_Game_Should_Add_Game_To_User_Games_Collection()
+        {
+            Game game = CreateValidNewComputerVsComputerGame();
+
+            Assert.IsTrue(game.ApplicationUser.Games.Any());
+        }
+
+        /// <summary>
+        /// Creates a new computer vs computer game with the current user serving as homeside.
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateValidNewComputerVsComputerGame()
+        {
+            return gameService.CreateNewComputerVsComputerGame(MockConstants.UserName);
         }
 
         #endregion

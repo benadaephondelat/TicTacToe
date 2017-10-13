@@ -1,14 +1,12 @@
 ﻿namespace TicTacToe.ServiceLayer.TicTacToeService.Factories.Game.Create
 {
-    using System;
     using System.Linq;
     using System.Collections.Generic;
     using DataLayer.Data;
     using Models;
+    using Models.Enums;
     using Helpers;
     using TicTacToeCommon.Exceptions.User;
-    using Models.Enums;
-    using TicTacToeCommon.Constants;
 
     public class GameCreator : IGameCreator
     {
@@ -33,6 +31,15 @@
             CreateNewHumanVsComputerGameHelper helper = new CreateNewHumanVsComputerGameHelper(this.data);
 
             Game game = helper.CreateNewHumanVsComputerGame(currentUserName, isHumanStartingFirst);
+
+            return game;
+        }
+
+        public Game CreateNewComputerVsComputerGame(string currentUserName)
+        {
+            CreateNewComputerVsComputerHelper helper = new CreateNewComputerVsComputerHelper(this.data);
+
+            Game game = helper.CreateNewComputerVsComputerGame(currentUserName);
 
             return game;
         }

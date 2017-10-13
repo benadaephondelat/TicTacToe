@@ -1008,11 +1008,10 @@
 
         #endregion
 
-
         /// <summary>
-        /// Creates a mocked instance of HumanVsHuman controller
+        /// Creates a mocked instance of HumanVsComputer controller
         /// </summary>
-        /// <returns>HumanVsHumanController</returns>
+        /// <returns>HumanVsComputerController</returns>
         private HumanVsComputerController CreateHumanVsComputerControllerMock()
         {
             Mock<ITicTacToeGameService> ticTacToeServiceMock = mockHelper.SetupTicTacToeServiceMock();

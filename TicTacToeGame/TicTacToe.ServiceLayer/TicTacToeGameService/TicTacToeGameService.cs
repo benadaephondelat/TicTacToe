@@ -57,6 +57,17 @@
             return newGame;
         }
 
+        public Game CreateNewComputerVsComputerGame(string currentUserName)
+        {
+            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
+
+            IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
+
+            Game newGame = gameCreator.CreateNewComputerVsComputerGame(currentUserName);
+
+            return newGame;
+        }
+
         public Game RecreatePreviousGame(string currentUserName, GameMode gameMode)
         {
             IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
