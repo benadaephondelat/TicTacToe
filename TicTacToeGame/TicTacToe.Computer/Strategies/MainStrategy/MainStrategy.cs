@@ -69,9 +69,9 @@
             this.secondColumnCheck.SetSuccessor(this.thirdColumnCheck);
             this.thirdColumnCheck.SetSuccessor(this.firstDiagonalCheck);
             this.firstDiagonalCheck.SetSuccessor(this.secondDiagonalCheck);
-            this.secondDiagonalCheck.SetSuccessor(this.possibleWinCheck);
-            this.possibleWinCheck.SetSuccessor(this.edgesCheck);
-            this.edgesCheck.SetSuccessor(this.oppositeCheck);
+            this.secondDiagonalCheck.SetSuccessor(this.edgesCheck);
+            this.edgesCheck.SetSuccessor(this.possibleWinCheck);
+            this.possibleWinCheck.SetSuccessor(this.oppositeCheck);
             this.oppositeCheck.SetSuccessor(this.firstEmptyTileCheck);
         }
     }
