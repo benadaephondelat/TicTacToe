@@ -3,6 +3,7 @@
     using Ninject.Modules;
     using TicTacToe.Computer;
     using TicTacToe.ComputerChooser;
+    using TicTacToe.ServiceLayer.Interfaces;
     using TicTacToe.ServiceLayer.TicTacToeGameService;
 
     public class ServiceLayerModule : NinjectModule

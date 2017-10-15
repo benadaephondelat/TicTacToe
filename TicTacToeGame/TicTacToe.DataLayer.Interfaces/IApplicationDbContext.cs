@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.DataLayer
+﻿namespace TicTacToe.DataLayer.Interfaces
 {
     using System.Data.Entity;
     using System.Threading.Tasks;

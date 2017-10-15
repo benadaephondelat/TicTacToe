@@ -3,7 +3,6 @@
     using System.Linq;
     using System.Collections.Generic;
     using Models;
-    using DataLayer.Data;
     using TicTacToeService;
     using TicTacToeService.Factories.Game;
     using TicTacToeService.Factories.Game.Create;
@@ -13,6 +12,8 @@
     using ComputerChooser.Interfaces;
     using Computer.Models;
     using Computer.Interfaces;
+    using DataLayer.Data;
+    using Interfaces;
 
     public class TicTacToeGameService : ITicTacToeGameService
     {

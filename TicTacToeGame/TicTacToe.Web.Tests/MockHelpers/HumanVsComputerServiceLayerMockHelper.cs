@@ -7,12 +7,12 @@
     using System.Security.Principal;
     using System.Collections.Generic;
     using TicTacToe.Models;
-    using ServiceLayer.TicTacToeGameService;
     using Constants;
     using FrameworkExtentions.Mappings;
     using Moq;
     using TicTacToeCommon.Constants;
     using TicTacToe.Models.Enums;
+    using ServiceLayer.Interfaces;
 
     /// <summary>
     /// Generates a mock of the ServiceLayer

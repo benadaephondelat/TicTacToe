@@ -74,19 +74,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="Data\ITicTacToeData.cs" />
     <Compile Include="Data\TicTacToeData.cs" />
-    <Compile Include="IApplicationDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
-    <Compile Include="Repository\IGenericRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicTacToe.Computer.Interfaces\TicTacToe.Computer.Interfaces.csproj">
+      <Project>{0216d519-ba50-4b1e-be24-42deeb8da1a0}</Project>
+      <Name>TicTacToe.Computer.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.DataLayer.Interfaces\TicTacToe.DataLayer.Interfaces.csproj">
+      <Project>{1D582E07-9892-4332-A4AD-1B52C1FAE57C}</Project>
+      <Name>TicTacToe.DataLayer.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.Models\TicTacToe.Models.csproj">
       <Project>{0FBCC8C3-C3FA-4895-A4F6-70BEC6A0754F}</Project>
       <Name>TicTacToe.Models</Name>

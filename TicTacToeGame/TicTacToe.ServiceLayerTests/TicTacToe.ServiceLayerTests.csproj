@@ -86,6 +86,10 @@
       <Project>{3050ABEC-0881-49BD-9D42-D775DDEAC8EA}</Project>
       <Name>TicTacToe.Computer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.DataLayer.Interfaces\TicTacToe.DataLayer.Interfaces.csproj">
+      <Project>{1d582e07-9892-4332-a4ad-1b52c1fae57c}</Project>
+      <Name>TicTacToe.DataLayer.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.DataLayer\TicTacToe.DataLayer.csproj">
       <Project>{DDC07EFA-EB4E-47E9-B940-19155ADD8230}</Project>
       <Name>TicTacToe.DataLayer</Name>

@@ -131,6 +131,10 @@
       <Project>{0FBCC8C3-C3FA-4895-A4F6-70BEC6A0754F}</Project>
       <Name>TicTacToe.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.ServiceLayer.Interfaces\TicTacToe.ServiceLayer.Interfaces.csproj">
+      <Project>{643E0635-48A3-4053-8506-C5598F799B8E}</Project>
+      <Name>TicTacToe.ServiceLayer.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.ServiceLayerTests\TicTacToe.ServiceLayerTests.csproj">
       <Project>{7544CAB0-D69B-411C-A250-0EE8A4D41670}</Project>
       <Name>TicTacToe.ServiceLayerTests</Name>

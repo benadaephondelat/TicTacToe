@@ -123,6 +123,10 @@
       <Project>{3050ABEC-0881-49BD-9D42-D775DDEAC8EA}</Project>
       <Name>TicTacToe.Computer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.DataLayer.Interfaces\TicTacToe.DataLayer.Interfaces.csproj">
+      <Project>{1d582e07-9892-4332-a4ad-1b52c1fae57c}</Project>
+      <Name>TicTacToe.DataLayer.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.DataLayer\TicTacToe.DataLayer.csproj">
       <Project>{ddc07efa-eb4e-47e9-b940-19155add8230}</Project>
       <Name>TicTacToe.DataLayer</Name>
@@ -130,6 +134,10 @@
     <ProjectReference Include="..\TicTacToe.Models\TicTacToe.Models.csproj">
       <Project>{0FBCC8C3-C3FA-4895-A4F6-70BEC6A0754F}</Project>
       <Name>TicTacToe.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.ServiceLayer.Interfaces\TicTacToe.ServiceLayer.Interfaces.csproj">
+      <Project>{643E0635-48A3-4053-8506-C5598F799B8E}</Project>
+      <Name>TicTacToe.ServiceLayer.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicTacToe.ServiceLayer\TicTacToe.ServiceLayer.csproj">
       <Project>{CD064B6E-1D82-4EC2-9D32-2D63A5640EFB}</Project>

@@ -2,12 +2,12 @@
 {
     using System.Web.Mvc;
     using System.Collections.Generic;
-    using ServiceLayer.TicTacToeGameService;
     using FrameworkExtentions.Filters.ActionFilters;
     using TicTacToe.Models;
     using Models.HumanVsHuman.ViewModels;
     using Views.ViewConstants;
     using AutoMapper;
+    using ServiceLayer.Interfaces;
 
     [CheckIfLoggedInFilter]
     public class ComputerVsComputerController : BaseController

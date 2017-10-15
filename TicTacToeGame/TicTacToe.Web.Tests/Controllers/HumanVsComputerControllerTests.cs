@@ -14,6 +14,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TicTacToeCommon.Constants;
     using Models.HumanVsHuman.ViewModels;
+    using ServiceLayer.Interfaces;
 
     [TestClass]
     public class HumanVsComputerControllerTests

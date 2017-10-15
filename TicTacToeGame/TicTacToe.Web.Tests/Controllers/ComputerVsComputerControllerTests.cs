@@ -11,6 +11,7 @@
     using Moq;
     using Constants;
     using Models.HumanVsHuman.ViewModels;
+    using ServiceLayer.Interfaces;
 
     [TestClass]
     public class ComputerVsComputerControllerTests

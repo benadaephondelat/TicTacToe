@@ -11,6 +11,7 @@
     using Constants;
     using Moq;
     using FrameworkExtentions.Mappings;
+    using ServiceLayer.Interfaces;
 
     public class ComputerVsComputerServiceLayerMockHelper
     {

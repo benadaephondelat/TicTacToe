@@ -409,9 +409,9 @@
       <Project>{0FBCC8C3-C3FA-4895-A4F6-70BEC6A0754F}</Project>
       <Name>TicTacToe.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TicTacToe.ServiceLayer\TicTacToe.ServiceLayer.csproj">
-      <Project>{CD064B6E-1D82-4EC2-9D32-2D63A5640EFB}</Project>
-      <Name>TicTacToe.ServiceLayer</Name>
+    <ProjectReference Include="..\TicTacToe.ServiceLayer.Interfaces\TicTacToe.ServiceLayer.Interfaces.csproj">
+      <Project>{643e0635-48a3-4053-8506-c5598f799b8e}</Project>
+      <Name>TicTacToe.ServiceLayer.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicTacToeCommon\TicTacToeCommon.csproj">
       <Project>{9aeddcf1-9b80-4369-ac0f-8514b7384b89}</Project>

@@ -3,7 +3,6 @@
     using System.Web.Mvc;
     using System.Collections.Generic;
     using TicTacToe.Models;
-    using ServiceLayer.TicTacToeGameService;
     using Constants;
     using FrameworkExtentions.Filters.Security;
     using FrameworkExtentions.Filters.ActionFilters;
@@ -12,6 +11,7 @@
     using AutoMapper;
     using Views.ViewConstants;
     using TicTacToe.Models.Enums;
+    using ServiceLayer.Interfaces;
 
     [CheckIfLoggedInFilter]
     public class HumanVsHumanController : BaseController

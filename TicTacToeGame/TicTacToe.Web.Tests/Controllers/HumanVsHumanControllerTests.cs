@@ -14,7 +14,8 @@
     using ServiceLayer.TicTacToeGameService;
     using Moq;
     using Constants;
-    
+    using ServiceLayer.Interfaces;
+
     [TestClass]
     public class HumanVsHumanControllerTests
     {

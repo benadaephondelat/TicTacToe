@@ -1,9 +1,10 @@
-﻿using System.Linq;
-using System.Data.Entity;
-using System.Threading.Tasks;
-
-namespace TicTacToe.DataLayer.Repository
+﻿namespace TicTacToe.DataLayer.Repository
 {
+    using System.Linq;
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using TicTacToe.DataLayer.Interfaces;
+
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly ApplicationDbContext context;

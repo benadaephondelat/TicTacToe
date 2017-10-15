@@ -5,6 +5,7 @@
     using Ninject.Web.Common;
     using TicTacToe.DataLayer;
     using TicTacToe.DataLayer.Data;
+    using TicTacToe.DataLayer.Interfaces;
     using TicTacToe.DataLayer.Repository;
 
     public class DataLayerModule : NinjectModule

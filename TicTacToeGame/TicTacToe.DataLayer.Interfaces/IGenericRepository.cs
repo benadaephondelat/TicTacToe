@@ -1,7 +1,7 @@
-﻿using System.Linq;
-
-namespace TicTacToe.DataLayer.Repository
+﻿namespace TicTacToe.DataLayer.Repository
 {
+    using System.Linq;
+
     public interface IGenericRepository<T>
     {
         IQueryable<T> All();

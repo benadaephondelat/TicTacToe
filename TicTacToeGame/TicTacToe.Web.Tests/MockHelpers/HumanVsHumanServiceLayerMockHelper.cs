@@ -12,6 +12,7 @@
     using Moq;
     using TicTacToe.Models.Enums;
     using TicTacToeCommon.Constants;
+    using ServiceLayer.Interfaces;
 
     /// <summary>
     /// Generates a mock of the ServiceLayer

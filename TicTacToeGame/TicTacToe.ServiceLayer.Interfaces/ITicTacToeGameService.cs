@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.ServiceLayer.TicTacToeGameService
+﻿namespace TicTacToe.ServiceLayer.Interfaces
 {
     using System.Collections;
     using System.Collections.Generic;

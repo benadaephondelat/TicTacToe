@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Models;
     using Repository;
+    using Interfaces;
 
     public class TicTacToeData : ITicTacToeData
     {

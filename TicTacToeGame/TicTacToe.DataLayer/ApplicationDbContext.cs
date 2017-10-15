@@ -4,6 +4,7 @@
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
     using Migrations;
+    using Interfaces;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
