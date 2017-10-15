@@ -101,9 +101,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IdentityConfiguration\ApplicationSignInManager.cs" />
-    <Compile Include="IdentityConfiguration\ApplicationUserManager.cs" />
-    <Compile Include="IdentityConfiguration\OwinConfiguration.cs" />
     <Compile Include="LinqExtentions\LinqExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicTacToeGameService\ITicTacToeGameService.cs" />

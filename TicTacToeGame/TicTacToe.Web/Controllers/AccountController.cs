@@ -11,7 +11,7 @@
 
     using Models.Account;
     using TicTacToe.Models;
-    using ServiceLayer.IdentityConfiguration;
+    using DependencyResolver.IdentityConfiguration;
 
     [Authorize]
     public class AccountController : Controller

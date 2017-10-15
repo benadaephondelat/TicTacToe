@@ -1,14 +1,12 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-
-using TicTacToe.Models;
-
-namespace TicTacToe.ServiceLayer.IdentityConfiguration
+﻿namespace DependencyResolver.IdentityConfiguration
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security;
+    using TicTacToe.Models;
+
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)

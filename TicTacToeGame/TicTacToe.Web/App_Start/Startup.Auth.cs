@@ -1,8 +1,7 @@
 ﻿namespace TicTacToe.Web
 {
+    using DependencyResolver.IdentityConfiguration;
     using Owin;
-
-    using TicTacToe.ServiceLayer.IdentityConfiguration;
 
     public partial class Startup
     {

@@ -1,19 +1,17 @@
-﻿using System;
-
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-
-using Owin;
-
-using TicTacToe.DataLayer;
-using TicTacToe.Models;
-
-namespace TicTacToe.ServiceLayer.IdentityConfiguration
+﻿namespace DependencyResolver.IdentityConfiguration
 {
+    using System;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security.Cookies;
+    using Owin;
+    using TicTacToe.DataLayer;
+    using TicTacToe.Models;
+
     public class OwinConfiguration
     {
+
         public static void ConfigureAuth(IAppBuilder app)
         {
             app.CreatePerOwinContext(ApplicationDbContext.Create);

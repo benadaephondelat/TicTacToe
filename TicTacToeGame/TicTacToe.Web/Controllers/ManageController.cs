@@ -9,8 +9,8 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
-    using ServiceLayer.IdentityConfiguration;
     using Models.Manage;
+    using DependencyResolver.IdentityConfiguration;
 
     [Authorize]
     public class ManageController : Controller

@@ -1,15 +1,13 @@
-﻿using System;
-
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-
-using TicTacToe.DataLayer;
-using TicTacToe.Models;
-
-namespace TicTacToe.ServiceLayer.IdentityConfiguration
+﻿namespace DependencyResolver.IdentityConfiguration
 {
+    using System;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using TicTacToe.DataLayer;
+    using TicTacToe.Models;
+
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store)
