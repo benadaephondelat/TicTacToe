@@ -70,6 +70,18 @@
     <Compile Include="TicTacToeGameServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicTacToe.Computer.Interfaces\TicTacToe.Computer.Interfaces.csproj">
+      <Project>{0216D519-BA50-4B1E-BE24-42DEEB8DA1A0}</Project>
+      <Name>TicTacToe.Computer.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.ComputerChooser.Interfaces\TicTacToe.ComputerChooser.Interfaces.csproj">
+      <Project>{8DA374F7-07C9-4077-950D-59C5509D1CCA}</Project>
+      <Name>TicTacToe.ComputerChooser.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.ComputerChooser\TicTacToe.ComputerChooser.csproj">
+      <Project>{d6ed1737-6258-4e4b-b461-993ed66cc1dc}</Project>
+      <Name>TicTacToe.ComputerChooser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.Computer\TicTacToe.Computer.csproj">
       <Project>{3050ABEC-0881-49BD-9D42-D775DDEAC8EA}</Project>
       <Name>TicTacToe.Computer</Name>

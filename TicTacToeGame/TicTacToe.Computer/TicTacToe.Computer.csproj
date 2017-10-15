@@ -69,7 +69,6 @@
   <ItemGroup>
     <Compile Include="Exceptions\ComputerException.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
-    <Compile Include="IComputer.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\CanWinCheck\CanWinCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\EdgesCheck\ClosestEdgeCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\ColumnsCheck\FirstColumnCheck.cs" />
@@ -94,10 +93,6 @@
     <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\ThirdRowCheck.cs" />
     <Compile Include="Computer.cs" />
     <Compile Include="Constants\ComputerConstants.cs" />
-    <Compile Include="Models\ComputerGameModel.cs" />
-    <Compile Include="Models\ComputerGameTileModel.cs" />
-    <Compile Include="Models\IComputerGameModel.cs" />
-    <Compile Include="Models\IComputerGameTileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategies\StartingFirst\TurnStrategies\FirstTurnStrategy\FirstTurnStrategy.cs" />
     <Compile Include="Strategies\StartingFirst\TurnStrategies\SecondTurnStrategy\SecondTurnStrategy.cs" />
@@ -117,6 +112,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\TicTacToe.Computer.Interfaces\TicTacToe.Computer.Interfaces.csproj">
+      <Project>{0216d519-ba50-4b1e-be24-42deeb8da1a0}</Project>
+      <Name>TicTacToe.Computer.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.Computer.Models\TicTacToe.Computer.Models.csproj">
+      <Project>{9a7422cb-4b39-4358-ab64-5bb7653ba3a9}</Project>
+      <Name>TicTacToe.Computer.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToeCommon\TicTacToeCommon.csproj">
       <Project>{9aeddcf1-9b80-4369-ac0f-8514b7384b89}</Project>
       <Name>TicTacToeCommon</Name>

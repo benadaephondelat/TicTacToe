@@ -5,9 +5,9 @@
     using System.Reflection;
 
     using Computer;
-    using Computer.Models;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Computer.Models;
 
     [TestClass]
     public class ComputerTests

@@ -1,13 +1,13 @@
-using Ninject;
-using Ninject.Modules;
-using Ninject.Web.Common;
-
-using TicTacToe.DataLayer.Data;
-using TicTacToe.DataLayer.Repository;
-
-namespace TicTacToe.DataLayer.App_Start
+﻿namespace DependencyResolver
 {
-    public class NinjectWebCommon : NinjectModule
+    using Ninject;
+    using Ninject.Modules;
+    using Ninject.Web.Common;
+    using TicTacToe.DataLayer;
+    using TicTacToe.DataLayer.Data;
+    using TicTacToe.DataLayer.Repository;
+
+    public class DataLayerModule : NinjectModule
     {
         public override void Load()
         {

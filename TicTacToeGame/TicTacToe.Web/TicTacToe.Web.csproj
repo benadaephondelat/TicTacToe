@@ -401,6 +401,10 @@
     <Content Include="Scripts\Default\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DependencyResolver\DependencyResolver.csproj">
+      <Project>{b99ad243-74b7-4ea5-8aa8-f30199d01fe9}</Project>
+      <Name>DependencyResolver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.Models\TicTacToe.Models.csproj">
       <Project>{0FBCC8C3-C3FA-4895-A4F6-70BEC6A0754F}</Project>
       <Name>TicTacToe.Models</Name>

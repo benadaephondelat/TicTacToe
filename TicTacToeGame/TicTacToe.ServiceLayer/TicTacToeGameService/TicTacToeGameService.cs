@@ -9,19 +9,20 @@
     using TicTacToeService.Factories.Game.Create;
     using TicTacToeService.Factories.Game.Read;
     using TicTacToeService.Factories.Game.Update;
-    using Computer;
-    using Computer.Models;
     using Models.Enums;
+    using ComputerChooser.Interfaces;
+    using Computer.Models;
+    using Computer.Interfaces;
 
     public class TicTacToeGameService : ITicTacToeGameService
     {
         private readonly IServicesFactory serviceFactory;
-        private readonly IComputer computer;
+        private readonly IComputerChooser computerChooser;
 
-        public TicTacToeGameService(ITicTacToeData data, IComputer computer)
+        public TicTacToeGameService(ITicTacToeData data, IComputerChooser computerChooser)
         {
             this.serviceFactory = new ServicesFactory(data);
-            this.computer = computer;
+            this.computerChooser = computerChooser;
         }
 
         public Game GetGameById(int gameId)
@@ -125,7 +126,11 @@
 
             IComputerGameModel computerGame = this.CreateComputerGameModel(game);
 
-            int tileIndex = this.computer.GetComputerMoveIndex(computerGame);
+            //TODO GET COMPUTER NAME
+
+            IComputer computer = this.computerChooser.GetComputerByName("computer@yahoo.com");
+
+            int tileIndex = computer.GetComputerMoveIndex(computerGame);
 
             return tileIndex;
         }

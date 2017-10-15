@@ -11,7 +11,10 @@ namespace TicTacToe.Web.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    
+    using System.Collections.Generic;
+    using Ninject.Modules;
+    using DependencyResolver;
+
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -63,13 +66,15 @@ namespace TicTacToe.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            Assembly assembly;
+            var modules = new List<INinjectModule>
+            {
+                new ComputerModule(),
+                new ComputerChooserModule(),
+                new ServiceLayerModule(),
+                new DataLayerModule()
+            };
 
-            assembly = Assembly.Load("TicTacToe.ServiceLayer");
-            kernel.Load(assembly);
-
-            assembly = Assembly.Load("TicTacToe.DataLayer");
-            kernel.Load(assembly);
+            kernel.Load(modules);
         }
     }
 }

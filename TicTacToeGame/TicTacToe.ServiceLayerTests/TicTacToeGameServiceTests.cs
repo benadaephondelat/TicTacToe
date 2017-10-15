@@ -17,6 +17,8 @@
 
     using Moq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using ComputerChooser.Interfaces;
+    using ComputerChooser;
 
     [TestClass]
     public class TicTacToeGameServiceTests
@@ -25,7 +27,7 @@
 
         private TicTacToeGameService gameService;
 
-        private IComputer computer;
+        private IComputerChooser computerChooser;
 
         [TestInitialize]
         public void SetUp()
@@ -34,9 +36,9 @@
 
             this.dataLayerMock = mockHelper.SetupTicTacToeDataMock();
 
-            this.computer = new Computer();
+            this.computerChooser = new ComputerChooser(new Computer());
 
-            this.gameService = new TicTacToeGameService(dataLayerMock.Object, computer);
+            this.gameService = new TicTacToeGameService(dataLayerMock.Object, this.computerChooser);
         }
 
         #region GetGameById

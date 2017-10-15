@@ -94,6 +94,10 @@
     <Compile Include="StrategyChooser\StrategyChooserTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicTacToe.Computer.Models\TicTacToe.Computer.Models.csproj">
+      <Project>{9A7422CB-4B39-4358-AB64-5BB7653BA3A9}</Project>
+      <Name>TicTacToe.Computer.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.Computer\TicTacToe.Computer.csproj">
       <Project>{3050abec-0881-49bd-9d42-d775ddeac8ea}</Project>
       <Name>TicTacToe.Computer</Name>

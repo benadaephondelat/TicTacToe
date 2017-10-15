@@ -1,5 +1,6 @@
 ﻿namespace TicTacToe.Computer
 {
+    using Interfaces;
     using Models;
     using Strategies;
     using ComputerStrategyChooser = StrategyChooser.StrategyChooser;

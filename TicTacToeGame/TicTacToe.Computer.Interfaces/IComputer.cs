@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Computer
+﻿namespace TicTacToe.Computer.Interfaces
 {
     using Models;
 
