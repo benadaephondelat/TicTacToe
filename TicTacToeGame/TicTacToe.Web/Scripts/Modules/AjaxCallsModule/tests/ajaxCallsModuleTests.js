@@ -488,4 +488,50 @@ describe('ajaxCallsModule', function () {
             done();
         });
     });
+
+    describe('computerVsComputerPlaceComputerTurnAjaxCall tests', function () {
+        beforeEach(function () {
+            this.xhr = sinon.useFakeXMLHttpRequest();
+
+            this.requests = [];
+
+            this.xhr.onCreate = function (xhr) {
+                this.requests.push(xhr);
+            }.bind(this);
+
+        });
+
+        afterEach(function () {
+            this.xhr.restore();
+        });
+
+        it('computerVsComputerPlaceComputerTurnAjaxCall should exist', function () {
+            var isUndefined = typeof ajaxCallsModule.computerVsComputerCalls.placeComputerTurn === 'undefined';
+
+            isUndefined.should.equal(false);
+        });
+
+        it('computerVsComputerPlaceComputerTurnAjaxCall should be a function', function () {
+            var type = typeof ajaxCallsModule.computerVsComputerCalls.placeComputerTurn;
+
+            type.should.equal('function');
+        });
+
+        it('computerVsComputerPlaceComputerTurnAjaxCall should accept 2 parameters', function () {
+            var parametersCount = ajaxCallsModule.computerVsComputerCalls.placeComputerTurn.length;
+
+            parametersCount.should.equal(2);
+        });
+
+        it('computerVsComputerPlaceComputerTurnAjaxCall function should make a POST request to /ComputerVsComputer/PlaceComputerTurn', function (done) {
+            ajaxCallsModule.computerVsComputerCalls.placeComputerTurn().done(function () {
+                done();
+            });
+
+            this.requests[0].method.should.equal('POST');
+            this.requests[0].url.should.equal('/ComputerVsComputer/PlaceComputerTurn');
+
+            done();
+        });
+    });
 });

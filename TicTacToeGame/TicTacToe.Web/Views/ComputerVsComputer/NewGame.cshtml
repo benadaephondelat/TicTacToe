@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "ComputerVsComputer";
+}
+
+
+
+<style>
+    #back-to-main-menu-button {
+        margin-left: 42%;
+    }
+
+    #start-new-game-button {
+        margin-left: 42%;
+        width: 16%;
+    }
+
+    #turn-dropdown-container {
+        width: 27%;
+        text-align: center;
+        margin-left: 36%;
+    }
+
+    #turn-dropdown {
+        width: 67%;
+        margin-left: 2%;
+        font-weight: bold;
+    }
+
+    #validation-message {
+        margin-left: 4%;
+        font-weight: bold;
+    }
+</style>
+
+
+<div id="game-container">
+
+    <h2 class="text-center">Human vs Computer</h2>
+
+    @using (Ajax.BeginForm("NewGame", "ComputerVsComputer", null, new AjaxOptions()
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "game-container"
+    }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal" id="new-game-form">
+            <hr />
+            
+            <div class="form-group">
+                <input type="submit"
+                       value="Start"
+                       id="start-new-game-button"
+                       class="btn btn-primary btn-lg text-center" />
+            </div>
+        </div>
+    }
+</div>
+
+@Ajax.ActionLink("Back to Home Menu", "Index", "Home", null, new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "main-content"
+},
+new
+{
+    @class = "btn btn-primary btn-lg text-center",
+    @id = "back-to-main-menu-button"
+})

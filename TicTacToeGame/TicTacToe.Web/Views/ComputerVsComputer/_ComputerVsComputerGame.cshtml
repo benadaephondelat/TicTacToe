@@ -10,7 +10,7 @@
 
     @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUserId)
     {
-        <h5 id="current-turn-holder-username" class="red">Turn Holder: @Model.GameInfo.HomeSideUserName</h5>
+        <h5 id="current-turn-holder-username" class="red">Turn Holder: computer@yahoo.com</h5>
     }
     else
     {
@@ -24,7 +24,7 @@
         <h4 id="turn-info" class="red">YOUR TURN</h4>
     }
     <h4>Home Side - <span class="red">X</span></h4>
-    @Model.GameInfo.HomeSideUserName
+    computer@yahoo.com
 </div>
 
 <div id="grid-container">
@@ -76,7 +76,23 @@
     @Model.GameInfo.AwaySideUserName
 </div>
 
+<input type="button"
+       value="Place Turn"
+       id="place-computer-vs-computer-turn"
+       class="btn btn-primary btn-lg menu-option" />
+
+@Ajax.ActionLink("Back to Menu", "ComputerVsComputer", "Home", null, new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "main-content"
+},
+new
+{
+    @class = "btn btn-primary btn-lg text-center",
+    @id = "back-to-main-menu-button"
+})
+
 <input type="hidden" id="gameId" value="@Model.GameInfo.Id" />
 <input type="hidden" id="place-turn-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
 
-@*@Scripts.Render("~/bundles/humanVsComputerGameModule")*@
+@Scripts.Render("~/bundles/computerVsComputerGameModule")

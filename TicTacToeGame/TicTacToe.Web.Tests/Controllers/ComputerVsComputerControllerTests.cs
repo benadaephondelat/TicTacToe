@@ -24,6 +24,44 @@
         }
 
         [TestMethod]
+        public void NewGame_Get_Action_Should_Exist()
+        {
+            ComputerVsComputerController controller = this.CreateComputerVsComputerControllerMock();
+
+            Assert.AreEqual("NewGame", nameof(controller.NewGame));
+
+            ActionResult newGameAsActionResult = controller.NewGame();
+
+            Assert.IsNotNull(newGameAsActionResult);
+        }
+
+        [TestMethod]
+        public void NewGame_Get_Should_Return_View()
+        {
+            ComputerVsComputerController controller = this.CreateComputerVsComputerControllerMock();
+
+            ActionResult actionResult = controller.NewGame();
+
+            Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void NewGame_Get_Should_Return_View_Named_NewGame()
+        {
+            ComputerVsComputerController controller = this.CreateComputerVsComputerControllerMock();
+
+            ActionResult actionResult = controller.NewGame();
+
+            ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
+
+            string expectedViewName = "NewGame";
+
+            Assert.AreEqual(expectedViewName, result.ViewName);
+        }
+
+        [TestMethod]
         public void NewGame_Post_Should_Exist_And_Accept_No_Parameters()
         {
             ComputerVsComputerController controller = this.CreateComputerVsComputerControllerMock();
@@ -32,7 +70,7 @@
 
             MethodInfo newGameActionMethod = controllerType.GetTypeInfo()
                                              .DeclaredMethods
-                                             .FirstOrDefault(m => m.Name.Contains(nameof(controller.NewGame)));
+                                             .FirstOrDefault(m => m.Name.Contains(nameof(controller.NewGame_Post)));
 
             int parametersCount = newGameActionMethod.GetParameters().Count();
 
@@ -44,7 +82,7 @@
         {
             ComputerVsComputerController controller = this.CreateComputerVsComputerControllerMock();
 
-            ActionResult actionResult = controller.NewGame();
+            ActionResult actionResult = controller.NewGame_Post();
 
             Assert.IsInstanceOfType(actionResult, typeof(PartialViewResult));
         }
@@ -54,7 +92,7 @@
         {
             ComputerVsComputerController controller = this.CreateComputerVsComputerControllerMock();
 
-            ActionResult actionResult = controller.NewGame();
+            ActionResult actionResult = controller.NewGame_Post();
 
             PartialViewResult partialViewResult = actionResult as PartialViewResult;
 
@@ -70,7 +108,7 @@
         {
             ComputerVsComputerController controller = this.CreateComputerVsComputerControllerMock();
 
-            ActionResult actionResult = controller.NewGame();
+            ActionResult actionResult = controller.NewGame_Post();
 
             PartialViewResult partialViewResult = actionResult as PartialViewResult;
 
@@ -86,7 +124,7 @@
         {
             ComputerVsComputerController controller = this.CreateComputerVsComputerControllerMock();
 
-            ActionResult actionResult = controller.NewGame();
+            ActionResult actionResult = controller.NewGame_Post();
 
             PartialViewResult partialViewResult = actionResult as PartialViewResult;
 
@@ -104,7 +142,7 @@
         {
             ComputerVsComputerController controller = this.CreateComputerVsComputerControllerMock();
 
-            ActionResult actionResult = controller.NewGame();
+            ActionResult actionResult = controller.NewGame_Post();
 
             PartialViewResult partialViewResult = actionResult as PartialViewResult;
 

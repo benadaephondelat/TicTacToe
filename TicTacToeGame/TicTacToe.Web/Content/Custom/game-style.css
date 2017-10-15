@@ -1,4 +1,30 @@
-﻿#first-column, #second-column, #third-column {
+﻿#back-to-main-menu-button {
+    margin-left: 42%;
+}
+
+#start-new-game-button {
+    margin-left: 42%;
+    width: 16%;
+}
+
+#turn-dropdown-container {
+    width: 27%;
+    text-align: center;
+    margin-left: 36%;
+}
+
+#turn-dropdown {
+    width: 67%;
+    margin-left: 2%;
+    font-weight: bold;
+}
+
+#validation-message {
+    margin-left: 4%;
+    font-weight: bold;
+}
+
+#first-column, #second-column, #third-column {
     display: inline-flex;
 }
 

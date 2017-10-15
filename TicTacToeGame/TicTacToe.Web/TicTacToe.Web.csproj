@@ -275,6 +275,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Default\Site.css" />
     <Content Include="Scripts\AllTests\index.html" />
+    <Content Include="Scripts\ComputerVsComputer\NewGame\computerVsComputerGameModule.js" />
+    <Content Include="Scripts\ComputerVsComputer\NewGame\tests\computerVsComputerGameModuleTests.js" />
+    <Content Include="Scripts\ComputerVsComputer\NewGame\tests\index.html" />
     <Content Include="Scripts\Default\bootstrap.js" />
     <Content Include="Scripts\Default\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -382,6 +385,7 @@
     <Content Include="Views\HumanVsComputer\_LoadGameGrid.cshtml" />
     <Content Include="Views\Home\_ComputerVsComputer.cshtml" />
     <Content Include="Views\ComputerVsComputer\_ComputerVsComputerGame.cshtml" />
+    <Content Include="Views\ComputerVsComputer\NewGame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

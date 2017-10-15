@@ -63,6 +63,9 @@
             bundles.Add(new ScriptBundle("~/bundles/humanVsComputerGameModule")
                    .Include("~/Scripts/HumanVsComputer/NewGame/humanVsComputerGameModule.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/computerVsComputerGameModule")
+                   .Include("~/Scripts/ComputerVsComputer/NewGame/computerVsComputerGameModule.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/mvc-grid")
                    .Include("~/Scripts/MvcGrid/mvc-grid.js"));
 

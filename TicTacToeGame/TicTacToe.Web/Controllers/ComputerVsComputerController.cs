@@ -23,8 +23,15 @@
             this.ticTacToeGameService = ticTacToeGameService;
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpGet]
         public ActionResult NewGame()
+        {
+            return View(ViewConstants.NewGameView);
+        }
+
+        [ActionName("NewGame")]
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult NewGame_Post()
         {
             string currentUserName = base.CurrentUserName();
 
