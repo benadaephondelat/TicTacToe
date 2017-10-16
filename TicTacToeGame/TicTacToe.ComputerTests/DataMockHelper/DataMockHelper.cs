@@ -18,7 +18,7 @@
             ComputerGameModel model = new ComputerGameModel();
 
             model.HomesideUsername = UserConstants.ComputerUsername;
-            model.AwaysideUsername = UserConstants.SecondComputerUsername;
+            model.AwaysideUsername = UserConstants.OtherComputerUsername;
             model.TurnsCount = 1;
             model.IsFinished = false;
             model.Tiles = GenerateDefaultTilesList();

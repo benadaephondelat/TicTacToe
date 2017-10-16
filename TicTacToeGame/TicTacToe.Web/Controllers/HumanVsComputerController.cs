@@ -210,7 +210,7 @@
         /// <returns>bool</returns>
         private bool ComputerIsStartingFirst(string homesideUsername)
         {
-            if (homesideUsername == UserConstants.ComputerUsername)
+            if (homesideUsername == UserConstants.ComputerUsername || homesideUsername == UserConstants.OtherComputerUsername)
             {
                 return true;
             }
@@ -236,13 +236,14 @@
         /// <returns>List<string></string></returns>
         private List<string> GetDefaultPlayersList()
         {
-            List<string> humanVsHumanDefaultPlayers = new List<string>()
+            List<string> humanVsComputerDefaultPlayers = new List<string>()
             {
                 this.CurrentUserName(),
-                UserConstants.ComputerUsername
+                UserConstants.ComputerUsername,
+                UserConstants.OtherComputerUsername
             };
 
-            return humanVsHumanDefaultPlayers;
+            return humanVsComputerDefaultPlayers;
         }
     }
 }

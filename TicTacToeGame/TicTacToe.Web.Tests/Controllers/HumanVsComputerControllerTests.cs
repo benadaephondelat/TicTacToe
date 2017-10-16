@@ -162,7 +162,7 @@
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Be_A_List_With_Two_Strings()
+        public void NewGameInputModel_Players_Property_Should_Be_A_List_With_Three_Strings()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -174,11 +174,11 @@
 
             NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
 
-            Assert.AreEqual(2, model.Players.Count);
+            Assert.AreEqual(3, model.Players.Count);
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Contain_Valid_String_As_First_Parameter()
+        public void NewGameInputModel_Players_Property_Should_Contain_Valid_Strings_As_First_Second_And_Third_Parameters()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -190,13 +190,21 @@
 
             NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
 
-            bool isNotValidString = string.IsNullOrWhiteSpace(model.Players[0]);
+            bool isFirstParameterNotValidString = string.IsNullOrWhiteSpace(model.Players[0]);
 
-            Assert.IsFalse(isNotValidString);
+            Assert.IsFalse(isFirstParameterNotValidString);
+
+            bool isSecondParameterNotValidString = string.IsNullOrWhiteSpace(model.Players[1]);
+
+            Assert.IsFalse(isSecondParameterNotValidString);
+
+            bool isThirdParameterNotValidString = string.IsNullOrWhiteSpace(model.Players[2]);
+
+            Assert.IsFalse(isThirdParameterNotValidString);
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Contain_The_Default_Oponent_Username_As_Second_Parameter()
+        public void NewGameInputModel_Players_Property_Should_Contain_The_First_Computer_Username_As_Second_Parameter()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -210,6 +218,23 @@
 
             Assert.AreEqual(UserConstants.ComputerUsername, model.Players[1]);
         }
+
+        [TestMethod]
+        public void NewGameInputModel_Players_Property_Should_Contain_The_Second_Computer_Username_As_Second_Parameter()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.NewGame();
+
+            ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
+
+            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+
+            Assert.AreEqual(UserConstants.OtherComputerUsername, model.Players[2]);
+        }
+
 
         [TestMethod]
         public void NewGame_Post_Should_Exist_And_Accept_NewGameInputModel_As_A_Parameter()
@@ -341,6 +366,31 @@
         }
 
         [TestMethod]
+        public void NewGame_Post_If_Other_Computer_Is_First_GameViewModel_Should_Contain_8_Empty_Tiles()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            NewGameInputModel model = new NewGameInputModel();
+
+            model.Players = new List<string>()
+            {
+               UserConstants.OtherComputerUsername
+            };
+
+            ActionResult actionResult = controller.NewGame(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            GameViewModel result = partialViewResult.Model as GameViewModel;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual(8, result.GameTiles.Count(t => t.IsEmpty));
+        }
+
+        [TestMethod]
         public void NewGame_Post_If_Computer_Is_First_GameViewModel_Should_Contain_1_Tile_With_Value_X()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
@@ -366,6 +416,31 @@
         }
 
         [TestMethod]
+        public void NewGame_Post_If_Other_Computer_Is_First_GameViewModel_Should_Contain_1_Tile_With_Value_X()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            NewGameInputModel model = new NewGameInputModel();
+
+            model.Players = new List<string>()
+            {
+               UserConstants.OtherComputerUsername
+            };
+
+            ActionResult actionResult = controller.NewGame(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            GameViewModel result = partialViewResult.Model as GameViewModel;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual(1, result.GameTiles.Count(t => t.IsEmpty == false && t.Value == "X"));
+        }
+
+        [TestMethod]
         public void NewGame_Post_If_Computer_Is_First_Game_Turns_Count_Shoud_Be_2()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
@@ -375,6 +450,31 @@
             model.Players = new List<string>()
             {
                UserConstants.ComputerUsername
+            };
+
+            ActionResult actionResult = controller.NewGame(model);
+
+            PartialViewResult partialViewResult = actionResult as PartialViewResult;
+
+            Assert.IsNotNull(partialViewResult);
+
+            GameViewModel result = partialViewResult.Model as GameViewModel;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual(2, result.GameInfo.TurnsCount);
+        }
+
+        [TestMethod]
+        public void NewGame_Post_If_Other_Computer_Is_First_Game_Turns_Count_Shoud_Be_2()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            NewGameInputModel model = new NewGameInputModel();
+
+            model.Players = new List<string>()
+            {
+               UserConstants.OtherComputerUsername
             };
 
             ActionResult actionResult = controller.NewGame(model);

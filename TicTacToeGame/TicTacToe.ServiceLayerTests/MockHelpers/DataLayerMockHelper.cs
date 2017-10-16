@@ -299,9 +299,9 @@
                     Id = UserConstants.ComputerId,
                     UserName = UserConstants.ComputerUsername
                 },
-                OponentId = UserConstants.SecondComputerId,
+                OponentId = UserConstants.OtherComputerId,
                 TurnsCount = 1,
-                GameName = UserConstants.UserUsername + " vs " + UserConstants.SecondComputerUsername,
+                GameName = UserConstants.UserUsername + " vs " + UserConstants.OtherComputerUsername,
                 OponentName = UserConstants.ComputerUsername,
                 IsFinished = false,
                 GameState = GameState.NotFinished,
@@ -334,9 +334,9 @@
                     Id = UserConstants.ComputerId,
                     UserName = UserConstants.ComputerUsername
                 },
-                OponentId = UserConstants.SecondComputerId,
+                OponentId = UserConstants.OtherComputerId,
                 TurnsCount = 9,
-                GameName = UserConstants.UserUsername + " vs " + UserConstants.SecondComputerUsername,
+                GameName = UserConstants.UserUsername + " vs " + UserConstants.OtherComputerUsername,
                 OponentName = UserConstants.ComputerUsername,
                 IsFinished = true,
                 GameState = GameState.Won,

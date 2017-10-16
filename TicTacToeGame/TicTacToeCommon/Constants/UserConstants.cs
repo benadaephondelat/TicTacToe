@@ -20,10 +20,10 @@
 
         public const string ComputerEmail = "computer@yahoo.com";
 
-        public const string SecondComputerId = "second-computer-id";
+        public const string OtherComputerId = "other-computer-id";
 
-        public const string SecondComputerUsername = "second-computer@yahoo.com";
+        public const string OtherComputerUsername = "other-computer@yahoo.com";
 
-        public const string SecondComputerEmail = "second-computer@yahoo.com";
+        public const string OtherComputerEmail = "other-computer@yahoo.com";
     }
 }

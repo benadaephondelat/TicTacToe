@@ -69,6 +69,10 @@
             this.secondColumnCheck.SetSuccessor(this.thirdColumnCheck);
             this.thirdColumnCheck.SetSuccessor(this.firstDiagonalCheck);
             this.firstDiagonalCheck.SetSuccessor(this.secondDiagonalCheck);
+
+            //IF COMPUTER IS FIRST PLACE POSSIBLE WIN BEFORE EDGED
+            //IF COMPUTER IS SECOND PLACE EDGES CHECK BEFORE POSSIBLE WIN
+
             this.secondDiagonalCheck.SetSuccessor(this.edgesCheck);
             this.edgesCheck.SetSuccessor(this.possibleWinCheck);
             this.possibleWinCheck.SetSuccessor(this.oppositeCheck);
