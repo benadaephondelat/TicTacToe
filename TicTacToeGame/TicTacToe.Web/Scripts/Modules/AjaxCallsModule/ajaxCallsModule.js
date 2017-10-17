@@ -125,6 +125,20 @@ var ajaxCallsModule = (function (jQuery) {
     };
 
     /**
+    * Human vs Computer Ajax call to get the oponents dropdown values based on the selected value of the sides dropdown.
+    * @param {String} token: AntiForgeryToken
+    * @param {Object} data: Request data as JSON object
+    * @returns {Function}
+    */
+    var humanVsComputerGetOponentsDropdown = function (token, data) {
+        var requestUrl = '/HumanVsComputer/GetOponentsDropdown';
+
+        var ajaxCall = _createPostRequestAjaxCall(token, data, requestUrl);
+
+        return ajaxCall;
+    };
+
+    /**
     * Human vs Computer Ajax call
     * @returns {Function}
     */
@@ -212,6 +226,7 @@ var ajaxCallsModule = (function (jQuery) {
             placeComputerTurn: humanVsComputerPlaceComputerTurnAjaxCall,
             loadGame: humanVsComputerLoadGameAjaxCall,
             replayGame: humanVsComputerReplayGameAjaxCall,
+            getOponentsDropdown: humanVsComputerGetOponentsDropdown
         },
         computerVsComputerCalls: {
             computerVsComputer: computerVsComputerAjaxCall,

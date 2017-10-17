@@ -48,13 +48,13 @@
             return newGame;
         }
 
-        public Game CreateNewHumanVsComputerGame(string currentUserName, bool isHumanStartingFirst)
+        public Game CreateNewHumanVsComputerGame(string currentUserName, string computerUserName, bool isHumanStartingFirst)
         {
             IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
 
             IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
 
-            Game newGame = gameCreator.CreateNewHumanVsComputerGame(currentUserName, isHumanStartingFirst);
+            Game newGame = gameCreator.CreateNewHumanVsComputerGame(currentUserName, computerUserName, isHumanStartingFirst);
 
             return newGame;
         }

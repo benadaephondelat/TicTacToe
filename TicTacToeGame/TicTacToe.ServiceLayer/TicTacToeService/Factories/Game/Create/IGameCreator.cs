@@ -7,7 +7,7 @@
     {
         Game CreateNewHumanVsHumanGame(string homeSideUserName, string currentUserName);
 
-        Game CreateNewHumanVsComputerGame(string currentUserName, bool isHumanStartingFirst);
+        Game CreateNewHumanVsComputerGame(string currentUserName, string computerUsername, bool isHumanStartingFirst);
 
         Game CreateNewComputerVsComputerGame(string currentUserName);
 

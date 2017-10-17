@@ -1,4 +1,6 @@
-﻿@model TicTacToe.Web.Models.HumanVsHuman.InputModels.NewGameInputModel
+﻿@using TicTacToe.Web.FrameworkExtentions.ViewHelpers
+
+@model TicTacToe.Web.Models.HumanVsComputer.ViewModels.NewHumanVsComputerGameViewModel
 
 @{
     ViewBag.Title = "HumanVsComputer";
@@ -14,13 +16,13 @@
         width: 16%;
     }
 
-    #turn-dropdown-container {
+    #sides-dropdown-container, #oponent-dropdown-container {
         width: 27%;
         text-align: center;
         margin-left: 36%;
     }
 
-    #turn-dropdown {
+    #sides-dropdown, #oponents-dropdown {
         width: 67%;
         margin-left: 2%;
         font-weight: bold;
@@ -48,12 +50,21 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group" id="turn-dropdown-container">
-                @Html.LabelFor(model => model.Players, htmlAttributes: new { @class = "control-label custom-label" })
+            <div class="form-group" id="sides-dropdown-container">
+                @Html.LabelFor(model => model.Sides, htmlAttributes: new { @class = "control-label custom-label" })
                 <div class="col-md-12">
-                    @Html.DropDownListFor(x => x.Players, new SelectList(Model.Players), "Select who will go first", new { @id = "turn-dropdown" })
+                    @Html.DropDownListFor(x => x.Sides, new SelectList(Model.Sides), "Select who will go first.", new { @id = "sides-dropdown" })
                 </div>
-                @Html.ValidationMessageFor(model => model.Players, "", new { @class = "text-danger", @id = "validation-message" })
+                @Html.ValidationMessageFor(model => model.Sides, "", new { @class = "text-danger", @id = "validation-message" })
+                <input type="hidden" id="choose-sides-dropdown-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
+            </div>
+
+            <div class="form-group" id="oponent-dropdown-container">
+                @Html.LabelFor(model => model.Computers, htmlAttributes: new { @class = "control-label custom-label" })
+                <div class="col-md-12">
+                    @Html.DropDownListFor(x => x.Computers, new SelectList(Model.Computers), "Select an oponent.", new { @id = "oponents-dropdown" })
+                </div>
+                @Html.ValidationMessageFor(model => model.Computers, "", new { @class = "text-danger", @id = "validation-message" })
             </div>
 
             <div class="form-group">
@@ -73,3 +84,5 @@ new
     @class = "btn btn-primary btn-lg text-center",
     @id = "back-to-main-menu-button"
 })
+
+@Scripts.Render("~/bundles/humanVsComputerNewGameModule")

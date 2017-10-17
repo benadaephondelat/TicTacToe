@@ -1,5 +1,5 @@
 ﻿/**
- * Contains the JavaScript code to be used in the HumanVsComputerController's NewGame view.
+ * Contains the JavaScript code to be used in the HumanVsComputerController's _HumanVsComputerGame partial view.
  * @dependencies: jQuery, ajaxCallsModule and gameModule
  * @param {function} jQuery
  * @param {Module} ajaxCallsModule.js

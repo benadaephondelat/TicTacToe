@@ -11,11 +11,11 @@
         {
         }
 
-        public new Game CreateNewHumanVsComputerGame(string currentUserName, bool isHumanStartingFirst)
+        public new Game CreateNewHumanVsComputerGame(string currentUserName, string computerUsername, bool isHumanStartingFirst)
         {
             ApplicationUser humanPlayer = base.GetUserByUsername(currentUserName);
 
-            ApplicationUser computer = base.GetUserByUsername("computer@yahoo.com");
+            ApplicationUser computer = base.GetUserByUsername(computerUsername);
 
             Game game = new Game() { TurnsCount = 1 };
 

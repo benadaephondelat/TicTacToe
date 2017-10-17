@@ -19,6 +19,12 @@
     /// </summary>
     public class HumanVsComputerServiceLayerMockHelper
     {
+        private const int ComputerUserIndex = 0;
+
+        private const int HumanUserIndex = 1;
+
+        private const int OtherComputerIndex = 2;
+
         private List<ApplicationUser> GameParticipants { get; }
 
         private List<Tile> DefaultTilesList { get; }
@@ -31,6 +37,10 @@
 
         private Game HumanVsComputerFinishedGameMock { get; }
 
+        private Game HumanVsOtherComputerNewGameMock { get; }
+
+        private Game OtherComputerVsHumanNewGameMock { get; }
+
         public HumanVsComputerServiceLayerMockHelper()
         {
             this.GameParticipants = this.CreateDefaultUsersMock();
@@ -39,6 +49,8 @@
             this.ComputerVsHumanNewGameMock = this.CreateNewComputerVsHumanGameMock();
             this.HumanVsComputerNewGameMock = this.CreateNewHumanVsComputerGameMock();
             this.HumanVsComputerFinishedGameMock = this.CreateNewComputerVsHumanFinishedGameMock();
+            this.HumanVsOtherComputerNewGameMock = this.CreateNewHumanVsOtherComputerGameMock();
+            this.OtherComputerVsHumanNewGameMock = this.CreateNewOtherComputerVsHumanGameMock();
 
             this.ConfigureAutoMapper();
         }
@@ -57,11 +69,17 @@
             serviceMock.Setup(p => p.CreateNewGame(MockConstants.UserEmail, MockConstants.UserEmail))
                        .Returns(this.HumanVsComputerNewGameMock);
 
-            serviceMock.Setup(p => p.CreateNewHumanVsComputerGame(MockConstants.UserEmail, true))
+            serviceMock.Setup(p => p.CreateNewHumanVsComputerGame(MockConstants.UserEmail, MockConstants.ComputerEmail, true))
                        .Returns(this.HumanVsComputerNewGameMock);
 
-            serviceMock.Setup(p => p.CreateNewHumanVsComputerGame(MockConstants.UserEmail, false))
+            serviceMock.Setup(p => p.CreateNewHumanVsComputerGame(MockConstants.UserEmail, MockConstants.ComputerEmail, false))
                        .Returns(this.ComputerVsHumanNewGameMock);
+
+            serviceMock.Setup(p => p.CreateNewHumanVsComputerGame(MockConstants.UserEmail, MockConstants.OtherComputerUsername, true))
+                       .Returns(this.HumanVsOtherComputerNewGameMock);
+
+            serviceMock.Setup(p => p.CreateNewHumanVsComputerGame(MockConstants.UserEmail, MockConstants.OtherComputerUsername, false))
+                       .Returns(this.OtherComputerVsHumanNewGameMock);
 
             serviceMock.Setup(p => p.RecreatePreviousGame(MockConstants.UserEmail, GameMode.HumanVsComputer))
                        .Returns(this.HumanVsComputerNewGameMock);
@@ -71,6 +89,10 @@
             serviceMock.Setup(p => p.GetGameById(2)).Returns(this.HumanVsComputerNewGameMock);
 
             serviceMock.Setup(p => p.GetGameById(3)).Returns(this.HumanVsComputerFinishedGameMock);
+
+            serviceMock.Setup(p => p.GetGameById(4)).Returns(this.HumanVsOtherComputerNewGameMock);
+
+            serviceMock.Setup(p => p.GetGameById(5)).Returns(this.OtherComputerVsHumanNewGameMock);
 
             serviceMock.Setup(p => p.GetComputerMove(1))
                        .Returns(4);
@@ -138,6 +160,12 @@
                     Id = UserConstants.UserId,
                     UserName = UserConstants.UserUsername,
                     Email = UserConstants.UserUsername
+                },
+                new ApplicationUser()
+                {
+                    Id = UserConstants.OtherComputerId,
+                    UserName = UserConstants.OtherComputerUsername,
+                    Email = UserConstants.OtherComputerEmail
                 }
             };
 
@@ -260,6 +288,52 @@
                 Tiles = this.DefaultTilesList,
                 TurnsCount = 9,
                 IsFinished = true,
+            };
+
+            return game;
+        }
+
+        /// <summary>
+        /// Creates a new human vs other computer game
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateNewHumanVsOtherComputerGameMock()
+        {
+            Game game = new Game()
+            {
+                Id = 4,
+                StartDate = DateTime.Now,
+                GameName = UserConstants.UserUsername + " vs " + UserConstants.OtherComputerUsername,
+                ApplicationUser = this.GameParticipants[HumanUserIndex],
+                ApplicationUserId = this.GameParticipants[HumanUserIndex].Id,
+                Oponent = this.GameParticipants[OtherComputerIndex],
+                OponentId = this.GameParticipants[OtherComputerIndex].Id,
+                OponentName = this.GameParticipants[OtherComputerIndex].UserName,
+                TurnsCount = 1,
+                Tiles = this.EmptyTilesList
+            };
+
+            return game;
+        }
+
+        /// <summary>
+        /// Creates a new other computer vs human
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateNewOtherComputerVsHumanGameMock()
+        {
+            Game game = new Game()
+            {
+                Id = 5,
+                StartDate = DateTime.Now,
+                GameName = UserConstants.OtherComputerUsername + " vs " + UserConstants.UserUsername,
+                ApplicationUser = this.GameParticipants[OtherComputerIndex],
+                ApplicationUserId = this.GameParticipants[OtherComputerIndex].Id,
+                Oponent = this.GameParticipants[HumanUserIndex],
+                OponentId = this.GameParticipants[HumanUserIndex].Id,
+                OponentName = this.GameParticipants[HumanUserIndex].UserName,
+                TurnsCount = 2,
+                Tiles = this.DefaultTilesList
             };
 
             return game;

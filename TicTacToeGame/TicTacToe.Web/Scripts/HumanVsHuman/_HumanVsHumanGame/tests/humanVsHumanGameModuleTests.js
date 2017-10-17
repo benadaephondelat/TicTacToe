@@ -2,27 +2,27 @@
 
 var expect = chai.expect;
 
-describe('humanVsHumanNewGameModule', function () {
+describe('humanVsHumanGameModule', function () {
 
     describe('module should exist', function () {
-        it('humanVsHumanNewGameModule should not be undefined', function () {
-            humanVsHumanNewGameModule.should.not.equal('undefined');
+        it('humanVsHumanGameModule should not be undefined', function () {
+            humanVsHumanGameModule.should.not.equal('undefined');
         });
 
-        it('humanVsHumanNewGameModule should be an object', function () {
-            var humanVsHumanNewGameModuleType = typeof humanVsHumanNewGameModule === 'object';
+        it('humanVsHumanGameModule should be an object', function () {
+            var humanVsHumanNewGameModuleType = typeof humanVsHumanGameModule === 'object';
 
             humanVsHumanNewGameModuleType.should.equal(true);
         });
 
-        it('humanVsHumanNewGameModule should have an object named init', function () {
-            var initFunction = humanVsHumanNewGameModule.init;
+        it('humanVsHumanGameModule should have an object named init', function () {
+            var initFunction = humanVsHumanGameModule.init;
 
             initFunction.should.not.equal('undefined');
         });
 
         it('init should be a function', function () {
-            var typeofInit = typeof humanVsHumanNewGameModule.init;
+            var typeofInit = typeof humanVsHumanGameModule.init;
 
             typeofInit.should.equal('function');
         });

@@ -23,10 +23,11 @@
         /// Creates a new HumanVsHuman Game or throws exception
         /// </summary>
         /// <param name="currentUserName">The username of the current user</param>
+        /// <param name="computerUserName">The username of the computer</param>
         /// <param name="isHumanStartingFirst">Indicates whether the human is starting first</param>
         /// <exception cref="UserNotFoundException"></exception>
         /// <returns>Game</returns>
-        Game CreateNewHumanVsComputerGame(string currentUserName, bool isHumanStartingFirst);
+        Game CreateNewHumanVsComputerGame(string currentUserName, string computerUserName, bool isHumanStartingFirst);
 
         /// <summary>
         /// Creates a new Computer vs Computer Game or throws exception

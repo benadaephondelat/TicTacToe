@@ -246,12 +246,15 @@
     <Compile Include="FrameworkExtentions\Mappings\IMapFrom.cs" />
     <Compile Include="FrameworkExtentions\Mappings\IMapTo.cs" />
     <Compile Include="FrameworkExtentions\Mappings\TypesMap.cs" />
+    <Compile Include="FrameworkExtentions\ModelBinders\NewHumanVsComputerGameModelBinder.cs" />
     <Compile Include="FrameworkExtentions\UserIdentityHelpers\UserIdentityHelper.cs" />
     <Compile Include="FrameworkExtentions\ViewHelpers\AntiForgeryTokenHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\AccountViewModels.cs" />
+    <Compile Include="Models\HumanVsComputer\InputModels\NewHumanVsComputerInputModel.cs" />
+    <Compile Include="Models\HumanVsComputer\ViewModels\NewHumanVsComputerGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\FinishedGameInfoViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\HumanVsHumanGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\FinishedGameViewModel.cs" />
@@ -275,9 +278,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Default\Site.css" />
     <Content Include="Scripts\AllTests\index.html" />
-    <Content Include="Scripts\ComputerVsComputer\NewGame\computerVsComputerGameModule.js" />
-    <Content Include="Scripts\ComputerVsComputer\NewGame\tests\computerVsComputerGameModuleTests.js" />
-    <Content Include="Scripts\ComputerVsComputer\NewGame\tests\index.html" />
+    <Content Include="Scripts\ComputerVsComputer\_ComputerVsComputerGame\computerVsComputerGameModule.js" />
+    <Content Include="Scripts\ComputerVsComputer\_ComputerVsComputerGame\tests\computerVsComputerGameModuleTests.js" />
+    <Content Include="Scripts\ComputerVsComputer\_ComputerVsComputerGame\tests\index.html" />
     <Content Include="Scripts\Default\bootstrap.js" />
     <Content Include="Scripts\Default\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -299,18 +302,21 @@
     <Content Include="Scripts\Default\respond.js" />
     <Content Include="Scripts\Default\respond.min.js" />
     <Content Include="Scripts\Default\_references.js" />
-    <Content Include="Scripts\HumanVsComputer\NewGame\humanVsComputerGameModule.js" />
-    <Content Include="Scripts\HumanVsComputer\NewGame\tests\humanVsComputerGameModuleTests.js" />
+    <Content Include="Scripts\HumanVsComputer\NewGame\humanVsComputerNewGameModule.js" />
+    <Content Include="Scripts\HumanVsComputer\NewGame\tests\humanVsComputerNewGameModuleTests.js" />
     <Content Include="Scripts\HumanVsComputer\NewGame\tests\index.html" />
+    <Content Include="Scripts\HumanVsComputer\_HumanVsComputerGame\humanVsComputerGameModule.js" />
+    <Content Include="Scripts\HumanVsComputer\_HumanVsComputerGame\tests\humanVsComputerGameModuleTests.js" />
+    <Content Include="Scripts\HumanVsComputer\_HumanVsComputerGame\tests\index.html" />
     <Content Include="Scripts\HumanVsComputer\_FinishedComputerVsHumanGame\finishedComputerVsHumanGameModule.js" />
     <Content Include="Scripts\HumanVsComputer\_FinishedComputerVsHumanGame\tests\finishedComputerVsHumanGameModuleTests.js" />
     <Content Include="Scripts\HumanVsComputer\_FinishedComputerVsHumanGame\tests\index.html" />
     <Content Include="Scripts\HumanVsComputer\_LoadGameGrid\loadHumanVsComputerGameModule.js" />
     <Content Include="Scripts\HumanVsComputer\_LoadGameGrid\tests\index.html" />
     <Content Include="Scripts\HumanVsComputer\_LoadGameGrid\tests\loadHumanVsComputerGameModuleTests.js" />
-    <Content Include="Scripts\HumanVsHuman\NewGame\humanVsHumanNewGameModule.js" />
-    <Content Include="Scripts\HumanVsHuman\NewGame\tests\humanVsHumanNewGameModuleTests.js" />
-    <Content Include="Scripts\HumanVsHuman\NewGame\tests\index.html" />
+    <Content Include="Scripts\HumanVsHuman\_HumanVsHumanGame\humanVsHumanGameModule.js" />
+    <Content Include="Scripts\HumanVsHuman\_HumanVsHumanGame\tests\humanVsHumanGameModuleTests.js" />
+    <Content Include="Scripts\HumanVsHuman\_HumanVsHumanGame\tests\index.html" />
     <Content Include="Scripts\Default\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Default\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\HumanVsHuman\_FinishedHumanVsHumanGame\finishedHumanVsHumanGameModule.js" />
@@ -389,8 +395,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Home\InputModels\" />
-    <Folder Include="Models\Home\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

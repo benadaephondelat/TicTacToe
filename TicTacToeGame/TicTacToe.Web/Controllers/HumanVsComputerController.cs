@@ -12,6 +12,9 @@
     using Views.ViewConstants;
     using TicTacToe.Models.Enums;
     using ServiceLayer.Interfaces;
+    using Models.HumanVsComputer.InputModels;
+    using Models.HumanVsComputer.ViewModels;
+    using FrameworkExtentions.ModelBinders;
 
     [CheckIfLoggedInFilter]
     public class HumanVsComputerController : BaseController
@@ -30,23 +33,26 @@
         [HttpGet]
         public ActionResult NewGame()
         {
-            NewGameInputModel inputModel = new NewGameInputModel()
+            NewHumanVsComputerGameViewModel viewModel = new NewHumanVsComputerGameViewModel()
             {
-                Players = this.GetDefaultPlayersList(),
+                Sides = this.GetAllPossibleSides(),
+                Computers = this.GetComputersUsernames()
             };
 
-            return View(ViewConstants.NewGameView, inputModel);
+            return View(ViewConstants.NewGameView, viewModel);
         }
-
+        
         [HttpPost, ValidateAntiForgeryToken]
-        [CheckModelStateFilter]
-        public ActionResult NewGame(NewGameInputModel inputModel)
+        [CheckModelStateAjax]
+        public ActionResult NewGame([ModelBinder(typeof(NewHumanVsComputerGameModelBinder))]NewHumanVsComputerInputModel inputModel)
         {
-            bool isHumanPlayerStartingFirst = this.HumanIsStartingFirst(inputModel.Players[0]);
-
             string currentUserName = base.CurrentUserName();
 
-            Game game = ticTacToeGameService.CreateNewHumanVsComputerGame(currentUserName, isHumanPlayerStartingFirst);
+            bool isHumanPlayerFirst = this.HumanIsStartingFirst(currentUserName, inputModel.StartingFirstUsername);
+
+            string computerName = this.GetComputerName(inputModel.StartingFirstUsername, inputModel.OponentUsername);
+
+            Game game = this.ticTacToeGameService.CreateNewHumanVsComputerGame(currentUserName, computerName, isHumanPlayerFirst);
 
             if (this.ComputerIsStartingFirst(game.ApplicationUser.UserName))
             {
@@ -60,6 +66,19 @@
             };
 
             return PartialView(ViewConstants.HumanVsComputerGame, viewModel);
+        }
+
+        [HttpPost, ValidateAntiForgeryTokenAjax]
+        public JsonResult GetOponentsDropdown(string startingFirst)
+        {
+            string currentUser = base.CurrentUserName();
+
+            if (startingFirst == currentUser)
+            {
+                return new JsonResult { Data = new SelectList(this.GetComputersUsernames()) };
+            }
+
+            return new JsonResult { Data = new SelectList(new List<string> { currentUser }) };
         }
 
         [HttpPost, ValidateAntiForgeryTokenAjax]
@@ -219,22 +238,39 @@
         }
 
         /// <summary>
+        /// Returns the name of the computer oponent
+        /// </summary>
+        /// <param name="startingFirst">who is starting first</param>
+        /// <param name="oponentName">the oponent's name</param>
+        /// <returns>string</returns>
+        private string GetComputerName(string startingFirst, string oponentName)
+        {
+            if (startingFirst.Equals(base.CurrentUserName()))
+            {
+                return oponentName;
+            }
+
+            return startingFirst;
+        }
+
+        /// <summary>
         /// Checks if the human is starting first
         /// </summary>
-        /// <param name="homesideUsername">Game.ApplicationUser.Username</param>
+        /// <param name="currentUser">username of the current user</param>
+        /// <param name="startingFirst">who is starting first</param>
         /// <returns>bool</returns>
-        private bool HumanIsStartingFirst(string homesideUsername)
+        private bool HumanIsStartingFirst(string currentUser, string startingFirst)
         {
-            bool isHumanFirst = this.ComputerIsStartingFirst(homesideUsername) == false;
+            bool isHumanFirst = currentUser.Equals(startingFirst);
 
             return isHumanFirst;
         }
 
         /// <summary>
-        /// Returns a list containing the current user's Id and the default oponent's Id
+        /// Returns a list containing the current user's username and both computers
         /// </summary>
         /// <returns>List<string></string></returns>
-        private List<string> GetDefaultPlayersList()
+        private List<string> GetAllPossibleSides()
         {
             List<string> humanVsComputerDefaultPlayers = new List<string>()
             {
@@ -244,6 +280,21 @@
             };
 
             return humanVsComputerDefaultPlayers;
+        }
+
+        /// <summary>
+        /// Returns a list containing the the computer's usernames
+        /// </summary>
+        /// <returns>List<string></string></returns>
+        private List<string> GetComputersUsernames()
+        {
+            List<string> computersUsernames = new List<string>()
+            {
+                UserConstants.ComputerUsername,
+                UserConstants.OtherComputerUsername
+            };
+
+            return computersUsernames;
         }
     }
 }

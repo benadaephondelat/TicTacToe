@@ -24,6 +24,10 @@
 
         public const string ComputerUserName = "computer@yahoo.com";
 
+        public const string OtherComputerId = "other-computer-id";
+
+        public const string OtherComputerUserName = "other-computer@yahoo.com";
+
         public const int ZeroTileIndex = 0;
 
         public const int InvalidGameId = 5318008;

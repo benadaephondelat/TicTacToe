@@ -26,11 +26,11 @@
             return game;
         }
 
-        public Game CreateNewHumanVsComputerGame(string currentUserName, bool isHumanStartingFirst)
+        public Game CreateNewHumanVsComputerGame(string currentUserName, string computerUsername, bool isHumanStartingFirst)
         {
             CreateNewHumanVsComputerGameHelper helper = new CreateNewHumanVsComputerGameHelper(this.data);
 
-            Game game = helper.CreateNewHumanVsComputerGame(currentUserName, isHumanStartingFirst);
+            Game game = helper.CreateNewHumanVsComputerGame(currentUserName, computerUsername, isHumanStartingFirst);
 
             return game;
         }

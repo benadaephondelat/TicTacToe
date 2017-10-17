@@ -15,6 +15,8 @@
     using TicTacToeCommon.Constants;
     using Models.HumanVsHuman.ViewModels;
     using ServiceLayer.Interfaces;
+    using Models.HumanVsComputer.ViewModels;
+    using Models.HumanVsComputer.InputModels;
 
     [TestClass]
     public class HumanVsComputerControllerTests
@@ -112,7 +114,7 @@
         }
 
         [TestMethod]
-        public void NewGame_Should_Pass_NewGameInputModel_To_The_View()
+        public void NewGame_Should_Pass_NewHumanVsComputerGameViewModel_To_The_View()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -122,13 +124,13 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
 
-            Assert.IsInstanceOfType(model, typeof(NewGameInputModel));
+            Assert.IsInstanceOfType(model, typeof(NewHumanVsComputerGameViewModel));
         }
 
         [TestMethod]
-        public void NewGameInputModel_Should_Have_Property_Named_Players()
+        public void NewHumanVsComputerGameViewModel_Should_Have_Property_Named_Sides()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -138,15 +140,15 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = result.ViewData.Model as NewGameInputModel;
+            NewHumanVsComputerGameViewModel model = result.ViewData.Model as NewHumanVsComputerGameViewModel;
 
             Assert.IsNotNull(model);
 
-            Assert.IsNotNull(model.Players);
+            Assert.IsNotNull(model.Sides);
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Be_A_List_Of_Strings()
+        public void NewHumanVsComputerGameViewModel_Sides_Property_Should_Be_A_List_Of_Strings()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -156,13 +158,13 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
 
-            Assert.IsInstanceOfType(model.Players, typeof(List<string>));
+            Assert.IsInstanceOfType(model.Sides, typeof(List<string>));
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Be_A_List_With_Three_Strings()
+        public void NewHumanVsComputerGameViewModel_Sides_Property_Should_Be_A_List_With_Three_Strings()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -172,13 +174,13 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
 
-            Assert.AreEqual(3, model.Players.Count);
+            Assert.AreEqual(3, model.Sides.Count);
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Contain_Valid_Strings_As_First_Second_And_Third_Parameters()
+        public void NewHumanVsComputerGameViewModel_Sides_Property_Should_Contain_Valid_Strings_As_First_Second_And_Third_Parameters()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -188,23 +190,23 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
 
-            bool isFirstParameterNotValidString = string.IsNullOrWhiteSpace(model.Players[0]);
+            bool isFirstParameterNotValidString = string.IsNullOrWhiteSpace(model.Sides[0]);
 
             Assert.IsFalse(isFirstParameterNotValidString);
 
-            bool isSecondParameterNotValidString = string.IsNullOrWhiteSpace(model.Players[1]);
+            bool isSecondParameterNotValidString = string.IsNullOrWhiteSpace(model.Sides[1]);
 
             Assert.IsFalse(isSecondParameterNotValidString);
 
-            bool isThirdParameterNotValidString = string.IsNullOrWhiteSpace(model.Players[2]);
+            bool isThirdParameterNotValidString = string.IsNullOrWhiteSpace(model.Sides[2]);
 
             Assert.IsFalse(isThirdParameterNotValidString);
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Contain_The_First_Computer_Username_As_Second_Parameter()
+        public void NewHumanVsComputerGameViewModel_Sides_Property_Should_Contain_The_First_Computer_Username_As_Second_Parameter()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -214,13 +216,13 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
 
-            Assert.AreEqual(UserConstants.ComputerUsername, model.Players[1]);
+            Assert.AreEqual(UserConstants.ComputerUsername, model.Sides[1]);
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Contain_The_Second_Computer_Username_As_Second_Parameter()
+        public void NewHumanVsComputerGameViewModel_Sides_Property_Should_Contain_The_Second_Computer_Username_As_Third_Parameter()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -230,14 +232,117 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
 
-            Assert.AreEqual(UserConstants.OtherComputerUsername, model.Players[2]);
+            Assert.AreEqual(UserConstants.OtherComputerUsername, model.Sides[2]);
         }
 
+        [TestMethod]
+        public void NewHumanVsComputerGameViewModel_Should_Have_Property_Named_Computers()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.NewGame();
+
+            ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
+
+            NewHumanVsComputerGameViewModel model = result.ViewData.Model as NewHumanVsComputerGameViewModel;
+
+            Assert.IsNotNull(model);
+
+            Assert.IsNotNull(model.Computers);
+        }
 
         [TestMethod]
-        public void NewGame_Post_Should_Exist_And_Accept_NewGameInputModel_As_A_Parameter()
+        public void NewHumanVsComputerGameViewModel_Computers_Property_Should_Be_A_List_Of_Strings()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.NewGame();
+
+            ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
+
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
+
+            Assert.IsInstanceOfType(model.Computers, typeof(List<string>));
+        }
+
+        [TestMethod]
+        public void NewHumanVsComputerGameViewModel_Computers_Property_Should_Be_A_List_With_Two_Strings()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.NewGame();
+
+            ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
+
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
+
+            Assert.AreEqual(2, model.Computers.Count);
+        }
+
+        [TestMethod]
+        public void NewHumanVsComputerGameViewModel_Computers_Property_Should_Contain_Valid_Strings_As_First_And_Second_Parameters()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.NewGame();
+
+            ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
+
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
+
+            bool isFirstParameterNotValidString = string.IsNullOrWhiteSpace(model.Computers[0]);
+
+            Assert.IsFalse(isFirstParameterNotValidString);
+
+            bool isSecondParameterNotValidString = string.IsNullOrWhiteSpace(model.Computers[1]);
+
+            Assert.IsFalse(isSecondParameterNotValidString);
+        }
+
+        [TestMethod]
+        public void NewHumanVsComputerGameViewModel_Computers_Property_Should_Contain_The_First_Computer_Username_As_First_Parameter()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.NewGame();
+
+            ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
+
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
+
+            Assert.AreEqual(UserConstants.ComputerUsername, model.Computers[0]);
+        }
+
+        [TestMethod]
+        public void NewHumanVsComputerGameViewModel_Sides_Property_Should_Contain_The_Second_Computer_Username_As_Second_Parameter()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            ActionResult actionResult = controller.NewGame();
+
+            ViewResult result = actionResult as ViewResult;
+
+            Assert.IsNotNull(result);
+
+            NewHumanVsComputerGameViewModel model = (NewHumanVsComputerGameViewModel)result.ViewData.Model;
+
+            Assert.AreEqual(UserConstants.OtherComputerUsername, model.Computers[1]);
+        }
+
+        [TestMethod]
+        public void NewGame_Post_Should_Exist_And_Accept_NewHumanVsComputerInputModel_As_A_Parameter()
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
@@ -246,7 +351,7 @@
             int methodsCount = controllerType.GetTypeInfo()
                                              .DeclaredMethods
                                              .Count(m => m.Name.Contains(nameof(controller.NewGame)) &&
-                                                         m.ToString().Contains(nameof(NewGameInputModel)));
+                                                         m.ToString().Contains(nameof(NewHumanVsComputerInputModel)));
 
             Assert.AreEqual(1, methodsCount);
         }
@@ -256,12 +361,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-                Players = new List<string>()
-                {
-                    UserConstants.ComputerUsername
-                }
+                StartingFirstUsername = UserConstants.UserEmail,
+                OponentUsername = UserConstants.ComputerUsername
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -274,11 +377,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-                UserConstants.ComputerUsername
+                StartingFirstUsername = UserConstants.UserEmail,
+                OponentUsername = UserConstants.ComputerUsername
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -297,11 +399,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-                UserConstants.ComputerUsername
+                StartingFirstUsername = UserConstants.UserEmail,
+                OponentUsername = UserConstants.ComputerUsername
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -320,11 +421,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-                UserConstants.ComputerUsername
+                StartingFirstUsername = UserConstants.UserEmail,
+                OponentUsername = UserConstants.ComputerUsername
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -345,11 +445,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-               UserConstants.ComputerUsername
+                StartingFirstUsername = UserConstants.ComputerUsername,
+                OponentUsername = UserConstants.UserEmail
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -370,11 +469,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-               UserConstants.OtherComputerUsername
+                StartingFirstUsername = UserConstants.OtherComputerUsername,
+                OponentUsername = UserConstants.UserEmail
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -395,11 +493,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-               UserConstants.ComputerUsername
+                StartingFirstUsername = UserConstants.ComputerUsername,
+                OponentUsername = UserConstants.UserEmail
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -420,11 +517,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-               UserConstants.OtherComputerUsername
+                StartingFirstUsername = UserConstants.OtherComputerUsername,
+                OponentUsername = UserConstants.UserEmail
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -445,11 +541,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-               UserConstants.ComputerUsername
+                StartingFirstUsername = UserConstants.ComputerUsername,
+                OponentUsername = UserConstants.UserEmail
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -470,11 +565,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-               UserConstants.OtherComputerUsername
+                StartingFirstUsername = UserConstants.OtherComputerUsername,
+                OponentUsername = UserConstants.UserEmail
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -495,11 +589,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-               UserConstants.UserUsername
+                StartingFirstUsername = UserConstants.UserUsername,
+                OponentUsername = UserConstants.ComputerUsername
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -520,11 +613,10 @@
         {
             HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsComputerInputModel model = new NewHumanVsComputerInputModel()
             {
-               UserConstants.UserEmail
+                StartingFirstUsername = UserConstants.UserUsername,
+                OponentUsername = UserConstants.ComputerUsername
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -666,7 +758,6 @@
 
             Assert.IsNotNull(controller.PlaceComputerTurn(model));
         }
-
 
         [TestMethod]
         public void PlaceComputerTurn_Action_Should_Accept_PlaceTurnInputModel_As_Parameter()

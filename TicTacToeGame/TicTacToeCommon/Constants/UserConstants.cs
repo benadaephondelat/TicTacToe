@@ -25,5 +25,9 @@
         public const string OtherComputerUsername = "other-computer@yahoo.com";
 
         public const string OtherComputerEmail = "other-computer@yahoo.com";
+
+        public const string TheComputer = "The Computer";
+
+        public const string TheOtherComputer = "The Other Computer";
     }
 }

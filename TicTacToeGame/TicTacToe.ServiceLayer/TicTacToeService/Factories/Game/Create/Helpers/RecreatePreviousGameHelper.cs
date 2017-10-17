@@ -17,7 +17,9 @@
 
         public Game RecreatePreviousGameOfType(string currentUserName, GameMode gameMode)
         {
-            string previousGameHomeSide = this.GetPreviousGameHomesideUsername(currentUserName, gameMode);
+            Game previousGame = this.GetUserLastFinishedGameOfGivenType(currentUserName, gameMode);
+
+            string previousGameHomeSide = previousGame.ApplicationUser.UserName;
 
             if (gameMode == GameMode.HumanVsHuman)
             {
@@ -25,9 +27,11 @@
             }
             else if (gameMode == GameMode.HumanVsComputer)
             {
-                bool isHumanPlayerStartingFirst = previousGameHomeSide != UserConstants.ComputerUsername;
+                bool isHumanPlayerStartingFirst = previousGameHomeSide != UserConstants.ComputerUsername && previousGameHomeSide != UserConstants.OtherComputerUsername;
 
-                return base.CreateNewHumanVsComputerGame(currentUserName, isHumanPlayerStartingFirst);
+                string computerName = isHumanPlayerStartingFirst ? previousGame.Oponent.UserName : previousGame.ApplicationUser.UserName;
+
+                return base.CreateNewHumanVsComputerGame(currentUserName, computerName, isHumanPlayerStartingFirst);
             }
             else
             {
@@ -36,22 +40,20 @@
         }
         
         /// <summary>
-        /// Returns the homeside username of the last game that a user played or throws exception.
+        /// Returns the the last finished game of a given type or throws exception
         /// </summary>
         /// <param name="currentUsername">Username of the User</param>
         /// <param name="gameMode">Game's GameMode</param>
         /// <exception cref="UserNotFoundException"></exception>
         /// <exception cref="GameNotFoundException"></exception>
-        /// <returns>string</returns>
-        private string GetPreviousGameHomesideUsername(string currentUsername, GameMode gameMode)
+        /// <returns>Game</returns>
+        private Game GetUserLastFinishedGameOfGivenType(string currentUsername, GameMode gameMode)
         {
             ApplicationUser user = this.GetUserByUsername(currentUsername);
 
             Game lastGame = this.GetUserLastFinishedGameOfType(user, gameMode);
 
-            string previousGameHomeSide = lastGame.ApplicationUser.UserName;
-
-            return previousGameHomeSide;
+            return lastGame;
         }
 
         /// <summary>

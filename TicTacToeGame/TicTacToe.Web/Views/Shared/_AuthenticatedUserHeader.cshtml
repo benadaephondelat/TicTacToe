@@ -30,7 +30,14 @@
                                      }, null)
                 </li>
 
-                 <li>@Html.ActionLink("Computer vs Computer", "Index", "Home")</li>
+                <li>
+                    @Ajax.ActionLink("Computer vs Computer", "ComputerVsComputer", "Home", null,
+                                     new AjaxOptions()
+                                     {
+                                         InsertionMode = InsertionMode.Replace,
+                                         UpdateTargetId = "main-content"
+                                     }, null)
+                </li>
             </ul>
 
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))

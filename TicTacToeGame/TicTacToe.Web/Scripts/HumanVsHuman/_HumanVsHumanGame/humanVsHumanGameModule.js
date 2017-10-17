@@ -1,11 +1,11 @@
 ﻿/**
- * Contains the JavaScript code to be used in the HumanVsHumanController's NewGame view.
+ * Contains the JavaScript code to be used in the HumanVsHumanController's _HumanVsHumanGame partial view.
  * @dependencies: jQuery, ajaxCallsModule and gameModule
  * @param {function} jQuery
  * @param {Module} ajaxCallsModule.js
  * @param {Module} gameModule.js
  */
-var humanVsHumanNewGameModule = (function (jQuery, ajaxCallsModule, gameModule) {
+var humanVsHumanGameModule = (function (jQuery, ajaxCallsModule, gameModule) {
     if (typeof jQuery === 'undefined') {
         throw new Error('jQuery is not found.');
     }
@@ -54,4 +54,4 @@ var humanVsHumanNewGameModule = (function (jQuery, ajaxCallsModule, gameModule) 
 
 })(jQuery || {}, ajaxCallsModule || {}, gameModule || {});
 
-humanVsHumanNewGameModule.init();
+humanVsHumanGameModule.init();
