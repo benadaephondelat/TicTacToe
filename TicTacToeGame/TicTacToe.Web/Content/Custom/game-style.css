@@ -62,8 +62,13 @@
     margin-top: -3%;
 }
 
-#home-side-container, #away-side-container, #grid-container {
+#home-side-container, #grid-container {
     float: left;
+}
+
+#away-side-container {
+    float: right;
+    margin-top: -29%;
 }
 
 #turn-container {

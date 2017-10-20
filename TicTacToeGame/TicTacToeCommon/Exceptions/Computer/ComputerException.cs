@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Computer.Exceptions
+﻿namespace TicTacToeCommon.Exceptions.Computer
 {
     using System;
     using System.Runtime.Serialization;
@@ -7,7 +7,7 @@
     /// Main Computer Exception
     /// </summary>
     [Serializable]
-    public class ComputerException : Exception
+    public class ComputerException : TicTacToeException
     {
         public readonly string CustomMessage = "Unhandled exception occurred in TicTacToe Computer";
 

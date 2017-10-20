@@ -18,17 +18,13 @@
         [Key]
         public int Id { get; set; }
 
-        [Obsolete("Change to HomeSideUserId")]
         public string ApplicationUserId { get; set; }
 
-        [Obsolete("Change to HomeSideUser")]
         [ForeignKey("ApplicationUserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-        [Obsolete("Change to AwaySideUserId")]
         public string OponentId { get; set; }
 
-        [Obsolete("Change to AwaySideUser")]
         [ForeignKey("OponentId")]
         public virtual ApplicationUser Oponent { get; set; }
 

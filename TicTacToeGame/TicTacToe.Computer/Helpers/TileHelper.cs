@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Collections.Generic;
     using Models;
-    using Exceptions;
+    using TicTacToeCommon.Exceptions.Tile;
 
     /// <summary>
     /// Contains useful methods that operate on ComputerGameTileModel
@@ -28,11 +28,11 @@
             }
             catch (ArgumentNullException)
             {
-                throw new ComputerException("Tile is not found");
+                throw new TileValidationException("Tile is not found");
             }
             catch (ArgumentOutOfRangeException)
             {
-                throw new ComputerException("Tile index is out of range");
+                throw new TileValidationException("Tile index is out of range");
             }
         }
 

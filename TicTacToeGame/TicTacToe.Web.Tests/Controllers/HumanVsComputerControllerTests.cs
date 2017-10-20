@@ -17,6 +17,7 @@
     using ServiceLayer.Interfaces;
     using Models.HumanVsComputer.ViewModels;
     using Models.HumanVsComputer.InputModels;
+    using Newtonsoft.Json;
 
     [TestClass]
     public class HumanVsComputerControllerTests
@@ -630,6 +631,54 @@
             Assert.IsNotNull(result);
 
             Assert.AreEqual(1, result.GameInfo.TurnsCount);
+        }
+
+        #endregion
+
+        #region GetOponentsDropdown Tests
+
+        [TestMethod]
+        public void GetOponentsDropdown_JsonResult_Should_Return_Two_Computers_If_startingFirst_Is_The_User()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            JsonResult getOponentsDropdownResult = controller.GetOponentsDropdown("georgi_iliev@yahoo.com");
+
+            SelectList selectList = getOponentsDropdownResult.Data as SelectList;
+
+            Assert.IsNotNull(selectList);
+
+            IEnumerable<string> selectListItems = selectList.Items.Cast<string>();
+
+            Assert.AreEqual(2, selectListItems.Count());
+
+            bool isFirstComputerPresent = selectListItems.ElementAt(0) == MockConstants.ComputerUsername;
+
+            Assert.IsTrue(isFirstComputerPresent);
+
+            bool isSecondComputerPresent = selectListItems.ElementAt(1) == MockConstants.OtherComputerUsername;
+
+            Assert.IsTrue(isSecondComputerPresent);
+        }
+
+        [TestMethod]
+        public void GetOponentsDropdown_JsonResult_Should_Return_The_Current_User_If_startingFirst_Is_Any_Of_The_Computers()
+        {
+            HumanVsComputerController controller = this.CreateHumanVsComputerControllerMock();
+
+            JsonResult getOponentsDropdownResult = controller.GetOponentsDropdown("computer@yahoo.com");
+
+            SelectList selectList = getOponentsDropdownResult.Data as SelectList;
+
+            Assert.IsNotNull(selectList);
+
+            IEnumerable<string> selectListItems = selectList.Items.Cast<string>();
+
+            Assert.AreEqual(1, selectListItems.Count());
+
+            bool isHumanPresent = selectListItems.ElementAt(0) == MockConstants.UserUsername;
+
+            Assert.IsTrue(isHumanPresent);
         }
 
         #endregion

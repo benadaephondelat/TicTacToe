@@ -22,17 +22,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(GameIsFinishedException))]
-        public void StartingFirstStrategy_Should_Throw_GameIsFinished_Exception_If_Game_Is_Finished()
-        {
-            ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanFinishedGame();
-
-            Computer computer = new Computer();
-
-            int computerMove = computer.GetComputerMoveIndex(model);
-        }
-        
-        [TestMethod]
         public void StartingFirstComputerStrategy_Should_Choose_FirstTurnStrategy_If_The_Game_Turns_Count_Equals_1()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();

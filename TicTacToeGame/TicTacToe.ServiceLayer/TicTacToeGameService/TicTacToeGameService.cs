@@ -14,23 +14,24 @@
     using Computer.Interfaces;
     using DataLayer.Data;
     using Interfaces;
+    using TicTacToeCommon.Constants;
 
     public class TicTacToeGameService : ITicTacToeGameService
     {
         private readonly IServicesFactory serviceFactory;
+        private readonly IGameFactory gameFactory;
         private readonly IComputerChooser computerChooser;
 
         public TicTacToeGameService(ITicTacToeData data, IComputerChooser computerChooser)
         {
             this.serviceFactory = new ServicesFactory(data);
+            this.gameFactory = this.serviceFactory.GetGameFactory();
             this.computerChooser = computerChooser;
         }
 
         public Game GetGameById(int gameId)
         {
-            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
-
-            IGameReader gameReader = gameFactory.GetGameReaderHelper();
+            IGameReader gameReader = this.gameFactory.GetGameReaderHelper();
 
             Game game = gameReader.GetGameById(gameId);
 
@@ -39,9 +40,7 @@
 
         public Game CreateNewGame(string homeSideUserName, string currentUserName)
         {
-            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
-
-            IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
+            IGameCreator gameCreator = this.gameFactory.GetGameCreatorHelper();
 
             Game newGame = gameCreator.CreateNewHumanVsHumanGame(homeSideUserName, currentUserName);
 
@@ -50,9 +49,7 @@
 
         public Game CreateNewHumanVsComputerGame(string currentUserName, string computerUserName, bool isHumanStartingFirst)
         {
-            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
-
-            IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
+            IGameCreator gameCreator = this.gameFactory.GetGameCreatorHelper();
 
             Game newGame = gameCreator.CreateNewHumanVsComputerGame(currentUserName, computerUserName, isHumanStartingFirst);
 
@@ -61,9 +58,7 @@
 
         public Game CreateNewComputerVsComputerGame(string currentUserName)
         {
-            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
-
-            IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
+            IGameCreator gameCreator = this.gameFactory.GetGameCreatorHelper();
 
             Game newGame = gameCreator.CreateNewComputerVsComputerGame(currentUserName);
 
@@ -72,9 +67,7 @@
 
         public Game RecreatePreviousGame(string currentUserName, GameMode gameMode)
         {
-            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
-
-            IGameCreator gameCreator = gameFactory.GetGameCreatorHelper();
+            IGameCreator gameCreator = this.gameFactory.GetGameCreatorHelper();
 
             Game game = gameCreator.RecreatePreviousGameOfType(currentUserName, gameMode);
 
@@ -83,9 +76,7 @@
 
         public IEnumerable<Game> GetAllUnfinishedGames(string currentUsername, GameMode gameMode)
         {
-            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
-
-            IGameReader gameReader = gameFactory.GetGameReaderHelper();
+            IGameReader gameReader = this.gameFactory.GetGameReaderHelper();
 
             IEnumerable<Game> unfinishedGames = gameReader.GetAllUnfinishedGames(currentUsername, gameMode);
 
@@ -94,9 +85,7 @@
 
         public bool IsGameFinished(int gameId)
         {
-            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
-
-            IGameReader gameReader = gameFactory.GetGameReaderHelper();
+            IGameReader gameReader = this.gameFactory.GetGameReaderHelper();
 
             bool isFinished = gameReader.IsGameFinished(gameId);
 
@@ -105,18 +94,14 @@
 
         public void CheckGameForOutcome(int gameId)
         {
-            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
-
-            IGameUpdator gameUpdator = gameFactory.GetGameUpdatorHelper();
+            IGameUpdator gameUpdator = this.gameFactory.GetGameUpdatorHelper();
 
             gameUpdator.CheckGameForOutcome(gameId);
         }
 
         public void PlaceTurn(int gameId, int tileIndex, string currentUserName)
         {
-            IGameFactory gameFactory = this.serviceFactory.GetGameFactory();
-
-            IGameUpdator gameUpdator = gameFactory.GetGameUpdatorHelper();
+            IGameUpdator gameUpdator = this.gameFactory.GetGameUpdatorHelper();
 
             gameUpdator.PlaceTurn(gameId, tileIndex, currentUserName);
         }
@@ -127,13 +112,29 @@
 
             IComputerGameModel computerGame = this.CreateComputerGameModel(game);
 
-            //TODO GET COMPUTER NAME
+            string computerName = this.GetComputerName(game.ApplicationUser.UserName, game.Oponent.UserName);
 
-            IComputer computer = this.computerChooser.GetComputerByName("computer@yahoo.com");
+            IComputer computer = this.computerChooser.GetComputerByName(computerName);
 
             int tileIndex = computer.GetComputerMoveIndex(computerGame);
 
             return tileIndex;
+        }
+        
+        /// <summary>
+        /// Returns the computer's name
+        /// </summary>
+        /// <param name="gameOwnerUsername">Game.ApplicationUser.UserName</param>
+        /// <param name="gameOponentUsername">Game.Oponent.UserName</param>
+        /// <returns>string</returns>
+        private string GetComputerName(string gameOwnerUsername, string gameOponentUsername)
+        {
+            if (gameOwnerUsername == UserConstants.ComputerUsername || gameOponentUsername == UserConstants.ComputerUsername)
+            {
+                return UserConstants.ComputerUsername;
+            }
+
+            return UserConstants.OtherComputerUsername;
         }
 
         /// <summary>

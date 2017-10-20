@@ -1,35 +1,26 @@
-﻿namespace TicTacToe.Computer
+﻿namespace TicTacToe.ComputerMinMax
 {
     using System.Linq;
-    using Strategies;
-    using Interfaces;
-    using Models;
-    using TicTacToeCommon.Exceptions.Game;
+    using Computer.Interfaces;
+    using Computer.Models;
+    using ComputerImplementation.Enums;
     using TicTacToeCommon.Exceptions.Computer;
-    using ComputerStrategyChooser = StrategyChooser.StrategyChooser;
+    using TicTacToeCommon.Exceptions.Game;
 
     /// <summary>
-    /// TicTacToe Computer
+    /// Tic Tac Toe Min Max Computer
     /// </summary>
-    public class Computer : IComputer
+    public class MinMaxComputer : IComputer
     {
-        private ComputerStrategy computerStrategy;
-        private ComputerStrategyChooser strategyChooser;
-
-        public Computer()
-        {
-            this.strategyChooser = new ComputerStrategyChooser();
-        }
-
         public int GetComputerMoveIndex(IComputerGameModel game)
         {
             try
             {
                 this.ValidateGame(game);
 
-                int computerMoveIndex = this.GetComputerMove(game);
+                int computerMove = this.GetComputerMove(game);
 
-                return computerMoveIndex;
+                return computerMove;
             }
             catch
             {
@@ -39,9 +30,15 @@
 
         private int GetComputerMove(IComputerGameModel game)
         {
-            this.computerStrategy = this.strategyChooser.GetComputerStrategy(game);
+            CellValue[,] gameBoardState = ModelConvertor.ModelConvertor.ConvertGameTilesToCellValueMatrix(game.Tiles);
 
-            int computerMove = this.computerStrategy.GetComputerMove();
+            MinMaxComputerImplementation computer = new MinMaxComputerImplementation(gameBoardState);
+
+            CellValue currentPlayerSign = ModelConvertor.ModelConvertor.GetCurrentPlayerCellValueSign(game.TurnsCount);
+
+            int[] result = computer.MiniMax(8, currentPlayerSign, int.MinValue, int.MaxValue);
+
+            int computerMove = ModelConvertor.ModelConvertor.ConvertArrayToIndex(result);
 
             return computerMove;
         }

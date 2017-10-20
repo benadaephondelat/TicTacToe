@@ -1,27 +1,29 @@
 ﻿namespace TicTacToe.ComputerChooser
 {
-    using System;
     using Interfaces;
     using Computer.Interfaces;
 
     public class ComputerChooser : IComputerChooser
     {
-        private IComputer myComputer;
-        //TODO DECLARE SECOND COMPUTER HERE
+        private const string MyComputerName = "computer@yahoo.com";
 
-        //TODO PASS SECOND COMPUTER HERE
-        public ComputerChooser(IComputer myComputer)
+        private IComputer myComputer;
+        private IComputer minMaxComputer;
+
+        public ComputerChooser(IComputer myComputer, IComputer minMaxComputer)
         {
             this.myComputer = myComputer;
+            this.minMaxComputer = minMaxComputer;
         }
 
         public IComputer GetComputerByName(string computerName)
         {
-            //TODO INSTANTIATE BY A GIVEN NAME
+            if (computerName.Equals(MyComputerName))
+            {
+                return this.myComputer;
+            }
 
-            return this.myComputer;
-
-            throw new NotImplementedException();
+            return this.minMaxComputer;
         }
     }
 }

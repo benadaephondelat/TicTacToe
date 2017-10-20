@@ -16,7 +16,6 @@
 
         public StartingSecondComputerStrategy(IComputerGameModel game)
         {
-            base.ValidateGame(game);
             this.game = game;
         }
 

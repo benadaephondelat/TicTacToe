@@ -1,45 +1,30 @@
-﻿namespace TicTacToe.ComputerTests
+﻿namespace TicTacToe.ComputerMinMax.Tests
 {
     using System;
     using System.Linq;
     using System.Reflection;
-
-    using Computer;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using ComputerTests.DataMockHelper;
     using Computer.Models;
+    using ComputerMinMax;
     using TicTacToeCommon.Exceptions.Computer;
 
     [TestClass]
-    public class ComputerTests
+    public class MinMaxComputerTests
     {
-        private DataMockHelper.DataMockHelper dataLayerMockHelper;
+        private DataMockHelper dataLayerMockHelper;
 
-        public ComputerTests()
+        public MinMaxComputerTests()
         {
-            this.dataLayerMockHelper = new DataMockHelper.DataMockHelper();
+            this.dataLayerMockHelper = new DataMockHelper();
         }
-
+        
         [TestMethod]
-        public void Computer_Should_Have_Private_Property_Of_ComputerStrategy_Type()
+        public void MinMaxComputer_Should_Have_Public_Method_Named_GetComputerMoveIndex()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
 
-            Computer computer = new Computer();
-
-            bool result = computer.GetType()
-                                  .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                                  .Any(f => f.FieldType.FullName.Contains("ComputerStrategy"));
-
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        public void Computer_Should_Have_Public_Method_Named_GetComputerMoveIndex()
-        {
-            ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
-
-            Computer computer = new Computer();
+            MinMaxComputer computer = new MinMaxComputer();
 
             bool result = computer.GetType()
                                   .GetMethods(BindingFlags.Instance | BindingFlags.Public)
@@ -49,13 +34,13 @@
         }
 
         [TestMethod]
-        public void Computer_GetComputerMoveIndex_Should_Return_Valid_Int_If_Model_Is_Valid()
+        public void MinMaxComputer_GetComputerMoveIndex_Should_Return_Valid_Int_If_Model_Is_Valid()
         {
             try
             {
                 ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
 
-                Computer computer = new Computer();
+                MinMaxComputer computer = new MinMaxComputer();
 
                 int computerMove = computer.GetComputerMoveIndex(model);
             }
@@ -68,15 +53,16 @@
         }
 
         [TestMethod]
-        public void Computer_GetComputerMoveIndex_Method_Should_Return_Int32()
+        public void MinMaxComputer_GetComputerMoveIndex_Method_Should_Return_Int32()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
 
-            Computer computer = new Computer();
+            MinMaxComputer computer = new MinMaxComputer();
 
-            Type controllerType = computer.GetType();
+            Type computerType = computer.GetType();
 
-            MethodInfo method = controllerType.GetTypeInfo().DeclaredMethods.FirstOrDefault(m => m.Name == "GetComputerMoveIndex");
+            MethodInfo method = computerType.GetTypeInfo()
+                                            .DeclaredMethods.FirstOrDefault(m => m.Name == "GetComputerMoveIndex");
 
             Assert.IsNotNull(method);
 
@@ -84,11 +70,11 @@
         }
 
         [TestMethod]
-        public void Computer_Should_Have_Private_Method_Named_GetComputerMove()
+        public void MinMaxComputer_Should_Have_Private_Method_Named_GetComputerMove()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
 
-            Computer computer = new Computer();
+            MinMaxComputer computer = new MinMaxComputer();
 
             bool result = computer.GetType()
                                   .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
@@ -98,11 +84,11 @@
         }
 
         [TestMethod]
-        public void Computer_GetComputerMove_Method_Should_Return_Int32()
+        public void MinMaxComputer_GetComputerMove_Method_Should_Return_Int32()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
 
-            Computer computer = new Computer();
+            MinMaxComputer computer = new MinMaxComputer();
 
             Type computerType = computer.GetType();
 
@@ -115,11 +101,11 @@
         }
 
         [TestMethod]
-        public void Computer_Should_Have_Private_Method_Named_ValidateGame()
+        public void MinMaxComputer_Should_Have_Private_Method_Named_ValidateGame()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
 
-            Computer computer = new Computer();
+            MinMaxComputer computer = new MinMaxComputer();
 
             bool result = computer.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
                                             .Any(m => m.Name == "ValidateGame");
@@ -128,11 +114,11 @@
         }
 
         [TestMethod]
-        public void Computer_ValidateGame_Method_Return_Type_Should_Be_Void()
+        public void MinMaxComputer_ValidateGame_Method_Return_Type_Should_Be_Void()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
 
-            Computer computer = new Computer();
+            MinMaxComputer computer = new MinMaxComputer();
 
             Type computerType = computer.GetType();
 
@@ -150,20 +136,20 @@
 
         [TestMethod]
         [ExpectedException(typeof(ComputerException))]
-        public void Computer_ValidateGame_Method_Should_Throw_ComputerException_If_Game_Is_Finished()
+        public void MinMaxComputer_ValidateGame_Method_Should_Throw_ComputerException_If_Game_Is_Finished()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
 
             model.IsFinished = true;
 
-            Computer computer = new Computer();
+            MinMaxComputer computer = new MinMaxComputer();
 
             computer.GetComputerMoveIndex(model);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ComputerException))]
-        public void Computer_GetComputerMoveIndex_Should_Throw_ComputerException_If_All_Tiles_Are_Taken()
+        public void MinMaxComputer_GetComputerMoveIndex_Should_Throw_ComputerException_If_All_Tiles_Are_Taken()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
 
@@ -173,7 +159,7 @@
 
             model.Tiles = takenTiles;
 
-            Computer computer = new Computer();
+            MinMaxComputer computer = new MinMaxComputer();
 
             computer.GetComputerMoveIndex(model);
         }

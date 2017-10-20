@@ -19,6 +19,8 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using ComputerChooser.Interfaces;
     using ComputerChooser;
+    using ComputerMinMax;
+    using TicTacToeCommon.Exceptions.Computer;
 
     [TestClass]
     public class TicTacToeGameServiceTests
@@ -36,7 +38,7 @@
 
             this.dataLayerMock = mockHelper.SetupTicTacToeDataMock();
 
-            this.computerChooser = new ComputerChooser(new Computer());
+            this.computerChooser = new ComputerChooser(new Computer(), new MinMaxComputer());
 
             this.gameService = new TicTacToeGameService(dataLayerMock.Object, this.computerChooser);
         }
@@ -1595,7 +1597,7 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(GameIsFinishedException))]
+        [ExpectedException(typeof(ComputerException))]
         public void GetComputerMove_Should_Throw_GameIsFinishedException_If_Game_IsFinished()
         {
             gameService.GetComputerMove(MockConstants.FinishedGameIndex);

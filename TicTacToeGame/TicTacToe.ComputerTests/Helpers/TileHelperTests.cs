@@ -4,7 +4,7 @@
     using Computer.Helpers;
     using Computer.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Computer.Exceptions;
+    using TicTacToeCommon.Exceptions.Tile;
 
     [TestClass]
     public class TileHelperTests
@@ -25,8 +25,8 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComputerException))]
-        public void GetTileByIndex_Should_Throw_ComputerException_If_Tiles_Collection_Is_Null()
+        [ExpectedException(typeof(TileValidationException))]
+        public void GetTileByIndex_Should_Throw_TileValidationException_If_Tiles_Collection_Is_Null()
         {
             this.gameTiles = null;
 
@@ -35,8 +35,8 @@
 
 
         [TestMethod]
-        [ExpectedException(typeof(ComputerException))]
-        public void GetTileByIndex_Should_Throw_ComputerException_If_Tile_Index_Is_Not_In_Range()
+        [ExpectedException(typeof(TileValidationException))]
+        public void GetTileByIndex_Should_Throw_TileValidationException_If_Tile_Index_Is_Not_In_Range()
         {
             this.gameTiles = null;
 

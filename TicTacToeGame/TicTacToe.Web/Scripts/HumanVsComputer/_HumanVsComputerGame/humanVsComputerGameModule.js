@@ -28,6 +28,7 @@ var humanVsComputerGameModule = (function (jQuery, ajaxCallsModule, gameModule) 
         $emptyGameTiles = $(".tile[data-isEmpty='True']"),
         $fullGameTiles = $(".tile[data-isEmpty='False']"),
         turnHolderId = $('#userId').attr('value'),
+        otherComputerId = 'other-computer-id',
         computerId = 'computer-id',
         _antiForgeryToken = $('#place-turn-token').attr('value'),
         _computerTurnDelayInMiliseconds = 0;
@@ -51,7 +52,7 @@ var humanVsComputerGameModule = (function (jQuery, ajaxCallsModule, gameModule) 
     * @returns {Boolean}
     */
     function _isTheComputerTurn() {
-        if (turnHolderId === computerId) {
+        if (turnHolderId === computerId || turnHolderId === otherComputerId) {
             return true;
         }
 

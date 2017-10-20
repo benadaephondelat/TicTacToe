@@ -67,7 +67,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\ComputerException.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\CanWinCheck\CanWinCheck.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\EdgesCheck\ClosestEdgeCheck.cs" />

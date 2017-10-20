@@ -22,6 +22,7 @@
         {
             get { return GetRepository<Game>(); }
         }
+
         public IGenericRepository<Tile> Tiles
         {
             get { return GetRepository<Tile>(); }

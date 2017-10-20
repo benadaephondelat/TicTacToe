@@ -119,6 +119,10 @@
       <Project>{D6ED1737-6258-4E4B-B461-993ED66CC1DC}</Project>
       <Name>TicTacToe.ComputerChooser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.ComputerMinMax\TicTacToe.ComputerMinMax.csproj">
+      <Project>{72AB3405-C1E8-493B-B457-4AD922CEE4F7}</Project>
+      <Name>TicTacToe.ComputerMinMax</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe.Computer\TicTacToe.Computer.csproj">
       <Project>{3050ABEC-0881-49BD-9D42-D775DDEAC8EA}</Project>
       <Name>TicTacToe.Computer</Name>

@@ -14,20 +14,5 @@
         /// </summary>
         /// <returns>int</returns>
         public abstract int GetComputerMove();
-
-        /// <summary>
-        /// If Game.IsFinished or all Game.Tiles are taken throw exception.
-        /// </summary>
-        /// <param name="IComputerGameModel">Game to check</param>
-        /// <exception cref="GameIsFinishedException"></exception>
-        protected void ValidateGame(IComputerGameModel game)
-        {
-            bool allTilesAreTaken = game.Tiles.Any(tile => string.IsNullOrWhiteSpace(tile.Value) && tile.IsEmpty) == false;
-
-            if (game.IsFinished || allTilesAreTaken)
-            {
-                throw new GameIsFinishedException();
-            }
-        }
     }
 }

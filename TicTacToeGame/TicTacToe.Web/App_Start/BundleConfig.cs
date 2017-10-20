@@ -79,10 +79,16 @@
             bundles.Add(new StyleBundle("~/Content/game-style")
                    .Include("~/Content/Custom/game-style.css"));
 
+            bundles.Add(new ScriptBundle("~/Content/finished-game-style")
+                   .Include("~/Content/Custom/finished-game.css"));
+
+            bundles.Add(new ScriptBundle("~/Content/computer-vs-human-new-game-style")
+                   .Include("~/Content/Custom/human-vs-computer-new-game-style.css"));
+
             #endregion
 
             #if DEBUG
-                BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = false;
             #else
                 BundleTable.EnableOptimizations = true;
             #endif

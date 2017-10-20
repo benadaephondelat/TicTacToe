@@ -43,6 +43,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.DataLayer.Interfa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.ServiceLayer.Interfaces", "TicTacToe.ServiceLayer.Interfaces\TicTacToe.ServiceLayer.Interfaces.csproj", "{643E0635-48A3-4053-8506-C5598F799B8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.ComputerMinMax", "TicTacToe.ComputerMinMax\TicTacToe.ComputerMinMax.csproj", "{72AB3405-C1E8-493B-B457-4AD922CEE4F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.ComputerMinMax.Tests", "TicTacToe.ComputerMinMax.Tests\TicTacToe.ComputerMinMax.Tests.csproj", "{30B2EF56-CF15-46CE-8A4B-BA6873EAA79A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.ComputerChooser.Tests", "TicTacToe.ComputerChooser.Tests\TicTacToe.ComputerChooser.Tests.csproj", "{98DDFBFA-3877-419D-86A7-9577F9369E50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +119,18 @@ Global
 		{643E0635-48A3-4053-8506-C5598F799B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{643E0635-48A3-4053-8506-C5598F799B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{643E0635-48A3-4053-8506-C5598F799B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72AB3405-C1E8-493B-B457-4AD922CEE4F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72AB3405-C1E8-493B-B457-4AD922CEE4F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72AB3405-C1E8-493B-B457-4AD922CEE4F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72AB3405-C1E8-493B-B457-4AD922CEE4F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30B2EF56-CF15-46CE-8A4B-BA6873EAA79A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30B2EF56-CF15-46CE-8A4B-BA6873EAA79A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30B2EF56-CF15-46CE-8A4B-BA6873EAA79A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30B2EF56-CF15-46CE-8A4B-BA6873EAA79A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DDFBFA-3877-419D-86A7-9577F9369E50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DDFBFA-3877-419D-86A7-9577F9369E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DDFBFA-3877-419D-86A7-9577F9369E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DDFBFA-3877-419D-86A7-9577F9369E50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

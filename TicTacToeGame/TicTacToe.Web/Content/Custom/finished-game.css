@@ -1,0 +1,57 @@
+﻿
+#first-column, #second-column, #third-column {
+    display: inline-flex;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
+}
+
+#first-column > div {
+    border: 1px solid black;
+    width: 125px;
+    height: 125px;
+}
+
+#second-column > div {
+    border: 1px solid black;
+    width: 125px;
+    height: 125px;
+}
+
+#third-column > div {
+    border: 1px solid black;
+    width: 125px;
+    height: 125px;
+}
+
+.X {
+    color: red;
+}
+
+.O {
+    color: blue;
+}
+
+.red-text {
+    font-weight: bold;
+    color: red;
+}
+
+.blue-text {
+    font-weight: bold;
+    color: blue;
+}
+
+#replay-game-button {
+    float: left;
+    clear: both;
+    margin-left: 42%;
+    margin-top: 2%;
+    margin-bottom: -2%;
+    width: 16%;
+}

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9AEDDCF1-9B80-4369-AC0F-8514B7384B89}</ProjectGuid>
+    <ProjectGuid>{72AB3405-C1E8-493B-B457-4AD922CEE4F7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TicTacToeCommon</RootNamespace>
-    <AssemblyName>TicTacToeCommon</AssemblyName>
+    <RootNamespace>TicTacToe.ComputerMinMax</RootNamespace>
+    <AssemblyName>TicTacToe.ComputerMinMax</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,20 +40,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\GameConstants.cs" />
-    <Compile Include="Constants\TileConstants.cs" />
-    <Compile Include="Constants\UserConstants.cs" />
-    <Compile Include="Exceptions\Computer\ComputerException.cs" />
-    <Compile Include="Exceptions\Game\GameException.cs" />
-    <Compile Include="Exceptions\Game\GameIsFinishedException.cs" />
-    <Compile Include="Exceptions\Game\GameNotFoundException.cs" />
-    <Compile Include="Exceptions\TicTacToeException.cs" />
-    <Compile Include="Exceptions\Tile\TileException.cs" />
-    <Compile Include="Exceptions\Tile\TileValidationException.cs" />
-    <Compile Include="Exceptions\User\UserException.cs" />
-    <Compile Include="Exceptions\User\UserNotAuthorizedException.cs" />
-    <Compile Include="Exceptions\User\UserNotFoundException.cs" />
+    <Compile Include="ComputerImplementation\Enums\CellValue.cs" />
+    <Compile Include="ComputerImplementation\MinMaxComputerImplementation.cs" />
+    <Compile Include="MinMaxComputer.cs" />
+    <Compile Include="ModelConvertor\ModelConvertor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicTacToe.Computer.Interfaces\TicTacToe.Computer.Interfaces.csproj">
+      <Project>{0216d519-ba50-4b1e-be24-42deeb8da1a0}</Project>
+      <Name>TicTacToe.Computer.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToe.Computer.Models\TicTacToe.Computer.Models.csproj">
+      <Project>{9a7422cb-4b39-4358-ab64-5bb7653ba3a9}</Project>
+      <Name>TicTacToe.Computer.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToeCommon\TicTacToeCommon.csproj">
+      <Project>{9AEDDCF1-9B80-4369-AC0F-8514B7384B89}</Project>
+      <Name>TicTacToeCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
