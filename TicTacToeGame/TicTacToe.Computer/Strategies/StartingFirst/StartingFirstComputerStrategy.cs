@@ -49,7 +49,7 @@
             }
             else
             {
-                strategy = new MainStrategy(this.game.Tiles, ComputerConstants.HomeSideSign);
+                strategy = new StartingFirstMainStrategy(this.game.Tiles, ComputerConstants.HomeSideSign);
             }
 
             return strategy;

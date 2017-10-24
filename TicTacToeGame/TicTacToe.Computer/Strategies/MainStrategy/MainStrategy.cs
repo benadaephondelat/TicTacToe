@@ -12,21 +12,23 @@
     using Checks.CanWinCheck;
     using Checks.PossibleWinCheck;
 
-    public class MainStrategy : TurnStrategy
+    public abstract class MainStrategy : TurnStrategy
     {
-        private CanWinCheck canWinCheck;
-        private FirstRowCheck firstRowCheck;
-        private SecondRowCheck secondRowCheck;
-        private ThirdRowCheck thirdRowCheck;
-        private FirstColumnCheck firstColumnCheck;
-        private SecondColumnCheck secondColumnCheck;
-        private ThirdColumnCheck thirdColumnCheck;
-        private FirstDiagonalCheck firstDiagonalCheck;
-        private SecondDiagonalCheck secondDiagonalCheck;
-        private PossibleWinCheck possibleWinCheck;
-        private ClosestEdgeCheck edgesCheck;
-        private OppositeTileCheck oppositeCheck;
-        private FirstEmptyTileCheck firstEmptyTileCheck;
+        protected CanWinCheck canWinCheck;
+        protected FirstRowCheck firstRowCheck;
+        protected SecondRowCheck secondRowCheck;
+        protected ThirdRowCheck thirdRowCheck;
+        protected FirstColumnCheck firstColumnCheck;
+        protected SecondColumnCheck secondColumnCheck;
+        protected ThirdColumnCheck thirdColumnCheck;
+        protected FirstDiagonalCheck firstDiagonalCheck;
+        protected SecondDiagonalCheck secondDiagonalCheck;
+        protected PossibleWinCheck possibleWinCheck;
+        protected ClosestEdgeCheck edgesCheck;
+        protected OppositeTileCheck oppositeCheck;
+        protected FirstEmptyTileCheck firstEmptyTileCheck;
+
+        protected abstract void SetupChainOfResponsibility();
 
         public MainStrategy(IEnumerable<IComputerGameTileModel> gameTiles, string playerSign) : base(gameTiles)
         {
@@ -57,22 +59,6 @@
             }
 
             return computerMove;
-        }
-
-        private void SetupChainOfResponsibility()
-        {
-            this.canWinCheck.SetSuccessor(this.firstRowCheck);
-            this.firstRowCheck.SetSuccessor(this.secondRowCheck);
-            this.secondRowCheck.SetSuccessor(this.thirdRowCheck);
-            this.thirdRowCheck.SetSuccessor(this.firstColumnCheck);
-            this.firstColumnCheck.SetSuccessor(this.secondColumnCheck);
-            this.secondColumnCheck.SetSuccessor(this.thirdColumnCheck);
-            this.thirdColumnCheck.SetSuccessor(this.firstDiagonalCheck);
-            this.firstDiagonalCheck.SetSuccessor(this.secondDiagonalCheck);
-            this.secondDiagonalCheck.SetSuccessor(this.possibleWinCheck);
-            this.possibleWinCheck.SetSuccessor(this.edgesCheck);
-            this.edgesCheck.SetSuccessor(this.oppositeCheck);
-            this.oppositeCheck.SetSuccessor(this.firstEmptyTileCheck);
         }
     }
 }

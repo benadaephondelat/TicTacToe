@@ -41,7 +41,7 @@
         /// <returns>int?</returns>
         private int? GetMainStrategyMove(IEnumerable<IComputerGameTileModel> gameTiles)
         {
-            MainStrategy mainStrategy = new MainStrategy(gameTiles, ComputerConstants.AwaySideSign);
+            StartingSecondMainStrategy mainStrategy = new StartingSecondMainStrategy(gameTiles, ComputerConstants.AwaySideSign);
 
             int? result = mainStrategy.GetMove();
 

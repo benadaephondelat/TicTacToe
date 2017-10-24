@@ -10,6 +10,7 @@
     using Computer.Strategies.StartingSecond.TurnStrategies.SecondTurnStrategy;
     using TicTacToeCommon.Exceptions.Game;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Computer.Strategies.StartingSecond.MainStrategy;
 
     [TestClass]
     public class StartingSecondStrategyTests
@@ -56,7 +57,7 @@
         }
 
         [TestMethod]
-        public void StartingSecondStrategy_Should_Choose_MainStrategy_If_The_Game_Turns_Count_Equals_6_8_Or_10()
+        public void StartingSecondStrategy_Should_Choose_StartingSecondMainStrategy_If_The_Game_Turns_Count_Equals_6_8_Or_10()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
@@ -73,7 +74,7 @@
 
                 var returnResult = chooseTurnStrategyMethod.Invoke(strat, new object[] { });
 
-                Assert.IsTrue(returnResult is MainStrategy, "First Failed at Turns Count = " + turnsCount);
+                Assert.IsTrue(returnResult is StartingSecondMainStrategy, "First Failed at Turns Count = " + turnsCount);
             }
         }
     }

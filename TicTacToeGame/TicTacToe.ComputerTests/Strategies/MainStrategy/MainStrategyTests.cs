@@ -8,6 +8,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using DataMockHelper;
     using Computer.Constants;
+    using Computer.Strategies.StartingFirst.MainStrategy;
 
     [TestClass]
     public class MainStrategyTests
@@ -20,11 +21,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_CanWinCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_CanWinCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("CanWinCheck"));
@@ -33,11 +34,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_FirstRowCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_FirstRowCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("FirstRowCheck"));
@@ -46,11 +47,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_SecondRowCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_SecondRowCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("SecondRowCheck"));
@@ -59,11 +60,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_ThirdRowCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_ThirdRowCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("ThirdRowCheck"));
@@ -72,11 +73,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_FirstColumnCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_FirstColumnCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("FirstColumnCheck"));
@@ -85,11 +86,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_SecondColumnCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_SecondColumnCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("SecondColumnCheck"));
@@ -98,11 +99,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_ThirdColumnCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_ThirdColumnCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("ThirdColumnCheck"));
@@ -111,11 +112,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_FirstDiagonalCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_FirstDiagonalCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("FirstDiagonalCheck"));
@@ -124,11 +125,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_SecondDiagonalCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_SecondDiagonalCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("SecondDiagonalCheck"));
@@ -137,11 +138,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Propery_Of_Type_EdgesCheck()
+        public void MainStrategy_Should_Have_Protected_Propery_Of_Type_EdgesCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("EdgesCheck"));
@@ -150,11 +151,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_InnerCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_InnerCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("InnerCheck"));
@@ -163,11 +164,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Property_Of_Type_FirstEmptyTileCheck()
+        public void MainStrategy_Should_Have_Protected_Property_Of_Type_FirstEmptyTileCheck()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(f => f.FieldType.FullName.Contains("FirstEmptyTileCheck"));
@@ -176,11 +177,11 @@
         }
 
         [TestMethod]
-        public void MainStrategy_Should_Have_Private_Method_Called_SetupChainOfResponsibility()
+        public void MainStrategy_Should_Have_Protected_Method_Called_SetupChainOfResponsibility()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             bool result = strategy.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
                                   .Any(m => m.Name == "SetupChainOfResponsibility");
@@ -193,7 +194,7 @@
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             MethodInfo dynMethod = strategy.GetType()
                                            .GetMethod("SetupChainOfResponsibility", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -208,7 +209,7 @@
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             MethodInfo methodInfo = strategy.GetType()
                                             .GetMethods(BindingFlags.Instance | BindingFlags.Public)
@@ -226,7 +227,7 @@
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
-            MainStrategy strategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy strategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             MethodInfo dynMethod = strategy.GetType()
                                            .GetMethod("GetMove", BindingFlags.Instance | BindingFlags.Public);
@@ -248,7 +249,7 @@
                 tile.Value = ComputerConstants.HomeSideSign;
             }
 
-            MainStrategy mainStrategy = new MainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
+            MainStrategy mainStrategy = new StartingFirstMainStrategy(model.Tiles, ComputerConstants.HomeSideSign);
 
             MethodInfo dynMethod = mainStrategy.GetType().GetMethod("GetMove", BindingFlags.Instance | BindingFlags.Public);
 

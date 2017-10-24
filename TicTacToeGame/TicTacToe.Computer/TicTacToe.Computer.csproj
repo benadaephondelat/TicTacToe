@@ -93,9 +93,11 @@
     <Compile Include="Computer.cs" />
     <Compile Include="Constants\ComputerConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategies\StartingFirst\MainStrategy\StartingFirstMainStrategy.cs" />
     <Compile Include="Strategies\StartingFirst\TurnStrategies\FirstTurnStrategy\FirstTurnStrategy.cs" />
     <Compile Include="Strategies\StartingFirst\TurnStrategies\SecondTurnStrategy\SecondTurnStrategy.cs" />
     <Compile Include="Strategies\MainStrategy\MainStrategy.cs" />
+    <Compile Include="Strategies\StartingSecond\MainStrategy\StartingSecondMainStrategy.cs" />
     <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\AggressiveMoveCheck.cs" />
     <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\AgressiveMoveResponsibility.cs" />
     <Compile Include="Strategies\StartingSecond\TurnStrategies\SecondTurnStrategy\AggressiveMoveStrategy\Checks\KnightMoveCheck\KnightMoveCheck.cs" />

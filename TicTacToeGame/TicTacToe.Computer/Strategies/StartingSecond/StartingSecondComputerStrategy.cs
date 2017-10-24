@@ -50,7 +50,7 @@
             }
             else
             {
-                strategy = new MainStrategy(this.game.Tiles, ComputerConstants.AwaySideSign);
+                strategy = new StartingSecondMainStrategy(this.game.Tiles, ComputerConstants.AwaySideSign);
             }
 
             return strategy;

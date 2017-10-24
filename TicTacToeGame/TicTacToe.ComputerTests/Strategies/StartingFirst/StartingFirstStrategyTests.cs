@@ -10,6 +10,7 @@
     using Computer.Strategies.StartingFirst.TurnStrategies.SecondTurnStrategy;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using DataMockHelper;
+    using Computer.Strategies.StartingFirst.MainStrategy;
 
     [TestClass]
     public class StartingFirstStrategyTests
@@ -52,7 +53,7 @@
         }
 
         [TestMethod]
-        public void StartingFirstComputerStrategy_Should_Choose_MainStrategy_If_The_Game_Turns_Count_Equals_5()
+        public void StartingFirstComputerStrategy_Should_Choose_StartingFirstMainStrategy_If_The_Game_Turns_Count_Equals_5()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
@@ -64,11 +65,11 @@
 
             var returnResult = chooseTurnStrategyMethod.Invoke(strat, null);
 
-            Assert.IsTrue(returnResult is MainStrategy);
+            Assert.IsTrue(returnResult is StartingFirstMainStrategy);
         }
 
         [TestMethod]
-        public void StartingFirstComputerStrategy_Should_Choose_MainStrategy_If_The_Game_Turns_Count_Equals_7()
+        public void StartingFirstComputerStrategy_Should_Choose_StartingFirstMainStrategy_If_The_Game_Turns_Count_Equals_7()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
@@ -80,11 +81,11 @@
 
             var returnResult = chooseTurnStrategyMethod.Invoke(strat, null);
 
-            Assert.IsTrue(returnResult is MainStrategy);
+            Assert.IsTrue(returnResult is StartingFirstMainStrategy);
         }
 
         [TestMethod]
-        public void StartingFirstComputerStrategy_Should_Choose_MainStrategy_If_The_Game_Turns_Count_Equals_9()
+        public void StartingFirstComputerStrategy_Should_Choose_StartingFirstMainStrategy_If_The_Game_Turns_Count_Equals_9()
         {
             ComputerGameModel model = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
 
@@ -96,7 +97,7 @@
 
             var returnResult = chooseTurnStrategyMethod.Invoke(strat, null);
 
-            Assert.IsTrue(returnResult is MainStrategy);
+            Assert.IsTrue(returnResult is StartingFirstMainStrategy);
         }
     }
 }

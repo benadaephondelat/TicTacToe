@@ -33,9 +33,13 @@
 
                 return base.CreateNewHumanVsComputerGame(currentUserName, computerName, isHumanPlayerStartingFirst);
             }
-            else
+            else if (gameMode == GameMode.ComputerVsComputer)
             {
                 return base.CreateNewComputerVsComputerGame(currentUserName, previousGame.ApplicationUser.UserName, previousGame.Oponent.UserName);
+            }
+            else
+            {
+                throw new NotImplementedException();
             }
         }
         

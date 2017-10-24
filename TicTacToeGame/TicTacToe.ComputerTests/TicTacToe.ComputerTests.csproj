@@ -78,9 +78,11 @@
     <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\SecondRowCheckTests.cs" />
     <Compile Include="Strategies\MainStrategy\Checks\RowsCheck\ThirdRowCheckTests.cs" />
     <Compile Include="Strategies\MainStrategy\MainStrategyTests.cs" />
+    <Compile Include="Strategies\StartingFirst\MainStrategy\StartingFirstMainStrategyTests.cs" />
     <Compile Include="Strategies\StartingFirst\StartingFirstStrategyTests.cs" />
     <Compile Include="Strategies\StartingFirst\TurnStrategies\FirstTurnStrategy\FirstTurnStrategyTests.cs" />
     <Compile Include="Strategies\StartingFirst\TurnStrategies\SecondTurnStrategy\SecondTurnStrategyTests.cs" />
+    <Compile Include="Strategies\StartingSecond\MainStrategy\StartingSecondStrategyTests.cs" />
     <Compile Include="Strategies\StartingSecond\StartingSecondStrategyTests.cs" />
     <Compile Include="Strategies\ComputerStrategyTests.cs" />
     <Compile Include="Strategies\StartingSecond\TurnStrategies\FirstTurnStrategy\FirstTurnStrategyTests.cs" />
