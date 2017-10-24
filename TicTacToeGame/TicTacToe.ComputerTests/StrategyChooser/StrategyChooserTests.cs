@@ -19,9 +19,11 @@
         }
 
         [TestMethod]
-        public void StrategyChooser_If_Computer_Is_Starting_First_Choose_StartingFirstStrategy()
+        public void StrategyChooser_If_Game_Turns_Count_Is_Odd_Number_Choose_StartingFirstStrategy()
         {
             ComputerGameModel game = this.dataLayerMockHelper.CreateNewComputerVsHumanGame();
+
+            game.TurnsCount = 1;
 
             StrategyChooser strategyChooser = new StrategyChooser();
 
@@ -31,9 +33,11 @@
         }
 
         [TestMethod]
-        public void StrategyChooser_If_Computer_Is_Starting_Second_Choose_StartingSecondStrategy()
+        public void StrategyChooser_If_Game_Turns_Count_Is_Even_Number_Choose_StartingSecondStrategy()
         {
             ComputerGameModel game = this.dataLayerMockHelper.CreateNewHumanVsComputerGame();
+
+            game.TurnsCount = 2;
 
             StrategyChooser strategyChooser = new StrategyChooser();
 

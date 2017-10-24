@@ -290,6 +290,12 @@
     <Content Include="Scripts\ComputerVsComputer\_ComputerVsComputerGame\computerVsComputerGameModule.js" />
     <Content Include="Scripts\ComputerVsComputer\_ComputerVsComputerGame\tests\computerVsComputerGameModuleTests.js" />
     <Content Include="Scripts\ComputerVsComputer\_ComputerVsComputerGame\tests\index.html" />
+    <Content Include="Scripts\ComputerVsComputer\_FinishedComputerVsComputerGame\finishedComputerVsComputerGameModule.js" />
+    <Content Include="Scripts\ComputerVsComputer\_FinishedComputerVsComputerGame\tests\finishedComputerVsComputerGameModuleTests.js" />
+    <Content Include="Scripts\ComputerVsComputer\_FinishedComputerVsComputerGame\tests\index.html" />
+    <Content Include="Scripts\ComputerVsComputer\_LoadGameGrid\loadComputerVsComputerGameModule.js" />
+    <Content Include="Scripts\ComputerVsComputer\_LoadGameGrid\tests\index.html" />
+    <Content Include="Scripts\ComputerVsComputer\_LoadGameGrid\tests\loadComputerVsComputerGameModuleTests.js" />
     <Content Include="Scripts\Default\bootstrap.js" />
     <Content Include="Scripts\Default\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -404,6 +410,9 @@
     <Content Include="Views\Home\_ComputerVsComputer.cshtml" />
     <Content Include="Views\ComputerVsComputer\_ComputerVsComputerGame.cshtml" />
     <Content Include="Views\ComputerVsComputer\NewGame.cshtml" />
+    <Content Include="Views\ComputerVsComputer\_FinishedComputerVsComputerGame.cshtml" />
+    <Content Include="Views\ComputerVsComputer\LoadGame.cshtml" />
+    <Content Include="Views\ComputerVsComputer\_LoadGameGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -107,7 +107,7 @@
             gameUpdator.PlaceTurn(gameId, tileIndex, currentUserName);
         }
 
-        //TODO EXTRACT LOGIC INTO CLASS AND TEST IT!
+        //TODO EXTRACT LOGIC UNTIL COMPUTER CHOOSER INTO CLASS AND TEST IT!
         public int GetComputerMove(int gameId)
         {
             Game game = this.GetGameById(gameId);
@@ -164,13 +164,13 @@
 
         private string GetComputerVsComputerGameModeComputerName(int? gameTurnsCount, string startingFirstComputer, string startingSecondComputer)
         {
-            if (gameTurnsCount % 1 == 0)
+            if (gameTurnsCount % 2 == 0)
             {
-                return startingFirstComputer;
+                return startingSecondComputer;
             }
             else
             {
-                return startingSecondComputer;
+                return startingFirstComputer;
             }
         }
 

@@ -22,6 +22,8 @@
 
         private Game OtherComputerVsComputerNewGameMock { get; }
 
+        private Game ComputerVsOtherComputerFinishedGameMock { get; }
+
         private ApplicationUser ApplicationUser = new ApplicationUser()
         {
             Id = MockConstants.UserId,
@@ -48,6 +50,7 @@
             this.EmptyTilesList = this.CreateEmptyTilesMock();
             this.ComputerVsOtherComputerNewGameMock = this.CreateNewComputerVsOtherComputerGameMock();
             this.OtherComputerVsComputerNewGameMock = this.CreateNewOtherComputerVsComputerGameMock();
+            this.ComputerVsOtherComputerFinishedGameMock = this.CreateComputerVsOtherComputerFinishedGameMock();
 
             this.ConfigureAutoMapper();
         }
@@ -70,6 +73,8 @@
 
             serviceMock.Setup(p => p.GetGameById(2)).Returns(this.OtherComputerVsComputerNewGameMock);
 
+            serviceMock.Setup(p => p.GetGameById(3)).Returns(this.ComputerVsOtherComputerFinishedGameMock);
+
             serviceMock.Setup(p => p.GetComputerMove(1)).Returns(4);
 
             serviceMock.Setup(p => p.GetComputerMove(2)).Returns(6);
@@ -79,6 +84,12 @@
 
             serviceMock.Setup(p => p.PlaceTurn(2, 6, MockConstants.UserUsername))
                        .Callback(() => this.PlaceTurnOnNewOtherComputerVsComputerGame());
+
+            serviceMock.Setup(p => p.RecreatePreviousGame(MockConstants.UserEmail, GameMode.ComputerVsComputer))
+                       .Returns(this.ComputerVsOtherComputerNewGameMock);
+
+            serviceMock.Setup(p => p.GetAllUnfinishedGames(MockConstants.UserEmail, GameMode.ComputerVsComputer))
+                       .Returns(new List<Game>() { this.ComputerVsOtherComputerNewGameMock });
 
             return serviceMock;
         }
@@ -190,6 +201,34 @@
                 GameMode = GameMode.ComputerVsComputer,
                 GameOwner = this.ApplicationUser,
                 GameOwnerId = this.ApplicationUser.Id
+            };
+
+            return game;
+        }
+
+        /// <summary>
+        /// Creates a new computer vs other computer finished game
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateComputerVsOtherComputerFinishedGameMock()
+        {
+            Game game = new Game()
+            {
+                Id = 2,
+                StartDate = DateTime.Now,
+                GameName = MockConstants.OtherComputerUsername + " vs " + MockConstants.ComputerUsername,
+                ApplicationUser = this.OtherComputerUser,
+                ApplicationUserId = this.OtherComputerUser.Id,
+                Oponent = this.ComputerUser,
+                OponentId = this.ComputerUser.Id,
+                OponentName = this.ComputerUser.UserName,
+                TurnsCount = 9,
+                Tiles = this.EmptyTilesList,
+                GameMode = GameMode.ComputerVsComputer,
+                GameOwner = this.ApplicationUser,
+                GameOwnerId = this.ApplicationUser.Id,
+                IsFinished = true,
+                GameState = GameState.Draw
             };
 
             return game;

@@ -35,7 +35,7 @@
             }
             else
             {
-                throw new NotImplementedException("Recreate game for Computer vs Computer game mode is not implemented yet.");
+                return base.CreateNewComputerVsComputerGame(currentUserName, previousGame.ApplicationUser.UserName, previousGame.Oponent.UserName);
             }
         }
         

@@ -626,4 +626,97 @@ describe('ajaxCallsModule', function () {
             done();
         });
     });
+
+    describe('computerVsComputerReplayGameAjaxCall tests', function () {
+        beforeEach(function () {
+            this.xhr = sinon.useFakeXMLHttpRequest();
+
+            this.requests = [];
+
+            this.xhr.onCreate = function (xhr) {
+                this.requests.push(xhr);
+            }.bind(this);
+
+        });
+
+        afterEach(function () {
+            this.xhr.restore();
+        });
+
+        it('computerVsComputerReplayGameAjaxCall should exist', function () {
+            var isUndefined = typeof ajaxCallsModule.computerVsComputerCalls.replayGame === 'undefined';
+
+            isUndefined.should.equal(false);
+        });
+
+
+        it('computerVsComputerReplayGameAjaxCall should be a function', function () {
+            var type = typeof ajaxCallsModule.computerVsComputerCalls.replayGame;
+
+            type.should.equal('function');
+        });
+
+        it('computerVsComputerReplayGameAjaxCall should accept 2 parameters', function () {
+            var parametersCount = ajaxCallsModule.computerVsComputerCalls.replayGame.length;
+
+            parametersCount.should.equal(2);
+        });
+
+        it('computerVsComputerReplayGameAjaxCall function should make a POST request to /ComputerVsComputer/ReplayGame', function (done) {
+            ajaxCallsModule.computerVsComputerCalls.replayGame().done(function () {
+                done();
+            });
+
+            this.requests[0].method.should.equal('POST');
+            this.requests[0].url.should.equal('/ComputerVsComputer/ReplayGame');
+
+            done();
+        });
+    });
+
+    describe('computerVsComputerLoadGameAjaxCall tests', function () {
+        beforeEach(function () {
+            this.xhr = sinon.useFakeXMLHttpRequest();
+
+            this.requests = [];
+
+            this.xhr.onCreate = function (xhr) {
+                this.requests.push(xhr);
+            }.bind(this);
+
+        });
+
+        afterEach(function () {
+            this.xhr.restore();
+        });
+
+        it('computerVsComputerLoadGameAjaxCall should exist', function () {
+            var isUndefined = typeof ajaxCallsModule.computerVsComputerCalls.loadGame === 'undefined';
+
+            isUndefined.should.equal(false);
+        });
+
+        it('computerVsComputerLoadGameAjaxCall should be a function', function () {
+            var type = typeof ajaxCallsModule.computerVsComputerCalls.loadGame;
+
+            type.should.equal('function');
+        });
+
+        it('computerVsComputerLoadGameAjaxCall should accept 2 parameters', function () {
+            var parametersCount = ajaxCallsModule.computerVsComputerCalls.loadGame.length;
+
+            parametersCount.should.equal(2);
+        });
+
+        it('computerVsComputerLoadGameAjaxCall function should make a POST request to /ComputerVsComputer/LoadGame', function (done) {
+            ajaxCallsModule.computerVsComputerCalls.loadGame().done(function () {
+                done();
+            });
+
+            this.requests[0].method.should.equal('POST');
+            this.requests[0].url.should.equal('/ComputerVsComputer/LoadGame');
+
+            done();
+        });
+    });
 });

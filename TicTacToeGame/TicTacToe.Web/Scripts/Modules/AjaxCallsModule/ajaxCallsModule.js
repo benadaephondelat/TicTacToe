@@ -191,6 +191,34 @@ var ajaxCallsModule = (function (jQuery) {
     };
 
     /**
+    * Computer vs Computer Ajax call to replay a game.
+    * @param {String} token: AntiForgeryToken
+    * @param {Object} data: Request data as JSON object
+    * @returns {Function}
+    */
+    var computerVsComputerReplayGameAjaxCall = function (token, data) {
+        var requestUrl = '/ComputerVsComputer/ReplayGame';
+
+        var ajaxCall = _createPostRequestAjaxCall(token, data, requestUrl);
+
+        return ajaxCall;
+    };
+
+    /**
+    * Computer vs Computer Ajax call to load a game.
+    * @param {String} token: AntiForgeryToken
+    * @param {Object} data: Request data as JSON object
+    * @returns {Function}
+    */
+    var computerVsComputerLoadGameAjaxCall = function (token, data) {
+        var requestUrl = '/ComputerVsComputer/LoadGame';
+
+        var ajaxCall = _createPostRequestAjaxCall(token, data, requestUrl);
+
+        return ajaxCall;
+    };
+
+    /**
     * Creates a post request ajax call
     * @param {String} token: AntiForgeryToken
     * @param {Object} data: Request data as JSON object
@@ -245,7 +273,9 @@ var ajaxCallsModule = (function (jQuery) {
         computerVsComputerCalls: {
             computerVsComputer: computerVsComputerAjaxCall,
             placeComputerTurn: computerVsComputerPlaceComputerTurnAjaxCall,
-            getOponentsDropdown: computerVsComputerGetOponentsDropdown
+            getOponentsDropdown: computerVsComputerGetOponentsDropdown,
+            replayGame: computerVsComputerReplayGameAjaxCall,
+            loadGame: computerVsComputerLoadGameAjaxCall
         }
     }
 

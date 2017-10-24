@@ -41,6 +41,11 @@
         public const string HumanVsHumanController = "HumanVsHuman";
 
         /// <summary>
+        /// ComputerVsComputer Controller name
+        /// </summary>
+        public const string ComputerVsComputerController = "ComputerVsComputer";
+
+        /// <summary>
         /// NewGameView view name
         /// </summary>
         public const string NewGameView = "NewGame";
@@ -74,6 +79,11 @@
         /// _FinishedComputerVsHumanGame partial view
         /// </summary>
         public const string FinishedComputerVsHumanGame = "_FinishedComputerVsHumanGame";
+
+        /// <summary>
+        /// _FinishedComputerVsComputerGame partial view
+        /// </summary>
+        public const string FinishedComputerVsComputerGame = "_FinishedComputerVsComputerGame";
 
         /// <summary>
         /// _ComputerVsComputerGame partial view

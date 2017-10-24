@@ -18,22 +18,22 @@
         /// <returns>StartingFirstComputerStrategy or StartingSecondComputerStrategy</returns>
         public ComputerStrategy GetComputerStrategy(IComputerGameModel game)
         {
-            if (this.ComputerIsStartingFirst(game.HomesideUsername))
+            if (this.TurnsCountIsEvenNumber(game.TurnsCount))
             {
-                return new StartingFirstComputerStrategy(game);
+                return new StartingSecondComputerStrategy(game);
             }
 
-            return new StartingSecondComputerStrategy(game);
+            return new StartingFirstComputerStrategy(game);
         }
 
         /// <summary>
-        /// Checks if the computer is starting first
+        /// Checks if the Game.TurnsCount is an even number
         /// </summary>
-        /// <param name="homesideUsername">homeside username</param>
+        /// <param name="gameTurnsCount">Game.TurnsCount</param>
         /// <returns>bool</returns>
-        private bool ComputerIsStartingFirst(string homesideUsername)
+        private bool TurnsCountIsEvenNumber(int gameTurnsCount)
         {
-            if (homesideUsername == UserConstants.ComputerUsername)
+            if (gameTurnsCount % 2 == 0)
             {
                 return true;
             }
