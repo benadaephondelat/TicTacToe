@@ -11,7 +11,6 @@
 
     public class OwinConfiguration
     {
-
         public static void ConfigureAuth(IAppBuilder app)
         {
             app.CreatePerOwinContext(ApplicationDbContext.Create);
