@@ -28,6 +28,11 @@
         [ForeignKey("OponentId")]
         public virtual ApplicationUser Oponent { get; set; }
 
+        public string GameOwnerId { get; set; }
+
+        [ForeignKey("GameOwnerId")]
+        public virtual ApplicationUser GameOwner { get; set; }
+
         public string OponentName { get; set; }
 
         public DateTime StartDate { get; set; }

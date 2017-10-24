@@ -11,17 +11,19 @@
         {
         }
 
-        public new Game CreateNewComputerVsComputerGame(string currentUserName)
+        public new Game CreateNewComputerVsComputerGame(string currentUserName, string startingFirstComputerName, string startingSecondComputerName)
         {
             ApplicationUser humanPlayer = base.GetUserByUsername(currentUserName);
 
-            ApplicationUser computer = base.GetUserByUsername("computer@yahoo.com");
+            ApplicationUser computer = base.GetUserByUsername(startingFirstComputerName);
+
+            ApplicationUser secondComputer = base.GetUserByUsername(startingSecondComputerName);
 
             Game game = new Game() { TurnsCount = 1 };
 
-            this.AddUsersToGame(humanPlayer, computer, game);
+            this.AddUsersToGame(humanPlayer, computer, secondComputer, game);
 
-            this.AddInfoToGame(game.ApplicationUser.UserName, game.Oponent.UserName, game);
+            this.AddInfoToGame(game);
 
             base.AddEmptyTilesToGame(game);
 
@@ -33,25 +35,29 @@
         /// <summary>
         /// Adds a Game's homeside and awayside users 
         /// </summary>
-        /// <param name="humanPlayer">Human Player</param>
-        /// <param name="computerPlayer">Computer Player</param>
+        /// <param name="gameOwner">Human player</param>
+        /// <param name="computer">The first computer</param>
+        /// <param name="secondComputer">The second computer</param>
         /// <param name="game">Game</param>
-        private void AddUsersToGame(ApplicationUser humanPlayer, ApplicationUser computerPlayer, Game game)
+        private void AddUsersToGame(ApplicationUser gameOwner, ApplicationUser computer, ApplicationUser secondComputer, Game game)
         {
-            game.ApplicationUser = humanPlayer;
-            game.ApplicationUserId = humanPlayer.Id;
+            game.GameOwner = gameOwner;
+            game.GameOwnerId = gameOwner.Id;
 
-            game.Oponent = computerPlayer;
-            game.OponentId = computerPlayer.Id;
+            game.ApplicationUser = computer;
+            game.ApplicationUserId = computer.Id;
 
-            game.OponentName = computerPlayer.UserName;
-            game.GameName = humanPlayer.UserName + " vs " + computerPlayer.UserName;
+            game.Oponent = secondComputer;
+            game.OponentId = secondComputer.Id;
+
+            game.OponentName = secondComputer.UserName;
+            game.GameName = computer.UserName + " vs " + secondComputer.UserName;
         }
 
         /// <summary>
         /// Sets game object's properties. GameMode, GameState, StartDate...
         /// </summary>
-        private void AddInfoToGame(string homeSideUsername, string awaySideUsername, Game game)
+        private void AddInfoToGame(Game game)
         {
             game.GameMode = GameMode.ComputerVsComputer;
             game.GameState = GameState.NotFinished;

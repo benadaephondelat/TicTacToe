@@ -34,6 +34,7 @@ var computerVsComputerGameModule = (function (jQuery, ajaxCallsModule, gameModul
     * Places a computer turn by making an ajax call to the server with a certain delay 
     */
     placeTurnButtonClickHandler = function () {
+        debugger;
         $placeTurnButton.on('click', function () {
             _placeComputerTurn();
         });

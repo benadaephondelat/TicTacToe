@@ -15,6 +15,7 @@
     using DataLayer.Data;
     using Interfaces;
     using TicTacToeCommon.Constants;
+    using TicTacToeCommon.Exceptions.User;
 
     public class TicTacToeGameService : ITicTacToeGameService
     {
@@ -56,11 +57,11 @@
             return newGame;
         }
 
-        public Game CreateNewComputerVsComputerGame(string currentUserName)
+        public Game CreateNewComputerVsComputerGame(string currentUserName, string startingFirstComputerName, string startingSecondComputerName)
         {
             IGameCreator gameCreator = this.gameFactory.GetGameCreatorHelper();
 
-            Game newGame = gameCreator.CreateNewComputerVsComputerGame(currentUserName);
+            Game newGame = gameCreator.CreateNewComputerVsComputerGame(currentUserName, startingFirstComputerName, startingSecondComputerName);
 
             return newGame;
         }
@@ -106,13 +107,14 @@
             gameUpdator.PlaceTurn(gameId, tileIndex, currentUserName);
         }
 
+        //TODO EXTRACT LOGIC INTO CLASS AND TEST IT!
         public int GetComputerMove(int gameId)
         {
             Game game = this.GetGameById(gameId);
 
             IComputerGameModel computerGame = this.CreateComputerGameModel(game);
 
-            string computerName = this.GetComputerName(game.ApplicationUser.UserName, game.Oponent.UserName);
+            string computerName = this.GetComputerName(game, game.ApplicationUser.UserName, game.Oponent.UserName);
 
             IComputer computer = this.computerChooser.GetComputerByName(computerName);
 
@@ -124,17 +126,52 @@
         /// <summary>
         /// Returns the computer's name
         /// </summary>
-        /// <param name="gameOwnerUsername">Game.ApplicationUser.UserName</param>
+        /// <param name="game">Game to check</param>
+        /// <param name="gameStartingFirstUsername">Game.ApplicationUser.UserName</param>
         /// <param name="gameOponentUsername">Game.Oponent.UserName</param>
         /// <returns>string</returns>
-        private string GetComputerName(string gameOwnerUsername, string gameOponentUsername)
+        private string GetComputerName(Game game, string gameStartingFirstUsername, string gameOponentUsername)
         {
-            if (gameOwnerUsername == UserConstants.ComputerUsername || gameOponentUsername == UserConstants.ComputerUsername)
+            if (game.GameMode == GameMode.HumanVsComputer)
+            {
+                return this.GetHumanVsComputerGameModeComputerName(gameStartingFirstUsername, gameOponentUsername);
+            }
+            else if (game.GameMode == GameMode.ComputerVsComputer)
+            {
+                return this.GetComputerVsComputerGameModeComputerName(game.TurnsCount, gameStartingFirstUsername, gameOponentUsername);
+            }
+            else
+            {
+                throw new UserNotAuthorizedException();
+            }
+        }
+
+        private string GetHumanVsComputerGameModeComputerName(string gameStartingFirstUsername, string gameOponentUsername)
+        {
+            if (gameStartingFirstUsername == UserConstants.ComputerUsername || gameOponentUsername == UserConstants.ComputerUsername)
             {
                 return UserConstants.ComputerUsername;
             }
+            else if (gameStartingFirstUsername == UserConstants.OtherComputerUsername || gameOponentUsername == UserConstants.OtherComputerUsername)
+            {
+                return UserConstants.OtherComputerUsername;
+            }
+            else
+            {
+                throw new UserNotAuthorizedException();
+            }
+        }
 
-            return UserConstants.OtherComputerUsername;
+        private string GetComputerVsComputerGameModeComputerName(int? gameTurnsCount, string startingFirstComputer, string startingSecondComputer)
+        {
+            if (gameTurnsCount % 1 == 0)
+            {
+                return startingFirstComputer;
+            }
+            else
+            {
+                return startingSecondComputer;
+            }
         }
 
         /// <summary>

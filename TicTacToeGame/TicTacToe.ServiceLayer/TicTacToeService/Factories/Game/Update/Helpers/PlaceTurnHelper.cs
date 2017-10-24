@@ -70,10 +70,29 @@
         /// <returns>bool</returns>
         private bool UserIsNotPartOfTheGame(Game game, string currentUsername)
         {
-            string homeUser = game.ApplicationUser.UserName;
-            string awayUser = game.Oponent.UserName;
+            bool userIsNotHomeside = this.UserIsNotHomeside(game.ApplicationUser.UserName, currentUsername);
+            bool userIsNotAwayside = this.UserIsNotAwayside(game.Oponent.UserName, currentUsername);
+            bool userIsNotGameOwner = this.UserIsNotGameOwner(game, currentUsername);
 
-            if (UserIsNotHomeside(homeUser, currentUsername) && UserIsNotAwayside(awayUser, currentUsername))
+            if (userIsNotHomeside && userIsNotAwayside && userIsNotGameOwner)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        //TODO TEST THIS
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="currentUsername"></param>
+        /// <returns></returns>
+        private bool UserIsNotGameOwner(Game game, string currentUsername)
+        {
+            if (game.GameOwner.UserName.Equals(currentUsername) == false)
             {
                 return true;
             }

@@ -21,7 +21,11 @@
             ApplicationUser awaySideUser = this.GetAwaySideUser(homeSideUserName, currentUserName);
 
             Game game = CreateNewHumanVsHumanGame(homeSideUser, awaySideUser);
-            
+
+            //TODO REFACTOR
+            game.GameOwner = this.GetUserByUsername(currentUserName);
+            game.GameOwnerId = game.GameOwner.Id;
+
             this.SaveChanges(game, currentUserName);
 
             return game;

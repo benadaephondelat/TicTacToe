@@ -15,6 +15,16 @@
     /// </summary>
     public class DataLayerMockHelper
     {
+        private const int HumanPlayerIndex = 0;
+
+        private const int OtherHumanPlayerIndex = 1;
+
+        private const int HumanPlayerWithoutGamesIndex = 2;
+
+        private const int ComputerPlayerIndex = 3;
+
+        private const int OtherComputerPlayerIndex = 4;
+
         private List<ApplicationUser> Users { get; }
 
         private List<Game> Games { get; }
@@ -23,8 +33,8 @@
 
         public DataLayerMockHelper()
         {
-            this.Users = this.GetDefaultUsersList();
             this.Games = this.GetDefaultGamesList();
+            this.Users = this.GetDefaultUsersList();
             this.Tiles = this.GetDefaultTilesList();
         }
 
@@ -177,7 +187,8 @@
                 this.CreateNewComputerVsHumanGame(),
                 this.CreateFinishedComputerVsHumanGame(),
                 this.CreateNewHumanVsOtherComputerGame(),
-                this.CreateNewOtherComputerVsHumanGame()
+                this.CreateNewOtherComputerVsHumanGame(),
+                this.CreateComputerVsHumanGameWhereComputerUserIsNotPresent()
             };
 
             return gamesList;
@@ -212,6 +223,12 @@
                 IsFinished = false,
                 GameState = GameState.NotFinished,
                 Tiles = this.GetDefaultTilesList(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return game;
@@ -246,6 +263,12 @@
                 IsFinished = true,
                 GameState = GameState.Won,
                 Tiles = this.GetHomesideUserEarlyWinTilesList(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return finishedGame;
@@ -280,6 +303,12 @@
                 IsFinished = true,
                 GameState = GameState.Won,
                 Tiles = this.GetHomesideUserEarlyWinTilesList(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return finishedGame;
@@ -315,6 +344,12 @@
                 GameState = GameState.NotFinished,
                 GameMode = GameMode.HumanVsComputer,
                 Tiles = this.GetDefaultTilesList(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return newHumanVsComputerGame;
@@ -328,7 +363,7 @@
         {
             Game finishedHumanVsComputerGame = new Game()
             {
-                Id = 8,
+                Id = 9,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMinutes(2),
                 ApplicationUser = new ApplicationUser()
@@ -350,6 +385,12 @@
                 GameState = GameState.Won,
                 GameMode = GameMode.HumanVsComputer,
                 Tiles = this.GenerateHomesideUserEarlyWinTiles(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return finishedHumanVsComputerGame;
@@ -363,7 +404,7 @@
         {
             Game newComputerVsHumanGame = new Game()
             {
-                Id = 8,
+                Id = 10,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMinutes(2),
                 ApplicationUser = new ApplicationUser()
@@ -385,6 +426,12 @@
                 GameState = GameState.NotFinished,
                 GameMode = GameMode.HumanVsComputer,
                 Tiles = this.GetDefaultTilesList(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return newComputerVsHumanGame;
@@ -420,6 +467,12 @@
                 GameState = GameState.NotFinished,
                 GameMode = GameMode.HumanVsComputer,
                 Tiles = this.GetDefaultTilesList(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return newOtherComputerVsHumanGame;
@@ -455,15 +508,17 @@
                 GameState = GameState.NotFinished,
                 GameMode = GameMode.HumanVsComputer,
                 Tiles = this.GetDefaultTilesList(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return newOtherComputerVsHumanGame;
         }
 
-        /// <summary>
-        /// Creates a mock of a new computer vs human game.
-        /// </summary>
-        /// <returns>Game</returns>
         private Game CreateFinishedComputerVsHumanGame()
         {
             Game finishedComputerVsHumanGame = new Game()
@@ -490,6 +545,12 @@
                 GameState = GameState.Won,
                 GameMode = GameMode.HumanVsComputer,
                 Tiles = this.GenerateHomesideUserEarlyWinTiles(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return finishedComputerVsHumanGame;
@@ -522,7 +583,50 @@
                 OponentName = "the-other-guy@yahoo.com",
                 IsFinished = false,
                 Tiles = this.GetDefaultTilesList(),
-                GameState = GameState.NotFinished
+                GameState = GameState.NotFinished,
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
+            };
+
+            return game;
+        }
+
+        private Game CreateComputerVsHumanGameWhereComputerUserIsNotPresent()
+        {
+            Game game = new Game()
+            {
+                Id = 14,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMinutes(2),
+                ApplicationUser = new ApplicationUser()
+                {
+                    Id = UserConstants.UserId,
+                    UserName = UserConstants.UserUsername
+                },
+                ApplicationUserId = UserConstants.UserId,
+                Oponent = new ApplicationUser()
+                {
+                    Id = UserConstants.UserId,
+                    UserName = UserConstants.UserUsername
+                },
+                OponentId = UserConstants.UserId,
+                TurnsCount = 1,
+                GameName = UserConstants.UserUsername + " vs " + UserConstants.UserUsername,
+                OponentName = UserConstants.UserUsername,
+                IsFinished = false,
+                GameState = GameState.NotFinished,
+                GameMode = GameMode.HumanVsComputer,
+                Tiles = this.GetDefaultTilesList(),
+                GameOwner = new ApplicationUser()
+                {
+                    Id = "45897caa-c581-442d-a11a-7cf9b2375e13",
+                    UserName = "georgi_iliev@yahoo.com"
+                },
+                GameOwnerId = "45897caa-c581-442d-a11a-7cf9b2375e13"
             };
 
             return game;

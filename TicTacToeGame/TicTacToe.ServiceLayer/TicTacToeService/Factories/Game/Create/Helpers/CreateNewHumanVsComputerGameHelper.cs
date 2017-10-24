@@ -39,6 +39,9 @@
         /// <param name="isHumanFirst">Is the human player starting first</param>
         private void AddUsersToGame(ApplicationUser humanPlayer, ApplicationUser computerPlayer, Game game, bool isHumanFirst)
         {
+            game.GameOwner = humanPlayer;
+            game.GameOwner.Id = humanPlayer.Id;
+
             if (isHumanFirst)
             {
                 game.ApplicationUser = humanPlayer;

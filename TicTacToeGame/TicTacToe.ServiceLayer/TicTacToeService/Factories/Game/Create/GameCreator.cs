@@ -9,7 +9,7 @@
     using TicTacToeCommon.Exceptions.User;
 
     public class GameCreator : IGameCreator
-    {
+    { 
         protected readonly ITicTacToeData data;
 
         public GameCreator(ITicTacToeData data)
@@ -35,11 +35,11 @@
             return game;
         }
 
-        public Game CreateNewComputerVsComputerGame(string currentUserName)
+        public Game CreateNewComputerVsComputerGame(string currentUserName, string startingFirstComputerName, string startingSecondComputerName)
         {
             CreateNewComputerVsComputerHelper helper = new CreateNewComputerVsComputerHelper(this.data);
 
-            Game game = helper.CreateNewComputerVsComputerGame(currentUserName);
+            Game game = helper.CreateNewComputerVsComputerGame(currentUserName, startingFirstComputerName, startingSecondComputerName);
 
             return game;
         }

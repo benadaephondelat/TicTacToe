@@ -10,7 +10,7 @@
 
     @if (Model.GameInfo.CurrentTurnHolderId == Model.GameInfo.HomeSideUserId)
     {
-        <h5 id="current-turn-holder-username" class="red">Turn Holder: computer@yahoo.com</h5>
+        <h5 id="current-turn-holder-username" class="red">Turn Holder: @Model.GameInfo.HomeSideUserName</h5>
     }
     else
     {
@@ -24,7 +24,7 @@
         <h4 id="turn-info" class="red">YOUR TURN</h4>
     }
     <h4>Home Side - <span class="red">X</span></h4>
-    computer@yahoo.com
+    @Model.GameInfo.HomeSideUserName
 </div>
 
 <div id="grid-container">

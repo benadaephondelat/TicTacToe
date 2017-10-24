@@ -619,7 +619,21 @@
         [ExpectedException(typeof(UserNotFoundException))]
         public void CreateNewComputerVsComputerGame_Should_Throw_UserNotFoundException_If_No_User_With_currentUserName_Is_Found()
         {
-            gameService.CreateNewComputerVsComputerGame(MockConstants.InvalidUsername);
+            gameService.CreateNewComputerVsComputerGame(MockConstants.InvalidUsername, MockConstants.ComputerUserName, MockConstants.OtherComputerUserName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotFoundException))]
+        public void CreateNewComputerVsComputerGame_Should_Throw_UserNotFoundException_If_No_User_With_startingFirstComputerUsername_Is_Found()
+        {
+            gameService.CreateNewComputerVsComputerGame(MockConstants.UserName, MockConstants.InvalidUsername, MockConstants.OtherComputerUserName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotFoundException))]
+        public void CreateNewComputerVsComputerGame_Should_Throw_UserNotFoundException_If_No_User_With_startingSecondComputerUsername_Is_Found()
+        {
+            gameService.CreateNewComputerVsComputerGame(MockConstants.UserName, MockConstants.ComputerUserName, MockConstants.InvalidUsername);
         }
 
         [TestMethod]
@@ -659,9 +673,9 @@
         }
 
         [TestMethod]
-        public void CreateNewComputerVsComputerGame_Game_Should_Have_Two_Valid_Users()
+        public void CreateNewComputerVsComputerGame_Game_Should_Have_3_Valid_Users()
         {
-            Game game = gameService.CreateNewComputerVsComputerGame(MockConstants.UserName);
+            Game game = gameService.CreateNewComputerVsComputerGame(MockConstants.UserName, MockConstants.ComputerUserName, MockConstants.OtherComputerUserName);
 
             bool isGameUserNull = game.ApplicationUser == null;
             Assert.IsFalse(isGameUserNull);
@@ -674,14 +688,20 @@
 
             bool isGameOponentIdNullOrEmpty = string.IsNullOrWhiteSpace(game.OponentId);
             Assert.IsFalse(isGameOponentIdNullOrEmpty);
+
+            bool isGameOwnerNull = game.GameOwner == null;
+            Assert.IsFalse(isGameOwnerNull);
+
+            bool isGameOwnerIdNullOrEmpty = string.IsNullOrWhiteSpace(game.GameOwnerId);
+            Assert.IsFalse(isGameOwnerIdNullOrEmpty);
         }
 
         [TestMethod]
         public void CreateNewComputerVsComputerGame_Game_Should_Set_The_Human_User_As_Game_Owner()
         {
-            Game game = gameService.CreateNewComputerVsComputerGame(MockConstants.UserName);
+            Game game = gameService.CreateNewComputerVsComputerGame(MockConstants.UserName, MockConstants.ComputerUserName, MockConstants.OtherComputerUserName);
 
-            Assert.AreEqual(MockConstants.UserName, game.ApplicationUser.UserName);
+            Assert.AreEqual(MockConstants.UserName, game.GameOwner.UserName);
         }
 
         [TestMethod]
@@ -689,7 +709,7 @@
         {
             Game game = CreateValidNewComputerVsComputerGame();
 
-            string expectedGameName = MockConstants.UserName + " vs " + MockConstants.ComputerUserName;
+            string expectedGameName = MockConstants.ComputerUserName + " vs " + MockConstants.OtherComputerUserName;
 
             Assert.AreEqual(expectedGameName, game.GameName);
         }
@@ -704,14 +724,6 @@
             bool isWithinTenSeconds = game.StartDate <= expectedTime;
 
             Assert.IsTrue(isWithinTenSeconds);
-        }
-
-        [TestMethod]
-        public void CreateNewHumanVsComputerGame_Game_OponentName_Should_Be_The_Computer()
-        {
-            Game game = gameService.CreateNewComputerVsComputerGame(MockConstants.UserName);
-
-            Assert.AreEqual(MockConstants.ComputerUserName, game.OponentName);
         }
 
         [TestMethod]
@@ -809,16 +821,16 @@
         {
             Game game = CreateValidNewComputerVsComputerGame();
 
-            Assert.IsTrue(game.ApplicationUser.Games.Any());
+            Assert.IsTrue(game.GameOwner.Games.Any());
         }
 
         /// <summary>
-        /// Creates a new computer vs computer game with the current user serving as homeside.
+        /// Creates a new computer vs computer game with the current user serving as game owner.
         /// </summary>
         /// <returns>Game</returns>
         private Game CreateValidNewComputerVsComputerGame()
         {
-            return gameService.CreateNewComputerVsComputerGame(MockConstants.UserName);
+            return gameService.CreateNewComputerVsComputerGame(MockConstants.UserName, MockConstants.ComputerUserName, MockConstants.OtherComputerUserName);
         }
 
         #endregion
@@ -858,7 +870,7 @@
 
             Assert.IsTrue(isFirstParameterString);
         }
-
+        
         [TestMethod]
         public void RecreatePreviousGame_Should_Accept_Enum_Named_GameMode_As_Second_Parameter()
         {
@@ -979,13 +991,13 @@
         }
 
         [TestMethod]
-        public void GetAllUnfinishedGames_Should_Return_4_Finished_HumanVsComputer_Games()
+        public void GetAllUnfinishedGames_Should_Return_5_Finished_HumanVsComputer_Games()
         {
             var result = gameService.GetAllUnfinishedGames(MockConstants.UserName, GameMode.HumanVsComputer);
 
             var test = result.Count();
 
-            Assert.AreEqual(4, result.Count());
+            Assert.AreEqual(5, result.Count());
 
             Assert.IsFalse(result.ToList().Any(g => g.IsFinished));
         }
@@ -1598,9 +1610,30 @@
 
         [TestMethod]
         [ExpectedException(typeof(ComputerException))]
-        public void GetComputerMove_Should_Throw_GameIsFinishedException_If_Game_IsFinished()
+        public void GetComputerMove_Should_Throw_ComputerException_If_Game_IsFinished()
         {
-            gameService.GetComputerMove(MockConstants.FinishedGameIndex);
+            gameService.GetComputerMove(9);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotAuthorizedException))]
+        public void GetComputerMove_Should_Throw_UserNotAuthorizedException_If_GameMode_Is_Not_ComputerVsComputer()
+        {
+            gameService.GetComputerMove(MockConstants.NewGameIndex);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotAuthorizedException))]
+        public void GetComputerMove_Should_Throw_UserNotAuthorizedException_If_GameMode_Is_Not_HumanVsComputer()
+        {
+            gameService.GetComputerMove(MockConstants.NewGameIndex);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserNotAuthorizedException))]
+        public void GetComputerMove_Should_Throw_UserNotAuthorizedException_If_No_Computer_Is_Present_In_The_Game()
+        {
+            gameService.GetComputerMove(14);
         }
 
         [TestMethod]

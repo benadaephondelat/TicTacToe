@@ -1,6 +1,7 @@
 ﻿namespace TicTacToe.Web.Tests.MockHelpers
 {
     using System;
+    using System.Linq;
     using System.Security.Principal;
     using System.Collections.Generic;
     using System.Reflection;
@@ -17,7 +18,9 @@
     {
         private List<Tile> EmptyTilesList { get; }
 
-        private Game ComputerVsComputerNewGameMock { get; }
+        private Game ComputerVsOtherComputerNewGameMock { get; }
+
+        private Game OtherComputerVsComputerNewGameMock { get; }
 
         private ApplicationUser ApplicationUser = new ApplicationUser()
         {
@@ -33,10 +36,18 @@
             Email = MockConstants.ComputerEmail
         };
 
+        private ApplicationUser OtherComputerUser = new ApplicationUser()
+        {
+            Id = MockConstants.OtherComputerId,
+            UserName = MockConstants.OtherComputerUsername,
+            Email = MockConstants.OtherComputerEmail
+        };
+
         public ComputerVsComputerServiceLayerMockHelper()
         {
             this.EmptyTilesList = this.CreateEmptyTilesMock();
-            this.ComputerVsComputerNewGameMock = this.CreateNewComputerVsComputerGameMock();
+            this.ComputerVsOtherComputerNewGameMock = this.CreateNewComputerVsOtherComputerGameMock();
+            this.OtherComputerVsComputerNewGameMock = this.CreateNewOtherComputerVsComputerGameMock();
 
             this.ConfigureAutoMapper();
         }
@@ -49,16 +60,26 @@
         {
             Mock<ITicTacToeGameService> serviceMock = new Mock<ITicTacToeGameService>();
 
-            serviceMock.Setup(p => p.CreateNewComputerVsComputerGame(MockConstants.UserEmail))
-                       .Returns(this.ComputerVsComputerNewGameMock);
-            
-            serviceMock.Setup(p => p.GetGameById(1)).Returns(this.ComputerVsComputerNewGameMock);
+            serviceMock.Setup(p => p.CreateNewComputerVsComputerGame(MockConstants.UserEmail, MockConstants.ComputerUsername, MockConstants.OtherComputerUsername))
+                       .Returns(this.ComputerVsOtherComputerNewGameMock);
 
-            serviceMock.Setup(p => p.GetComputerMove(1))
-                       .Returns(4);
+            serviceMock.Setup(p => p.GetGameById(1)).Returns(this.ComputerVsOtherComputerNewGameMock);
 
-            serviceMock.Setup(p => p.PlaceTurn(1, 4, MockConstants.ComputerEmail));
-            
+            serviceMock.Setup(p => p.CreateNewComputerVsComputerGame(MockConstants.UserEmail, MockConstants.OtherComputerUsername, MockConstants.ComputerUsername))
+                       .Returns(this.OtherComputerVsComputerNewGameMock);
+
+            serviceMock.Setup(p => p.GetGameById(2)).Returns(this.OtherComputerVsComputerNewGameMock);
+
+            serviceMock.Setup(p => p.GetComputerMove(1)).Returns(4);
+
+            serviceMock.Setup(p => p.GetComputerMove(2)).Returns(6);
+
+            serviceMock.Setup(p => p.PlaceTurn(1, 4, MockConstants.UserUsername))
+                       .Callback(() => this.PlaceTurnOnNewComputerVsOtherComputerGame());
+
+            serviceMock.Setup(p => p.PlaceTurn(2, 6, MockConstants.UserUsername))
+                       .Callback(() => this.PlaceTurnOnNewOtherComputerVsComputerGame());
+
             return serviceMock;
         }
 
@@ -123,27 +144,75 @@
         }
 
         /// <summary>
-        /// Creates a new computer vs computer game
+        /// Creates a new computer vs other computer game
         /// </summary>
         /// <returns>Game</returns>
-        private Game CreateNewComputerVsComputerGameMock()
+        private Game CreateNewComputerVsOtherComputerGameMock()
         {
             Game game = new Game()
             {
                 Id = 1,
                 StartDate = DateTime.Now,
                 GameName = MockConstants.ComputerUsername + " vs " + MockConstants.OtherComputerUsername,
-                ApplicationUser = this.ApplicationUser,
-                ApplicationUserId = this.ApplicationUser.Id,
+                ApplicationUser = this.ComputerUser,
+                ApplicationUserId = this.ComputerUser.Id,
+                Oponent = this.OtherComputerUser,
+                OponentId = this.OtherComputerUser.Id,
+                OponentName = this.OtherComputerUser.UserName,
+                TurnsCount = 1,
+                Tiles = this.EmptyTilesList,
+                GameMode = GameMode.ComputerVsComputer,
+                GameOwner = this.ApplicationUser,
+                GameOwnerId = this.ApplicationUser.Id
+            };
+
+            return game;
+        }
+
+        /// <summary>
+        /// Creates a new computer vs other computer game
+        /// </summary>
+        /// <returns>Game</returns>
+        private Game CreateNewOtherComputerVsComputerGameMock()
+        {
+            Game game = new Game()
+            {
+                Id = 2,
+                StartDate = DateTime.Now,
+                GameName = MockConstants.OtherComputerUsername + " vs " + MockConstants.ComputerUsername,
+                ApplicationUser = this.OtherComputerUser,
+                ApplicationUserId = this.OtherComputerUser.Id,
                 Oponent = this.ComputerUser,
                 OponentId = this.ComputerUser.Id,
                 OponentName = this.ComputerUser.UserName,
                 TurnsCount = 1,
                 Tiles = this.EmptyTilesList,
-                GameMode = GameMode.ComputerVsComputer
+                GameMode = GameMode.ComputerVsComputer,
+                GameOwner = this.ApplicationUser,
+                GameOwnerId = this.ApplicationUser.Id
             };
 
             return game;
+        }
+
+        /// <summary>
+        /// Places a turn on the NewOtherComputerVsComputerGame
+        /// </summary>
+        private void PlaceTurnOnNewOtherComputerVsComputerGame()
+        {
+            this.OtherComputerVsComputerNewGameMock.TurnsCount = 2;
+            this.OtherComputerVsComputerNewGameMock.Tiles.ElementAt(6).IsEmpty = false;
+            this.OtherComputerVsComputerNewGameMock.Tiles.ElementAt(6).Value = "X";
+        }
+
+        /// <summary>
+        /// Places a turn on the NewComputerVsOtherComputerGame
+        /// </summary>
+        private void PlaceTurnOnNewComputerVsOtherComputerGame()
+        {
+            this.ComputerVsOtherComputerNewGameMock.TurnsCount = 2;
+            this.ComputerVsOtherComputerNewGameMock.Tiles.ElementAt(4).IsEmpty = false;
+            this.ComputerVsOtherComputerNewGameMock.Tiles.ElementAt(4).Value = "X";
         }
     }
 }

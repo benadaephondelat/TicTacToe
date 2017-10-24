@@ -1,10 +1,10 @@
 ﻿/**
- * Contains the JavaScript code to be used in the HumanVsComputerController's NewGame view.
+ * Contains the JavaScript code to be used in the ComputerVsComputerController's NewGame view.
  * @dependencies: jQuery, ajaxCallsModule and gameModule
  * @param {function} jQuery
  * @param {Module} ajaxCallsModule.js
  */
-var humanVsComputerNewGameModule = (function (jQuery, ajaxCallsModule, newGameModule) {
+var computerVsComputerNewGameModule = (function (jQuery, ajaxCallsModule, newGameModule) {
     if (typeof jQuery === 'undefined') {
         throw new Error('jQuery is not found.');
     }
@@ -21,8 +21,8 @@ var humanVsComputerNewGameModule = (function (jQuery, ajaxCallsModule, newGameMo
     var initializeModule,
         getOponentsDropdown;
 
-    getOponentsDropdown = ajaxCallsModule.humanVsComputerCalls.getOponentsDropdown;
-    
+    getOponentsDropdown = ajaxCallsModule.computerVsComputerCalls.getOponentsDropdown;
+
     initializeModule = function () {
         newGameModule.init(getOponentsDropdown);
     };
@@ -33,4 +33,4 @@ var humanVsComputerNewGameModule = (function (jQuery, ajaxCallsModule, newGameMo
 
 })(jQuery || {}, ajaxCallsModule || {}, newGameModule || {});
 
-humanVsComputerNewGameModule.init();
+computerVsComputerNewGameModule.init();

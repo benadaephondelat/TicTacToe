@@ -33,9 +33,11 @@
         /// Creates a new Computer vs Computer Game or throws exception
         /// </summary>
         /// <param name="currentUserName">The username of the current user</param>
+        /// <param name="startingFirstComputerName">The username of the computer that is first</param>
+        /// <param name="startingSecondComputerName">The username of the computer that is second</param>
         /// <exception cref="UserNotFoundException"></exception>
         /// <returns>Game</returns>
-        Game CreateNewComputerVsComputerGame(string currentUserName);
+        Game CreateNewComputerVsComputerGame(string currentUserName, string startingFirstComputerName, string startingSecondComputerName);
 
         /// <summary>
         /// Returns the computer's chosen tile index or throws exception

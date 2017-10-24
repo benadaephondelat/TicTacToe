@@ -64,6 +64,10 @@ var loadGameGridModule = (function (jQuery, ajaxCallsModule) {
     * @param loadGameRequest {function} A function that exeutes a specific request to the server
     */
     initiliazieModule = function (loadGameRequest) {
+        if (typeof loadGameRequest === 'undefined') {
+            throw new Error('loadGameRequest is not found.');
+        }
+
         $('.mvc-grid tbody tr').each(function (index, currentGridRow) {
             if (_gridIsEmpty(currentGridRow)) {
                 return false;

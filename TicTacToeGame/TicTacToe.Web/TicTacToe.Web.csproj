@@ -236,6 +236,7 @@
     <Compile Include="Controllers\HumanVsComputerController.cs" />
     <Compile Include="Controllers\HumanVsHumanController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NewHumanVsComputerGameInputModel.cs" />
     <Compile Include="FrameworkExtentions\Filters\ActionFilters\CheckIfLoggedIn.cs" />
     <Compile Include="FrameworkExtentions\Filters\ActionFilters\CheckModelStateAjax.cs" />
     <Compile Include="FrameworkExtentions\Filters\ActionFilters\CheckModelStateFilter.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="FrameworkExtentions\Mappings\IMapFrom.cs" />
     <Compile Include="FrameworkExtentions\Mappings\IMapTo.cs" />
     <Compile Include="FrameworkExtentions\Mappings\TypesMap.cs" />
+    <Compile Include="FrameworkExtentions\ModelBinders\NewComputerVsComputerGameModelBinder.cs" />
     <Compile Include="FrameworkExtentions\ModelBinders\NewHumanVsComputerGameModelBinder.cs" />
     <Compile Include="FrameworkExtentions\UserIdentityHelpers\UserIdentityHelper.cs" />
     <Compile Include="FrameworkExtentions\ViewHelpers\AntiForgeryTokenHelper.cs" />
@@ -253,6 +255,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\AccountViewModels.cs" />
+    <Compile Include="Models\ComputerVsComputer\ViewModels\NewComputerVsComputerGameViewModel.cs" />
+    <Compile Include="Models\ComputerVsComputer\InputModels\NewComputerVsComputerGameInputModel.cs" />
     <Compile Include="Models\HumanVsComputer\InputModels\NewHumanVsComputerInputModel.cs" />
     <Compile Include="Models\HumanVsComputer\ViewModels\NewHumanVsComputerGameViewModel.cs" />
     <Compile Include="Models\HumanVsHuman\ViewModels\FinishedGameInfoViewModel.cs" />
@@ -280,6 +284,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Default\Site.css" />
     <Content Include="Scripts\AllTests\index.html" />
+    <Content Include="Scripts\ComputerVsComputer\NewGame\computerVsComputerNewGameModule.js" />
+    <Content Include="Scripts\ComputerVsComputer\NewGame\tests\computerVsComputerNewGameModuleTests.js" />
+    <Content Include="Scripts\ComputerVsComputer\NewGame\tests\index.html" />
     <Content Include="Scripts\ComputerVsComputer\_ComputerVsComputerGame\computerVsComputerGameModule.js" />
     <Content Include="Scripts\ComputerVsComputer\_ComputerVsComputerGame\tests\computerVsComputerGameModuleTests.js" />
     <Content Include="Scripts\ComputerVsComputer\_ComputerVsComputerGame\tests\index.html" />
@@ -336,6 +343,9 @@
     <Content Include="Scripts\Modules\AjaxCallsModule\tests\index.html" />
     <Content Include="Scripts\Modules\AjaxCallsModule\tests\ajaxCallsModuleTests.js" />
     <Content Include="Scripts\Modules\GameModule\gameModule.js" />
+    <Content Include="Scripts\Modules\NewGameModule\newGameModule.js" />
+    <Content Include="Scripts\Modules\NewGameModule\tests\newGameModuleTests.js" />
+    <Content Include="Scripts\Modules\NewGameModule\tests\index.html" />
     <Content Include="Scripts\MvcGrid\mvc-grid.js" />
     <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Web.config" />

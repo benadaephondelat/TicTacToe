@@ -36,7 +36,7 @@
             NewHumanVsComputerGameViewModel viewModel = new NewHumanVsComputerGameViewModel()
             {
                 Sides = this.GetAllPossibleSides(),
-                Computers = this.GetComputersUsernames()
+                Computers = base.GetComputersUsernames()
             };
 
             return View(ViewConstants.NewGameView, viewModel);
@@ -75,7 +75,7 @@
 
             if (startingFirst == currentUser)
             {
-                return new JsonResult { Data = new SelectList(this.GetComputersUsernames()) };
+                return new JsonResult { Data = new SelectList(base.GetComputersUsernames()) };
             }
 
             return new JsonResult { Data = new SelectList(new List<string> { currentUser }) };
@@ -280,21 +280,6 @@
             };
 
             return humanVsComputerDefaultPlayers;
-        }
-
-        /// <summary>
-        /// Returns a list containing the the computer's usernames
-        /// </summary>
-        /// <returns>List<string></string></returns>
-        private List<string> GetComputersUsernames()
-        {
-            List<string> computersUsernames = new List<string>()
-            {
-                UserConstants.ComputerUsername,
-                UserConstants.OtherComputerUsername
-            };
-
-            return computersUsernames;
         }
     }
 }

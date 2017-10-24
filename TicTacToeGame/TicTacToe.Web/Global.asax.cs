@@ -9,6 +9,7 @@
     using FrameworkExtentions.Mappings;
     using FrameworkExtentions.ModelBinders;
     using Models.HumanVsComputer.InputModels;
+    using Models.ComputerVsComputer.InputModels;
 
     public class MvcApplication : HttpApplication
     {
@@ -18,7 +19,9 @@
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
             ModelBinders.Binders.Add(typeof(NewHumanVsComputerInputModel), new NewHumanVsComputerGameModelBinder());
+            ModelBinders.Binders.Add(typeof(NewComputerVsComputerGameInputModel), new NewComputerVsComputerGameModelBinder());
 
             this.RegisterRazorViewEngineOnly();
             this.ConfigureAutoMapper();

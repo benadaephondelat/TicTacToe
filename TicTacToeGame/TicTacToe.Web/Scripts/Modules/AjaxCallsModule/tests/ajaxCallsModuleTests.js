@@ -580,4 +580,50 @@ describe('ajaxCallsModule', function () {
             done();
         });
     });
+
+    describe('computerVsComputerGetOponentsDropdown tests', function () {
+        beforeEach(function () {
+            this.xhr = sinon.useFakeXMLHttpRequest();
+
+            this.requests = [];
+
+            this.xhr.onCreate = function (xhr) {
+                this.requests.push(xhr);
+            }.bind(this);
+
+        });
+
+        afterEach(function () {
+            this.xhr.restore();
+        });
+
+        it('computerVsComputerGetOponentsDropdown should exist', function () {
+            var isUndefined = typeof ajaxCallsModule.computerVsComputerCalls.getOponentsDropdown === 'undefined';
+
+            isUndefined.should.equal(false);
+        });
+
+        it('computerVsComputerGetOponentsDropdown should be a function', function () {
+            var type = typeof ajaxCallsModule.computerVsComputerCalls.getOponentsDropdown;
+
+            type.should.equal('function');
+        });
+
+        it('computerVsComputerGetOponentsDropdown should accept 2 parameters', function () {
+            var parametersCount = ajaxCallsModule.computerVsComputerCalls.getOponentsDropdown.length;
+
+            parametersCount.should.equal(2);
+        });
+
+        it('computerVsComputerGetOponentsDropdown function should make a POST request to /ComputerVsComputer/GetOponentsDropdown', function (done) {
+            ajaxCallsModule.computerVsComputerCalls.getOponentsDropdown().done(function () {
+                done();
+            });
+
+            this.requests[0].method.should.equal('POST');
+            this.requests[0].url.should.equal('/ComputerVsComputer/GetOponentsDropdown');
+
+            done();
+        });
+    });
 });

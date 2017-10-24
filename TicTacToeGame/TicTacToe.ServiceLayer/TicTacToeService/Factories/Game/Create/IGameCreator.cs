@@ -9,7 +9,7 @@
 
         Game CreateNewHumanVsComputerGame(string currentUserName, string computerUsername, bool isHumanStartingFirst);
 
-        Game CreateNewComputerVsComputerGame(string currentUserName);
+        Game CreateNewComputerVsComputerGame(string currentUserName, string startingFirstComputerName, string startingSecondComputerName);
 
         Game RecreatePreviousGameOfType(string currentUserName, GameMode gameMode);
     }
