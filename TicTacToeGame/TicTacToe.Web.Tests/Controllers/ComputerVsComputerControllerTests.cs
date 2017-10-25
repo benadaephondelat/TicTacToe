@@ -8,15 +8,14 @@
     using MockHelpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Web.Controllers;
-    using ServiceLayer.TicTacToeGameService;
     using Moq;
     using Constants;
-    using Models.HumanVsHuman.ViewModels;
     using ServiceLayer.Interfaces;
     using Models.ComputerVsComputer.ViewModels;
     using TicTacToeCommon.Constants;
     using Models.ComputerVsComputer.InputModels;
-    using Models.HumanVsHuman.InputModels;
+    using Models.Common.InputModels;
+    using Models.Common.ViewModels;
 
     [TestClass]
     public class ComputerVsComputerControllerTests

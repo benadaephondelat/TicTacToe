@@ -10,6 +10,7 @@
     using FrameworkExtentions.ModelBinders;
     using Models.HumanVsComputer.InputModels;
     using Models.ComputerVsComputer.InputModels;
+    using Models.HumanVsHuman.InputModels;
 
     public class MvcApplication : HttpApplication
     {
@@ -22,6 +23,7 @@
 
             ModelBinders.Binders.Add(typeof(NewHumanVsComputerInputModel), new NewHumanVsComputerGameModelBinder());
             ModelBinders.Binders.Add(typeof(NewComputerVsComputerGameInputModel), new NewComputerVsComputerGameModelBinder());
+            ModelBinders.Binders.Add(typeof(NewHumanVsHumanGameInputModel), new NewHumanVsHumanGameModelBinder());
 
             this.RegisterRazorViewEngineOnly();
             this.ConfigureAutoMapper();

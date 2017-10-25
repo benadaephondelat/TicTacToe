@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Web.Models.HumanVsHuman.ViewModels
+﻿namespace TicTacToe.Web.Models.Common.ViewModels
 {
     using TicTacToe.Models;
     using FrameworkExtentions.Mappings;

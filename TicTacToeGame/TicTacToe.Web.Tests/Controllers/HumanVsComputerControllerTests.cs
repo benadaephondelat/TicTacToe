@@ -5,19 +5,17 @@
     using System.Web.Mvc;
     using System.Reflection;
     using System.Collections.Generic;
-    using ServiceLayer.TicTacToeGameService;
-    using Models.HumanVsHuman.InputModels;
     using Constants;
     using Web.Controllers;
     using Moq;
     using MockHelpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TicTacToeCommon.Constants;
-    using Models.HumanVsHuman.ViewModels;
     using ServiceLayer.Interfaces;
     using Models.HumanVsComputer.ViewModels;
     using Models.HumanVsComputer.InputModels;
-    using Newtonsoft.Json;
+    using Models.Common.InputModels;
+    using Models.Common.ViewModels;
 
     [TestClass]
     public class HumanVsComputerControllerTests

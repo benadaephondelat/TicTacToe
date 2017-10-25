@@ -1,9 +1,9 @@
-﻿namespace TicTacToe.Web.Models.HumanVsHuman.InputModels
+﻿namespace TicTacToe.Web.Models.HumanVsHuman.ViewModels
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class NewGameInputModel
+    public class NewHumanVsHumanGameViewModel
     {
         [Required(ErrorMessage = "You must choose who will go first.")]
         [Display(Name = "Choose a side")]

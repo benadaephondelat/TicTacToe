@@ -11,10 +11,11 @@
     using Web.Controllers.Constants;
     using Models.HumanVsHuman.InputModels;
     using Models.HumanVsHuman.ViewModels;
-    using ServiceLayer.TicTacToeGameService;
     using Moq;
     using Constants;
     using ServiceLayer.Interfaces;
+    using Models.Common.InputModels;
+    using Models.Common.ViewModels;
 
     [TestClass]
     public class HumanVsHumanControllerTests
@@ -112,7 +113,7 @@
         }
 
         [TestMethod]
-        public void NewGame_Should_Pass_NewGameInputModel_To_The_View()
+        public void NewGame_Should_Pass_NewHumanVsHumanGameViewModel_To_The_View()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -122,13 +123,13 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsHumanGameViewModel model = (NewHumanVsHumanGameViewModel)result.ViewData.Model;
 
-            Assert.IsInstanceOfType(model, typeof(NewGameInputModel));
+            Assert.IsInstanceOfType(model, typeof(NewHumanVsHumanGameViewModel));
         }
 
         [TestMethod]
-        public void NewGameInputModel_Should_Have_Property_Named_Players()
+        public void NewHumanVsHumanGameViewModel_Should_Have_Property_Named_Players()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -138,7 +139,7 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = result.ViewData.Model as NewGameInputModel;
+            NewHumanVsHumanGameViewModel model = result.ViewData.Model as NewHumanVsHumanGameViewModel;
 
             Assert.IsNotNull(model);
 
@@ -146,7 +147,7 @@
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Be_A_List_Of_Strings()
+        public void NewHumanVsHumanGameViewModel_Players_Property_Should_Be_A_List_Of_Strings()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -156,13 +157,13 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsHumanGameViewModel model = (NewHumanVsHumanGameViewModel)result.ViewData.Model;
 
             Assert.IsInstanceOfType(model.Players, typeof(List<string>));
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Be_A_List_With_Two_Strings()
+        public void NewHumanVsHumanGameViewModel_Players_Property_Should_Be_A_List_With_Two_Strings()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -172,13 +173,13 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsHumanGameViewModel model = (NewHumanVsHumanGameViewModel)result.ViewData.Model;
 
             Assert.AreEqual(2, model.Players.Count);
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Contain_Valid_String_As_First_Parameter()
+        public void NewHumanVsHumanGameViewModel_Players_Property_Should_Contain_Valid_String_As_First_Parameter()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -188,7 +189,7 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsHumanGameViewModel model = (NewHumanVsHumanGameViewModel)result.ViewData.Model;
 
             bool isNotValidString = string.IsNullOrWhiteSpace(model.Players[0]);
 
@@ -196,7 +197,7 @@
         }
 
         [TestMethod]
-        public void NewGameInputModel_Players_Property_Should_Contain_The_Default_Oponent_Username_As_Second_Parameter()
+        public void NewHumanVsHumanGameViewModel_Players_Property_Should_Contain_The_Default_Oponent_Username_As_Second_Parameter()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -206,13 +207,13 @@
 
             Assert.IsNotNull(result);
 
-            NewGameInputModel model = (NewGameInputModel)result.ViewData.Model;
+            NewHumanVsHumanGameViewModel model = (NewHumanVsHumanGameViewModel)result.ViewData.Model;
 
             Assert.AreEqual("the-other-guy@yahoo.com", model.Players[1]);
         }
 
         [TestMethod]
-        public void NewGame_Post_Should_Exist_And_Accept_NewGameInputModel_As_A_Parameter()
+        public void NewGame_Post_Should_Exist_And_Accept_NewHumanVsHumanGameInputModel_As_A_Parameter()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
@@ -221,7 +222,7 @@
             int methodsCount = controllerType.GetTypeInfo()
                                              .DeclaredMethods
                                              .Count(m => m.Name.Contains(nameof(controller.NewGame)) &&
-                                                         m.ToString().Contains(nameof(NewGameInputModel)));
+                                                         m.ToString().Contains(nameof(NewHumanVsHumanGameInputModel)));
 
             Assert.AreEqual(1, methodsCount);
         }
@@ -231,12 +232,9 @@
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel()
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel()
             {
-                Players = new List<string>()
-                {
-                    HumanVsHumanConstants.OponentUsername,
-                }
+                StartingFirstUsername = HumanVsHumanConstants.OponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -249,11 +247,9 @@
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel()
             {
-                HumanVsHumanConstants.OponentUsername,
+                StartingFirstUsername = HumanVsHumanConstants.OponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -268,15 +264,13 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_Should_Return_HumanVsHumanGameViewModel_As_Model_To_The_View()
+        public void NewGame_Post_Should_Return_GameViewModel_As_Model_To_The_View()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel()
             {
-                HumanVsHumanConstants.OponentUsername,
+                StartingFirstUsername = HumanVsHumanConstants.OponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -291,15 +285,13 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_HumanVsHumanGameViewModel_Properties_Should_Not_Be_Null()
+        public void NewGame_Post_GameViewModel_Properties_Should_Not_Be_Null()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel()
             {
-                HumanVsHumanConstants.OponentUsername,
+                StartingFirstUsername = HumanVsHumanConstants.OponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -316,15 +308,13 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_HumanVsHumanGameViewModel_Should_Contain_9_Empty_Tiles()
+        public void NewGame_Post_GameViewModel_Should_Contain_9_Empty_Tiles()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel();
-
-            model.Players = new List<string>()
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel()
             {
-                HumanVsHumanConstants.OponentUsername,
+                StartingFirstUsername = HumanVsHumanConstants.OponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);
@@ -342,16 +332,13 @@
         }
 
         [TestMethod]
-        public void NewGame_Post_HumanVsHumanGameViewModel_Every_Tile_Should_Be_Empty()
+        public void NewGame_Post_GameViewModel_Every_Tile_Should_Be_Empty()
         {
             HumanVsHumanController controller = this.CreateHumanVsHumanControllerMock();
 
-            NewGameInputModel model = new NewGameInputModel
+            NewHumanVsHumanGameInputModel model = new NewHumanVsHumanGameInputModel()
             {
-                Players = new List<string>()
-                {
-                    HumanVsHumanConstants.OponentUsername,
-                }
+                StartingFirstUsername = HumanVsHumanConstants.OponentUsername,
             };
 
             ActionResult actionResult = controller.NewGame(model);

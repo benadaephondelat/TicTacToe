@@ -2,16 +2,19 @@
 {
     using System.Web.Mvc;
     using System.Collections.Generic;
+    using ServiceLayer.Interfaces;
     using TicTacToe.Models;
-    using Constants;
+    using TicTacToe.Models.Enums;
+    using FrameworkExtentions.ModelBinders;
     using FrameworkExtentions.Filters.Security;
     using FrameworkExtentions.Filters.ActionFilters;
     using Models.HumanVsHuman.InputModels;
     using Models.HumanVsHuman.ViewModels;
-    using AutoMapper;
+    using Models.Common.InputModels;
+    using Models.Common.ViewModels;
     using Views.ViewConstants;
-    using TicTacToe.Models.Enums;
-    using ServiceLayer.Interfaces;
+    using Constants;
+    using AutoMapper;
 
     [CheckIfLoggedInFilter]
     public class HumanVsHumanController : BaseController
@@ -30,7 +33,7 @@
         [HttpGet]
         public ActionResult NewGame()
         {
-            NewGameInputModel inputModel = new NewGameInputModel()
+            NewHumanVsHumanGameViewModel inputModel = new NewHumanVsHumanGameViewModel()
             {
                 Players = this.GetDefaultPlayersList(),
             };
@@ -40,13 +43,13 @@
 
         [HttpPost, ValidateAntiForgeryToken]
         [CheckModelStateFilter]
-        public ActionResult NewGame(NewGameInputModel inputModel)
+        public ActionResult NewGame([ModelBinder(typeof(NewHumanVsHumanGameModelBinder))]NewHumanVsHumanGameInputModel inputModel)
         {
-            string homeSideUserName = inputModel.Players[0];
+            string startingFirstUsername = inputModel.StartingFirstUsername;
 
             string currentUserName = base.CurrentUserName();
             
-            Game game = ticTacToeGameService.CreateNewGame(homeSideUserName, currentUserName);
+            Game game = this.ticTacToeGameService.CreateNewGame(startingFirstUsername, currentUserName);
 
             GameViewModel viewModel = new GameViewModel()
             {
@@ -62,7 +65,7 @@
         {
             string currentUsername = base.CurrentUserName();
 
-            Game game = ticTacToeGameService.RecreatePreviousGame(currentUsername, GameMode.HumanVsHuman);
+            Game game = this.ticTacToeGameService.RecreatePreviousGame(currentUsername, GameMode.HumanVsHuman);
 
             GameViewModel viewModel = new GameViewModel()
             {

@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Web.Models.HumanVsHuman.InputModels
+﻿namespace TicTacToe.Web.Models.Common.InputModels
 {
     using System.ComponentModel.DataAnnotations;
 

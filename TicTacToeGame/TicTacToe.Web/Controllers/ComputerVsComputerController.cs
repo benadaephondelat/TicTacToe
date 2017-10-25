@@ -2,19 +2,18 @@
 {
     using System.Web.Mvc;
     using System.Collections.Generic;
+    using TicTacToe.Models;
+    using TicTacToe.Models.Enums;
     using ServiceLayer.Interfaces;
     using FrameworkExtentions.ModelBinders;
     using FrameworkExtentions.Filters.Security;
     using FrameworkExtentions.Filters.ActionFilters;
-    using TicTacToe.Models;
-    using TicTacToeCommon.Constants;
-    using Models.HumanVsHuman.ViewModels;
     using Models.ComputerVsComputer.InputModels;
     using Models.ComputerVsComputer.ViewModels;
+    using Models.Common.InputModels;
+    using Models.Common.ViewModels;
     using Views.ViewConstants;
     using AutoMapper;
-    using Models.HumanVsHuman.InputModels;
-    using TicTacToe.Models.Enums;
 
     [CheckIfLoggedInFilter]
     public class ComputerVsComputerController : BaseController
