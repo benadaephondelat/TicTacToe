@@ -5,6 +5,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Repository;
     using Models;
+    using DataLayer.Repository;
 
     [TestClass]
     public class TicTacToeDataTests
