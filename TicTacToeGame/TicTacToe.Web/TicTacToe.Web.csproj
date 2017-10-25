@@ -275,14 +275,13 @@
   <ItemGroup>
     <Content Include="Content\Custom\finished-game.css" />
     <Content Include="Content\Custom\game-style.css" />
-    <Content Include="Content\Custom\human-vs-computer-new-game-style.css" />
     <Content Include="Content\Default\bootstrap.css" />
     <Content Include="Content\Default\bootstrap.min.css" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Default\Site.css" />
+    <Content Include="Content\Default\site.css" />
     <Content Include="Scripts\AllTests\index.html" />
     <Content Include="Scripts\ComputerVsComputer\NewGame\computerVsComputerNewGameModule.js" />
     <Content Include="Scripts\ComputerVsComputer\NewGame\tests\computerVsComputerNewGameModuleTests.js" />

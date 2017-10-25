@@ -21,5 +21,140 @@ input, select, textarea {
 }
 
 #back-to-main-menu-button {
+    width: 16%;
     margin-left: 42%;
+}
+
+.login-container {
+    margin-left: 18%;
+}
+
+.login-button {
+    width: 115%;
+}
+
+.register-button {
+    width: 115.2%;
+    margin-top: 3%;
+}
+
+.login-form-container {
+    margin-left: 17%;
+}
+
+.login-text, .register-text {
+    text-align: center;
+    font-weight: bold;
+}
+
+.register-form-container {
+    margin-left: 25%;
+}
+
+.register-text {
+    font-size: 13px;
+}
+
+.go-to-login-button {
+    width: 39.5%;
+    margin-top: 1%;
+}
+
+#register-container {
+    float: left;
+    margin-left: 34%;
+}
+
+#register-link {
+    width: 140px;
+}
+
+#login-container {
+    float: right;
+    margin-right: 34%;
+}
+
+#login-link {
+    width: 140px;
+}
+
+#computer-vs-computer-main-menu-title {
+    text-align: center;
+}
+
+#computer-vs-computer-main-menu {
+    width: 230px;
+    text-align: center;
+    margin-top: 2%;
+    margin-left: 40%;
+}
+
+.menu-option {
+    width: 100%;
+    margin-top: 3%;
+}
+
+#human-vs-computer-main-menu-title {
+    text-align: center;
+}
+
+#human-vs-computer-main-menu {
+    width: 230px;
+    text-align: center;
+    margin-top: 2%;
+    margin-left: 40%;
+}
+
+#human-vs-human-main-menu-title {
+    text-align: center;
+}
+
+#human-vs-human-main-menu {
+    width: 230px;
+    text-align: center;
+    margin-top: 2%;
+    margin-left: 40%;
+}
+
+
+#start-new-game-button {
+    margin-left: 42%;
+    width: 16%;
+}
+
+#sides-dropdown-container, #oponent-dropdown-container {
+    width: 27%;
+    text-align: center;
+    margin-left: 36%;
+}
+
+#sides-dropdown, #oponents-dropdown {
+    width: 67%;
+    margin-left: 2%;
+    font-weight: bold;
+}
+
+#validation-message {
+    margin-left: 4%;
+    font-weight: bold;
+}
+
+#place-computer-vs-computer-turn {
+    float: left;
+    margin-left: 41%;
+    margin-top: 1%;
+    margin-bottom: -2%;
+    width: 18%;
+}
+
+#turn-dropdown-container {
+    width: 27%;
+    text-align: center;
+    margin-left: 36%;
+}
+
+#turn-dropdown {
+    width: 67%;
+    margin-left: 2%;
+    font-weight: bold;
 }

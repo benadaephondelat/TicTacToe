@@ -1,8 +1,4 @@
-﻿#back-to-main-menu-button {
-    margin-left: 42%;
-}
-
-#start-new-game-button {
+﻿#start-new-game-button {
     margin-left: 42%;
     width: 16%;
 }
@@ -57,18 +53,23 @@
 }
 
 #grid-container {
-    width: 35%;
-    margin-left: 23.5%;
     margin-top: -3%;
+    margin-left: 3.5%;
 }
 
 #home-side-container, #grid-container {
     float: left;
+    width: 30%;
 }
 
 #away-side-container {
-    float: right;
-    margin-top: -29%;
+    text-align: center;
+    font-weight: bold;
+}
+
+#home-side-container {
+    text-align: center;
+    font-weight: bold;
 }
 
 #turn-container {
@@ -80,20 +81,9 @@
 #back-to-main-menu-button {
     float: left;
     clear: both;
-    margin-left: 42%;
-    width: 16%;
+    margin-left: 41%;
+    width: 18%;
     margin-top: 3%;
-}
-
-#away-side-container {
-    margin-left: 15%;
-    text-align: center;
-    font-weight: bold;
-}
-
-#home-side-container {
-    text-align: center;
-    font-weight: bold;
 }
 
 #turn-info {

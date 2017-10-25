@@ -6,8 +6,6 @@
     ViewBag.Title = "ComputerVsComputer";
 }
 
-@Styles.Render("~/Content/computer-vs-human-new-game-style")
-
 <div id="game-container">
 
     <h2 class="text-center">Computer vs Computer</h2>
@@ -48,7 +46,7 @@
     }
 </div>
 
-@Ajax.ActionLink("Back to Home Menu", "Index", "Home", null, new AjaxOptions()
+@Ajax.ActionLink("Back to Menu", "ComputerVsComputer", "Home", null, new AjaxOptions()
 {
     InsertionMode = InsertionMode.Replace,
     UpdateTargetId = "main-content"

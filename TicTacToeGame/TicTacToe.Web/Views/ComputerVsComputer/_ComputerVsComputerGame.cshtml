@@ -79,18 +79,7 @@
 <input type="button"
        value="Place Turn"
        id="place-computer-vs-computer-turn"
-       class="btn btn-primary btn-lg menu-option" />
-
-@Ajax.ActionLink("Back to Menu", "ComputerVsComputer", "Home", null, new AjaxOptions()
-{
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "main-content"
-},
-new
-{
-    @class = "btn btn-primary btn-lg text-center",
-    @id = "back-to-main-menu-button"
-})
+       class="btn btn-primary btn-lg" />
 
 <input type="hidden" id="gameId" value="@Model.GameInfo.Id" />
 <input type="hidden" id="place-turn-token" value="@AntiForgeryTokenHelper.GetAntiForgeryToken()" />
