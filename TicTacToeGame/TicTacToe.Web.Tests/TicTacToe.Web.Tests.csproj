@@ -110,6 +110,7 @@
     <Compile Include="Controllers\ComputerVsComputerControllerTests.cs" />
     <Compile Include="Controllers\HumanVsComputerControllerTests.cs" />
     <Compile Include="Controllers\HumanVsHumanControllerTests.cs" />
+    <Compile Include="FrameworkExtentionsTests\FrameworkExtentionsTests.cs" />
     <Compile Include="MockHelpers\ComputerVsComputerServiceLayerMockHelper.cs" />
     <Compile Include="MockHelpers\HumanVsComputerServiceLayerMockHelper.cs" />
     <Compile Include="MockHelpers\HumanVsHumanServiceLayerMockHelper.cs" />
