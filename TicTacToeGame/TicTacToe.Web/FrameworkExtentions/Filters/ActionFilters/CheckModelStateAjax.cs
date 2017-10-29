@@ -10,6 +10,11 @@
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest() == false)
+            {
+                return;
+            }
+
             if (filterContext.Controller.ViewData.ModelState.IsValid)
             {
                 return;

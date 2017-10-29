@@ -21,7 +21,6 @@
                 RouteValueDictionary routeValueDictionary = GetRouteValueDictionary();
 
                 filterContext.Result = new RedirectToRouteResult(routeValueDictionary);
-                filterContext.Result.ExecuteResult(filterContext.Controller.ControllerContext);
             }
 
             base.OnActionExecuting(filterContext);
